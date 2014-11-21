@@ -1,0 +1,78 @@
+data ExtraData = ExtraData () -- TODO
+data Globs = Globs () -- TODO
+data Ops = Ops { graph∷(), depresolve∷() } -- TODO
+data RawDependency = RawDependency () -- TODO
+data ModulePath = ModulePath () -- TODO
+data Location = Location { repo∷URI, Path∷FilePath, start∷Int, end∷Int }
+data Kind = Package -- TODO
+data IsDef = IsDef Bool -- TODO Wtf is this?
+
+data ModuleTreePath = ModuleTreePath -- TODO
+
+data SourceUnitType = GoPackage | JavaArtifact | HaskellPackage
+
+-- This is just a lookup key for a symbol. It should be constant accross
+-- revisions of a repository as long as the symbol being referenced
+-- remains the same.
+data DefPath = DefPath Text
+
+data Dependency = Dependency
+  { version ∷ Text
+  , unitType ∷ SourceUnitType
+  , unit ∷ Text
+  , repoCloneURL ∷ URI
+  }
+
+data AbstractSymbol = AbstractSymbol
+  { repo ∷ URI
+  , unitType = UnitType
+  , sourceUnitName = Text
+  , path ∷ DefPath
+  }
+
+data Doc = Doc
+  { loc ∷ Location
+  , sym ∷ AbstractSymbol
+  , payload ∷ Text, format ∷ MIMEType
+  }
+
+data Ref = Doc
+  { loc ∷ Location
+  , sym ∷ AbstractSymbol
+  , isDef ∷ IsDef -- TODO What is the point of this?
+  }
+
+data Def = Def
+  { loc ∷ Location
+  , sym ∷ AbstractSymbol
+  , extraData ∷ ExtraData
+  , treePath ∷ moduleTreePath
+  , name ∷ Text
+  , kind ∷ Kind
+  , exported ∷ Bool
+  }
+
+-- `globs` should expand to the same set of files as `files`.
+data SourceUnit rawDep = SourceUnit
+  { type ∷ Text
+  , repo ∷ URI
+  , config ∷ Map String String
+  , files ∷ Set FilePath
+  , dir ∷ FilePath
+  , dependencies ∷ Set rawDep
+  , globs ∷ Set UnixGlob
+  , opts ∷ Ops
+  , extra ∷ ExtraData
+  }
+
+type SourceUnits = Map Text (SourceUnit RawDependency)
+data Graph = Graph { docs∷[Doc], defs∷[Def], refs∷[Ref] }
+type ResolvedDependencies =
+  Set (Either Text (RawDependency,ResolvedDependency))
+
+type CommitID = Word20
+ConcreteSymbol = (AbstractSymbol, CommitID)
+
+type ScanCmd = FilePath → IO SourceUnits
+type GraphCmd = FilePath → (Text,SourceUnit) → IO Graph
+type DepresolveCmd = FilePath → (Text,SourceUnit) → IO ResolvedDependencies
