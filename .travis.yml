@@ -1,0 +1,17 @@
+language: haskell
+ghc: 7.8
+install:
+  # Install Srclib
+  - sudo wget -NO /tmp/src.zip 'https://api.equinox.io/1/Applications/ap_BQxVz1iWMxmjQnbVGd85V58qz6/Updates/Asset/src-0.0.22.zip?os=linux&arch=amd64&channel=stable'
+  - sudo unzip /tmp/src*.zip -d /usr/local/bin
+  - sudo mv /usr/local/bin/src-* /usr/local/bin/src
+  - sudo chmod +x /usr/local/bin/src
+
+  # Build this toolchain
+  - cabal install --only-dependencies
+  - cabal build
+  - ln -s ./dist/build/srclib-haskell .bin
+  - src toolchain add sourcegraph.com/sourcegraph/srclib-java
+
+script:
+  - src test -m program

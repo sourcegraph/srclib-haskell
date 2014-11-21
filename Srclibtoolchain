@@ -1,0 +1,15 @@
+{"Tools":
+  [ { "Subcmd": "scan"
+    , "Op": "scan"
+    , "SourceUnitTypes": ["HaskellPackage"]
+    }
+  , { "Subcmd": "graph"
+    , "Op": "graph"
+    , "SourceUnitTypes": ["HaskellPackage"]
+    }
+  , { "Subcmd": "depresolve"
+    , "Op": "depresolve"
+    , "SourceUnitTypes": ["HaskellPackage"]
+    }
+  ]
+}
