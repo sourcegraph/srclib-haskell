@@ -1,1 +1,0 @@
-{"Name":"myunit","Type":"HaskellPackage","Repo":"github.com/sourcegraph/tiny-test-repo-with-readme","Globs":null,"Files":null,"Dir":"","Dependencies":[{"name":"foo"}],"Ops":{"depresolve":null,"graph":null}}
