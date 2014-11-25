@@ -1,0 +1,1 @@
+{"Name":"haskell-hello-world","Type":"HaskellPackage","Repo":"github.com/sgtest/haskell-hello-world","Globs":["src/**/*.hs"],"Files":["src/Main.hs"],"Dir":".","Dependencies":["base"],"Data":{"Dirs":["src"],"Path":"haskell-hello-world.cabal"},"Ops":{"depresolve":null,"graph":null}}

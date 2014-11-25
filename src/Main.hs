@@ -3,59 +3,137 @@
 -- TODO The scan command currently doesn't output enough dependency
 --      information. This isn't technically incorrect, but it will need to
 --      be fixed when the depresolve command is implemented.
+-- TODO What's left?
+--  Pull packages from hackage in order to get better depresolve output.
+--  Figure out the best way to graph Haskell code.
+--    How does Hoogle do it?
+--    How does Hackage do it?
+--  Next steps:
+--    Read Hackage and Hoogle, and see how they approach things.
 
-{-# LANGUAGE UnicodeSyntax, LambdaCase, ScopedTypeVariables #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE LambdaCase          #-}
+{-# LANGUAGE OverloadedStrings   #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE UnicodeSyntax       #-}
 
 module Main where
 
-import Control.Arrow
-import Data.Aeson as JSON
-import qualified Data.ByteString.Lazy.Char8 as BC
-import Data.Functor
-import Data.Maybe
+import           Control.Applicative
+import           Control.Arrow
+import           Control.Monad
+import           Data.Aeson                                    as JSON
+import qualified Data.ByteString.Lazy                          as LBS
+import qualified Data.ByteString.Lazy.Char8                    as BC
+import           Data.Maybe
+import           Distribution.Package                          as Cabal
+import           Distribution.PackageDescription               as Cabal
+import           Distribution.PackageDescription.Configuration as Cabal
+import           Distribution.PackageDescription.Parse         as Cabal
+import qualified Distribution.Verbosity                        as Verbosity
+import           System.Directory                              (getCurrentDirectory)
+import           System.Environment                            (getArgs,
+                                                                getProgName)
+import           System.FilePath.Find                          as Path
+import           System.Path                                   as Path hiding (FilePath)
+import           Test.QuickCheck
 
-import System.Directory (getCurrentDirectory)
-import System.Environment (getArgs, getProgName)
 
-import Distribution.Package
-import Distribution.PackageDescription
-import Distribution.PackageDescription.Configuration (flattenPackageDescription)
-import Distribution.PackageDescription.Parse
-import qualified Distribution.Verbosity as Verbosity
+-- Dependencies --------------------------------------------------------------
 
-import System.FilePath.Find as Path
-import System.Path as Path hiding (FilePath)
+data RawDependency = RawDependency String deriving (Show,Eq)
+data ResolvedDependency = ResolvedDependency String deriving (Show,Eq)
+
+instance ToJSON RawDependency where
+  toJSON (RawDependency d) = toJSON d
+
+rawDependency ∷ ResolvedDependency → RawDependency
+rawDependency (ResolvedDependency d) = (RawDependency d)
+
+instance ToJSON ResolvedDependency where
+  toJSON dep@(ResolvedDependency nm) =
+    object [ "Raw" .= rawDependency dep
+           , "Target" .= object [ "ToRepoCloneURL" .= (""∷String)
+                                , "ToUnit" .= nm
+                                , "ToUnitType" .= ("HaskellPackage"∷String)
+                                , "ToVersionString" .= (""∷String)
+                                , "ToRevSpec" .= (""∷String)
+                                ]
+           ]
+
+instance Arbitrary RawDependency where
+  arbitrary = RawDependency <$> arbitrary
 
 
--- Source Unit ---------------------------------------------------------------
+-- Source Units --------------------------------------------------------------
 
 -- All paths are relative to repository root.
 data CabalInfo = CabalInfo
-   { cabalFile ∷ RelFile
-   , cabalPkgName ∷ String
-   , cabalDependencies ∷ [Dependency]
-   , cabalSrcFiles ∷ [RelFile]
-   , cabalSrcDirs ∷ [RelDir]
-   } deriving (Show)
+   { cabalFile         ∷ RelFile
+   , cabalPkgName      ∷ String
+   , cabalDependencies ∷ [RawDependency]
+   , cabalSrcFiles     ∷ [RelFile]
+   , cabalSrcDirs      ∷ [RelDir]
+   } deriving (Show,Eq)
 
-instance ToJSON Dependency where
-  toJSON (Dependency (PackageName nm) _) = toJSON nm
+instance FromJSON CabalInfo where
+ parseJSON (Object v) = do
+    infoObj ← v .: "Data"
+    case infoObj of
+      Object info → do
+        path ← asRelFile <$> info .: "Path"
+        name ← v .: "Name"
+        deps ← map RawDependency <$> v .: "Dependencies"
+        files ← map asRelFile <$> v .: "Files"
+        dirs ← map asRelDir <$> info .: "Dirs"
+        return $ CabalInfo path name deps files dirs
+      _ → mzero
+ parseJSON _ = mzero
 
 instance ToJSON CabalInfo where
-  toJSON (CabalInfo path _ deps files dirs) =
+  toJSON (CabalInfo path name deps files dirs) =
     let dir = dropFileName path in
       object [ "Type" .= ("HaskellPackage"∷String)
              , "Ops" .= object ["graph" .= Null, "depresolve" .= Null]
-             , "Name" .= getPathString path
+             , "Name" .= name
              , "Dir" .= getPathString dir
              , "Globs" .= map (getPathString >>> (++ "/**/*.hs")) dirs
              , "Files" .= map getPathString files
              , "Dependencies" .= deps
-             , "Info" .= Null
+             , "Data" .= object [ "Path" .= getPathString path
+                                , "Dirs" .= map getPathString dirs
+                                ]
              , "Repo" .= Null
              , "Config" .= Null
              ]
+
+-- TODO pathtype's Gen instances output far too much data. Hack around it.
+newtype PathHack a b = PathHack (Path a b)
+instance Arbitrary (PathHack a b) where
+  arbitrary = return $ PathHack $ asPath "./asdf"
+
+unPathHack ∷ PathHack a b → Path a b
+unPathHack (PathHack x) = x
+
+instance Arbitrary CabalInfo where
+  arbitrary = do
+    file ← unPathHack <$> arbitrary
+    files ← map unPathHack <$> arbitrary
+    dirs ← map unPathHack <$> arbitrary
+    deps ← arbitrary
+    name ← arbitrary
+    return $ CabalInfo file name deps files dirs
+
+prop_cabalInfoJson ∷ CabalInfo → Bool
+prop_cabalInfoJson c = (Just c==) $ JSON.decode $ JSON.encode c
+
+
+-- Source Graph --------------------------------------------------------------
+
+data Graph = Graph ()
+
+instance ToJSON Graph where
+  toJSON (Graph ()) = object ["Docs".=e, "Refs".=e, "Defs".=e]
+    where e = []∷[String]
 
 
 -- Scaning Repos and Parsing Cabal files -------------------------------------
@@ -65,9 +143,11 @@ findFiles q root = do
   fileNames ← find always (fileType ==? RegularFile &&? q) $ getPathString root
   return $ map asAbsPath fileNames
 
-allDeps ∷ PackageDescription → [Dependency]
-allDeps desc = buildDepends desc ++ (concat $ map getDeps $ allBuildInfo desc)
-  where getDeps build = concat [ buildTools build
+allDeps ∷ PackageDescription → [RawDependency]
+allDeps desc = map toRawDep deps
+  where deps = buildDepends desc ++ (concat $ map getDeps $ allBuildInfo desc)
+        toRawDep (Cabal.Dependency (PackageName nm) _) = RawDependency nm
+        getDeps build = concat [ buildTools build
                                , pkgconfigDepends build
                                , targetBuildDepends build
                                ]
@@ -94,35 +174,52 @@ readCabalFile repoDir cabalFilePath = do
                      , cabalSrcDirs = map (makeRelative repoDir) dirs
                      }
 
-scanCmd ∷ IO ()
+
+-- Resolve Dependencies ------------------------------------------------------
+
+resolve ∷ RawDependency → IO ResolvedDependency
+resolve (RawDependency d) = return (ResolvedDependency d)
+
+
+-- Toolchain Command-Line Interface ------------------------------------------
+
+scanCmd ∷ IO [CabalInfo]
 scanCmd = do
   cwd ← getCurrentDirectory
   let root = asAbsDir cwd
   cabalFiles ← findFiles (extension ==? ".cabal") root
-  cabalInfos ← sequence $ map (readCabalFile root) cabalFiles
-  BC.putStrLn $ encode cabalInfos
+  sequence $ map (readCabalFile root) cabalFiles
 
-graphCmd ∷ IO ()
-graphCmd = do
-  putStr "{\"Docs\":[], \"Refs\":[], \"Defs\":[]}"
+graphCmd ∷ CabalInfo → IO Graph
+graphCmd _ = return $ Graph ()
 
-depresolveCmd ∷ IO ()
-depresolveCmd = do
-  putStr "\
-    \[{\"Raw\":{\"name\":\"foo\"},\
-    \  \"Target\":{\"ToRepoCloneURL\":\"https://github.com/example/repo\"}}]\
-    \"
+depresolveCmd ∷ CabalInfo → IO [ResolvedDependency]
+depresolveCmd = cabalDependencies >>> map resolve >>> sequence
 
-usage ∷ String → IO ()
-usage cmd = do
+dumpJSON ∷ ToJSON a ⇒ a → IO ()
+dumpJSON = encode >>> BC.putStrLn
+
+withSourceUnitFromStdin ∷ ToJSON a ⇒ (CabalInfo → IO a) → IO ()
+withSourceUnitFromStdin proc = do
+  unit ← JSON.decode <$> LBS.getContents
+  maybe usage (\u → proc u >>= dumpJSON) unit
+
+usage ∷ IO ()
+usage = do
+  cmd ← getProgName
   putStrLn "Usage:"
   putStrLn $ concat ["    ", cmd, " scan"]
-  putStrLn $ concat ["    ", cmd, " graph"]
-  putStrLn $ concat ["    ", cmd, " depresolve"]
+  putStrLn $ concat ["    ", cmd, " graph < sourceUnit"]
+  putStrLn $ concat ["    ", cmd, " depresolve < sourceUnit"]
+
+run ∷ [String] → IO ()
+run ("scan":_) = scanCmd >>= dumpJSON
+run ["graph"] = withSourceUnitFromStdin graphCmd
+run ["depresolve"] = withSourceUnitFromStdin depresolveCmd
+run _ = usage
 
 main ∷ IO ()
-main = getArgs >>= \case
-  "scan":_ → scanCmd
-  ["graph"] → graphCmd
-  ["depresolve"] → depresolveCmd
-  _ → getProgName >>= usage
+main = getArgs >>= run
+
+test ∷ IO ()
+test = quickCheck prop_cabalInfoJson
