@@ -1,1 +1,14 @@
-{}
+{
+  "Defs": [
+    {
+      "Path": "Main",
+      "TreePath": "Main",
+      "Name": "main",
+      "Kind": "Value",
+      "File": "src/Main.hs",
+      "DefStart": 18,
+      "DefEnd": 22,
+      "Exported": true
+    }
+  ]
+}

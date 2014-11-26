@@ -11,11 +11,25 @@ category:            Language
 build-type:          Simple
 extra-source-files:  README.md
 cabal-version:       >=1.10
+
 executable srclib-haskell
   main-is:             Main.hs
   ghc-options:         -Wall -O2
-  build-depends:       base >=4.7 && <4.8, lens, text, bytestring, aeson,
-                       directory==1.2.1.0, pathtype, filemanip, Cabal,
-                       QuickCheck
   hs-source-dirs:      src
   default-language:    Haskell2010
+  build-depends:       base >=4.7 && <4.8,
+                       lens,
+                       text,
+                       bytestring==0.10.4.0,
+                       aeson,
+                       directory==1.2.1.0,
+                       pathtype,
+                       filemanip,
+                       Cabal,
+                       QuickCheck,
+                       mtl,
+                       ghc==7.8.3,
+                       ghc-paths,
+                       haskell-src-exts,
+                       syb==0.4.2,
+                       split
