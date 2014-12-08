@@ -68,13 +68,3 @@ findSymbols otherincludes fp =
     let nm = moduleNameString $ ms_mod_name $ pm_mod_summary $ tm_parsed_module m
     let syms = catMaybes $ fmap extractSymInfo $ modInfoExports $ moduleInfo m
     return (nm,syms)
-
-test ∷ IO ()
-test = do
-  (m,symbols) ← findSymbols [] "src/Symbols.hs"
-  (show>>>putStrLn) m
-  forM_ symbols $ \s → do
-   putStr m
-   putStr "("
-   (show>>>putStr) s
-   putStrLn ")"

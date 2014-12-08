@@ -1,16 +1,3 @@
--- TODO I'm using flattenPackageDescription because it's easy, but it might
---      not consistently give correct results.
--- TODO The scan command currently doesn't output enough dependency
---      information. This isn't technically incorrect, but it will need to
---      be fixed when the depresolve command is implemented.
--- TODO What's left?
---  Pull packages from hackage in order to get better depresolve output.
---  Figure out the best way to graph Haskell code.
---    How does Hoogle do it?
---    How does Hackage do it?
---  Next steps:
---    Read Hackage and Hoogle, and see how they approach things.
-
 {-# LANGUAGE LambdaCase          #-}
 {-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
@@ -209,10 +196,6 @@ resolve (RawDependency d) = return (ResolvedDependency d)
 
 
 -- Graph Symbol References ---------------------------------------------------
-
--- type SrcPtr = (Int,Int)
--- data SymbolInfo = SymbolInfo { si_nm∷String, si_loc∷(String,SrcPtr,SrcPtr) }
--- findSymbols ∷ (MonadIO m) ⇒ [FilePath] → FilePath → m [SymbolInfo]
 
 -- TODO Stop silently ignoring errors. Specifically, EOF errors and invalid
 --      lines and columns. Also, handle the case where the file doesn't exist.
