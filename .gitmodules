@@ -1,3 +1,6 @@
 [submodule "testdata/case/haskell-hello-world"]
 	path = testdata/case/haskell-hello-world
 	url = https://github.com/sgtest/haskell-hello-world.git
+[submodule "testdata/case/haskell-module-import"]
+	path = testdata/case/haskell-module-import
+	url = https://github.com/sgtest/haskell-module-import

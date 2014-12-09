@@ -214,9 +214,9 @@ mkDef moduleName (SymbolInfo nm k (fn,start,end)) = do
   endOffset ← getLocOffset fn end
   return $ Def (splitOn "." moduleName) nm k (fn,startOffset,endOffset)
 
-graph ∷ FilePath → IO [Def]
-graph fn = do
-  (moduleName,symbols) ← findSymbols [] fn
+graph ∷ [FilePath] → FilePath → IO [Def]
+graph srcDirs fn = do
+  Just (moduleName,symbols) ← findSymbols srcDirs fn
   defs ← sequence $ mkDef moduleName <$> symbols
   -- (encode >>> BC.putStrLn) defs
   return $ defs
@@ -233,8 +233,9 @@ scanCmd = do
 
 graphCmd ∷ CabalInfo → IO Graph
 graphCmd info = do
-  let files = cabalSrcFiles info
-  defs ← concat <$> (sequence $ (P.getPathString>>>graph) <$> files)
+  let files = P.getPathString <$> cabalSrcFiles info
+      srcDirs = P.getPathString <$> cabalSrcDirs info
+  defs ← concat <$> (sequence $ graph srcDirs <$> files)
   return $ Graph defs
 
 depresolveCmd ∷ CabalInfo → IO [ResolvedDependency]
