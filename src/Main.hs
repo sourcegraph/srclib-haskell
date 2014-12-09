@@ -38,7 +38,7 @@ instance ToJSON RawDependency where
   toJSON (RawDependency d) = toJSON d
 
 rawDependency ∷ ResolvedDependency → RawDependency
-rawDependency (ResolvedDependency d) = (RawDependency d)
+rawDependency (ResolvedDependency d) = RawDependency d
 
 instance ToJSON ResolvedDependency where
   toJSON dep@(ResolvedDependency nm) =
@@ -132,10 +132,10 @@ data Def = Def { def_module ∷ [String]
 data Graph = Graph [Def]
 
 instance ToJSON Def where
-  toJSON d = object [ "Path" .= (joinL "/" $ def_module d)
-                    , "TreePath" .= (joinL "/" $ def_module d)
+  toJSON d = object [ "Path" .= joinL "/" (def_module d)
+                    , "TreePath" .= joinL "/" (def_module d)
                     , "Name" .= def_name d
-                    , "Kind" .= (show $ def_kind d)
+                    , "Kind" .= show (def_kind d)
                     , "File" .= (case def_loc d of (fn,_,_)→fn)
                     , "DefStart" .= (case def_loc d of (_,s,_)→s)
                     , "DefEnd" .= (case def_loc d of (_,_,e)→e)
@@ -159,7 +159,7 @@ findFiles q root = do
 
 allDeps ∷ PackageDescription → [RawDependency]
 allDeps desc = map toRawDep deps
-  where deps = buildDepends desc ++ (concat $ map getDeps $ allBuildInfo desc)
+  where deps = buildDepends desc ++ concatMap getDeps (allBuildInfo desc)
         toRawDep (Cabal.Dependency (PackageName nm) _) = RawDependency nm
         getDeps build = concat [ buildTools build
                                , pkgconfigDepends build
@@ -180,13 +180,13 @@ readCabalFile repoDir cabalFilePath = do
       PackageName name = pkgName $ package desc
       dirs = map (P.combine $ P.takeDirectory cabalFilePath) $ sourceDirs desc
 
-  sourceFiles ← concat <$> (sequence $ map(findFiles$P.extension==?".hs") dirs)
-  return $ CabalInfo { cabalFile = P.makeRelative repoDir cabalFilePath
-                     , cabalPkgName = name
-                     , cabalDependencies = allDeps desc
-                     , cabalSrcFiles = map (P.makeRelative repoDir) sourceFiles
-                     , cabalSrcDirs = map (P.makeRelative repoDir) dirs
-                     }
+  sourceFiles ← concat <$> mapM (findFiles$P.extension==?".hs") dirs
+  return CabalInfo { cabalFile = P.makeRelative repoDir cabalFilePath
+                   , cabalPkgName = name
+                   , cabalDependencies = allDeps desc
+                   , cabalSrcFiles = map (P.makeRelative repoDir) sourceFiles
+                   , cabalSrcDirs = map (P.makeRelative repoDir) dirs
+                   }
 
 
 -- Resolve Dependencies ------------------------------------------------------
@@ -217,9 +217,8 @@ mkDef moduleName (SymbolInfo nm k (fn,start,end)) = do
 graph ∷ [FilePath] → FilePath → IO [Def]
 graph srcDirs fn = do
   Just (moduleName,symbols) ← findSymbols srcDirs fn
-  defs ← sequence $ mkDef moduleName <$> symbols
+  sequence $ mkDef moduleName <$> symbols
   -- (encode >>> BC.putStrLn) defs
-  return $ defs
 
 
 -- Toolchain Command-Line Interface ------------------------------------------
@@ -229,13 +228,13 @@ scanCmd = do
   cwd ← Sys.getCurrentDirectory
   let root = P.asAbsDir cwd
   cabalFiles ← findFiles (P.extension ==? ".cabal") root
-  sequence $ map (readCabalFile root) cabalFiles
+  mapM (readCabalFile root) cabalFiles
 
 graphCmd ∷ CabalInfo → IO Graph
 graphCmd info = do
   let files = P.getPathString <$> cabalSrcFiles info
       srcDirs = P.getPathString <$> cabalSrcDirs info
-  defs ← concat <$> (sequence $ graph srcDirs <$> files)
+  defs ← concat <$> sequence(graph srcDirs <$> files)
   return $ Graph defs
 
 depresolveCmd ∷ CabalInfo → IO [ResolvedDependency]
@@ -247,7 +246,7 @@ dumpJSON = encode >>> BC.putStrLn
 withSourceUnitFromStdin ∷ ToJSON a ⇒ (CabalInfo → IO a) → IO ()
 withSourceUnitFromStdin proc = do
   unit ← JSON.decode <$> LBS.getContents
-  maybe usage (\u → proc u >>= dumpJSON) unit
+  maybe usage (proc >=> dumpJSON) unit
 
 usage ∷ IO ()
 usage = do
