@@ -6,14 +6,14 @@ import           Control.Applicative
 import           Control.Arrow
 import           Control.Monad
 import           Control.Monad.State
-import           Data.List           (intersperse)
+import           Data.List           (intersperse,find)
 import           Data.Maybe
 import           DynFlags
 import           FastString
 import           GHC
+import qualified GhcMonad            as GHC
 import           GHC.Paths           (libdir)
 import           OccName
-import           Var
 
 type SrcPtr = (Int,Int)
 data SymbolKind = Type | Value deriving Show
@@ -52,19 +52,28 @@ instance Show SymbolInfo where
 handleGhcErrors ∷ IO a → IO a
 handleGhcErrors = defaultErrorHandler defaultFatalMessager defaultFlushOut
 
-findSymbols ∷ (MonadIO m) ⇒ [FilePath] → FilePath → m (String,[SymbolInfo])
+getModuleSymbols ∷ GhcMonad m ⇒ ModSummary → m (String,[SymbolInfo])
+getModuleSymbols ms = do
+  m ← parseModule ms >>= typecheckModule
+  let nm = moduleNameString $ ms_mod_name $ pm_mod_summary(tm_parsed_module m)
+  let syms = catMaybes $ fmap extractSymInfo $ modInfoExports $ moduleInfo m
+  return (nm,syms)
+
+findSymbols ∷ (MonadIO m) ⇒ [FilePath]→FilePath→m(Maybe(String,[SymbolInfo]))
 findSymbols otherincludes fp =
   liftIO . handleGhcErrors . runGhc (Just libdir) $ do
     dynflags ← getSessionDynFlags
     void $ setSessionDynFlags dynflags {
         includePaths = otherincludes ++ includePaths dynflags,
+        importPaths = otherincludes ++ importPaths dynflags,
+        ghcLink = NoLink,
+        -- settings = (settings dynflags) {sTopDir=head otherincludes},
         packageFlags = [ExposePackage "ghc"]}
     target ← guessTarget fp Nothing
     setTargets [target]
     void $ load LoadAllTargets
     deps ← depanal [] False
-    let [ms] = deps
-    m ← parseModule ms >>= typecheckModule
-    let nm = moduleNameString $ ms_mod_name $ pm_mod_summary $ tm_parsed_module m
-    let syms = catMaybes $ fmap extractSymInfo $ modInfoExports $ moduleInfo m
-    return (nm,syms)
+    let ms = find (ms_hspp_file>>>(==fp)) deps
+    case ms of
+      Nothing → return Nothing
+      Just x → Just <$> getModuleSymbols x

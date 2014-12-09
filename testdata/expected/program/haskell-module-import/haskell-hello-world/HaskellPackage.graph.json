@@ -1,0 +1,24 @@
+{
+  "Defs": [
+    {
+      "Path": "Hello",
+      "TreePath": "Hello",
+      "Name": "hello",
+      "Kind": "Value",
+      "File": "src/Hello.hs",
+      "DefStart": 19,
+      "DefEnd": 24,
+      "Exported": true
+    },
+    {
+      "Path": "Main",
+      "TreePath": "Main",
+      "Name": "main",
+      "Kind": "Value",
+      "File": "src/Main.hs",
+      "DefStart": 43,
+      "DefEnd": 47,
+      "Exported": true
+    }
+  ]
+}
