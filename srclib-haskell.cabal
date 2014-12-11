@@ -28,8 +28,8 @@ executable srclib-haskell
                        Cabal,
                        QuickCheck,
                        mtl,
-                       ghc==7.8.3,
-                       ghc-paths,
                        haskell-src-exts,
-                       syb==0.4.2,
-                       split
+                       split,
+                       haddock-api==2.15.0,
+                       process,
+                       ghc==7.8.3

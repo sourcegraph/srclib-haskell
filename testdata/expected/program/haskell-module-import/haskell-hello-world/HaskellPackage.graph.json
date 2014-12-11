@@ -3,21 +3,41 @@
     {
       "Path": "Hello",
       "TreePath": "Hello",
+      "Name": "Hello",
+      "Kind": "Module",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Hello/hello",
+      "TreePath": "Hello/hello",
       "Name": "hello",
       "Kind": "Value",
-      "File": "src/Hello.hs",
-      "DefStart": 19,
-      "DefEnd": 24,
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
       "Exported": true
     },
     {
       "Path": "Main",
       "TreePath": "Main",
+      "Name": "Main",
+      "Kind": "Module",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Main/main",
+      "TreePath": "Main/main",
       "Name": "main",
       "Kind": "Value",
-      "File": "src/Main.hs",
-      "DefStart": 43,
-      "DefEnd": 47,
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
       "Exported": true
     }
   ]

@@ -3,11 +3,21 @@
     {
       "Path": "Main",
       "TreePath": "Main",
+      "Name": "Main",
+      "Kind": "Module",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Main/main",
+      "TreePath": "Main/main",
       "Name": "main",
       "Kind": "Value",
-      "File": "src/Main.hs",
-      "DefStart": 18,
-      "DefEnd": 22,
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
       "Exported": true
     }
   ]

@@ -5,28 +5,40 @@
 
 module Main where
 
+import           Debug.Trace
+import qualified Distribution.Verbosity                        as Verbosity
+import           Test.QuickCheck
+
 import           Control.Applicative
 import           Control.Arrow
 import           Control.Monad
 import           Data.Aeson                                    as JSON
 import qualified Data.ByteString.Lazy                          as LBS
 import qualified Data.ByteString.Lazy.Char8                    as BC
+import           Data.List                                     (intersperse)
 import           Data.List.Split
 import           Data.Maybe
+
 import           Distribution.Package                          as Cabal
 import           Distribution.PackageDescription               as Cabal
 import           Distribution.PackageDescription.Configuration as Cabal
 import           Distribution.PackageDescription.Parse         as Cabal
-import qualified Distribution.Verbosity                        as Verbosity
-import           Symbols
+
+import qualified Documentation.Haddock                         as Haddock
+
 import qualified System.Directory                              as Sys
 import qualified System.Environment                            as Sys
+import qualified System.Exit                                   as Sys
 import           System.FilePath.Find                          ((&&?), (==?))
 import qualified System.FilePath.Find                          as P
 import           System.IO
 import           System.IO.Error
 import qualified System.Path                                   as P
-import           Test.QuickCheck
+import qualified System.Process                                as Sys
+
+import           FastString
+import           GHC
+import           Name
 
 
 -- Dependencies --------------------------------------------------------------
@@ -34,11 +46,11 @@ import           Test.QuickCheck
 data RawDependency = RawDependency String deriving (Show,Eq)
 data ResolvedDependency = ResolvedDependency String deriving (Show,Eq)
 
-instance ToJSON RawDependency where
-  toJSON (RawDependency d) = toJSON d
-
 rawDependency ∷ ResolvedDependency → RawDependency
 rawDependency (ResolvedDependency d) = RawDependency d
+
+instance ToJSON RawDependency where
+  toJSON (RawDependency s) = toJSON s
 
 instance ToJSON ResolvedDependency where
   toJSON dep@(ResolvedDependency nm) =
@@ -65,6 +77,7 @@ data CabalInfo = CabalInfo
    , cabalSrcFiles     ∷ [P.RelFile]
    , cabalSrcDirs      ∷ [P.RelDir]
    } deriving (Show,Eq)
+
 
 instance FromJSON CabalInfo where
  parseJSON (Object v) = do
@@ -123,22 +136,34 @@ prop_cabalInfoJson c = (Just c==) $ JSON.decode $ JSON.encode c
 -- File name, column number, and column number. These start at 1 (not 0),
 -- and are based on unicode characters (not bytes).
 type Loc = (FilePath,Integer,Integer)
-data Def = Def { def_module ∷ [String]
-               , def_name ∷ String
-               , def_kind ∷ SymbolKind
-               , def_loc ∷ Loc
+data DefKind = Module | Value | Type
+  deriving Show
+
+data Def = Def { defModule ∷ [String]
+               , defName   ∷ String
+               , defKind   ∷ DefKind
+               , defLoc    ∷ Loc
                } deriving Show
+
+--data Def = Def { defModule ∷ [String]
+               --, defName ∷ String
+               --, defKind ∷ SymbolKind
+               --, defLoc ∷ Loc
+               --} deriving Show
 
 data Graph = Graph [Def]
 
+joinL ∷ ∀a. [a] → [[a]] → [a]
+joinL sep = concat <<< intersperse sep
+
 instance ToJSON Def where
-  toJSON d = object [ "Path" .= joinL "/" (def_module d)
-                    , "TreePath" .= joinL "/" (def_module d)
-                    , "Name" .= def_name d
-                    , "Kind" .= show (def_kind d)
-                    , "File" .= (case def_loc d of (fn,_,_)→fn)
-                    , "DefStart" .= (case def_loc d of (_,s,_)→s)
-                    , "DefEnd" .= (case def_loc d of (_,_,e)→e)
+  toJSON d = object [ "Path" .= joinL "/" (defModule d)
+                    , "TreePath" .= joinL "/" (defModule d)
+                    , "Name" .= defName d
+                    , "Kind" .= show (defKind d)
+                    , "File" .= Null -- (case defLoc d of (fn,_,_)→fn)
+                    , "DefStart" .= Null -- (case defLoc d of (_,s,_)→s)
+                    , "DefEnd" .= Null -- (case defLoc d of (_,_,e)→e)
                     , "Exported" .= True
                     , "Test" .= False
                     , "JsonText" .= object[]
@@ -208,16 +233,28 @@ getLocOffset path (line,col) =
       replicateM_ colOffset $ hGetChar h
       hTell h
 
-mkDef ∷ String → SymbolInfo → IO Def
-mkDef moduleName (SymbolInfo nm k (fn,start,end)) = do
-  startOffset ← getLocOffset fn start
-  endOffset ← getLocOffset fn end
-  return $ Def (splitOn "." moduleName) nm k (fn,startOffset,endOffset)
+srcSpanLoc ∷ SrcSpan → IO (Maybe Loc)
+srcSpanLoc (UnhelpfulSpan _) = return Nothing
+srcSpanLoc (RealSrcSpan r) = do
+  let l1 = srcSpanStartLine r
+      c1 = srcSpanStartCol r
+      l2 = srcSpanEndLine r
+      c2 = srcSpanEndCol r
+      fn = unpackFS $ srcSpanFile r
+  startOffset ← getLocOffset fn (l1,c1)
+  endOffset ← getLocOffset fn (l2,c2)
+  return $ Just (fn,startOffset,endOffset)
 
-graph ∷ [FilePath] → FilePath → IO [Def]
-graph srcDirs fn = do
-  Just (moduleName,symbols) ← findSymbols srcDirs fn
-  sequence $ mkDef moduleName <$> symbols
+--mkDef ∷ String → () → IO Def
+--mkDef moduleName (SymbolInfo nm k (fn,start,end)) = do
+  --startOffset ← getLocOffset fn start
+  --endOffset ← getLocOffset fn end
+  --return $ Def (splitOn "." moduleName) nm k (fn,startOffset,endOffset)
+
+-- graph ∷ [FilePath] → FilePath → IO [Def]
+-- graph srcDirs fn =
+  -- Just (moduleName,symbols) ← findSymbols srcDirs fn
+  -- sequence $ mkDef moduleName <$> symbols
   -- (encode >>> BC.putStrLn) defs
 
 
@@ -230,12 +267,75 @@ scanCmd = do
   cabalFiles ← findFiles (P.extension ==? ".cabal") root
   mapM (readCabalFile root) cabalFiles
 
+-- TODO This is not exception safe! Use a bracket?
+withWorkingDirectory ∷ P.AbsRelClass ar ⇒ P.DirPath ar → IO a → IO a
+withWorkingDirectory dir action = do
+  oldDir ← Sys.getCurrentDirectory
+  Sys.setCurrentDirectory(P.getPathString dir)
+  result ← action
+  Sys.setCurrentDirectory oldDir
+  return result
+
+-- TODO Haddock stores filename information for modules in Haddock.Interface,
+-- but it isn't stored in the interfaces files. This will be easy to fix once
+-- we are using a forked version of haddock and can control the format of the
+-- interface files.
+instOrigFilename ∷ Haddock.InstalledInterface → FilePath
+instOrigFilename = const "<unknown>"
+
+-- TODO Haddock seems to strip location information from ‘Name’s, we
+-- should be able to prevent this once we have a forked version of haddock
+-- and can control the format of the interface files.
+nameDef ∷ Name → IO(Maybe Def)
+nameDef nm = do
+  let modul = nameModule nm
+      srcSpan = nameSrcSpan nm
+      modName = moduleNameString $ moduleName modul
+      nameStr = occNameString $ getOccName nm
+  loc ← fromMaybe ("<unknown>",0,0) <$> srcSpanLoc srcSpan
+  traceIO modName
+  traceIO nameStr
+  traceIO $ show loc
+  return $ Just $ Def (splitOn "." modName ++ [nameStr]) nameStr Value loc
+
+moduleDef ∷ Haddock.InstalledInterface → Def
+moduleDef iface =
+  let modNm = (moduleNameString $ moduleName $ Haddock.instMod iface)∷String
+  in Def (splitOn "." modNm) modNm Module (instOrigFilename iface,0,0)
+
+-- TODO I think we'll need the CabalInfo argument to rebase file paths from
+-- the directory the cabal file is in, up to the directory at the root of
+-- the file information from Haddock at this point.
+-- repo. However, we are not correctly getting
+defsFromHaddock ∷ CabalInfo → Haddock.InstalledInterface → IO [Def]
+defsFromHaddock _ iface = do
+  exportedDefs' ← mapM nameDef $ Haddock.instExports iface
+  let exportedDefs = catMaybes exportedDefs'
+  return $ moduleDef iface : exportedDefs
+
 graphCmd ∷ CabalInfo → IO Graph
 graphCmd info = do
-  let files = P.getPathString <$> cabalSrcFiles info
-      srcDirs = P.getPathString <$> cabalSrcDirs info
-  defs ← concat <$> sequence(graph srcDirs <$> files)
-  return $ Graph defs
+  let tmpfile = "/tmp/iface-file-for-srclib-haskell"
+  exitCode ← withWorkingDirectory (P.dropFileName $ cabalFile info) $ do
+    confExitCode ← Sys.system "cabal configure >/dev/stderr"
+    case confExitCode of
+      Sys.ExitFailure _ → error "‘cabal configure’ failed!" -- TODO HAAAAAAAACK
+      Sys.ExitSuccess → return () -- TODO HAAAAAAAACK
+    Sys.system $ concat [ "cabal haddock --executables --internal --haddock-options='-D"
+                        , tmpfile
+                        , "' > /dev/stderr"
+                        ]
+  case exitCode of
+    Sys.ExitSuccess → return() -- TODO Yuck.
+    Sys.ExitFailure _ → error "cabal haddock failed!"
+  ifaceFileE ← Haddock.readInterfaceFile Haddock.freshNameCache tmpfile
+  let ifaceFile = case ifaceFileE of
+                    Left msg → error msg
+                    Right r → r
+  let ifaces = Haddock.ifInstalledIfaces ifaceFile
+  traceIO $ "ifaces:" ++ show (length ifaces)
+  haddockDefs ← mapM (defsFromHaddock info) ifaces
+  return $ Graph $ traceShowId $ concat haddockDefs
 
 depresolveCmd ∷ CabalInfo → IO [ResolvedDependency]
 depresolveCmd = cabalDependencies >>> map resolve >>> sequence
@@ -246,6 +346,7 @@ dumpJSON = encode >>> BC.putStrLn
 withSourceUnitFromStdin ∷ ToJSON a ⇒ (CabalInfo → IO a) → IO ()
 withSourceUnitFromStdin proc = do
   unit ← JSON.decode <$> LBS.getContents
+  maybe usage (proc >=> (encode>>>BC.unpack>>>traceIO)) unit
   maybe usage (proc >=> dumpJSON) unit
 
 usage ∷ IO ()
