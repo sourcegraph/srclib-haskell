@@ -317,10 +317,22 @@ graphCmd ∷ CabalInfo → IO Graph
 graphCmd info = do
   let tmpfile = "/tmp/iface-file-for-srclib-haskell"
   exitCode ← withWorkingDirectory (P.dropFileName $ cabalFile info) $ do
-    confExitCode ← Sys.system "cabal configure >/dev/stderr"
-    case confExitCode of
+
+    exitCode1 ← Sys.system "cabal sandbox init >/dev/stderr"
+    case exitCode1 of
+      Sys.ExitFailure _ → error "‘cabal sandbox init’ failed!" -- TODO HAAAAAAAACK
+      Sys.ExitSuccess → return () -- TODO HAAAAAAAACK
+
+    exitCode3 ← Sys.system "cabal install --only-dependencies >/dev/stderr"
+    case exitCode3 of
+      Sys.ExitFailure _ → error "‘cabal install’ failed!" -- TODO HAAAAAAAACK
+      Sys.ExitSuccess → return () -- TODO HAAAAAAAACK
+
+    exitCode2 ← Sys.system "cabal configure >/dev/stderr"
+    case exitCode2 of
       Sys.ExitFailure _ → error "‘cabal configure’ failed!" -- TODO HAAAAAAAACK
       Sys.ExitSuccess → return () -- TODO HAAAAAAAACK
+
     Sys.system $ concat [ "cabal haddock --executables --internal --haddock-options='-D"
                         , tmpfile
                         , "' > /dev/stderr"

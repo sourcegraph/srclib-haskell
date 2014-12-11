@@ -1,0 +1,184 @@
+{
+  "Defs": [
+    {
+      "Path": "Data/DList",
+      "TreePath": "Data/DList",
+      "Name": "Data.DList",
+      "Kind": "Module",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/DList",
+      "TreePath": "Data/DList/DList",
+      "Name": "DList",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/append",
+      "TreePath": "Data/DList/append",
+      "Name": "append",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/apply",
+      "TreePath": "Data/DList/apply",
+      "Name": "apply",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/concat",
+      "TreePath": "Data/DList/concat",
+      "Name": "concat",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/cons",
+      "TreePath": "Data/DList/cons",
+      "Name": "cons",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/empty",
+      "TreePath": "Data/DList/empty",
+      "Name": "empty",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/foldr",
+      "TreePath": "Data/DList/foldr",
+      "Name": "foldr",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/fromList",
+      "TreePath": "Data/DList/fromList",
+      "Name": "fromList",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/head",
+      "TreePath": "Data/DList/head",
+      "Name": "head",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/list",
+      "TreePath": "Data/DList/list",
+      "Name": "list",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/map",
+      "TreePath": "Data/DList/map",
+      "Name": "map",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/replicate",
+      "TreePath": "Data/DList/replicate",
+      "Name": "replicate",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/singleton",
+      "TreePath": "Data/DList/singleton",
+      "Name": "singleton",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/snoc",
+      "TreePath": "Data/DList/snoc",
+      "Name": "snoc",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/tail",
+      "TreePath": "Data/DList/tail",
+      "Name": "tail",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/toList",
+      "TreePath": "Data/DList/toList",
+      "Name": "toList",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    },
+    {
+      "Path": "Data/DList/unfoldr",
+      "TreePath": "Data/DList/unfoldr",
+      "Name": "unfoldr",
+      "Kind": "Value",
+      "File": "",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true
+    }
+  ]
+}
