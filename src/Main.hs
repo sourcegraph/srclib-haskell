@@ -89,7 +89,6 @@ data CabalInfo = CabalInfo
    , cabalSrcDirs      ∷ [P.RelDir]
    } deriving (Show,Eq)
 
-
 instance FromJSON CabalInfo where
  parseJSON (Object v) = do
     infoObj ← v .: "Data"
@@ -145,7 +144,7 @@ prop_cabalInfoJson c = (Just c==) $ JSON.decode $ JSON.encode c
 -- Source Graph --------------------------------------------------------------
 
 -- TODO Making these both unsigned and making the second number a size would
---     make invalid ranges unrepresentables.
+--      make invalid ranges unrepresentables.
 
 -- Loc is a filename with a span formed by two byte offsets.
 type Loc = (FilePath,Integer,Integer)
@@ -303,13 +302,16 @@ withWorkingDirectory dir action = do
 -- TODO Haddock seems to strip location information from ‘Name’s, we
 -- should be able to prevent this once we have a forked version of haddock
 -- and can control the format of the interface files.
-nameDef ∷ Name → IO(Maybe Def)
-nameDef nm = do
+nameDef ∷ CabalInfo → Name → IO(Maybe Def)
+nameDef info nm = do
   let modul = nameModule nm
       srcSpan = nameSrcSpan nm
       modName = moduleNameString $ moduleName modul
       nameStr = occNameString $ getOccName nm
-  loc ← fromMaybe ("UNKNOWN",0,0) <$> srcSpanLoc srcSpan
+
+  fnMay ← findModuleFile (cabalSrcDirs info) $ modulePathFromName modName
+  let fn = show $ fromMaybe (P.asRelPath "UNKNOWN") fnMay
+  loc ← fromMaybe (fn,0,0) <$> srcSpanLoc srcSpan
   traceIO modName
   traceIO nameStr
   traceIO $ show loc
@@ -325,7 +327,7 @@ moduleDef info iface = do
 
 defsFromHaddock ∷ CabalInfo → Haddock.InstalledInterface → IO [Def]
 defsFromHaddock info iface = do
-  exportedDefs' ← mapM nameDef $ Haddock.instExports iface
+  exportedDefs' ← mapM (nameDef info) $ Haddock.instExports iface
   let exportedDefs = catMaybes exportedDefs'
   modDef ← moduleDef info iface
   return $ modDef : exportedDefs

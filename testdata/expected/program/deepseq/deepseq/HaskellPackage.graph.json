@@ -15,7 +15,7 @@
       "TreePath": "Control/DeepSeq/$!!",
       "Name": "$!!",
       "Kind": "Value",
-      "File": "UNKNOWN",
+      "File": "./Control/DeepSeq.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -25,7 +25,7 @@
       "TreePath": "Control/DeepSeq/NFData",
       "Name": "NFData",
       "Kind": "Value",
-      "File": "UNKNOWN",
+      "File": "./Control/DeepSeq.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -35,7 +35,7 @@
       "TreePath": "Control/DeepSeq/deepseq",
       "Name": "deepseq",
       "Kind": "Value",
-      "File": "UNKNOWN",
+      "File": "./Control/DeepSeq.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -45,7 +45,7 @@
       "TreePath": "Control/DeepSeq/force",
       "Name": "force",
       "Kind": "Value",
-      "File": "UNKNOWN",
+      "File": "./Control/DeepSeq.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -55,7 +55,7 @@
       "TreePath": "Control/DeepSeq/rnf",
       "Name": "rnf",
       "Kind": "Value",
-      "File": "UNKNOWN",
+      "File": "./Control/DeepSeq.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true

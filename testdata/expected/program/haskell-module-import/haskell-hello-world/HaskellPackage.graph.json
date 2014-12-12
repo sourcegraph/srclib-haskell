@@ -15,7 +15,7 @@
       "TreePath": "Hello/hello",
       "Name": "hello",
       "Kind": "Value",
-      "File": "UNKNOWN",
+      "File": "src/Hello.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -35,7 +35,7 @@
       "TreePath": "Main/main",
       "Name": "main",
       "Kind": "Value",
-      "File": "UNKNOWN",
+      "File": "src/Main.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
