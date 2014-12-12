@@ -31,4 +31,5 @@ executable srclib-haskell
                        split,
                        process,
                        ghc,
-                       srclib-haddock-api
+                       srclib-haddock-api,
+                       shelly

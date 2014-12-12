@@ -2,16 +2,26 @@
 {-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax       #-}
+{-# LANGUAGE ExtendedDefaultRules #-}
+{-# OPTIONS_GHC -fno-warn-type-defaults #-}
 
 module Main where
+
+import           Shelly hiding (FilePath,path)
+
+import           Data.String
 
 import           Debug.Trace
 import qualified Distribution.Verbosity                        as Verbosity
 import           Test.QuickCheck
 
-import           Control.Applicative
+import qualified Data.Text as Text
+import           Data.Text (Text)
+
+--port           Control.Applicative
 import           Control.Arrow
 import           Control.Monad
+import           Data.Monoid
 import           Data.Aeson                                    as JSON
 import qualified Data.ByteString.Lazy                          as LBS
 import qualified Data.ByteString.Lazy.Char8                    as BC
@@ -28,13 +38,11 @@ import qualified Documentation.Haddock                         as Haddock
 
 import qualified System.Directory                              as Sys
 import qualified System.Environment                            as Sys
-import qualified System.Exit                                   as Sys
 import           System.FilePath.Find                          ((&&?), (==?))
 import qualified System.FilePath.Find                          as P
 import           System.IO
 import           System.IO.Error
 import qualified System.Path                                   as P
-import qualified System.Process                                as Sys
 
 import           FastString
 import           GHC
@@ -242,18 +250,6 @@ srcSpanLoc (RealSrcSpan r) = do
   endOffset ← getLocOffset fn (l2,c2)
   return $ Just (fn,startOffset,endOffset)
 
---mkDef ∷ String → () → IO Def
---mkDef moduleName (SymbolInfo nm k (fn,start,end)) = do
-  --startOffset ← getLocOffset fn start
-  --endOffset ← getLocOffset fn end
-  --return $ Def (splitOn "." moduleName) nm k (fn,startOffset,endOffset)
-
--- graph ∷ [FilePath] → FilePath → IO [Def]
--- graph srcDirs fn =
-  -- Just (moduleName,symbols) ← findSymbols srcDirs fn
-  -- sequence $ mkDef moduleName <$> symbols
-  -- (encode >>> BC.putStrLn) defs
-
 
 -- Toolchain Command-Line Interface ------------------------------------------
 
@@ -310,41 +306,40 @@ defsFromHaddock _ iface = do
   let exportedDefs = catMaybes exportedDefs'
   return $ moduleDef iface : exportedDefs
 
+-- TODO Redirect stdout to stderr.
+toStderr ∷ ∀a. Sh a → Sh a
+toStderr = id
+
+-- TODO escape ‘v’!
+mkParam :: ∀m.(Monoid m,IsString m) ⇒ m → m → m
+mkParam k v = "--" <> k <> "=" <> v <> "" -- Escape v!
+
 graphCmd ∷ CabalInfo → IO Graph
 graphCmd info = do
-  let tmpfile = "/tmp/iface-file-for-srclib-haskell"
-  exitCode ← withWorkingDirectory (P.dropFileName $ cabalFile info) $ do
+  let tmpfile = "/tmp/iface-file-for-srclib-haskell"∷Text
+  let cabal_ = run_ "cabal" >>> silently
 
-    exitCode1 ← Sys.system "cabal sandbox init >/dev/stderr"
-    case exitCode1 of
-      Sys.ExitFailure _ → error "‘cabal sandbox init’ failed!" -- TODO HAAAAAAAACK
-      Sys.ExitSuccess → return () -- TODO HAAAAAAAACK
+  shelly $ do
+    haddockPath ← fromMaybe (error "srclib-haddock is not installed!") <$>
+      which "srclib-haddock"
 
-    exitCode3 ← Sys.system "cabal install --only-dependencies >/dev/stderr"
-    case exitCode3 of
-      Sys.ExitFailure _ → error "‘cabal install’ failed!" -- TODO HAAAAAAAACK
-      Sys.ExitSuccess → return () -- TODO HAAAAAAAACK
+    cd $ fromText $ fromString $ P.getPathString $ P.dropFileName $ cabalFile info
+    cabal_ ["sandbox", "init", mkParam "sandbox" "/tmp/fuckyou"]
+    cabal_ ["install", "--only-dependencies"]
+    cabal_ ["configure", mkParam "builddir" "/tmp/fuckeverything"]
+    cabal_ [ "haddock", "--executables", "--internal"
+           , mkParam "with-haddock" $ toTextIgnore haddockPath
+           , mkParam "haddock-options" ("-D" <> tmpfile)
+           , mkParam "builddir" "/tmp/fuckeverything"
+           ]
 
-    exitCode2 ← Sys.system "cabal configure >/dev/stderr"
-    case exitCode2 of
-      Sys.ExitFailure _ → error "‘cabal configure’ failed!" -- TODO HAAAAAAAACK
-      Sys.ExitSuccess → return () -- TODO HAAAAAAAACK
+  ifaceFile ← either error id <$>
+    Haddock.readInterfaceFile Haddock.freshNameCache (Text.unpack tmpfile)
 
-    Sys.system $ concat [ "cabal haddock --with-haddock=$(which srclib-haddock) --executables --internal --haddock-options='-D"
-                        , tmpfile
-                        , "' > /dev/stderr"
-                        ]
-  case exitCode of
-    Sys.ExitSuccess → return() -- TODO Yuck.
-    Sys.ExitFailure _ → error "cabal haddock failed!"
-  ifaceFileE ← Haddock.readInterfaceFile Haddock.freshNameCache tmpfile
-  let ifaceFile = case ifaceFileE of
-                    Left msg → error msg
-                    Right r → r
   let ifaces = Haddock.ifInstalledIfaces ifaceFile
-  traceIO $ "ifaces:" ++ show (length ifaces)
   haddockDefs ← mapM (defsFromHaddock info) ifaces
   return $ Graph $ traceShowId $ concat haddockDefs
+
 
 depresolveCmd ∷ CabalInfo → IO [ResolvedDependency]
 depresolveCmd = cabalDependencies >>> map resolve >>> sequence
@@ -360,20 +355,20 @@ withSourceUnitFromStdin proc = do
 
 usage ∷ IO ()
 usage = do
-  cmd ← Sys.getProgName
+  progName ← Sys.getProgName
   putStrLn "Usage:"
-  putStrLn $ concat ["    ", cmd, " scan"]
-  putStrLn $ concat ["    ", cmd, " graph < sourceUnit"]
-  putStrLn $ concat ["    ", cmd, " depresolve < sourceUnit"]
+  putStrLn $ concat ["    ", progName, " scan"]
+  putStrLn $ concat ["    ", progName, " graph < sourceUnit"]
+  putStrLn $ concat ["    ", progName, " depresolve < sourceUnit"]
 
-run ∷ [String] → IO ()
-run ("scan":_) = scanCmd >>= dumpJSON
-run ["graph"] = withSourceUnitFromStdin graphCmd
-run ["depresolve"] = withSourceUnitFromStdin depresolveCmd
-run _ = usage
+srclibRun ∷ [String] → IO ()
+srclibRun ("scan":_) = scanCmd >>= dumpJSON
+srclibRun ["graph"] = withSourceUnitFromStdin graphCmd
+srclibRun ["depresolve"] = withSourceUnitFromStdin depresolveCmd
+srclibRun _ = usage
 
 main ∷ IO ()
-main = Sys.getArgs >>= run
+main = Sys.getArgs >>= srclibRun
 
 test ∷ IO ()
 test = quickCheck prop_cabalInfoJson
