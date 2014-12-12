@@ -5,9 +5,11 @@
 {-# LANGUAGE ExtendedDefaultRules #-}
 {-# OPTIONS_GHC -fno-warn-type-defaults #-}
 
+-- TODO Stop using String. Use Text!
+
 module Main where
 
-import           Shelly hiding (FilePath,path)
+import           Shelly hiding (FilePath,path,(</>),(<.>))
 
 import           Data.String
 
@@ -43,6 +45,7 @@ import qualified System.FilePath.Find                          as P
 import           System.IO
 import           System.IO.Error
 import qualified System.Path                                   as P
+import           System.Path ((</>),(<.>))
 
 import           FastString
 import           GHC
@@ -147,14 +150,23 @@ prop_cabalInfoJson c = (Just c==) $ JSON.decode $ JSON.encode c
 -- Loc is a filename with a span formed by two byte offsets.
 type Loc = (FilePath,Integer,Integer)
 
+type ModulePath = ([String],String)
+
 data DefKind = Module | Value | Type
   deriving Show
 
-data Def = Def { defModule ∷ [String]
+data Def = Def { defModule ∷ ModulePath
                , defName   ∷ String
                , defKind   ∷ DefKind
                , defLoc    ∷ Loc
-               } deriving Show
+               }
+  deriving Show
+
+modulePathString ∷ ModulePath → String
+modulePathString (path,leaf) = joinL "." $ path ++ [leaf]
+
+modulePathToSrclibPath ∷ ModulePath → String
+modulePathToSrclibPath (path,leaf) = joinL "/" $ path ++ [leaf]
 
 data Graph = Graph [Def]
 
@@ -162,8 +174,8 @@ joinL ∷ ∀a. [a] → [[a]] → [a]
 joinL sep = concat <<< intersperse sep
 
 instance ToJSON Def where
-  toJSON d = object [ "Path" .= joinL "/" (defModule d)
-                    , "TreePath" .= joinL "/" (defModule d)
+  toJSON d = object [ "Path" .= (modulePathToSrclibPath $ defModule d)
+                    , "TreePath" .= (modulePathToSrclibPath $ defModule d)
                     , "Name" .= defName d
                     , "Kind" .= show (defKind d)
                     , "File" .= (case defLoc d of (fn,_,_)→fn)
@@ -227,6 +239,25 @@ resolve (RawDependency d) = return (ResolvedDependency d)
 
 -- Graph Symbol References ---------------------------------------------------
 
+modulePathFromName ∷ String → ModulePath
+modulePathFromName nm =
+  case reverse $ splitOn "." nm of
+    [] → error "Empty string is not a valid module name!"
+    leaf:reversedPath → (reverse reversedPath, leaf)
+
+moduleFileName ∷ ModulePath → P.RelFile
+moduleFileName (path,nm) = relDirPath </> filename
+  where relDirPath∷P.RelDir = foldl (</>) P.currentDir $ P.asRelPath<$>path
+        filename∷P.RelFile = P.asRelFile nm <.> "hs"
+
+findModuleFile ∷ [P.RelDir] → ModulePath → IO (Maybe P.RelFile)
+findModuleFile rootDirs modul = do
+  viablePaths ← flip mapM rootDirs $ \r → do
+    let fn∷P.RelFile = r </> moduleFileName modul
+    exists ← Sys.doesFileExist $ show fn
+    return $ if exists then Just fn else Nothing
+  return $ listToMaybe $ catMaybes viablePaths
+
 -- TODO Stop silently ignoring errors. Specifically, EOF errors and invalid
 --      lines and columns. Also, handle the case where the file doesn't exist.
 getLocOffset ∷ FilePath → (Int,Int) → IO Integer
@@ -278,26 +309,26 @@ nameDef nm = do
       srcSpan = nameSrcSpan nm
       modName = moduleNameString $ moduleName modul
       nameStr = occNameString $ getOccName nm
-  loc ← fromMaybe ("<unknown>",0,0) <$> srcSpanLoc srcSpan
+  loc ← fromMaybe ("UNKNOWN",0,0) <$> srcSpanLoc srcSpan
   traceIO modName
   traceIO nameStr
   traceIO $ show loc
-  return $ Just $ Def (splitOn "." modName ++ [nameStr]) nameStr Value loc
+  return $ Just $ Def (splitOn "." modName, nameStr) nameStr Value loc
 
-moduleDef ∷ Haddock.InstalledInterface → Def
-moduleDef iface =
-  let modNm = (moduleNameString $ moduleName $ Haddock.instMod iface)∷String
-  in Def (splitOn "." modNm) modNm Module (Haddock.instOrigFilename iface,0,0)
+moduleDef ∷ CabalInfo → Haddock.InstalledInterface → IO Def
+moduleDef info iface = do
+  let modNm∷String = moduleNameString $ moduleName $ Haddock.instMod iface
+      modPath = modulePathFromName modNm
+  fnMay ← findModuleFile (cabalSrcDirs info) modPath
+  let fn = show $ fromMaybe (P.asRelPath "UNKNOWN") fnMay
+  return $ Def modPath modNm Module (fn,0,0)
 
--- TODO I think we'll need the CabalInfo argument to rebase file paths from
--- the directory the cabal file is in, up to the directory at the root of
--- the file information from Haddock at this point.
--- repo. However, we are not correctly getting
 defsFromHaddock ∷ CabalInfo → Haddock.InstalledInterface → IO [Def]
-defsFromHaddock _ iface = do
+defsFromHaddock info iface = do
   exportedDefs' ← mapM nameDef $ Haddock.instExports iface
   let exportedDefs = catMaybes exportedDefs'
-  return $ moduleDef iface : exportedDefs
+  modDef ← moduleDef info iface
+  return $ modDef : exportedDefs
 
 -- TODO Redirect stdout to stderr.
 toStderr ∷ ∀a. Sh a → Sh a
