@@ -133,9 +133,12 @@ prop_cabalInfoJson c = (Just c==) $ JSON.decode $ JSON.encode c
 
 -- Source Graph --------------------------------------------------------------
 
--- File name, column number, and column number. These start at 1 (not 0),
--- and are based on unicode characters (not bytes).
+-- TODO Making these both unsigned and making the second number a size would
+--     make invalid ranges unrepresentables.
+
+-- Loc is a filename with a span formed by two byte offsets.
 type Loc = (FilePath,Integer,Integer)
+
 data DefKind = Module | Value | Type
   deriving Show
 
@@ -144,12 +147,6 @@ data Def = Def { defModule ∷ [String]
                , defKind   ∷ DefKind
                , defLoc    ∷ Loc
                } deriving Show
-
---data Def = Def { defModule ∷ [String]
-               --, defName ∷ String
-               --, defKind ∷ SymbolKind
-               --, defLoc ∷ Loc
-               --} deriving Show
 
 data Graph = Graph [Def]
 
@@ -333,7 +330,7 @@ graphCmd info = do
       Sys.ExitFailure _ → error "‘cabal configure’ failed!" -- TODO HAAAAAAAACK
       Sys.ExitSuccess → return () -- TODO HAAAAAAAACK
 
-    Sys.system $ concat [ "cabal haddock --executables --internal --haddock-options='-D"
+    Sys.system $ concat [ "cabal haddock --with-haddock=$(which srclib-haddock) --executables --internal --haddock-options='-D"
                         , tmpfile
                         , "' > /dev/stderr"
                         ]
