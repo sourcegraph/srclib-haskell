@@ -42,7 +42,6 @@ import qualified Data.Char as Char
 data Flag
   = Flag_BuiltInThemes
   | Flag_CSS String
---  | Flag_DocBook
   | Flag_ReadInterface String
   | Flag_DumpInterface String
   | Flag_Heading String
@@ -99,8 +98,6 @@ options backwardsCompat =
       "read an interface from FILE",
     Option ['D']  ["dump-interface"] (ReqArg Flag_DumpInterface "FILE")
       "write the resulting interface to FILE",
---    Option ['S']  ["docbook"]  (NoArg Flag_DocBook)
---  "output in DocBook XML",
     Option ['h']  ["html"]     (NoArg Flag_Html)
       "output in HTML (XHTML 1.0)",
     Option []  ["latex"]  (NoArg Flag_LaTeX) "use experimental LaTeX rendering",
@@ -186,7 +183,7 @@ getUsage = do
 
 parseHaddockOpts :: [String] -> IO ([Flag], [String])
 parseHaddockOpts params =
-  case getOpt Permute (options True) params  of
+  case getOpt Permute (options True) params of
     (flags, args, []) -> return (flags, args)
     (_, _, errors)    -> do
       usage <- getUsage

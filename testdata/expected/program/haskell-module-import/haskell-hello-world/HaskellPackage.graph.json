@@ -5,7 +5,7 @@
       "TreePath": "Hello",
       "Name": "Hello",
       "Kind": "Module",
-      "File": "",
+      "File": "src/Hello.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -15,7 +15,7 @@
       "TreePath": "Hello/hello",
       "Name": "hello",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -25,7 +25,7 @@
       "TreePath": "Main",
       "Name": "Main",
       "Kind": "Module",
-      "File": "",
+      "File": "/tmp/fuckeverything/build/tmp-5376/src/Main.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -35,7 +35,7 @@
       "TreePath": "Main/main",
       "Name": "main",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true

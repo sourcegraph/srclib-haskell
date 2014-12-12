@@ -5,7 +5,7 @@
       "TreePath": "Control/DeepSeq",
       "Name": "Control.DeepSeq",
       "Kind": "Module",
-      "File": "",
+      "File": "/tmp/fuckeverything/build/tmp-4495/Control/DeepSeq.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -15,7 +15,7 @@
       "TreePath": "Control/DeepSeq/$!!",
       "Name": "$!!",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -25,7 +25,7 @@
       "TreePath": "Control/DeepSeq/NFData",
       "Name": "NFData",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -35,7 +35,7 @@
       "TreePath": "Control/DeepSeq/deepseq",
       "Name": "deepseq",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -45,7 +45,7 @@
       "TreePath": "Control/DeepSeq/force",
       "Name": "force",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -55,7 +55,7 @@
       "TreePath": "Control/DeepSeq/rnf",
       "Name": "rnf",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true

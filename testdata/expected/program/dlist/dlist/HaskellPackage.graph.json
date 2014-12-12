@@ -5,7 +5,7 @@
       "TreePath": "Data/DList",
       "Name": "Data.DList",
       "Kind": "Module",
-      "File": "",
+      "File": "/tmp/fuckeverything/build/tmp-4803/Data/DList.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -15,7 +15,7 @@
       "TreePath": "Data/DList/DList",
       "Name": "DList",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -25,7 +25,7 @@
       "TreePath": "Data/DList/append",
       "Name": "append",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -35,7 +35,7 @@
       "TreePath": "Data/DList/apply",
       "Name": "apply",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -45,7 +45,7 @@
       "TreePath": "Data/DList/concat",
       "Name": "concat",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -55,7 +55,7 @@
       "TreePath": "Data/DList/cons",
       "Name": "cons",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -65,7 +65,7 @@
       "TreePath": "Data/DList/empty",
       "Name": "empty",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -75,7 +75,7 @@
       "TreePath": "Data/DList/foldr",
       "Name": "foldr",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -85,7 +85,7 @@
       "TreePath": "Data/DList/fromList",
       "Name": "fromList",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -95,7 +95,7 @@
       "TreePath": "Data/DList/head",
       "Name": "head",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -105,7 +105,7 @@
       "TreePath": "Data/DList/list",
       "Name": "list",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -115,7 +115,7 @@
       "TreePath": "Data/DList/map",
       "Name": "map",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -125,7 +125,7 @@
       "TreePath": "Data/DList/replicate",
       "Name": "replicate",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -135,7 +135,7 @@
       "TreePath": "Data/DList/singleton",
       "Name": "singleton",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -145,7 +145,7 @@
       "TreePath": "Data/DList/snoc",
       "Name": "snoc",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -155,7 +155,7 @@
       "TreePath": "Data/DList/tail",
       "Name": "tail",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -165,7 +165,7 @@
       "TreePath": "Data/DList/toList",
       "Name": "toList",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true
@@ -175,7 +175,7 @@
       "TreePath": "Data/DList/unfoldr",
       "Name": "unfoldr",
       "Kind": "Value",
-      "File": "",
+      "File": "\u003cunknown\u003e",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true

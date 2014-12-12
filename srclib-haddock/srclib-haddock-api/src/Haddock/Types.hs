@@ -138,6 +138,9 @@ data InstalledInterface = InstalledInterface
     -- | The module represented by this interface.
     instMod            :: Module
 
+    -- | Original file name of the module.
+  , instOrigFilename   :: FilePath
+
     -- | Textual information about the module.
   , instInfo           :: HaddockModInfo Name
 
@@ -167,6 +170,7 @@ data InstalledInterface = InstalledInterface
 toInstalledIface :: Interface -> InstalledInterface
 toInstalledIface interface = InstalledInterface
   { instMod            = ifaceMod            interface
+  , instOrigFilename   = ifaceOrigFilename   interface
   , instInfo           = ifaceInfo           interface
   , instDocMap         = ifaceDocMap         interface
   , instArgMap         = ifaceArgMap         interface

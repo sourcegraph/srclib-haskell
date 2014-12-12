@@ -166,9 +166,9 @@ instance ToJSON Def where
                     , "TreePath" .= joinL "/" (defModule d)
                     , "Name" .= defName d
                     , "Kind" .= show (defKind d)
-                    , "File" .= Null -- (case defLoc d of (fn,_,_)→fn)
-                    , "DefStart" .= Null -- (case defLoc d of (_,s,_)→s)
-                    , "DefEnd" .= Null -- (case defLoc d of (_,_,e)→e)
+                    , "File" .= (case defLoc d of (fn,_,_)→fn)
+                    , "DefStart" .= (case defLoc d of (_,s,_)→s)
+                    , "DefEnd" .= (case defLoc d of (_,_,e)→e)
                     , "Exported" .= True
                     , "Test" .= False
                     , "JsonText" .= object[]
@@ -269,13 +269,6 @@ withWorkingDirectory dir action = do
   Sys.setCurrentDirectory oldDir
   return result
 
--- TODO Haddock stores filename information for modules in Haddock.Interface,
--- but it isn't stored in the interfaces files. This will be easy to fix once
--- we are using a forked version of haddock and can control the format of the
--- interface files.
-instOrigFilename ∷ Haddock.InstalledInterface → FilePath
-instOrigFilename = const "<unknown>"
-
 -- TODO Haddock seems to strip location information from ‘Name’s, we
 -- should be able to prevent this once we have a forked version of haddock
 -- and can control the format of the interface files.
@@ -294,7 +287,7 @@ nameDef nm = do
 moduleDef ∷ Haddock.InstalledInterface → Def
 moduleDef iface =
   let modNm = (moduleNameString $ moduleName $ Haddock.instMod iface)∷String
-  in Def (splitOn "." modNm) modNm Module (instOrigFilename iface,0,0)
+  in Def (splitOn "." modNm) modNm Module (Haddock.instOrigFilename iface,0,0)
 
 -- TODO I think we'll need the CabalInfo argument to rebase file paths from
 -- the directory the cabal file is in, up to the directory at the root of
@@ -339,7 +332,6 @@ graphCmd info = do
   let ifaces = Haddock.ifInstalledIfaces ifaceFile
   haddockDefs ← mapM (defsFromHaddock info) ifaces
   return $ Graph $ traceShowId $ concat haddockDefs
-
 
 depresolveCmd ∷ CabalInfo → IO [ResolvedDependency]
 depresolveCmd = cabalDependencies >>> map resolve >>> sequence
