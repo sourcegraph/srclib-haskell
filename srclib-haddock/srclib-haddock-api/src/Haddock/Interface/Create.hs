@@ -23,6 +23,7 @@ import Haddock.Convert
 import Haddock.Interface.LexParseRn
 
 import qualified Data.Map as M
+import Debug.Trace
 import Data.Map (Map)
 import Data.List
 import Data.Maybe
@@ -44,8 +45,28 @@ import Name
 import Bag
 import RdrName
 import TcRnTypes
-import FastString (concatFS)
+import FastString (concatFS,unpackFS)
 import qualified Outputable as O
+
+showSrcSpan :: SrcSpan -> String
+showSrcSpan (UnhelpfulSpan msg) = "(???" ++ unpackFS msg ++ "???)"
+showSrcSpan (RealSrcSpan r) = let l = SrcLoc.realSrcSpanStart r
+                              in unpackFS(SrcLoc.srcLocFile l) ++ ":"
+                                  ++ show(SrcLoc.srcLocLine l) ++ ":"
+                                  ++ show(SrcLoc.srcLocCol l)
+
+showName :: Name -> String
+showName n = symName ++ ":" ++ sspan ++ "(" ++ modNm ++ "@" ++ pkg ++ ")"
+ where symName = occNameString $ nameOccName n
+       modNm = moduleNameString $ moduleName $ nameModule n
+       sspan = showSrcSpan $ nameSrcSpan n
+       pkg = Module.packageIdString $ modulePackageId $ nameModule n
+
+foo :: [Name] -> [Name]
+foo names =
+  let logMsg = unlines $ showName <$> names
+  in trace ("FOO!" ++ logMsg) names
+
 
 -- | Use a 'TypecheckedModule' to produce an 'Interface'.
 -- To do this, we need access to already processed modules in the topological
@@ -96,11 +117,11 @@ createInterface tm flags modMap instIfaceMap = do
       exports
         | OptIgnoreExports `elem` opts = Nothing
         | otherwise = exports0
-      warningMap = mkWarningMap dflags warnings gre exportedNames
+      warningMap = mkWarningMap dflags warnings gre (foo exportedNames)
 
   let allWarnings = M.unions (warningMap : map ifaceWarningMap (M.elems modMap))
 
-  exportItems <- mkExportItems modMap mdl allWarnings gre exportedNames decls
+  exportItems <- mkExportItems modMap mdl allWarnings gre (foo exportedNames) decls
                    maps fixMap splices exports instIfaceMap dflags
 
   let !visibleNames = mkVisibleNames maps exportItems opts
@@ -135,7 +156,7 @@ createInterface tm flags modMap instIfaceMap = do
   , ifaceRnArgMap        = M.empty
   , ifaceExportItems     = prunedExportItems
   , ifaceRnExportItems   = []
-  , ifaceExports         = exportedNames
+  , ifaceExports         = foo exportedNames
   , ifaceVisibleExports  = visibleNames
   , ifaceDeclMap         = declMap
   , ifaceSubMap          = subMap
@@ -508,7 +529,7 @@ mkExportItems
     lookupExport (IEThingAll t)        = declWith t
     lookupExport (IEThingWith t _)     = declWith t
     lookupExport (IEModuleContents m)  =
-      moduleExports thisMod m dflags warnings gre exportedNames decls modMap instIfaceMap maps fixMap splices
+      moduleExports thisMod m dflags warnings gre (foo exportedNames) decls modMap instIfaceMap maps fixMap splices
     lookupExport (IEGroup lev docStr)  = return $
       return . ExportGroup lev "" $ processDocString dflags gre docStr
 
@@ -597,7 +618,7 @@ mkExportItems
         fixities = [ (n, f) | n <- name:sub_names, Just f <- [M.lookup n fixMap] ]
 
 
-    isExported = (`elem` exportedNames)
+    isExported = (`elem` (foo exportedNames))
 
 
     findDecl :: Name -> ([LHsDecl Name], (DocForDecl Name, [(Name, DocForDecl Name)]))

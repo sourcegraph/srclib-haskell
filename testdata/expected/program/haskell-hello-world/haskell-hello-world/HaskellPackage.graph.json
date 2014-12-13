@@ -16,8 +16,8 @@
       "Name": "main",
       "Kind": "Value",
       "File": "src/Main.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 18,
+      "DefEnd": 22,
       "Exported": true
     }
   ]

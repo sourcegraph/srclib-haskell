@@ -16,8 +16,8 @@
       "Name": "hello",
       "Kind": "Value",
       "File": "src/Hello.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 19,
+      "DefEnd": 24,
       "Exported": true
     },
     {
@@ -36,8 +36,8 @@
       "Name": "main",
       "Kind": "Value",
       "File": "src/Main.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 43,
+      "DefEnd": 47,
       "Exported": true
     }
   ]

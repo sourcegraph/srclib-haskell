@@ -268,14 +268,13 @@ getLocOffset path (line,col) =
       replicateM_ colOffset $ hGetChar h
       hTell h
 
-srcSpanLoc ∷ SrcSpan → IO (Maybe Loc)
-srcSpanLoc (UnhelpfulSpan _) = return Nothing
-srcSpanLoc (RealSrcSpan r) = do
+srcSpanLoc ∷ FilePath → SrcSpan → IO (Maybe Loc)
+srcSpanLoc _ (UnhelpfulSpan _) = return Nothing
+srcSpanLoc fn (RealSrcSpan r) = do
   let l1 = srcSpanStartLine r
       c1 = srcSpanStartCol r
       l2 = srcSpanEndLine r
       c2 = srcSpanEndCol r
-      fn = unpackFS $ srcSpanFile r
   startOffset ← getLocOffset fn (l1,c1)
   endOffset ← getLocOffset fn (l2,c2)
   return $ Just (fn,startOffset,endOffset)
@@ -311,7 +310,7 @@ nameDef info nm = do
 
   fnMay ← findModuleFile (cabalSrcDirs info) $ modulePathFromName modName
   let fn = show $ fromMaybe (P.asRelPath "UNKNOWN") fnMay
-  loc ← fromMaybe (fn,0,0) <$> srcSpanLoc srcSpan
+  loc ← fromMaybe (fn,0,0) <$> srcSpanLoc fn srcSpan
   traceIO modName
   traceIO nameStr
   traceIO $ show loc
@@ -333,19 +332,25 @@ defsFromHaddock info iface = do
   return $ modDef : exportedDefs
 
 -- TODO Redirect stdout to stderr.
-toStderr ∷ ∀a. Sh a → Sh a
-toStderr = id
+-- toStderr ∷ ∀a. Sh a → Sh a
+-- toStderr = id
 
 -- TODO escape ‘v’!
 mkParam :: ∀m.(Monoid m,IsString m) ⇒ m → m → m
 mkParam k v = "--" <> k <> "=" <> v <> "" -- Escape v!
 
+-- runHandles ∷ FilePath → [Text] → [StdHandle] → (Handle→Handle→Handle→Sh a) → Sh a
+-- transferLinesAndCombine :: Handle -> (Text -> IO ()) -> IO Text
+  --let allToStderr in out err → 
+      --cabal_ = runHandles "cabal" args [] allToStderr
+
 graphCmd ∷ CabalInfo → IO Graph
 graphCmd info = do
   let tmpfile = "/tmp/iface-file-for-srclib-haskell"∷Text
-  let cabal_ = run_ "cabal" >>> silently
+  let toStderr = log_stdout_with $ (Text.unpack >>> hPutStrLn stderr)
+  let cabal_ = run_ "cabal"
 
-  shelly $ do
+  shelly $ toStderr $ do
     haddockPath ← fromMaybe (error "srclib-haddock is not installed!") <$>
       which "srclib-haddock"
 

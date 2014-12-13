@@ -16,8 +16,8 @@
       "Name": "$!!",
       "Kind": "Value",
       "File": "./Control/DeepSeq.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 4382,
+      "DefEnd": 4385,
       "Exported": true
     },
     {
@@ -26,8 +26,8 @@
       "Name": "NFData",
       "Kind": "Value",
       "File": "./Control/DeepSeq.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 4883,
+      "DefEnd": 6929,
       "Exported": true
     },
     {
@@ -36,8 +36,8 @@
       "Name": "deepseq",
       "Kind": "Value",
       "File": "./Control/DeepSeq.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 4156,
+      "DefEnd": 4163,
       "Exported": true
     },
     {
@@ -46,8 +46,8 @@
       "Name": "force",
       "Kind": "Value",
       "File": "./Control/DeepSeq.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 4784,
+      "DefEnd": 4789,
       "Exported": true
     },
     {
@@ -56,8 +56,8 @@
       "Name": "rnf",
       "Kind": "Value",
       "File": "./Control/DeepSeq.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 6802,
+      "DefEnd": 6816,
       "Exported": true
     }
   ]

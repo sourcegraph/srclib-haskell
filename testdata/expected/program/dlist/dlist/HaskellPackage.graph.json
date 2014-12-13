@@ -16,8 +16,8 @@
       "Name": "DList",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 3043,
+      "DefEnd": 3086,
       "Exported": true
     },
     {
@@ -26,8 +26,8 @@
       "Name": "append",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 4093,
+      "DefEnd": 4099,
       "Exported": true
     },
     {
@@ -36,8 +36,8 @@
       "Name": "apply",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 3462,
+      "DefEnd": 3467,
       "Exported": true
     },
     {
@@ -46,8 +46,8 @@
       "Name": "concat",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 4227,
+      "DefEnd": 4233,
       "Exported": true
     },
     {
@@ -56,8 +56,8 @@
       "Name": "cons",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 3809,
+      "DefEnd": 3813,
       "Exported": true
     },
     {
@@ -66,8 +66,8 @@
       "Name": "empty",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 3548,
+      "DefEnd": 3553,
       "Exported": true
     },
     {
@@ -76,8 +76,8 @@
       "Name": "foldr",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 5274,
+      "DefEnd": 5279,
       "Exported": true
     },
     {
@@ -86,8 +86,8 @@
       "Name": "fromList",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 3149,
+      "DefEnd": 3157,
       "Exported": true
     },
     {
@@ -96,8 +96,8 @@
       "Name": "head",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 4812,
+      "DefEnd": 4816,
       "Exported": true
     },
     {
@@ -106,8 +106,8 @@
       "Name": "list",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 4652,
+      "DefEnd": 4656,
       "Exported": true
     },
     {
@@ -116,8 +116,8 @@
       "Name": "map",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 5422,
+      "DefEnd": 5425,
       "Exported": true
     },
     {
@@ -126,8 +126,8 @@
       "Name": "replicate",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 4382,
+      "DefEnd": 4391,
       "Exported": true
     },
     {
@@ -136,8 +136,8 @@
       "Name": "singleton",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 3658,
+      "DefEnd": 3667,
       "Exported": true
     },
     {
@@ -146,8 +146,8 @@
       "Name": "snoc",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 3965,
+      "DefEnd": 3969,
       "Exported": true
     },
     {
@@ -156,8 +156,8 @@
       "Name": "tail",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 4939,
+      "DefEnd": 4943,
       "Exported": true
     },
     {
@@ -166,8 +166,8 @@
       "Name": "toList",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 3259,
+      "DefEnd": 3265,
       "Exported": true
     },
     {
@@ -176,8 +176,8 @@
       "Name": "unfoldr",
       "Kind": "Value",
       "File": "./Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
+      "DefStart": 5083,
+      "DefEnd": 5090,
       "Exported": true
     }
   ]

@@ -1,4 +1,4 @@
-{-# LANGUAGE CPP, RankNTypes, ScopedTypeVariables #-}
+{-# LANGUAGE CPP, RankNTypes, ScopedTypeVariables, DeriveGeneric #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 -----------------------------------------------------------------------------
 -- |
@@ -44,6 +44,7 @@ import Name
 import UniqFM
 import UniqSupply
 import Unique
+import SrcLoc
 
 
 data InterfaceFile = InterfaceFile {
@@ -77,7 +78,7 @@ binaryInterfaceMagic = 0xD0Cface
 --
 binaryInterfaceVersion :: Word16
 #if __GLASGOW_HASKELL__ == 708
-binaryInterfaceVersion = 26
+binaryInterfaceVersion = 99
 
 binaryInterfaceVersionCompatibility :: [Word16]
 binaryInterfaceVersionCompatibility = [binaryInterfaceVersion]
@@ -309,16 +310,14 @@ getSymbolTable bh namecache = do
       (namecache', names) = mapAccumR (fromOnDiskName arr) namecache od_names
   return (namecache', arr)
 
-
-type OnDiskName = (PackageId, ModuleName, OccName)
-
+type OnDiskName = (PackageId, ModuleName, OccName, SrcSpan)
 
 fromOnDiskName
    :: Array Int Name
    -> NameCache
    -> OnDiskName
    -> (NameCache, Name)
-fromOnDiskName _ nc (pid, mod_name, occ) =
+fromOnDiskName _ nc (pid, mod_name, occ, nameSpan) =
   let
         modu  = mkModule pid mod_name
         cache = nsNames nc
@@ -329,18 +328,42 @@ fromOnDiskName _ nc (pid, mod_name, occ) =
         let
                 us        = nsUniqs nc
                 u         = uniqFromSupply us
-                name      = mkExternalName u modu occ noSrcSpan
+                name      = mkExternalName u modu occ nameSpan
                 new_cache = extendNameCache cache modu occ name
         in
         case splitUniqSupply us of { (us',_) ->
         ( nc{ nsUniqs = us', nsNames = new_cache }, name )
         }
 
+type OnDiskSrcSpan = Maybe (FastString, Int, Int, Int, Int)
+
+fromOnDiskSrcSpan :: OnDiskSrcSpan -> SrcSpan
+fromOnDiskSrcSpan Nothing = UnhelpfulSpan $ mkFastString ""
+fromOnDiskSrcSpan (Just(fn,l1,c1,l2,c2)) = RealSrcSpan(mkRealSrcSpan loc1 loc2)
+  where loc1 = mkRealSrcLoc fn l1 c1
+        loc2 = mkRealSrcLoc fn l2 c2
+
+diskifySrcSpan :: SrcSpan -> OnDiskSrcSpan
+diskifySrcSpan (UnhelpfulSpan _) = Nothing
+diskifySrcSpan (RealSrcSpan r) = Just(fn,l1,c1,l2,c2)
+  where fn = srcSpanFile r
+        l1 = srcSpanStartLine r
+        c1 = srcSpanStartCol r
+        l2 = srcSpanEndLine r
+        c2 = srcSpanEndCol r
+
+instance Binary SrcSpan where
+  get bh = fromOnDiskSrcSpan <$> get bh
+  put_ bh m = put_ bh $ diskifySrcSpan m
 
 serialiseName :: BinHandle -> Name -> UniqFM (Int,Name) -> IO ()
 serialiseName bh name _ = do
   let modu = nameModule name
-  put_ bh (modulePackageId modu, moduleName modu, nameOccName name)
+  put_ bh ( modulePackageId modu
+          , moduleName modu
+          , nameOccName name
+          , nameSrcSpan name
+          )
 
 
 -------------------------------------------------------------------------------
