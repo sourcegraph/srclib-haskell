@@ -17,6 +17,9 @@ import           Debug.Trace
 import qualified Distribution.Verbosity                        as Verbosity
 import           Test.QuickCheck
 
+import qualified Data.Set as Set
+import           Data.Set (Set)
+
 import qualified Data.Text as Text
 import           Data.Text (Text)
 
@@ -54,8 +57,8 @@ import           Name
 
 -- Dependencies --------------------------------------------------------------
 
-data RawDependency = RawDependency String deriving (Show,Eq)
-data ResolvedDependency = ResolvedDependency String deriving (Show,Eq)
+data RawDependency = RawDependency String deriving (Show,Eq,Ord)
+data ResolvedDependency = ResolvedDependency String deriving (Show,Eq,Ord)
 
 rawDependency ∷ ResolvedDependency → RawDependency
 rawDependency (ResolvedDependency d) = RawDependency d
@@ -74,8 +77,12 @@ instance ToJSON ResolvedDependency where
                                 ]
            ]
 
+instance (Ord a, Arbitrary a) => Arbitrary(Set a) where
+  arbitrary = Set.fromList <$> arbitrary
+
 instance Arbitrary RawDependency where
   arbitrary = RawDependency <$> arbitrary
+
 
 
 -- Source Units --------------------------------------------------------------
@@ -84,9 +91,9 @@ instance Arbitrary RawDependency where
 data CabalInfo = CabalInfo
    { cabalFile         ∷ P.RelFile
    , cabalPkgName      ∷ String
-   , cabalDependencies ∷ [RawDependency]
-   , cabalSrcFiles     ∷ [P.RelFile]
-   , cabalSrcDirs      ∷ [P.RelDir]
+   , cabalDependencies ∷ Set RawDependency
+   , cabalSrcFiles     ∷ Set P.RelFile
+   , cabalSrcDirs      ∷ Set P.RelDir
    } deriving (Show,Eq)
 
 instance FromJSON CabalInfo where
@@ -96,9 +103,9 @@ instance FromJSON CabalInfo where
       Object info → do
         path ← P.asRelFile <$> info .: "Path"
         name ← v .: "Name"
-        deps ← map RawDependency <$> v .: "Dependencies"
-        files ← map P.asRelFile <$> v .: "Files"
-        dirs ← map P.asRelDir <$> info .: "Dirs"
+        deps ← Set.map RawDependency <$> v .: "Dependencies"
+        files ← Set.map P.asRelFile <$> v .: "Files"
+        dirs ← Set.map P.asRelDir <$> info .: "Dirs"
         return $ CabalInfo path name deps files dirs
       _ → mzero
  parseJSON _ = mzero
@@ -110,11 +117,11 @@ instance ToJSON CabalInfo where
              , "Ops" .= object ["graph" .= Null, "depresolve" .= Null]
              , "Name" .= name
              , "Dir" .= P.getPathString dir
-             , "Globs" .= map (P.getPathString >>> (++ "/**/*.hs")) dirs
-             , "Files" .= map P.getPathString files
+             , "Globs" .= Set.map (P.getPathString >>> (<> "/**/*.hs")) dirs
+             , "Files" .= Set.map P.getPathString files
              , "Dependencies" .= deps
              , "Data" .= object [ "Path" .= P.getPathString path
-                                , "Dirs" .= map P.getPathString dirs
+                                , "Dirs" .= Set.map P.getPathString dirs
                                 ]
              , "Repo" .= Null
              , "Config" .= Null
@@ -131,8 +138,8 @@ unPathHack (PathHack x) = x
 instance Arbitrary CabalInfo where
   arbitrary = do
     file ← unPathHack <$> arbitrary
-    files ← map unPathHack <$> arbitrary
-    dirs ← map unPathHack <$> arbitrary
+    files ← Set.fromList <$> map unPathHack <$> arbitrary
+    dirs ← Set.fromList <$> map unPathHack <$> arbitrary
     deps ← arbitrary
     name ← arbitrary
     return $ CabalInfo file name deps files dirs
@@ -198,8 +205,8 @@ findFiles q root = do
   fileNames ← P.find P.always cond $ P.getPathString root
   return $ map P.asAbsPath fileNames
 
-allDeps ∷ PackageDescription → [RawDependency]
-allDeps desc = map toRawDep deps
+allDeps ∷ PackageDescription → Set RawDependency
+allDeps desc = Set.fromList $ map toRawDep deps
   where deps = buildDepends desc ++ concatMap getDeps (allBuildInfo desc)
         toRawDep (Cabal.Dependency (PackageName nm) _) = RawDependency nm
         getDeps build = concat [ buildTools build
@@ -225,8 +232,8 @@ readCabalFile repoDir cabalFilePath = do
   return CabalInfo { cabalFile = P.makeRelative repoDir cabalFilePath
                    , cabalPkgName = name
                    , cabalDependencies = allDeps desc
-                   , cabalSrcFiles = map (P.makeRelative repoDir) sourceFiles
-                   , cabalSrcDirs = map (P.makeRelative repoDir) dirs
+                   , cabalSrcFiles = Set.fromList $ map (P.makeRelative repoDir) sourceFiles
+                   , cabalSrcDirs = Set.fromList $ map (P.makeRelative repoDir) dirs
                    }
 
 
@@ -308,7 +315,7 @@ nameDef info nm = do
       modName = moduleNameString $ moduleName modul
       nameStr = occNameString $ getOccName nm
 
-  fnMay ← findModuleFile (cabalSrcDirs info) $ modulePathFromName modName
+  fnMay ← findModuleFile (Set.toList $ cabalSrcDirs info) $ modulePathFromName modName
   let fn = show $ fromMaybe (P.asRelPath "UNKNOWN") fnMay
   loc ← fromMaybe (fn,0,0) <$> srcSpanLoc fn srcSpan
   traceIO modName
@@ -320,7 +327,7 @@ moduleDef ∷ CabalInfo → Haddock.InstalledInterface → IO Def
 moduleDef info iface = do
   let modNm∷String = moduleNameString $ moduleName $ Haddock.instMod iface
       modPath = modulePathFromName modNm
-  fnMay ← findModuleFile (cabalSrcDirs info) modPath
+  fnMay ← findModuleFile (Set.toList $ cabalSrcDirs info) modPath
   let fn = show $ fromMaybe (P.asRelPath "UNKNOWN") fnMay
   return $ Def modPath modNm Module (fn,0,0)
 
@@ -372,7 +379,7 @@ graphCmd info = do
   return $ Graph $ traceShowId $ concat haddockDefs
 
 depresolveCmd ∷ CabalInfo → IO [ResolvedDependency]
-depresolveCmd = cabalDependencies >>> map resolve >>> sequence
+depresolveCmd = cabalDependencies >>> Set.toList >>> mapM resolve
 
 dumpJSON ∷ ToJSON a ⇒ a → IO ()
 dumpJSON = encode >>> BC.putStrLn

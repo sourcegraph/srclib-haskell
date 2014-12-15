@@ -32,4 +32,5 @@ executable srclib-haskell
                        process,
                        ghc,
                        srclib-haddock-api,
-                       shelly
+                       shelly,
+                       containers
