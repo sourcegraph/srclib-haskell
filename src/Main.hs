@@ -109,11 +109,21 @@ instance FromJSON CabalInfo where
       _ → mzero
  parseJSON _ = mzero
 
+srclibHsUrl ∷ String
+srclibHsUrl = "sourcegraph.com/sourcegraph/srclib-haskell"
+
 instance ToJSON CabalInfo where
   toJSON (CabalInfo path name deps files dirs) =
     let dir = P.dropFileName path in
       object [ "Type" .= ("HaskellPackage"∷String)
-             , "Ops" .= object ["graph" .= Null, "depresolve" .= Null]
+             , "Ops" .= object
+                 [ "graph" .= object [ "Toolchain" .= srclibHsUrl
+                                     , "Subcmd" .= "graph"
+                                     ]
+                 , "depresolve" .= object [ "Toolchain" .= srclibHsUrl
+                                          , "Subcmd" .= "depresolve"
+                                          ]
+                 ]
              , "Name" .= name
              , "Dir" .= P.getPathString dir
              , "Globs" .= Set.map (P.getPathString >>> (<> "/**/*.hs")) dirs
@@ -398,7 +408,6 @@ dumpJSON = encode >>> BC.putStrLn
 withSourceUnitFromStdin ∷ ToJSON a ⇒ (CabalInfo → IO a) → IO ()
 withSourceUnitFromStdin proc = do
   unit ← JSON.decode <$> LBS.getContents
-  maybe usage (proc >=> (encode>>>BC.unpack>>>traceIO)) unit
   maybe usage (proc >=> dumpJSON) unit
 
 usage ∷ IO ()
