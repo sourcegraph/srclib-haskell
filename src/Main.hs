@@ -9,7 +9,7 @@
 
 module Main where
 
-import           Shelly hiding (FilePath,path,(</>),(<.>))
+import           Shelly hiding (FilePath,path,(</>),(<.>),canonicalize)
 
 import           Data.String
 
@@ -112,6 +112,13 @@ instance FromJSON CabalInfo where
 srclibHsUrl ∷ String
 srclibHsUrl = "sourcegraph.com/sourcegraph/srclib-haskell"
 
+cleanedPathStr ∷ P.RelPath fd → String
+cleanedPathStr = canonicalize <<< P.getPathString
+
+canonicalize ∷ FilePath -> FilePath
+canonicalize ('.':'/':s) = canonicalize s
+canonicalize s = s
+
 instance ToJSON CabalInfo where
   toJSON (CabalInfo path name deps files dirs) =
     let dir = P.dropFileName path in
@@ -125,12 +132,12 @@ instance ToJSON CabalInfo where
                                           ]
                  ]
              , "Name" .= name
-             , "Dir" .= P.getPathString dir
-             , "Globs" .= Set.map (P.getPathString >>> (<> "/**/*.hs")) dirs
-             , "Files" .= Set.map P.getPathString files
+             , "Dir" .= cleanedPathStr dir
+             , "Globs" .= Set.map (P.getPathString >>> (<> "/**/*.hs") >>> canonicalize) dirs
+             , "Files" .= Set.map cleanedPathStr files
              , "Dependencies" .= deps
-             , "Data" .= object [ "Path" .= P.getPathString path
-                                , "Dirs" .= Set.map P.getPathString dirs
+             , "Data" .= object [ "Path" .= cleanedPathStr path
+                                , "Dirs" .= Set.map cleanedPathStr dirs
                                 ]
              , "Repo" .= Null
              , "Config" .= Null
@@ -195,7 +202,7 @@ instance ToJSON Def where
                     , "TreePath" .= (modulePathToSrclibPath $ defModule d)
                     , "Name" .= defName d
                     , "Kind" .= show (defKind d)
-                    , "File" .= (case defLoc d of (fn,_,_)→fn)
+                    , "File" .= canonicalize(case defLoc d of (fn,_,_)→fn)
                     , "DefStart" .= (case defLoc d of (_,s,_)→s)
                     , "DefEnd" .= (case defLoc d of (_,_,e)→e)
                     , "Exported" .= True
@@ -209,7 +216,7 @@ instance ToJSON Ref where
                           , "DefUnit" .= ""
                           , "DefPath" .= (modulePathToSrclibPath $ defModule d)
                           , "Def" .= True
-                          , "File" .= (case defLoc d of (fn,_,_)→fn)
+                          , "File" .= canonicalize(case defLoc d of (fn,_,_)→fn)
                           , "Start" .= (case defLoc d of (_,s,_)→s)
                           , "End" .= (case defLoc d of (_,_,e)→e)
                           ]
