@@ -1,9 +1,8 @@
-/dist/
+**/dist/
 /haddock-api/dist/
 /haddock-library/dist/
 /html-test/out/
 /latex-test/out/
-
 /doc/haddock
 /doc/autom4te.cache/
 /doc/config.log

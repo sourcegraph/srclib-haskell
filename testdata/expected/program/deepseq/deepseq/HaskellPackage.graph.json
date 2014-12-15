@@ -1,0 +1,138 @@
+{
+  "Defs": [
+    {
+      "Path": "Control/DeepSeq",
+      "TreePath": "Control/DeepSeq",
+      "Name": "Control.DeepSeq",
+      "Kind": "Module",
+      "File": "Control/DeepSeq.hs",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true,
+      "Local": null
+    },
+    {
+      "Path": "Control/DeepSeq/$!!",
+      "TreePath": "Control/DeepSeq/$!!",
+      "Name": "$!!",
+      "Kind": "Value",
+      "File": "Control/DeepSeq.hs",
+      "DefStart": 4382,
+      "DefEnd": 4385,
+      "Exported": true,
+      "Local": null
+    },
+    {
+      "Path": "Control/DeepSeq/NFData",
+      "TreePath": "Control/DeepSeq/NFData",
+      "Name": "NFData",
+      "Kind": "Value",
+      "File": "Control/DeepSeq.hs",
+      "DefStart": 4883,
+      "DefEnd": 6929,
+      "Exported": true,
+      "Local": null
+    },
+    {
+      "Path": "Control/DeepSeq/deepseq",
+      "TreePath": "Control/DeepSeq/deepseq",
+      "Name": "deepseq",
+      "Kind": "Value",
+      "File": "Control/DeepSeq.hs",
+      "DefStart": 4156,
+      "DefEnd": 4163,
+      "Exported": true,
+      "Local": null
+    },
+    {
+      "Path": "Control/DeepSeq/force",
+      "TreePath": "Control/DeepSeq/force",
+      "Name": "force",
+      "Kind": "Value",
+      "File": "Control/DeepSeq.hs",
+      "DefStart": 4784,
+      "DefEnd": 4789,
+      "Exported": true,
+      "Local": null
+    },
+    {
+      "Path": "Control/DeepSeq/rnf",
+      "TreePath": "Control/DeepSeq/rnf",
+      "Name": "rnf",
+      "Kind": "Value",
+      "File": "Control/DeepSeq.hs",
+      "DefStart": 6802,
+      "DefEnd": 6816,
+      "Exported": true,
+      "Local": null
+    }
+  ],
+  "Refs": [
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Control/DeepSeq/$!!",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 4382,
+      "End": 4385
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Control/DeepSeq/NFData",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 4883,
+      "End": 6929
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Control/DeepSeq/deepseq",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 4156,
+      "End": 4163
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Control/DeepSeq/force",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 4784,
+      "End": 4789
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Control/DeepSeq/rnf",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 6802,
+      "End": 6816
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Control/DeepSeq",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 0,
+      "End": 0
+    }
+  ]
+}

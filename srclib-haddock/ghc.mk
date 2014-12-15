@@ -34,7 +34,7 @@ $(INPLACE_LIB)/latex:
 
 endif
 
-utils/haddock_dist_MODULES += Paths_haddock
+utils/haddock_dist_MODULES += Paths_srclib_haddock
 
 ifeq "$(HADDOCK_DOCS)" "YES"
 install: install_utils/haddock_data

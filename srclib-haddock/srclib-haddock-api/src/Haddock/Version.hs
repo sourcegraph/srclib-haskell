@@ -14,9 +14,9 @@ module Haddock.Version (
 ) where
 
 #ifdef IN_GHC_TREE
-import Paths_haddock ( version )
+import Paths_srclib_haddock ( version )
 #else
-import Paths_haddock_api ( version )
+import Paths_srclib_haddock_api ( version )
 #endif
 import Data.Version  ( showVersion )
 
