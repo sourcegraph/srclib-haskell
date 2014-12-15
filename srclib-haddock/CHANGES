@@ -29,9 +29,9 @@ Changes in version 2.15.0
 
  * Further split up the package to separate the executable from the
    library, necessary by things like GHCJS. We now have
-   ‘haddock-library’ which are the parts that don't use GHC API,
-   ‘haddock-api’ which are (some of) the parts that do use GHC API and
-   ‘haddock’ which merely provides the executable.
+   ‘srclib-haddock-library’ which are the parts that don't use GHC API,
+   ‘srclib-haddock-api’ which are (some of) the parts that do use GHC API and
+   ‘srclib-haddock’ which merely provides the executable.
 
  * Export few extra functions in the API.
 

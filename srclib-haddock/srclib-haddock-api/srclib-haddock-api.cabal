@@ -1,4 +1,4 @@
-name:                 haddock-api
+name:                 srclib-haddock-api
 version:              2.15.1
 synopsis:             A documentation-generation tool for Haskell libraries
 description:          Haddock is a documentation-generation tool for Haskell
@@ -7,8 +7,8 @@ license:              BSD3
 license-file:         LICENSE
 author:               Simon Marlow, David Waern
 maintainer:           Simon Hengel <sol@typeful.net>, Mateusz Kowalczyk <fuuzetsu@fuuzetsu.co.uk>
-homepage:             http://www.haskell.org/haddock/
-bug-reports:          https://github.com/haskell/haddock/issues
+homepage:             http://www.haskell.org/srclib-haddock/
+bug-reports:          https://github.com/sourcegraph/srclib-haskell/issues
 copyright:            (c) Simon Marlow, David Waern
 category:             Documentation
 build-type:           Simple
@@ -48,7 +48,7 @@ library
     , ghc >= 7.8.2 && < 7.8.4
 
     , ghc-paths
-    , haddock-library == 1.1.1.*
+    , srclib-haddock-library == 1.1.1.*
 
   hs-source-dirs:
       src
@@ -87,8 +87,8 @@ library
     Haddock.Options
     Haddock.GhcUtils
     Haddock.Convert
-    Paths_haddock_api
+    Paths_srclib_haddock_api
 
 source-repository head
   type:     git
-  location: https://github.com/haskell/haddock.git
+  location: https://github.com/sourcegraph/srclib-haskell.git
