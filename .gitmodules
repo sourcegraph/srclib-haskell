@@ -4,3 +4,9 @@
 [submodule "testdata/case/haskell-module-import"]
 	path = testdata/case/haskell-module-import
 	url = https://github.com/sgtest/haskell-module-import
+[submodule "testdata/case/deepseq"]
+	path = testdata/case/deepseq
+	url = https://github.com/haskell/deepseq.git
+[submodule "testdata/case/dlist"]
+	path = testdata/case/dlist
+	url = https://github.com/spl/dlist.git

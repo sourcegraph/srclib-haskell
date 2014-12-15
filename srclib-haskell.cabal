@@ -18,18 +18,19 @@ executable srclib-haskell
   hs-source-dirs:      src
   default-language:    Haskell2010
   build-depends:       base >=4.7 && <4.8,
-                       lens,
                        text,
                        bytestring==0.10.4.0,
                        aeson,
-                       directory==1.2.1.0,
+                       directory,
                        pathtype,
                        filemanip,
-                       Cabal,
+                       Cabal==1.18.1.3,
                        QuickCheck,
                        mtl,
-                       ghc==7.8.3,
-                       ghc-paths,
                        haskell-src-exts,
-                       syb==0.4.2,
-                       split
+                       split,
+                       process,
+                       ghc,
+                       srclib-haddock-api,
+                       shelly,
+                       containers

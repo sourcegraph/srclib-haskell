@@ -1,4 +1,4 @@
-name:                 haddock
+name:                 srclib-haddock
 version:              2.15.1
 synopsis:             A documentation-generation tool for Haskell libraries
 description:          Haddock is a documentation-generation tool for Haskell
@@ -7,8 +7,8 @@ license:              BSD3
 license-file:         LICENSE
 author:               Simon Marlow, David Waern
 maintainer:           Simon Hengel <sol@typeful.net>, Mateusz Kowalczyk <fuuzetsu@fuuzetsu.co.uk>
-homepage:             http://www.haskell.org/haddock/
-bug-reports:          https://github.com/haskell/haddock/issues
+homepage:             http://www.haskell.org/srclib-haddock/
+bug-reports:          https://github.com/sourcegraph/srclib-haskell/issues
 copyright:            (c) Simon Marlow, David Waern
 category:             Documentation
 build-type:           Simple
@@ -26,7 +26,7 @@ extra-source-files:
   doc/docbook-xml.mk
   doc/fptools.css
   doc/haddock.xml
-  haddock-api/src/haddock.sh
+  srclib-haddock-api/src/haddock.sh
   html-test/src/*.hs
   html-test/ref/*.html
   latex-test/src/Simple/*.hs
@@ -38,7 +38,7 @@ flag in-ghc-tree
   default: False
   manual: True
 
-executable haddock
+executable srclib-haddock
   default-language:     Haskell2010
   main-is:              Main.hs
   hs-source-dirs:       driver
@@ -47,7 +47,7 @@ executable haddock
   build-depends:
     base >= 4.3 && < 4.8
   if flag(in-ghc-tree)
-    hs-source-dirs: haddock-api/src, haddock-library/vendor/attoparsec-0.12.1.1, haddock-library/src
+    hs-source-dirs: srclib-haddock-api/src, srclib-haddock-library/vendor/attoparsec-0.12.1.1, srclib-haddock-library/src
     cpp-options: -DIN_GHC_TREE
     build-depends:
       filepath,
@@ -108,7 +108,7 @@ executable haddock
       Haddock.GhcUtils
       Haddock.Convert
   else
-    build-depends:  haddock-api == 2.15.1
+    build-depends:  srclib-haddock-api == 2.15.1
 
 test-suite html-test
   type:             exitcode-stdio-1.0
@@ -126,4 +126,4 @@ test-suite latex-test
 
 source-repository head
   type:     git
-  location: https://github.com/haskell/haddock.git
+  location: https://github.com/sourcegraph/srclib-haskell.git
