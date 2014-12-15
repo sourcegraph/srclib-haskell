@@ -390,10 +390,9 @@ instance Binary InterfaceFile where
 
 
 instance Binary InstalledInterface where
-  put_ bh (InstalledInterface modu ofn info docMap argMap
+  put_ bh (InstalledInterface modu info docMap argMap
            exps visExps opts subMap fixMap) = do
     put_ bh modu
-    put_ bh ofn
     put_ bh info
     put_ bh docMap
     put_ bh argMap
@@ -405,7 +404,6 @@ instance Binary InstalledInterface where
 
   get bh = do
     modu    <- get bh
-    ofn     <- get bh
     info    <- get bh
     docMap  <- get bh
     argMap  <- get bh
@@ -415,7 +413,7 @@ instance Binary InstalledInterface where
     subMap  <- get bh
     fixMap  <- get bh
 
-    return (InstalledInterface modu ofn info docMap argMap
+    return (InstalledInterface modu info docMap argMap
             exps visExps opts subMap fixMap)
 
 
