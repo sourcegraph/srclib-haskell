@@ -50,7 +50,6 @@ import           System.IO.Error
 import qualified System.Path                                   as P
 import           System.Path ((</>),(<.>))
 
-import           FastString
 import           GHC
 import           Name
 
@@ -168,6 +167,8 @@ data Def = Def { defModule ∷ ModulePath
                }
   deriving Show
 
+newtype Ref = Ref Def
+
 modulePathString ∷ ModulePath → String
 modulePathString (path,leaf) = joinL "." $ path ++ [leaf]
 
@@ -192,10 +193,20 @@ instance ToJSON Def where
                     , "JsonText" .= object[]
                     ]
 
-instance ToJSON Graph where
-  toJSON (Graph defs) = object ["Docs".=e, "Refs".=e, "Defs".=defs]
-    where e = []∷[String]
+instance ToJSON Ref where
+  toJSON (Ref d) = object [ "DefRepo" .= ""
+                          , "DefUnitType" .= ""
+                          , "DefUnit" .= ""
+                          , "DefPath" .= (modulePathToSrclibPath $ defModule d)
+                          , "Def" .= True
+                          , "File" .= (case defLoc d of (fn,_,_)→fn)
+                          , "Start" .= (case defLoc d of (_,s,_)→s)
+                          , "End" .= (case defLoc d of (_,_,e)→e)
+                          ]
 
+instance ToJSON Graph where
+  toJSON (Graph defs) = object ["Docs".=e, "Refs".=(Ref<$>defs), "Defs".=defs]
+    where e = []∷[String]
 
 -- Scaning Repos and Parsing Cabal files -------------------------------------
 

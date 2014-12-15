@@ -8,7 +8,8 @@
       "File": "src/Hello.hs",
       "DefStart": 0,
       "DefEnd": 0,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Hello/hello",
@@ -18,7 +19,8 @@
       "File": "src/Hello.hs",
       "DefStart": 19,
       "DefEnd": 24,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Main",
@@ -28,7 +30,8 @@
       "File": "src/Main.hs",
       "DefStart": 0,
       "DefEnd": 0,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Main/main",
@@ -38,7 +41,54 @@
       "File": "src/Main.hs",
       "DefStart": 43,
       "DefEnd": 47,
-      "Exported": true
+      "Exported": true,
+      "Local": null
+    }
+  ],
+  "Refs": [
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Hello/hello",
+      "Def": true,
+      "Repo": "",
+      "File": "src/Hello.hs",
+      "Start": 19,
+      "End": 24
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Hello",
+      "Def": true,
+      "Repo": "",
+      "File": "src/Hello.hs",
+      "Start": 0,
+      "End": 0
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Main/main",
+      "Def": true,
+      "Repo": "",
+      "File": "src/Main.hs",
+      "Start": 43,
+      "End": 47
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Main",
+      "Def": true,
+      "Repo": "",
+      "File": "src/Main.hs",
+      "Start": 0,
+      "End": 0
     }
   ]
 }

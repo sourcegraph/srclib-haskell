@@ -8,7 +8,8 @@
       "File": "src/Main.hs",
       "DefStart": 0,
       "DefEnd": 0,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Main/main",
@@ -18,7 +19,32 @@
       "File": "src/Main.hs",
       "DefStart": 18,
       "DefEnd": 22,
-      "Exported": true
+      "Exported": true,
+      "Local": null
+    }
+  ],
+  "Refs": [
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Main/main",
+      "Def": true,
+      "Repo": "",
+      "File": "src/Main.hs",
+      "Start": 18,
+      "End": 22
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Main",
+      "Def": true,
+      "Repo": "",
+      "File": "src/Main.hs",
+      "Start": 0,
+      "End": 0
     }
   ]
 }

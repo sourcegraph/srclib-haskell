@@ -8,7 +8,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 0,
       "DefEnd": 0,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/DList",
@@ -18,7 +19,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 3043,
       "DefEnd": 3086,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/append",
@@ -28,7 +30,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 4093,
       "DefEnd": 4099,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/apply",
@@ -38,7 +41,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 3462,
       "DefEnd": 3467,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/concat",
@@ -48,7 +52,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 4227,
       "DefEnd": 4233,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/cons",
@@ -58,7 +63,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 3809,
       "DefEnd": 3813,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/empty",
@@ -68,7 +74,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 3548,
       "DefEnd": 3553,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/foldr",
@@ -78,7 +85,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 5274,
       "DefEnd": 5279,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/fromList",
@@ -88,7 +96,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 3149,
       "DefEnd": 3157,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/head",
@@ -98,7 +107,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 4812,
       "DefEnd": 4816,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/list",
@@ -108,7 +118,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 4652,
       "DefEnd": 4656,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/map",
@@ -118,7 +129,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 5422,
       "DefEnd": 5425,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/replicate",
@@ -128,7 +140,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 4382,
       "DefEnd": 4391,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/singleton",
@@ -138,7 +151,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 3658,
       "DefEnd": 3667,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/snoc",
@@ -148,7 +162,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 3965,
       "DefEnd": 3969,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/tail",
@@ -158,7 +173,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 4939,
       "DefEnd": 4943,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/toList",
@@ -168,7 +184,8 @@
       "File": "./Data/DList.hs",
       "DefStart": 3259,
       "DefEnd": 3265,
-      "Exported": true
+      "Exported": true,
+      "Local": null
     },
     {
       "Path": "Data/DList/unfoldr",
@@ -178,7 +195,208 @@
       "File": "./Data/DList.hs",
       "DefStart": 5083,
       "DefEnd": 5090,
-      "Exported": true
+      "Exported": true,
+      "Local": null
+    }
+  ],
+  "Refs": [
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 0,
+      "End": 0
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/DList",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 3043,
+      "End": 3086
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/append",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 4093,
+      "End": 4099
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/apply",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 3462,
+      "End": 3467
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/concat",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 4227,
+      "End": 4233
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/cons",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 3809,
+      "End": 3813
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/empty",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 3548,
+      "End": 3553
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/foldr",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 5274,
+      "End": 5279
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/fromList",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 3149,
+      "End": 3157
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/head",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 4812,
+      "End": 4816
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/list",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 4652,
+      "End": 4656
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/map",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 5422,
+      "End": 5425
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/replicate",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 4382,
+      "End": 4391
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/singleton",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 3658,
+      "End": 3667
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/snoc",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 3965,
+      "End": 3969
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/tail",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 4939,
+      "End": 4943
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/toList",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 3259,
+      "End": 3265
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "",
+      "DefUnit": "",
+      "DefPath": "Data/DList/unfoldr",
+      "Def": true,
+      "Repo": "",
+      "File": "./Data/DList.hs",
+      "Start": 5083,
+      "End": 5090
     }
   ]
 }
