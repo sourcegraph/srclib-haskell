@@ -1,4 +1,4 @@
-{-# LANGUAGE CPP, TupleSections, BangPatterns, LambdaCase #-}
+{-# LANGUAGE CPP, TupleSections, BangPatterns, LambdaCase, RankNTypes #-}
 {-# OPTIONS_GHC -Wwarn #-}
 -----------------------------------------------------------------------------
 -- |
@@ -41,11 +41,30 @@ import qualified SrcLoc
 import GHC
 import HscTypes
 import Name
+import Var
 import Bag
 import RdrName
 import TcRnTypes
 import FastString (concatFS)
 import qualified Outputable as O
+
+import Data.Typeable
+import GHC.SYB.Utils
+import Data.Generics.Schemes
+import Data.Generics.Aliases
+
+
+-- everythingStaged :: Stage -> (r -> r -> r) -> r -> GenericQ r -> GenericQ r
+-- everything :: (r -> r -> r) -> GenericQ r -> GenericQ r
+
+listifyStaged :: Typeable r => Stage -> (r -> Bool) -> GenericQ [r]
+listifyStaged stage p =
+  everythingStaged stage (++) [] ([] `mkQ` (\x -> if p x then [x] else []))
+
+references :: TypecheckedSource -> [Ref]
+references tcSrc = Ref <$> listifyStaged TypeChecker yesToRefs tcSrc
+  where yesToRefs :: Located Var -> Bool
+        yesToRefs = const True
 
 
 -- | Use a 'TypecheckedModule' to produce an 'Interface'.
@@ -57,6 +76,8 @@ createInterface tm flags modMap instIfaceMap = do
   let ms             = pm_mod_summary . tm_parsed_module $ tm
       mi             = moduleInfo tm
       L _ hsm        = parsedSource tm
+      tcs            = typecheckedSource tm
+      refs           = references tcs
       !safety        = modInfoSafe mi
       mdl            = ms_mod ms
       dflags         = ms_hspp_opts ms
@@ -127,6 +148,7 @@ createInterface tm flags modMap instIfaceMap = do
     ifaceMod             = mdl
   , ifaceOrigFilename    = msHsFilePath ms
   , ifaceInfo            = info
+  , ifaceRefs            = refs
   , ifaceDoc             = Documentation mbDoc modWarn
   , ifaceRnDoc           = Documentation Nothing Nothing
   , ifaceOptions         = opts

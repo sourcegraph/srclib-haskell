@@ -23,6 +23,7 @@ module Haddock.InterfaceFile (
 import Haddock.Types
 import Haddock.Utils hiding (out)
 
+import Control.Arrow hiding (arr)
 import Control.Monad
 import Data.Array
 import Data.Functor ((<$>))
@@ -41,10 +42,12 @@ import GhcMonad (withSession)
 import HscTypes
 import IfaceEnv
 import Name
+import Var
 import UniqFM
 import UniqSupply
 import Unique
 import SrcLoc
+import Data.Generics.Text
 
 
 data InterfaceFile = InterfaceFile {
@@ -354,6 +357,19 @@ diskifySrcSpan (RealSrcSpan r) = Just(fn,l1,c1,l2,c2)
         l2 = srcSpanEndLine r
         c2 = srcSpanEndCol r
 
+-- TODO Yuck
+hackHack :: String -> Var
+hackHack = gread >>> head >>> fst
+instance Binary Var where
+  put_ bh = gshow >>> put_ bh
+  get bh = hackHack <$> get bh
+
+instance Binary Ref where
+  put_ bh (Ref (L p v)) = put_ bh p >> put_ bh v
+  get bh = do p <- get bh
+              v <- get bh
+              return $ Ref $ L p v
+
 instance Binary SrcSpan where
   get bh = fromOnDiskSrcSpan <$> get bh
   put_ bh m = put_ bh $ diskifySrcSpan m
@@ -390,10 +406,11 @@ instance Binary InterfaceFile where
 
 
 instance Binary InstalledInterface where
-  put_ bh (InstalledInterface modu info docMap argMap
+  put_ bh (InstalledInterface modu info refs docMap argMap
            exps visExps opts subMap fixMap) = do
     put_ bh modu
     put_ bh info
+    put_ bh refs
     put_ bh docMap
     put_ bh argMap
     put_ bh exps
@@ -405,6 +422,7 @@ instance Binary InstalledInterface where
   get bh = do
     modu    <- get bh
     info    <- get bh
+    refs    <- get bh
     docMap  <- get bh
     argMap  <- get bh
     exps    <- get bh
@@ -413,7 +431,7 @@ instance Binary InstalledInterface where
     subMap  <- get bh
     fixMap  <- get bh
 
-    return (InstalledInterface modu info docMap argMap
+    return (InstalledInterface modu info refs docMap argMap
             exps visExps opts subMap fixMap)
 
 
