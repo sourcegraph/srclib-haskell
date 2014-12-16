@@ -64,6 +64,8 @@ type DocPaths      = (FilePath, Maybe FilePath) -- paths to HTML and sources
 -- lies in creating this structure. Note that the record contains some fields
 -- that are only used to create the final record, and that are not used by the
 -- backends.
+data Ref = Ref (Located Id)
+
 data Interface = Interface
   {
     -- | The module behind this interface.
@@ -74,6 +76,9 @@ data Interface = Interface
 
     -- | Textual information about the module.
   , ifaceInfo            :: !(HaddockModInfo Name)
+
+    -- | All symbols in this module that reference something.
+  , ifaceRefs            :: ![Ref]
 
     -- | Documentation header.
   , ifaceDoc             :: !(Documentation Name)
@@ -141,6 +146,9 @@ data InstalledInterface = InstalledInterface
     -- | Textual information about the module.
   , instInfo           :: HaddockModInfo Name
 
+    -- | All symbols in this module that reference something.
+  , instRefs           :: [Ref]
+
     -- | Documentation of declarations originating from the module (including
     -- subordinates).
   , instDocMap         :: DocMap Name
@@ -168,6 +176,7 @@ toInstalledIface :: Interface -> InstalledInterface
 toInstalledIface interface = InstalledInterface
   { instMod            = ifaceMod            interface
   , instInfo           = ifaceInfo           interface
+  , instRefs           = ifaceRefs           interface
   , instDocMap         = ifaceDocMap         interface
   , instArgMap         = ifaceArgMap         interface
   , instExports        = ifaceExports        interface

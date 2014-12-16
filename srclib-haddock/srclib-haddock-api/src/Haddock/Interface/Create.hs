@@ -127,6 +127,7 @@ createInterface tm flags modMap instIfaceMap = do
     ifaceMod             = mdl
   , ifaceOrigFilename    = msHsFilePath ms
   , ifaceInfo            = info
+  , ifaceRefs            = []
   , ifaceDoc             = Documentation mbDoc modWarn
   , ifaceRnDoc           = Documentation Nothing Nothing
   , ifaceOptions         = opts
