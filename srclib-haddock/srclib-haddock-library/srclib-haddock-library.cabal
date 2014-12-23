@@ -1,4 +1,4 @@
-name:                 haddock-library
+name:                 srclib-haddock-library
 version:              1.1.1
 synopsis:             Library exposing some functionality of Haddock.
 description:          Haddock is a documentation-generation tool for Haskell
@@ -6,12 +6,12 @@ description:          Haddock is a documentation-generation tool for Haskell
                       without pulling in the GHC dependency. Please note that the
                       API is likely to change so specify upper bounds in your
                       project if you can't release often. For interacting with Haddock
-                      itself, see the ‘haddock’ package.
+                      itself, see the ‘srclib-haddock’ package.
 license:              BSD3
 license-file:         LICENSE
 maintainer:           Simon Hengel <sol@typeful.net>, Mateusz Kowalczyk <fuuzetsu@fuuzetsu.co.uk>
-homepage:             http://www.haskell.org/haddock/
-bug-reports:          https://github.com/haskell/haddock/issues
+homepage:             http://www.haskell.org/srclib-haddock/
+bug-reports:          https://github.com/sourcegraph/srclib-haskell/issues
 category:             Documentation
 build-type:           Simple
 cabal-version:        >= 1.10
@@ -80,5 +80,5 @@ test-suite spec
 
 source-repository head
   type:     git
-  subdir:   haddock-library
-  location: https://github.com/haskell/haddock.git
+  subdir:   srclib-haddock/srclib-haddock-library
+  location: https://github.com/sourcegraph/srclib-haskell.git
