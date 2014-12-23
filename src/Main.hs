@@ -37,11 +37,11 @@ import qualified System.Path                                   as P
 import           System.Path ((</>),(<.>))
 import           System.Posix.Process                          (getProcessID)
 
-import           Distribution.Package                          as Cabal
-import           Distribution.PackageDescription               as Cabal
-import           Distribution.PackageDescription.Configuration as Cabal
-import           Distribution.PackageDescription.Parse         as Cabal
-import qualified Documentation.Haddock                         as Haddock
+import           Distribution.Package                          as C
+import           Distribution.PackageDescription               as C
+import           Distribution.PackageDescription.Configuration as C
+import           Distribution.PackageDescription.Parse         as C
+import qualified Documentation.Haddock                         as H
 import           GHC
 import           Name
 
@@ -54,7 +54,7 @@ findFiles q root = do
 allDeps ∷ PackageDescription → Set RawDependency
 allDeps desc = Set.fromList $ map toRawDep deps
   where deps = buildDepends desc ++ concatMap getDeps (allBuildInfo desc)
-        toRawDep (Cabal.Dependency (PackageName nm) _) = RawDependency nm
+        toRawDep (C.Dependency (PackageName nm) _) = RawDependency nm
         getDeps build = concat [ buildTools build
                                , pkgconfigDepends build
                                , targetBuildDepends build
@@ -157,20 +157,60 @@ nameDef info nm = do
   loc ← fromMaybe (fn,0,0) <$> srcSpanLoc fn srcSpan
   return $ Just $ Def (splitOn "." modName, nameStr) nameStr Value loc
 
-moduleDef ∷ SourceUnit → Haddock.InstalledInterface → IO Def
+moduleDef ∷ SourceUnit → H.InstalledInterface → IO Def
 moduleDef info iface = do
-  let modNm∷String = moduleNameString $ moduleName $ Haddock.instMod iface
+  let modNm∷String = moduleNameString $ moduleName $ H.instMod iface
       modPath = modulePathFromName modNm
   fnMay ← findModuleFile (Set.toList $ cabalSrcDirs info) modPath
   let fn = show $ fromMaybe (P.asRelPath "UNKNOWN") fnMay
   return $ Def modPath modNm Module (fn,0,0)
 
-defsFromHaddock ∷ SourceUnit → Haddock.InstalledInterface → IO [Def]
-defsFromHaddock info iface = do
-  exportedDefs' ← mapM (nameDef info) $ Haddock.instExports iface
-  let exportedDefs = catMaybes exportedDefs'
-  modDef ← moduleDef info iface
-  return $ modDef : exportedDefs
+-- type Pkg = String
+-- type ModuleNm = String
+-- type FilePos = (Int,Int)
+-- data NameSpc = Value | Type
+-- data FileLoc = FileLoc FilePath FilePos FilePos
+-- data GlobalBinding = Global String NameSpc ModuleNm Pkg
+-- data LocalBinding = Local String NameSpc FileLoc
+-- type SymGraphFile = [(FilePath, ModuleNm, Pkg, SymGraph)]
+-- data SymGraph = SymGraph
+--   { sgReferences :: [(FileLoc,(Either LocalBinding GlobalBinding))]
+--   , sgExports :: [LocalBinding]
+--   }
+-- type Loc = (FilePath,Integer,Integer) -- A filename with a spaned formed by two byte offsets.
+-- type ModulePath = ([String],String)
+-- data RawDependency = RawDependency String
+-- data ResolvedDependency = ResolvedDependency String
+-- All paths in a SourceUnit should be relative to the repository root.
+-- data SourceUnit = SourceUnit
+--    { cabalFile         ∷ P.RelFile
+--    , cabalPkgName      ∷ String
+--    , cabalDependencies ∷ Set RawDependency
+--    , cabalSrcFiles     ∷ Set P.RelFile
+--    , cabalSrcDirs      ∷ Set P.RelDir
+--    }
+-- data DefKind = Module | Value | Type
+-- data Def = Def { defModule ∷ ModulePath
+--                , defName   ∷ String
+--                , defKind   ∷ DefKind
+--                , defLoc    ∷ Loc
+--                }
+
+defFromLocalBinding ∷ H.LocalBinding → Def
+defFromLocalBinding (H.Local n kind (H.FileLoc fp start end)) = Def m n k l
+  where m = "TODO"
+        k = case kind of { H.Value→Value; H.Type→Type }
+        l = undefined
+
+defsFromHaddock ∷ SourceUnit → SymGraphFile → IO [Def]
+defsFromHaddock info modules = concat $ mapM moduleDefs modules
+  where moduleDefs (fp,modNm,pkg,gr) =
+          return $ defFromLocalBinding $ H.sgExports gr
+
+  -- exportedDefs' ← mapM (nameDef info) $ H.instExports iface
+  -- let exportedDefs = catMaybes exportedDefs'
+  -- modDef ← moduleDef info iface
+  -- return $ modDef : exportedDefs
 
 -- TODO escape ‘v’!
 mkParam :: ∀m.(Monoid m,IsString m) ⇒ m → m → m
@@ -189,25 +229,18 @@ graphCmd info = do
   let cabal_ = run_ "cabal"
 
   shelly $ toStderr $ do
-    haddockPath ← fromMaybe (error "srclib-haddock is not installed!") <$>
-      which "srclib-haddock"
-
     cd $ fromText $ fromString $ P.getPathString $ P.dropFileName $ cabalFile info
     cabal_ ["sandbox", "init", mkParam "sandbox" sandbox]
     cabal_ ["install", "--only-dependencies"]
     cabal_ ["configure", mkParam "builddir" buildDir]
     cabal_ [ "haddock", "--executables", "--internal"
-           , mkParam "with-haddock" $ toTextIgnore haddockPath
-           , mkParam "haddock-options" ("-D" <> symbolGraph)
+           , mkParam "haddock-options" ("-G" <> symbolGraph)
            , mkParam "builddir" buildDir
            ]
 
-  ifaceFile ← either error id <$>
-    Haddock.readInterfaceFile Haddock.freshNameCache (Text.unpack symbolGraph)
-
-  let ifaces = Haddock.ifInstalledIfaces ifaceFile
-  haddockDefs ← mapM (defsFromHaddock info) ifaces
-  return $ Graph $ concat haddockDefs
+  gr ← readFile $ Text.unpack symbolGraph
+  haddockDefs ← defsFromHaddock info gr
+  return $ Graph $ haddockDefs
 
 depresolveCmd ∷ SourceUnit → IO [ResolvedDependency]
 depresolveCmd = cabalDependencies >>> Set.toList >>> mapM resolve
