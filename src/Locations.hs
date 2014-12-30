@@ -79,6 +79,10 @@ lazy = TL.fromStrict
 
 -- Basic Instances -----------------------------------------------------------
 
+deriving instance Eq ModulePath
+deriving instance Ord ModulePath
+deriving instance Show ModulePath
+
 deriving instance Eq FilePath
 deriving instance Ord FilePath
 deriving instance Show FilePath
@@ -101,6 +105,19 @@ deriving instance Show AbsPath
 
 
 -- Path Operations -----------------------------------------------------------
+
+mkMaybe ∷ Bool → a → Maybe a
+mkMaybe False _ = Nothing
+mkMaybe True x = Just x
+
+validModuleComponent ∷ Text → Bool
+validModuleComponent = const True -- TODO
+
+parseModulePath ∷ Text → Maybe ModulePath
+parseModulePath nm = case reverse $ T.splitOn "." nm of
+  [] → Nothing
+  path@(leaf:reversedPath) →
+    mkMaybe (all validModuleComponent path) $ MP leaf reversedPath
 
 parseExtension ∷ Text → (Text,Extension)
 parseExtension t = case reverse $ T.split (≡'.') t of

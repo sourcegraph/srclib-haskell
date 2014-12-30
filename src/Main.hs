@@ -13,15 +13,17 @@ import ClassyPrelude hiding ((</>),(<.>))
 
 import qualified Locations as Loc
 import           Srclib hiding (Graph,Def)
+import qualified Cabal        as C
 
 import           Control.Arrow
 import           Control.Applicative
 
+import qualified Data.Maybe                                    as M
+import qualified Data.ByteString.Lazy                          as LBS
+import qualified Data.ByteString.Lazy.Char8                    as BC
 import qualified Data.List as L
 import qualified Data.Set as Set
 import qualified Data.Text as T
-import qualified Data.ByteString.Lazy                          as LBS
-import qualified Data.ByteString.Lazy.Char8                    as BC
 
 import           Test.QuickCheck
 import           Data.Aeson                                    as JSON
@@ -50,8 +52,6 @@ import           Name
 
 -- Types ---------------------------------------------------------------------
 
-type ModulePath = ([Text],Text)
-
 -- All paths in a CabalInfo should be relative to the repository root.
 data CabalInfo = CabalInfo
   { cabalFile         ∷ P.RelFile
@@ -66,10 +66,10 @@ data Graph = Graph [Def]
 data DefKind = Module | Value | Type
   deriving (Show)
 
-data Def = Def ([Text],Text) Text DefKind (Text,Int,Int)
+data Def = Def Loc.ModulePath Text DefKind Loc.Span
 
 data Binding = Binding
-  { bindModule ∷ ModulePath
+  { bindModule ∷ Loc.ModulePath
   , bindName   ∷ Text
   , bindKind   ∷ DefKind
   , bindSpan   ∷ Loc.Span
@@ -114,12 +114,6 @@ readCabalFile repoDir cabalFilePath = do
 
 resolve ∷ Text → IO ResolvedDependency
 resolve nm = return $ ResolvedDependency nm "" "" "" ""
-
-modulePathFromName ∷ Text → ModulePath
-modulePathFromName nm =
-  case reverse $ T.splitOn "." nm of
-    [] → error "Empty string is not a valid module name!"
-    leaf:reversedPath → (reverse reversedPath, leaf)
 
 scanCmd ∷ IO [CabalInfo]
 scanCmd = do
@@ -167,10 +161,10 @@ instance ToJSON CabalInfo where
 moduleDef ∷ CabalInfo → Haddock.InstalledInterface → IO Def
 moduleDef info iface = do
   let modNm = T.pack $ moduleNameString $ moduleName $ Haddock.instMod iface
-      modPath = modulePathFromName modNm
+      modPath = M.fromJust $ Loc.parseModulePath modNm -- TODO
   fnMay ← findModuleFile (Set.toList $ cabalSrcDirs info) modPath
   let fn = show $ fromMaybe (P.asRelPath "UNKNOWN") fnMay
-  return $ Def modPath modNm Module (T.pack fn,0,0)
+  return $ Def modPath modNm Module $ Loc.Span (T.pack fn) 0 0
 
 nameDef ∷ CabalInfo → Name → IO(Maybe Def)
 nameDef info nm = do
@@ -179,10 +173,12 @@ nameDef info nm = do
       modName = T.pack $ moduleNameString $ moduleName modul
       nameStr = T.pack $ occNameString $ getOccName nm
 
-  fnMay ← findModuleFile (Set.toList $ cabalSrcDirs info) $ modulePathFromName modName
+                                                            -- TODO
+  fnMay ← findModuleFile (Set.toList $ cabalSrcDirs info) $ M.fromJust $ Loc.parseModulePath modName
   let fn = tshow $ fromMaybe (P.asRelPath "UNKNOWN") fnMay
-  loc ← fromMaybe (fn,0,0) <$> srcSpanSpan fn srcSpan
-  return $ Just $ Def (T.splitOn "." modName, nameStr) nameStr Value loc
+  let ugg (a,b,c) = Loc.Span a b c
+  loc ← ugg <$> fromMaybe (fn,0,0) <$> srcSpanSpan fn srcSpan
+  return $ Just $ Def (Loc.MP nameStr $ T.splitOn "." modName) nameStr Value loc
 
 
 -- Toolchain Command-Line Interface ------------------------------------------
