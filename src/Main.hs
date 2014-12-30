@@ -21,7 +21,10 @@ import qualified System.Environment as Sys
 
 import Cabal as C
 import Haddock as H
-import Srclib as S
+import Srclib as Src
+
+depresolveCmd ∷ CabalInfo → IO ()
+depresolveCmd = undefined
 
 getCabalInfo ∷ SourceUnit → CabalInfo
 getCabalInfo = undefined
