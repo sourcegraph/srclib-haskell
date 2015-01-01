@@ -38,6 +38,10 @@ data Binding = Binding
   , bindSpan   ∷ Loc.Span
   }
 
+deriving instance Show DefKind
+deriving instance Show Def
+deriving instance Show Graph
+
 mkParam :: ∀m.(Monoid m,IsString m) ⇒ m → m → m
 mkParam k v = "--" ++ k ++ "=" ++ v ++ "" -- Escape v!
 

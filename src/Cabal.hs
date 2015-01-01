@@ -1,61 +1,109 @@
-{-# LANGUAGE StandaloneDeriving   #-}
-{-# LANGUAGE LambdaCase           #-}
-{-# LANGUAGE OverloadedStrings    #-}
-{-# LANGUAGE ScopedTypeVariables  #-}
-{-# LANGUAGE UnicodeSyntax        #-}
-{-# LANGUAGE NoImplicitPrelude    #-}
+{-# LANGUAGE LambdaCase          #-}
+{-# LANGUAGE NoImplicitPrelude   #-}
+{-# LANGUAGE OverloadedStrings   #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE UnicodeSyntax       #-}
 
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
-module Cabal where
+module Cabal ( Repo
+             , CabalInfo(..)
+             , analyse, Warning(..)
+             , toSrcUnit, fromSrcUnit
+             , prop_srcUnitConversion
+             ) where
 
-import ClassyPrelude hiding ((</>),(<.>))
-import qualified Locations as Loc
-import           Srclib hiding (Graph,Def)
-import           Control.Arrow
-import           Control.Applicative
-import qualified Data.Maybe                                    as M
-import qualified Data.Either                                   as E
-import qualified Data.ByteString.Lazy                          as LBS
-import qualified Data.ByteString.Lazy.Char8                    as BC
+import ClassyPrelude hiding ((<.>), (</>))
+import Prelude.Unicode
+import Control.Category.Unicode
+import Data.Monoid.Unicode
+
 import qualified Data.List as L
+import qualified Data.Map as M
 import qualified Data.Set as Set
 import qualified Data.Text as T
-import           Test.QuickCheck
-import           Data.Aeson                                    as JSON
-import           Data.List.Split
-import qualified Distribution.Verbosity                        as Verbosity
-import qualified System.Directory                              as Sys
-import qualified System.Environment                            as Sys
-import           System.FilePath.Find                          ((&&?), (==?))
-import qualified Filesystem.Path.CurrentOS                     as FSP
-import qualified System.FilePath.Find                          as P
-import           System.IO (hGetChar, hTell, IOMode(..))
-import           System.IO.Error
-import qualified System.Path                                   as P
-import           System.Path ((</>),(<.>))
-import           System.Posix.Process                          (getProcessID)
-import           Distribution.Package                          as Cabal
-import           Distribution.PackageDescription               as Cabal
-import           Distribution.PackageDescription.Configuration as Cabal
-import           Distribution.PackageDescription.Parse         as Cabal
+
+import Distribution.Package as Cabal
+import Distribution.PackageDescription as Cabal
+import Distribution.PackageDescription.Configuration as Cabal
+import Distribution.PackageDescription.Parse as Cabal
+
+import qualified Locations as Loc
+import Locations (RepoPath)
+import qualified Srclib as Src
+
+
+-- Interface -----------------------------------------------------------------
+
+type Repo = Map RepoPath String
+
+data Warning = InvalidCabalFile RepoPath Text
 
 data CabalInfo = CabalInfo
-  { cabalFile         ∷ P.RelFile
+  { cabalFile         ∷ RepoPath
   , cabalPkgName      ∷ Text
+  , cabalPkgDir       ∷ RepoPath
   , cabalDependencies ∷ Set Text
-  , cabalSrcFiles     ∷ Set P.RelFile
-  , cabalSrcDirs      ∷ Set P.RelDir
+  , cabalSrcFiles     ∷ Set RepoPath
+  , cabalSrcDirs      ∷ Set RepoPath
+  , cabalGlobs        ∷ Set Text
   } deriving (Show, Eq)
 
-findFiles ∷ P.FindClause Bool → P.AbsDir → IO [P.AbsFile]
-findFiles q root = do
-  let cond = P.fileType ==? P.RegularFile &&? q
-  fileNames ← P.find P.always cond $ P.getPathString root
-  return $ map P.asAbsPath fileNames
+analyse ∷ Repo → ([Warning], Map RepoPath CabalInfo)
+analyse repo = ([], M.fromList $ catMaybes $ info <$> cabalFiles)
+  where
+    cabalFiles = M.toList $ M.filterWithKey (\k _→Just "cabal"≡Loc.ext k) repo
+    info ∷ (RepoPath, String) → Maybe (RepoPath, CabalInfo)
+    info (f,c) = do ci ← cabalInfo repo f c
+                    return (f,ci)
+
+toSrcUnit ∷ CabalInfo → Src.SourceUnit
+toSrcUnit (CabalInfo cf pkg pdir deps files dirs globs) =
+  Src.SourceUnit cf pkg pdir (unSet deps) (unSet files) (unSet dirs) (unSet globs)
+
+fromSrcUnit ∷ Src.SourceUnit → Maybe CabalInfo
+fromSrcUnit (Src.SourceUnit cf pkg pdir deps files dirs globs) =
+  Just $ CabalInfo cf pkg pdir (toSet deps) (toSet files) (toSet dirs) (toSet globs)
+
+prop_srcUnitConversion ∷ CabalInfo → Bool
+prop_srcUnitConversion ci = Just ci≡fromSrcUnit(toSrcUnit ci)
+
+
+-- Implementation ------------------------------------------------------------
+
+prToMaybe ∷ Cabal.ParseResult a → Maybe a
+prToMaybe (Cabal.ParseFailed _) = Nothing
+prToMaybe (Cabal.ParseOk _ x) = Just x
+
+toGlob ∷ RepoPath → Text
+toGlob rp = Loc.srclibPath rp <> "/**/*.hs"
+
+unSet ∷ Ord a ⇒ Set a → [a]
+unSet = Set.toList
+
+toSet ∷ Ord a ⇒ [a] → Set a
+toSet = Set.fromList
+
+cabalInfo ∷ Repo → RepoPath → String → Maybe CabalInfo
+cabalInfo repo cabalFilePath content = do
+  genPkgDesc ← prToMaybe $ parsePackageDescription content
+  topLevelDir ← Loc.parent cabalFilePath
+  let desc = flattenPackageDescription genPkgDesc
+      PackageName pkg = pkgName $ package desc
+      allRepoFiles = M.keys repo
+      sourceFiles = filter (Loc.ext ⋙ (≡Just "hs")) allRepoFiles
+      dirs = (topLevelDir <>) <$> sourceDirs desc
+  return CabalInfo { cabalFile = cabalFilePath
+                   , cabalPkgName = T.pack pkg
+                   , cabalPkgDir = topLevelDir
+                   , cabalDependencies = allDeps desc
+                   , cabalSrcFiles = toSet sourceFiles
+                   , cabalSrcDirs = toSet dirs
+                   , cabalGlobs = toSet $ toGlob <$> dirs
+                   }
 
 allDeps ∷ PackageDescription → Set Text
-allDeps desc = Set.fromList $ toRawDep <$> deps
+allDeps desc = toSet $ toRawDep <$> deps
   where deps = buildDepends desc ++ concatMap getDeps (allBuildInfo desc)
         toRawDep (Cabal.Dependency (PackageName nm) _) = T.pack nm
         getDeps build = L.concat [ buildTools build
@@ -63,42 +111,10 @@ allDeps desc = Set.fromList $ toRawDep <$> deps
                                  , targetBuildDepends build
                                  ]
 
-sourceDirs ∷ PackageDescription → [P.RelDir]
-sourceDirs desc = map P.asRelDir $ librarySourceFiles ++ executableSourceFiles
-  where librarySourceFiles =
-          concat $ maybeToList $ (libBuildInfo>>>hsSourceDirs) <$> library desc
-        executableSourceFiles =
-          concat $ (buildInfo>>>hsSourceDirs) <$> executables desc
-
-readCabalFile ∷ P.AbsDir → P.AbsFile → IO CabalInfo
-readCabalFile repoDir cabalFilePath = do
-  genPkgDesc ← readPackageDescription Verbosity.deafening $ show cabalFilePath
-  let desc = flattenPackageDescription genPkgDesc
-      PackageName name = pkgName $ package desc
-      dirs = map (P.combine $ P.takeDirectory cabalFilePath) $ sourceDirs desc
-
-  sourceFiles ← concat <$> mapM (findFiles$P.extension==?".hs") dirs
-  return CabalInfo { cabalFile = P.makeRelative repoDir cabalFilePath
-                   , cabalPkgName = T.pack name
-                   , cabalDependencies = allDeps desc
-                   , cabalSrcFiles = Set.fromList $ P.makeRelative repoDir <$> sourceFiles
-                   , cabalSrcDirs = Set.fromList $ P.makeRelative repoDir <$> dirs
-                   }
-
-fromRight ∷ Either a b → b
-fromRight (Right x) = x
-
-scanRepo ∷ FilePath → FilePath → IO (Maybe CabalInfo)
-scanRepo repo cabal = Just <$> readCabalFile a b
-  where a = P.asAbsDir $ T.unpack $ fromRight $ FSP.toText repo
-        b = P.asAbsFile $ T.unpack $ fromRight $ FSP.toText cabal
-
-scan ∷ IO [CabalInfo]
-scan = do
-  cwd ← Sys.getCurrentDirectory
-  let root = P.asAbsDir cwd
-  cabalFiles ← findFiles (P.extension ==? ".cabal") root
-  mapM (readCabalFile root) cabalFiles
-
-test ∷ IO ()
-test = scan >>= flip forM_ print
+sourceDirs ∷ PackageDescription → [Loc.RepoPath]
+sourceDirs desc =
+  catMaybes $ (fmap Loc.Repo . Loc.parseRelativePath) <$> librarySourceFiles⊕executableSourceFiles
+    where librarySourceFiles =
+            T.pack <$> concat (maybeToList $ (libBuildInfo ⋙ hsSourceDirs) <$> library desc)
+          executableSourceFiles =
+            T.pack <$> concat ((buildInfo ⋙ hsSourceDirs) <$> executables desc)

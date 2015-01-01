@@ -2,7 +2,6 @@
 {-# LANGUAGE NoImplicitPrelude   #-}
 {-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE StandaloneDeriving  #-}
 {-# LANGUAGE UnicodeSyntax       #-}
 
 {-# OPTIONS_GHC -fno-warn-orphans     #-}
@@ -24,16 +23,22 @@ import Haddock as H
 import Srclib as Src
 
 depresolveCmd ∷ CabalInfo → IO ()
-depresolveCmd = undefined
+depresolveCmd = error . show
 
 getCabalInfo ∷ SourceUnit → CabalInfo
-getCabalInfo = undefined
+getCabalInfo = error . show
+
+dirname = undefined
+
+hsGlobs ∷ Text → [Text]
+hsGlobs x = undefined
 
 toSourceUnit ∷ CabalInfo → SourceUnit
-toSourceUnit = undefined
+toSourceUnit (CabalInfo f pkg deps files dirs) =
+  SourceUnit f pkg (dirname f) deps dirs files (concatMap hsGlobs dirs)
 
 instance ToJSON H.Graph where
- toJSON = undefined
+ toJSON = error . show
 
 instance ToJSON CabalInfo where
  toJSON = toJSON . toSourceUnit
@@ -63,3 +68,30 @@ srclibRun _ = usage
 
 main ∷ IO ()
 main = getArgs >>= srclibRun
+
+
+-- Bullshit taken out of Cabal.hs --------------------------------------------
+
+loadRepo ∷ FilePath → IO Repo
+loadRepo root = do
+  let (toStr,toPath) = (P.encodeString, P.decodeString)
+  fileNames ← toPath <$> Find.find Find.always Find.RegularFile $ toStr root
+  files ← P.decodeString <$> fileNames
+  fmap M.fromList $ flip mapM cabalFiles $ \f → do
+    content ← hGetContents $ P.encodeString f
+    return (f,content)
+
+scanRepo ∷ FilePath → FilePath → IO (Maybe CabalInfo)
+scanRepo repoDir cabalFile = do
+  repo ← loadRepo repoDir
+  let fileContents = Map.lookup (cabalFile repo)
+  return $ fileContents >>= cabalInfo repo cabalFile
+
+scan ∷ IO [CabalInfo]
+scan = do
+  root ← (P.fromText . T.pack) <$> Sys.getCurrentDirectory
+  cabalFiles ← filesWithExt "cabal" root
+  mapM (readCabalFile root) cabalFiles
+
+testScan ∷ IO ()
+testScan = scan >>= flip forM_ print

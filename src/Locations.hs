@@ -87,6 +87,30 @@ deriving instance Eq FilePath
 deriving instance Ord FilePath
 deriving instance Show FilePath
 
+-- TODO Ugg! Because we don't have an empty path, we can't implement Monoid,
+-- IsSequence, or MonoFoldable. This is super annoying because the sensible
+-- names for these operations are tied to more general types.
+
+unpackF ∷ FilePath → Path
+unpackF (FP Nothing  f p) = f : p
+unpackF (FP (Just e) f p) = (e ⊕ "." ⊕ f) : p
+
+packF ∷ Path → Maybe FilePath
+packF [] = Nothing
+packF (fn:p) = case parseExtension fn of
+                (n,e) → Just $ FP e n p
+
+instance Semigroup FilePath where
+  a <> b = case packF (unpackF a <> unpackF b) of
+             Nothing → error "This can't ever happen."
+             Just x → x
+
+stripPrefixR ∷ RepoPath → RepoPath → Maybe RepoPath
+stripPrefixR (Repo a) (Repo b) = Repo <$> stripPrefixF a b
+
+stripPrefixF ∷ FilePath → FilePath → Maybe FilePath
+stripPrefixF a b = stripPrefix (unpackF a) (unpackF b) >>= packF
+
 deriving instance Eq Span
 deriving instance Ord Span
 deriving instance Show Span
@@ -94,17 +118,28 @@ deriving instance Show Span
 deriving instance Eq SrcPath
 deriving instance Ord SrcPath
 deriving instance Show SrcPath
+deriving instance Semigroup SrcPath
 
 deriving instance Eq RepoPath
 deriving instance Ord RepoPath
 deriving instance Show RepoPath
+deriving instance Semigroup RepoPath
 
 deriving instance Eq AbsPath
 deriving instance Ord AbsPath
 deriving instance Show AbsPath
+deriving instance Semigroup AbsPath
 
 
 -- Path Operations -----------------------------------------------------------
+
+parent ∷ RepoPath → Maybe RepoPath
+parent (Repo(FP _ _ [])) = Nothing
+parent (Repo(FP _ _ (f:p))) = case parseExtension f of
+                                (n,e) → Just $ Repo $ FP e n p
+
+ext ∷ RepoPath → Extension
+ext (Repo(FP e _ _)) = e
 
 mkMaybe ∷ Bool → a → Maybe a
 mkMaybe False _ = Nothing
