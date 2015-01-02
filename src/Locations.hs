@@ -85,7 +85,9 @@ deriving instance Show ModulePath
 
 deriving instance Eq FilePath
 deriving instance Ord FilePath
-deriving instance Show FilePath
+
+instance Show FilePath where
+  show fp = show $ T.unpack $ srclibPath $ Repo fp
 
 -- TODO Ugg! Because we don't have an empty path, we can't implement Monoid,
 -- IsSequence, or MonoFoldable. This is super annoying because the sensible

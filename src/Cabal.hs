@@ -6,7 +6,8 @@
 
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
-module Cabal ( Repo
+module Cabal ( Repo(..)
+             , isCabalFile
              , CabalInfo(..)
              , analyse, Warning(..)
              , toSrcUnit, fromSrcUnit
@@ -35,9 +36,13 @@ import qualified Srclib as Src
 
 -- Interface -----------------------------------------------------------------
 
-type Repo = Map RepoPath String
+data Repo = Repo
+  { repoFiles ∷ Map RepoPath FilePath
+  , repoCabalFiles ∷ Map RepoPath String
+  }
 
 data Warning = InvalidCabalFile RepoPath Text
+  deriving Show
 
 data CabalInfo = CabalInfo
   { cabalFile         ∷ RepoPath
@@ -49,10 +54,13 @@ data CabalInfo = CabalInfo
   , cabalGlobs        ∷ Set Text
   } deriving (Show, Eq)
 
+isCabalFile ∷ RepoPath → Bool
+isCabalFile (Loc.Repo(Loc.FP e _ _)) = e≡(Just "cabal")
+
 analyse ∷ Repo → ([Warning], Map RepoPath CabalInfo)
 analyse repo = ([], M.fromList $ catMaybes $ info <$> cabalFiles)
   where
-    cabalFiles = M.toList $ M.filterWithKey (\k _→Just "cabal"≡Loc.ext k) repo
+    cabalFiles = M.toList $ repoCabalFiles repo
     info ∷ (RepoPath, String) → Maybe (RepoPath, CabalInfo)
     info (f,c) = do ci ← cabalInfo repo f c
                     return (f,ci)
@@ -72,7 +80,7 @@ prop_srcUnitConversion ci = Just ci≡fromSrcUnit(toSrcUnit ci)
 -- Implementation ------------------------------------------------------------
 
 prToMaybe ∷ Cabal.ParseResult a → Maybe a
-prToMaybe (Cabal.ParseFailed _) = Nothing
+prToMaybe (Cabal.ParseFailed x) = traceShow x Nothing
 prToMaybe (Cabal.ParseOk _ x) = Just x
 
 toGlob ∷ RepoPath → Text
@@ -90,7 +98,7 @@ cabalInfo repo cabalFilePath content = do
   topLevelDir ← Loc.parent cabalFilePath
   let desc = flattenPackageDescription genPkgDesc
       PackageName pkg = pkgName $ package desc
-      allRepoFiles = M.keys repo
+      allRepoFiles = M.keys $ repoFiles repo
       sourceFiles = filter (Loc.ext ⋙ (≡Just "hs")) allRepoFiles
       dirs = (topLevelDir <>) <$> sourceDirs desc
   return CabalInfo { cabalFile = cabalFilePath
