@@ -35,6 +35,7 @@ import           ClassyPrelude             hiding (FilePath,filename,first,last)
 import qualified Filesystem.Path.CurrentOS as Path
 
 import           Control.Category.Unicode
+import           Data.Char
 import qualified Data.List                 as L
 import           Data.Monoid.Unicode
 import           Prelude.Unicode           hiding (π)
@@ -58,8 +59,8 @@ data FileShape = Shape {fsLineWidths ∷ [Int], fsUnicodeChars ∷ IntMap Int}
 type Path      = [Text]
 type Extension = Maybe Text
 
-data ModulePath = MP Text Path
-data FilePath   = FP Extension Text Path
+newtype ModulePath = MP Path
+newtype FilePath   = FP Path
 
 newtype SrcPath  = Src FilePath  -- relative to a Haskell source directory.
 newtype RepoPath = Repo FilePath -- relative to the root of a repository.
@@ -85,33 +86,9 @@ deriving instance Show ModulePath
 
 deriving instance Eq FilePath
 deriving instance Ord FilePath
-
-instance Show FilePath where
-  show fp = show $ T.unpack $ srclibPath $ Repo fp
-
--- TODO Ugg! Because we don't have an empty path, we can't implement Monoid,
--- IsSequence, or MonoFoldable. This is super annoying because the sensible
--- names for these operations are tied to more general types.
-
-unpackF ∷ FilePath → Path
-unpackF (FP Nothing  f p) = f : p
-unpackF (FP (Just e) f p) = (e ⊕ "." ⊕ f) : p
-
-packF ∷ Path → Maybe FilePath
-packF [] = Nothing
-packF (fn:p) = case parseExtension fn of
-                (n,e) → Just $ FP e n p
-
-instance Semigroup FilePath where
-  a <> b = case packF (unpackF a <> unpackF b) of
-             Nothing → error "This can't ever happen."
-             Just x → x
-
-stripPrefixR ∷ RepoPath → RepoPath → Maybe RepoPath
-stripPrefixR (Repo a) (Repo b) = Repo <$> stripPrefixF a b
-
-stripPrefixF ∷ FilePath → FilePath → Maybe FilePath
-stripPrefixF a b = stripPrefix (unpackF a) (unpackF b) >>= packF
+deriving instance Semigroup FilePath
+deriving instance Monoid FilePath
+deriving instance Show FilePath
 
 deriving instance Eq Span
 deriving instance Ord Span
@@ -136,25 +113,23 @@ deriving instance Semigroup AbsPath
 -- Path Operations -----------------------------------------------------------
 
 parent ∷ RepoPath → Maybe RepoPath
-parent (Repo(FP _ _ [])) = Nothing
-parent (Repo(FP _ _ (f:p))) = case parseExtension f of
-                                (n,e) → Just $ Repo $ FP e n p
+parent (Repo(FP [])) = Nothing
+parent (Repo(FP(_:p))) = Just $ Repo $ FP p
 
 ext ∷ RepoPath → Extension
-ext (Repo(FP e _ _)) = e
+ext (Repo(FP[])) = Nothing
+ext (Repo(FP(f:_))) = snd $ parseExtension f
 
 mkMaybe ∷ Bool → a → Maybe a
 mkMaybe False _ = Nothing
 mkMaybe True x = Just x
 
 validModuleComponent ∷ Text → Bool
-validModuleComponent = const True -- TODO
+validModuleComponent t = case T.uncons t of Nothing → False
+                                            Just (c,_) → isUpper c
 
-parseModulePath ∷ Text → Maybe ModulePath
-parseModulePath nm = case reverse $ T.splitOn "." nm of
-  [] → Nothing
-  path@(leaf:reversedPath) →
-    mkMaybe (all validModuleComponent path) $ MP leaf reversedPath
+parseModulePath ∷ Text → ModulePath
+parseModulePath = MP . reverse . T.splitOn "."
 
 parseExtension ∷ Text → (Text,Extension)
 parseExtension t = case reverse $ T.split (≡'.') t of
@@ -162,57 +137,48 @@ parseExtension t = case reverse $ T.split (≡'.') t of
   [_] → (t, Nothing)
   (ext:before) → swap (Just ext, T.intercalate "." $ reverse before)
 
+-- TODO This doesn't handle escaping! Use a library.
 parseRelativePath ∷ Text → Maybe FilePath
 parseRelativePath p = case T.split (≡'/') p of
-  [] → Nothing
-  ("" : _ : _) → Nothing
+  [""]            → Just $ FP []
+  ("" : _ : _)    → Nothing
   ("." : q@(_:_)) → parseRelativePath $ T.intercalate "/" q
-  (one:more) → case reverse(one:more) of
-                 [] → error "This should never happen."
-                 (f:path) → case parseExtension f of
-                   (fn,ext) → Just $ FP ext fn path
+  path            → Just $ FP $ reverse path
 
 parseAbsoluteFP ∷ Text → Maybe AbsPath
 parseAbsoluteFP p = case T.split (≡'/') p of
-  ("" : one : more) → case reverse(one:more) of
-                        [] → error "This should never happen."
-                        (f:path) → case parseExtension f of
-                          (fn,ext) → Just $ Abs $ FP ext fn path
-  _                 → Nothing
+  ("" : path) → Just $ Abs $ FP $ reverse path
+  _           → Nothing
 
 srcPathMatch ∷ ModulePath → SrcPath → Bool
-srcPathMatch (MP n p) (Src(FP _ ν π)) = n≡ν ∧ π≡p
+srcPathMatch (MP []) (Src(FP [])) = True
+srcPathMatch (MP (m:mp)) (Src(FP (f:fp))) =
+  m≡fst(parseExtension f) ∧ fp≡mp
 
 moduleToSrcPath ∷ ModulePath → Extension → SrcPath
-moduleToSrcPath (MP nm path) e = Src $ FP e nm path
+moduleToSrcPath (MP []) e = Src $ FP []
+moduleToSrcPath (MP (m:mp)) e = Src $ FP $ (m <> ".hs") : mp
 
 fileToModulePath ∷ SrcPath → ModulePath
-fileToModulePath (Src(FP _ nm path)) = MP nm path
+fileToModulePath (Src(FP[])) = MP []
+fileToModulePath (Src(FP(f:fp))) = MP $ fst(parseExtension f) : fp
 
 moduleToRepoFPs ∷ PathDB → ModulePath → Set RepoPath
-moduleToRepoFPs db (MP mNm mPath) =
-  flip Set.filter (pdbSourceFiles db) $
-    \(Repo(FP _ fNm fPath)) → fNm≡mNm ∧ fPath≡mPath
+moduleToRepoFPs db (MP[]) = Set.empty
+moduleToRepoFPs db (MP(m:mp)) = undefined
+  -- convert the module path to a filepath
+  -- Set.filter to check each of the `pdbSourceFiles db`
+  --   convert the filepath to a module path.
+  --   is the module a prefix of this converted filepath?
 
 srcToRepo ∷ RepoPath → SrcPath → RepoPath
-srcToRepo (Repo(FP ε ν π)) (Src(FP e n p)) = Repo(FP e n (p⊕prefix))
-  where prefix = case ε of
-                   Nothing → [ν]
-                   Just ext → (ν⊕"."⊕ext):π
+srcToRepo (Repo(FP prefix)) (Src(FP p)) = Repo$ FP $ p⊕prefix
 
 srclibPath ∷ RepoPath → Text
-srclibPath (Repo(FP ext nm path)) =
-  T.intercalate "/" $ reverse $ filename : path
-    where filename = case ext of
-            Nothing → nm
-            Just e → nm ⊕ "." ⊕ e
+srclibPath (Repo(FP path)) = T.intercalate "/" $ reverse path
 
 
 -- PathDB Operations ---------------------------------------------------------
-
-srcRepoMatch ∷ SrcPath → RepoPath → Bool
-srcRepoMatch (Src(FP e n path)) (Repo(FP ε ν containingPath)) =
-  e≡ε ∧ n≡ν ∧ isPrefixOf path containingPath
 
 flattenSources ∷ Map RepoPath (Set SrcPath) → Set RepoPath
 flattenSources m = Set.unions $ f <$> Map.toList m
@@ -305,7 +271,10 @@ instance Arbitrary Text where
   arbitrary = T.pack <$> arbitrary
 
 instance Arbitrary FilePath where
-  arbitrary = FP <$> arbitrary <*> arbitrary <*> arbitrary
+  arbitrary = genFP
+    where genFP = do attempt ← arbitrary
+                     if validPath (FP attempt) then return (FP attempt)
+                                              else genFP
 
 deriving instance Arbitrary AbsPath
 deriving instance Arbitrary RepoPath
@@ -352,16 +321,10 @@ prop_convertableIndexes txt number = okOffset ==> Just offset≡converted
         converted = convertIndex (textShape $ lazy txt) offset
 
 validPath ∷ FilePath → Bool
-validPath (FP ext fn path) = okExt ∧ okFn ∧ okPath
-    where noSlash = T.any (≡'/') ⋙ not
-          noDots = T.any (≡'.') ⋙ not
-          nonEmpty = T.length ⋙ (≠0)
-          validPathComponent p = noSlash p ∧ nonEmpty p
-          validExt p = noSlash p ∧ noDots p
-          okExt = fromMaybe True $ validExt <$> ext
-          okPath = and $ validPathComponent <$> path
-          okFn = case ext of Just _ → noSlash fn
-                             Nothing → noSlash fn ∧ noDots fn
+validPath (FP path) = all valid path
+  where noSlash = T.any (≡'/') ⋙ not
+        nonEmpty = T.length ⋙ (≠0)
+        valid p = noSlash p ∧ nonEmpty p
 
 prop_serializablePath ∷ RepoPath → Property
 prop_serializablePath rp@(Repo fp) =
@@ -390,11 +353,12 @@ prop_lineColEdgeCases s = first ∧ last ∧ eol ∧ eof
 
 test ∷ IO ()
 test = do
+  let manyChecks = quickCheckWith stdArgs{maxSuccess=5000} 
   quickCheck   prop_convertableIndexes
   quickCheck   prop_convertableOffsets
   quickCheck   prop_equivalentDrops
   quickCheck $ prop_convertableOffsets example
   quickCheck $ prop_convertableOffsets example
   quickCheck $ prop_equivalentDrops example
-  quickCheck   prop_serializablePath
-  quickCheck   prop_lineColEdgeCases
+  manyChecks   prop_serializablePath
+  --quickCheck   prop_lineColEdgeCases

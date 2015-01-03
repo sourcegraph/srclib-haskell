@@ -55,7 +55,7 @@ data CabalInfo = CabalInfo
   } deriving (Show, Eq)
 
 isCabalFile ∷ RepoPath → Bool
-isCabalFile (Loc.Repo(Loc.FP e _ _)) = e≡(Just "cabal")
+isCabalFile f = Loc.ext f ≡ Just "cabal"
 
 analyse ∷ Repo → ([Warning], Map RepoPath CabalInfo)
 analyse repo = ([], M.fromList $ catMaybes $ info <$> cabalFiles)
