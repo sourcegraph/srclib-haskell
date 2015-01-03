@@ -42,7 +42,7 @@ import           Prelude.Unicode           hiding (π)
 
 import qualified Data.ByteString.Lazy      as B
 import qualified Data.IntMap               as IntMap
-import qualified Data.Map                  as Map
+import qualified Data.Map                  as M
 import qualified Data.Set                  as Set
 import qualified Data.Text                 as T
 import qualified Data.Text.Lazy            as TL
@@ -66,10 +66,9 @@ newtype SrcPath  = Src FilePath  -- relative to a Haskell source directory.
 newtype RepoPath = Repo FilePath -- relative to the root of a repository.
 newtype AbsPath  = Abs FilePath  -- relative to the filesystem root.
 
-data Span = Span{spanFile∷Text, spanStart∷Int, spanLength∷Int}
-data PathDB = PathDB { pdbSources       ∷ Map RepoPath (Set SrcPath)
-                     , pdbKnownTmpFiles ∷ Map AbsPath ModulePath
-                     }
+data Span = Span{spanFile∷RepoPath, spanStart∷Int, spanLength∷Int}
+type PathCol = (RepoPath, SrcPath, FileShape)
+type PathDB = Set PathCol
 
 
 -- Utilities -----------------------------------------------------------------
@@ -145,8 +144,11 @@ parseRelativePath p = case T.split (≡'/') p of
   ("." : q@(_:_)) → parseRelativePath $ T.intercalate "/" q
   path            → Just $ FP $ reverse path
 
-parseAbsoluteFP ∷ Text → Maybe AbsPath
-parseAbsoluteFP p = case T.split (≡'/') p of
+dumpAbsPath ∷ AbsPath → Text
+dumpAbsPath (Abs(FP fp)) = T.intercalate "/" $ "" : reverse fp
+
+parseAbsPath ∷ Text → Maybe AbsPath
+parseAbsPath p = case T.split (≡'/') p of
   ("" : path) → Just $ Abs $ FP $ reverse path
   _           → Nothing
 
@@ -163,13 +165,13 @@ fileToModulePath ∷ SrcPath → ModulePath
 fileToModulePath (Src(FP[])) = MP []
 fileToModulePath (Src(FP(f:fp))) = MP $ fst(parseExtension f) : fp
 
+flattenSources ∷ PathDB → Set RepoPath
+flattenSources = Set.map (\(r,s,_) → srcToRepo r s)
+
 moduleToRepoFPs ∷ PathDB → ModulePath → Set RepoPath
-moduleToRepoFPs db (MP[]) = Set.empty
-moduleToRepoFPs db (MP(m:mp)) = undefined
-  -- convert the module path to a filepath
-  -- Set.filter to check each of the `pdbSourceFiles db`
-  --   convert the filepath to a module path.
-  --   is the module a prefix of this converted filepath?
+moduleToRepoFPs db mp = flattenSources $ Set.filter doesMatch db
+  where combine (r,s,_) = srcToRepo r s
+        doesMatch (_,s,_) = srcPathMatch mp s
 
 srcToRepo ∷ RepoPath → SrcPath → RepoPath
 srcToRepo (Repo(FP prefix)) (Src(FP p)) = Repo$ FP $ p⊕prefix
@@ -180,21 +182,17 @@ srclibPath (Repo(FP path)) = T.intercalate "/" $ reverse path
 
 -- PathDB Operations ---------------------------------------------------------
 
-flattenSources ∷ Map RepoPath (Set SrcPath) → Set RepoPath
-flattenSources m = Set.unions $ f <$> Map.toList m
-  where f (k,s) = Set.map (srcToRepo k) s
-
 pdbSourceFiles ∷ PathDB → Set RepoPath
-pdbSourceFiles = flattenSources . pdbSources
+pdbSourceFiles = flattenSources
 
 matchingSourceFiles ∷ PathDB → ModulePath → Set RepoPath
-matchingSourceFiles db mp = flattenSources $ f <$> pdbSources db
-  where f = Set.filter (srcPathMatch mp)
+matchingSourceFiles db mp = flattenSources $ Set.filter f db
+  where f (_,s,_) = srcPathMatch mp s
 
-findSourceOfTmpFile ∷ PathDB → AbsPath → Set RepoPath
-findSourceOfTmpFile db p = Set.unions $ matchingSourceFiles db <$> modules
-  where tmp = pdbKnownTmpFiles db
-        modules = maybeToList $ Map.lookup p tmp
+--findSourceOfTmpFile ∷ PathDB → AbsPath → Set RepoPath
+--findSourceOfTmpFile db p = Set.unions $ matchingSourceFiles db <$> modules
+--  where tmp = pdbKnownTmpFiles db
+--        modules = maybeToList $ M.lookup p tmp
 
 
 -- FileShape Operations ------------------------------------------------------
@@ -217,7 +215,7 @@ lineCol ∷ Int → Int → Maybe LineCol
 lineCol line col | line≥1 ∧ col≥1 = Just $ LineCol line col
 lineCol _    _                    = Nothing
 
-spanFromByteOffsets ∷ (Text,Int,Int) → Maybe Span
+spanFromByteOffsets ∷ (RepoPath,Int,Int) → Maybe Span
 spanFromByteOffsets (fp,start,end) =
   if end<start ∨ end<0 ∨ start<0 then Nothing else
     Just $ Span fp start (end-start)
@@ -263,6 +261,11 @@ byteToCharOffset (Shape _ mb) = f 0
   where bytesAtChar i = IntMap.findWithDefault 1 i mb
         f chr remain | remain≤0 = chr
         f chr remain            = f (chr+1) (remain-bytesAtChar chr)
+
+mkSpan ∷ RepoPath → FileShape → LineCol → LineCol → Maybe Span
+mkSpan fn shape start end = do s ← lineColOffset shape start
+                               e ← lineColOffset shape end
+                               return $ Span fn s e
 
 
 -- Arbitrary Instances -------------------------------------------------------
@@ -330,6 +333,10 @@ prop_serializablePath ∷ RepoPath → Property
 prop_serializablePath rp@(Repo fp) =
   validPath fp ==> Just fp ≡ parseRelativePath(srclibPath rp)
 
+prop_serializableAbsPath ∷ AbsPath → Property
+prop_serializableAbsPath ap@(Abs fp) =
+  validPath fp ==> Just ap ≡ parseAbsPath(dumpAbsPath ap)
+
 edgeCases ∷ TL.Text → (Maybe Int, Maybe Int, Maybe Int, Maybe Int)
 edgeCases s = (first, last, eol, eof)
   where
@@ -353,12 +360,13 @@ prop_lineColEdgeCases s = first ∧ last ∧ eol ∧ eof
 
 test ∷ IO ()
 test = do
-  let manyChecks = quickCheckWith stdArgs{maxSuccess=5000} 
+  --t manyChecks = quickCheckWith stdArgs{maxSuccess=5000}
   quickCheck   prop_convertableIndexes
   quickCheck   prop_convertableOffsets
   quickCheck   prop_equivalentDrops
   quickCheck $ prop_convertableOffsets example
   quickCheck $ prop_convertableOffsets example
   quickCheck $ prop_equivalentDrops example
-  manyChecks   prop_serializablePath
+  quickCheck   prop_serializablePath
+  quickCheck   prop_serializableAbsPath
   --quickCheck   prop_lineColEdgeCases

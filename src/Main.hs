@@ -29,7 +29,7 @@ import qualified System.Environment as Sys
 import qualified System.Directory as Sys
 
 import Cabal as C
---port Haddock as H
+import Haddock as H
 import Srclib as Src
 import qualified Locations as Loc
 
