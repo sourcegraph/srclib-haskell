@@ -11,6 +11,7 @@ module Main where
 
 import ClassyPrelude
 import Control.Category
+import Control.Category.Unicode
 import Data.Aeson as JSON
 import qualified Data.ByteString.Lazy as LBS
 import qualified Data.ByteString.Lazy.Char8 as BC
@@ -160,4 +161,7 @@ scan = do
 testScan ∷ IO ()
 testScan = scan >>= flip forM_ print
 
-main = testScan
+main = do
+  infos ← scan
+  graphs ← mapM H.graph infos
+  forM_ graphs $ JSON.encode ⋙ LBS.putStrLn

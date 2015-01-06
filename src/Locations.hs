@@ -54,7 +54,10 @@ import           Test.QuickCheck
 -- Types ---------------------------------------------------------------------
 
 data LineCol   = LineCol Int Int
+  deriving Show
+
 data FileShape = Shape {fsLineWidths ∷ [Int], fsUnicodeChars ∷ IntMap Int}
+  deriving (Ord, Eq, Show)
 
 type Path      = [Text]
 type Extension = Maybe Text
@@ -68,7 +71,7 @@ newtype AbsPath  = Abs FilePath  -- relative to the filesystem root.
 
 data Span = Span{spanFile∷RepoPath, spanStart∷Int, spanLength∷Int}
 type PathCol = (RepoPath, SrcPath, FileShape)
-type PathDB = Set PathCol
+type PathDB = (Set PathCol, Map String ModulePath)
 
 
 -- Utilities -----------------------------------------------------------------
@@ -141,6 +144,7 @@ parseRelativePath ∷ Text → Maybe FilePath
 parseRelativePath p = case T.split (≡'/') p of
   [""]            → Just $ FP []
   ("" : _ : _)    → Nothing
+  ["."]           → Just $ FP []
   ("." : q@(_:_)) → parseRelativePath $ T.intercalate "/" q
   path            → Just $ FP $ reverse path
 
@@ -166,10 +170,10 @@ fileToModulePath (Src(FP[])) = MP []
 fileToModulePath (Src(FP(f:fp))) = MP $ fst(parseExtension f) : fp
 
 flattenSources ∷ PathDB → Set RepoPath
-flattenSources = Set.map (\(r,s,_) → srcToRepo r s)
+flattenSources = Set.map (\(r,s,_) → srcToRepo r s) . fst
 
 moduleToRepoFPs ∷ PathDB → ModulePath → Set RepoPath
-moduleToRepoFPs db mp = flattenSources $ Set.filter doesMatch db
+moduleToRepoFPs (db,m) mp = flattenSources(Set.filter doesMatch db,m)
   where combine (r,s,_) = srcToRepo r s
         doesMatch (_,s,_) = srcPathMatch mp s
 
@@ -177,6 +181,7 @@ srcToRepo ∷ RepoPath → SrcPath → RepoPath
 srcToRepo (Repo(FP prefix)) (Src(FP p)) = Repo$ FP $ p⊕prefix
 
 srclibPath ∷ RepoPath → Text
+srclibPath (Repo(FP [])) = "."
 srclibPath (Repo(FP path)) = T.intercalate "/" $ reverse path
 
 
@@ -186,7 +191,7 @@ pdbSourceFiles ∷ PathDB → Set RepoPath
 pdbSourceFiles = flattenSources
 
 matchingSourceFiles ∷ PathDB → ModulePath → Set RepoPath
-matchingSourceFiles db mp = flattenSources $ Set.filter f db
+matchingSourceFiles (db,x) mp = flattenSources(Set.filter f db,x)
   where f (_,s,_) = srcPathMatch mp s
 
 --findSourceOfTmpFile ∷ PathDB → AbsPath → Set RepoPath
@@ -262,10 +267,27 @@ byteToCharOffset (Shape _ mb) = f 0
         f chr remain | remain≤0 = chr
         f chr remain            = f (chr+1) (remain-bytesAtChar chr)
 
+mkSpanSafe ∷ RepoPath → FileShape → LineCol → LineCol → Maybe Span
+mkSpanSafe fn shape start end = do s ← lineColOffset shape start
+                                   e ← lineColOffset shape end
+                                   return $ Span fn s e
+
 mkSpan ∷ RepoPath → FileShape → LineCol → LineCol → Maybe Span
-mkSpan fn shape start end = do s ← lineColOffset shape start
-                               e ← lineColOffset shape end
-                               return $ Span fn s e
+mkSpan fn shape start@(LineCol l c) end@(LineCol λ ξ) =
+  Just $ Span fn s e
+    where s' = case lineColOffset shape start of
+                 Just s → Just s
+                 Nothing → lineColOffset shape (LineCol l 1)
+          e' = case lineColOffset shape end of
+                 Just e → Just e
+                 Nothing → case lineColOffset shape (LineCol (λ+1) 1) of
+                   Just e → Just e
+                   Nothing → lineColOffset shape (LineCol λ 1)
+          (s,e) = case (s',e') of
+                    (Just a, Just b) → (a,b)
+                    (Just a, Nothing) → (a,a)
+                    (Nothing, Just b) → (b,b)
+                    (Nothing, Nothing) → (0,0)
 
 
 -- Arbitrary Instances -------------------------------------------------------

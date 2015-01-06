@@ -61,6 +61,14 @@ data Def = Def
 
 data Graph = Graph [Def] [Ref]
 
+instance Monoid Graph where
+  mempty = Graph [] []
+  (Graph a b) `mappend` (Graph α β) = Graph (a<>α) (b<>β)
+
+deriving instance Show Ref
+deriving instance Show Def
+deriving instance Show Graph
+
 deriving instance Eq SourceUnit
 deriving instance Show SourceUnit
 
