@@ -13,6 +13,7 @@ import ClassyPrelude
 import Control.Category
 import Control.Category.Unicode
 import Data.Aeson as JSON
+import qualified Data.Set as Set
 import qualified Data.ByteString.Lazy as LBS
 import qualified Data.ByteString.Lazy.Char8 as BC
 import qualified Data.Text as T
@@ -34,11 +35,15 @@ import Haddock as H
 import Srclib as Src
 import qualified Locations as Loc
 
-depresolveCmd ∷ CabalInfo → IO ()
-depresolveCmd = error . show
+resolve ∷ Text → Src.ResolvedDependency
+resolve nm = Src.ResolvedDependency nm "" nm "" ""
+
+depresolveCmd ∷ CabalInfo → IO [Src.ResolvedDependency]
+depresolveCmd = cabalDependencies ⋙ Set.toList ⋙ mapM (resolve⋙return)
 
 getCabalInfo ∷ SourceUnit → CabalInfo
-getCabalInfo = error . show
+getCabalInfo x = case C.fromSrcUnit x of
+                   Just a → a
 
 {-
 dirname = undefined
@@ -50,19 +55,9 @@ toSourceUnit ∷ CabalInfo → SourceUnit
 toSourceUnit (CabalInfo f pkg deps files dirs) =
   SourceUnit f pkg (dirname f) deps dirs files (concatMap hsGlobs dirs)
 
-instance ToJSON H.Graph where
- toJSON = error . show
-
 instance ToJSON CabalInfo where
  toJSON = toJSON . toSourceUnit
-
-dumpJSON ∷ ToJSON a ⇒ a → IO ()
-dumpJSON = encode >>> BC.putStrLn
-
-withCabalInfoFromStdin ∷ ToJSON a ⇒ (CabalInfo → IO a) → IO ()
-withCabalInfoFromStdin proc = do
-  unit ← JSON.decode <$> LBS.getContents
-  maybe usage (proc >=> dumpJSON) $ getCabalInfo <$> unit
+-}
 
 usage ∷ IO ()
 usage = do
@@ -73,15 +68,22 @@ usage = do
   putStrLn $ T.concat ["    ", progName, " depresolve < sourceUnit"]
   putStrLn progName
 
+withCabalInfoFromStdin ∷ ToJSON a ⇒ (CabalInfo → IO a) → IO ()
+withCabalInfoFromStdin proc = do
+  unit ← JSON.decode <$> LBS.getContents
+  maybe usage (proc >=> dumpJSON) $ getCabalInfo <$> unit
+
+dumpJSON ∷ ToJSON a ⇒ a → IO ()
+dumpJSON = JSON.encode >>> BC.putStrLn
+
 srclibRun ∷ [Text] → IO ()
-srclibRun ("scan":_) = C.scan >>= dumpJSON
+srclibRun ("scan":_) = (map C.toSrcUnit <$> scan) >>= dumpJSON
 srclibRun ["graph"] = withCabalInfoFromStdin graph
 srclibRun ["depresolve"] = withCabalInfoFromStdin depresolveCmd
 srclibRun _ = usage
 
 main ∷ IO ()
 main = getArgs >>= srclibRun
--}
 
 -- Bullshit taken out of Cabal.hs --------------------------------------------
 
@@ -134,13 +136,13 @@ allRepoFiles root = do
 scan ∷ IO [CabalInfo]
 scan = do
   root ← (Path.fromText <<< T.pack) <$> Sys.getCurrentDirectory
-  traceM $ "root" <> show root
+  -- traceM $ "root" <> show root
   fdb ← allRepoFiles root
-  traceM $ "fdb" <> show fdb
+  -- traceM $ "fdb" <> show fdb
   cabalFiles ← mapM readFile $ M.filterWithKey (\k _→C.isCabalFile k) fdb
-  traceM $ "cabalFiles" <> show(M.keys cabalFiles)
+  -- traceM $ "cabalFiles" <> show(M.keys cabalFiles)
   let repo = C.Repo fdb cabalFiles
-  traceM $ show $ C.analyse repo
+  -- traceM $ show $ C.analyse repo
   return $ M.elems $ snd $ C.analyse repo
 
 {-
@@ -161,7 +163,7 @@ scan = do
 testScan ∷ IO ()
 testScan = scan >>= flip forM_ print
 
-main = do
+testRun = do
   infos ← scan
   graphs ← mapM H.graph infos
   forM_ graphs $ JSON.encode ⋙ LBS.putStrLn

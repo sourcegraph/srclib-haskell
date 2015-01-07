@@ -1,50 +1,27 @@
 {
   "Defs": [
     {
-      "Path": "Main",
-      "TreePath": "Main",
-      "Name": "Main",
-      "Kind": "Module",
-      "File": "src/Main.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
-      "Exported": true,
-      "Local": false
-    },
-    {
-      "Path": "Main/main",
-      "TreePath": "Main/main",
+      "Path": "haskell-hello-world/Main/main/Value",
+      "TreePath": "haskell-hello-world/Main/main/Value",
       "Name": "main",
       "Kind": "Value",
       "File": "src/Main.hs",
-      "DefStart": 18,
-      "DefEnd": 22,
-      "Exported": true,
-      "Local": false
+      "DefStart": 19,
+      "DefEnd": 49,
+      "Exported": true
     }
   ],
   "Refs": [
     {
       "DefRepo": "",
-      "DefUnitType": "",
+      "DefUnitType": "HaskellPackage",
       "DefUnit": "",
-      "DefPath": "Main/main",
+      "DefPath": "haskell-hello-world/Main/main/Value",
       "Def": true,
       "Repo": "",
       "File": "src/Main.hs",
-      "Start": 18,
-      "End": 22
-    },
-    {
-      "DefRepo": "",
-      "DefUnitType": "",
-      "DefUnit": "",
-      "DefPath": "Main",
-      "Def": true,
-      "Repo": "",
-      "File": "src/Main.hs",
-      "Start": 0,
-      "End": 0
+      "Start": 19,
+      "End": 23
     }
   ]
 }

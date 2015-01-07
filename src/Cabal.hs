@@ -18,6 +18,7 @@ import ClassyPrelude hiding ((<.>), (</>))
 import Prelude.Unicode
 import Control.Category.Unicode
 import Data.Monoid.Unicode
+import Test.QuickCheck
 
 import qualified Data.List as L
 import qualified Data.Map as M
@@ -67,11 +68,19 @@ analyse repo = ([], M.fromList $ catMaybes $ info <$> cabalFiles)
 
 toSrcUnit ∷ CabalInfo → Src.SourceUnit
 toSrcUnit (CabalInfo cf pkg pdir deps files dirs globs) =
-  Src.SourceUnit cf pkg pdir (unSet deps) (unSet files) (unSet dirs) (unSet globs)
+  Src.SourceUnit cf pkg pdir (u deps) (u dirs) (u files) (u globs)
+    where u = Set.toList
 
 fromSrcUnit ∷ Src.SourceUnit → Maybe CabalInfo
 fromSrcUnit (Src.SourceUnit cf pkg pdir deps files dirs globs) =
-  Just $ CabalInfo cf pkg pdir (toSet deps) (toSet files) (toSet dirs) (toSet globs)
+  Just $ CabalInfo cf pkg pdir (toSet deps) (toSet dirs) (toSet files) (toSet globs)
+
+instance (Ord a,Arbitrary a) => Arbitrary(Set a) where
+  arbitrary = Set.fromList <$> arbitrary
+
+instance Arbitrary CabalInfo where
+  arbitrary = CabalInfo <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+                        <*> arbitrary <*> arbitrary <*> arbitrary
 
 prop_srcUnitConversion ∷ CabalInfo → Bool
 prop_srcUnitConversion ci = Just ci≡fromSrcUnit(toSrcUnit ci)
@@ -84,6 +93,7 @@ prToMaybe (Cabal.ParseFailed x) = traceShow x Nothing
 prToMaybe (Cabal.ParseOk _ x) = Just x
 
 toGlob ∷ RepoPath → Text
+toGlob (Loc.Repo(Loc.FP[])) = "**/*.hs"
 toGlob rp = Loc.srclibPath rp <> "/**/*.hs"
 
 unSet ∷ Ord a ⇒ Set a → [a]

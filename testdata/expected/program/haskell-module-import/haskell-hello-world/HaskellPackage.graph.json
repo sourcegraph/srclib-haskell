@@ -1,94 +1,48 @@
 {
   "Defs": [
     {
-      "Path": "Hello",
-      "TreePath": "Hello",
-      "Name": "Hello",
-      "Kind": "Module",
-      "File": "src/Hello.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
-      "Exported": true,
-      "Local": false
-    },
-    {
-      "Path": "Hello/hello",
-      "TreePath": "Hello/hello",
+      "Path": "haskell-hello-world/Hello/hello/Value",
+      "TreePath": "haskell-hello-world/Hello/hello/Value",
       "Name": "hello",
       "Kind": "Value",
       "File": "src/Hello.hs",
-      "DefStart": 19,
-      "DefEnd": 24,
-      "Exported": true,
-      "Local": false
+      "DefStart": 20,
+      "DefEnd": 51,
+      "Exported": true
     },
     {
-      "Path": "Main",
-      "TreePath": "Main",
-      "Name": "Main",
-      "Kind": "Module",
-      "File": "src/Main.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
-      "Exported": true,
-      "Local": false
-    },
-    {
-      "Path": "Main/main",
-      "TreePath": "Main/main",
+      "Path": "haskell-hello-world/Main/main/Value",
+      "TreePath": "haskell-hello-world/Main/main/Value",
       "Name": "main",
       "Kind": "Value",
       "File": "src/Main.hs",
-      "DefStart": 43,
-      "DefEnd": 47,
-      "Exported": true,
-      "Local": false
+      "DefStart": 47,
+      "DefEnd": 65,
+      "Exported": true
     }
   ],
   "Refs": [
     {
       "DefRepo": "",
-      "DefUnitType": "",
+      "DefUnitType": "HaskellPackage",
       "DefUnit": "",
-      "DefPath": "Hello/hello",
+      "DefPath": "haskell-hello-world/Hello/hello/Value",
       "Def": true,
       "Repo": "",
       "File": "src/Hello.hs",
-      "Start": 19,
-      "End": 24
+      "Start": 20,
+      "End": 25
     },
     {
       "DefRepo": "",
-      "DefUnitType": "",
+      "DefUnitType": "HaskellPackage",
       "DefUnit": "",
-      "DefPath": "Hello",
-      "Def": true,
-      "Repo": "",
-      "File": "src/Hello.hs",
-      "Start": 0,
-      "End": 0
-    },
-    {
-      "DefRepo": "",
-      "DefUnitType": "",
-      "DefUnit": "",
-      "DefPath": "Main/main",
+      "DefPath": "haskell-hello-world/Main/main/Value",
       "Def": true,
       "Repo": "",
       "File": "src/Main.hs",
-      "Start": 43,
-      "End": 47
-    },
-    {
-      "DefRepo": "",
-      "DefUnitType": "",
-      "DefUnit": "",
-      "DefPath": "Main",
-      "Def": true,
-      "Repo": "",
-      "File": "src/Main.hs",
-      "Start": 0,
-      "End": 0
+      "Start": 47,
+      "End": 51
     }
   ]
 }
