@@ -53,8 +53,14 @@ import           Test.QuickCheck
 
 -- Types ---------------------------------------------------------------------
 
-data LineCol   = LineCol Int Int
-  deriving Show
+data LineCol = LineCol Int Int
+  deriving (Show,Eq)
+
+instance Ord LineCol where
+  compare (LineCol l c) (LineCol λ ξ) =
+    case (compare l λ, compare c ξ) of
+      (EQ,colDifference) → colDifference
+      (lineDifference,_) → lineDifference
 
 data FileShape = Shape {fsLineWidths ∷ [Int], fsUnicodeChars ∷ IntMap Int}
   deriving (Ord, Eq, Show)
@@ -272,10 +278,19 @@ mkSpanSafe fn shape start end = do s ← lineColOffset shape start
                                    e ← lineColOffset shape end
                                    return $ Span fn s e
 
+showMkSpan ∷ RepoPath → ((Int,Int),(Int,Int)) → (Int,Int) → String
+showMkSpan p ((l,c),(λ,ξ)) (s,e) =
+  T.unpack $ T.concat $ [ "mkSpan ", srclibPath p, ":", ts l, ":", ts c
+                                   , "-", ts λ, ":", ts ξ
+                        , "\t", ts s, "-", ts e
+                        ]
+    where ts = show ⋙ T.pack
+
 mkSpan ∷ RepoPath → FileShape → LineCol → LineCol → Maybe Span
 mkSpan fn shape start@(LineCol l c) end@(LineCol λ ξ) =
-  Just $ Span fn s e
-    where s' = case lineColOffset shape start of
+    traceShow shape $ trace (showMkSpan fn ((l,c),(λ,ξ)) (s,e)) result
+    where result = Just $ Span fn s e
+          s' = case lineColOffset shape start of
                  Just s → Just s
                  Nothing → lineColOffset shape (LineCol l 1)
           e' = case lineColOffset shape end of
@@ -309,7 +324,7 @@ deriving instance Arbitrary SrcPath
 -- Tests ---------------------------------------------------------------------
 
 example ∷ Text
-example = unlines ["→a≡s≫ ⋘ ≫df←", "", "asγdf", "", "", "αaβs⇒d⇐f\0", ""]
+example = unlines ["→a≡s≫ ⋘ ≫df←", "", "", "" ,"", "asγdf", "", "", "αaβs⇒d⇐f\0", ""]
 
 dropBytes ∷ Int → TL.Text → Maybe TL.Text
 dropBytes n = TL.encodeUtf8 ⋙ B.drop(fromIntegral n) ⋙ TL.decodeUtf8' ⋙ toMaybe
@@ -318,9 +333,6 @@ dropBytes n = TL.encodeUtf8 ⋙ B.drop(fromIntegral n) ⋙ TL.decodeUtf8' ⋙ to
 
 dropChars ∷ Int → TL.Text → TL.Text
 dropChars n = TL.drop (fromIntegral n)
-
-convertIndex ∷ FileShape → Int → Maybe Int
-convertIndex shape offset = offsetLineCol shape offset >>= lineColOffset shape
 
 convertOffset ∷ FileShape → Int → Int
 convertOffset s = charToByteOffset s ⋙ byteToCharOffset s
@@ -339,11 +351,25 @@ prop_convertableOffsets txt number = okOffset ==> offset≡o
         offset = number `mod` (1 + T.length txt)
         o = convertOffset (textShape $ lazy txt) offset
 
-prop_convertableIndexes ∷ Text → Int → Property
-prop_convertableIndexes txt number = okOffset ==> Just offset≡converted
-  where okOffset = offset≥0 ∧ offset≤T.length txt
-        offset = number `mod` (1 + T.length txt)
-        converted = convertIndex (textShape $ lazy txt) offset
+prop_convertableIndexes ∷ Text → Bool
+prop_convertableIndexes txt = all ok $ allOffsets $ lazy txt
+  where ok off = Just off ≡ (offsetLineCol shp off >>= lineColOffset shp)
+        shp = textShape $ lazy txt
+
+--okOffset ==> Just offset≡converted
+--  where okOffset = offset≥0 ∧ offset≤T.length txt
+--        offset = number `mod` (1 + T.length txt)
+--        shape = textShape $ lazy txt
+--        converted = offsetLineCol shape offset >>= lineColOffset shape
+
+prop_consistentIndexOrdering ∷ Text → Int → Int → Property
+prop_consistentIndexOrdering txt a b =
+  okOffset a ∧ okOffset b ==> Just(compare a b) ≡ (compare <$> a' <*> b')
+    where okOffset x = offset x≥0 ∧ offset x≤T.length txt
+          offset x = x `mod` (1 + T.length txt)
+          shape = textShape $ lazy txt
+          a' = offsetLineCol shape a
+          b' = offsetLineCol shape b
 
 validPath ∷ FilePath → Bool
 validPath (FP path) = all valid path
@@ -380,15 +406,26 @@ prop_lineColEdgeCases s = first ∧ last ∧ eol ∧ eof
     eol   = Just(1+T.length s) ≡ off (textShape $ lazy s) (endOfLastLine shape)
     eof   = Just(2+T.length s) ≡ off (textShape $ lazy s) (eofPosition shape)
 
+allOffsets ∷ TL.Text → [Int]
+allOffsets t = [0..(fromIntegral $ TL.length t)]
+
+allLinesCols ∷ TL.Text → [LineCol]
+allLinesCols t = catMaybes $ offsetLineCol (textShape t) <$> allOffsets t
+
 test ∷ IO ()
 test = do
-  --t manyChecks = quickCheckWith stdArgs{maxSuccess=5000}
+  let manyChecks = quickCheckWith stdArgs{maxSuccess=5000}
   quickCheck   prop_convertableIndexes
   quickCheck   prop_convertableOffsets
   quickCheck   prop_equivalentDrops
   quickCheck $ prop_convertableOffsets example
-  quickCheck $ prop_convertableOffsets example
   quickCheck $ prop_equivalentDrops example
+  manyChecks   prop_convertableIndexes
+  -- quickCheck $ prop_convertableIndexes example
   quickCheck   prop_serializablePath
   quickCheck   prop_serializableAbsPath
-  --quickCheck   prop_lineColEdgeCases
+
+  putStrLn "==== KNOWN BAD ===="
+  quickCheck   prop_lineColEdgeCases
+  quickCheck   prop_consistentIndexOrdering
+  quickCheck $ prop_consistentIndexOrdering example
