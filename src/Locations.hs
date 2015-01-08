@@ -246,14 +246,19 @@ textShape s = Shape ((TL.length⋙fromIntegral) <$> TL.lines s) (multibyteChars 
 fileShape ∷ Text → IO FileShape
 fileShape f = (TL.pack ⋙ textShape) <$> readFile (Path.fromText f)
 
+indexL ∷ [a] → Int → Maybe a
+indexL l i = case drop i l of [] → Nothing
+                              (x:_) → Just x
+
 lineColOffset ∷ FileShape → LineCol → Maybe Int
-lineColOffset (Shape lineWidths _) (LineCol line col) =
-  case (L.length lineWidths, drop (line-1) lineWidths) of
-    (_, len:_)  | (line-1)≤len →
-        Just $ (col-1) + (line-1) + sum(take (line-1) lineWidths)
-    (nLines, _) | col≡1 ∧ nLines+1≡line →
-        Just $ (line-1) + sum lineWidths
-    _ → Nothing
+lineColOffset shp@(Shape lineWidths _) lc@(LineCol line col) =
+  let nLines = L.length lineWidths
+      eof = lc ≡ eofPosition shp
+  in
+    if eof then Just((line-1) + sum lineWidths) else
+      do width ← lineWidths `indexL` (line-1)
+         guard $ (col-1) ≤ width
+         return $ (col-1) + (line-1) + sum(take (line-1) lineWidths)
 
 offsetLineCol ∷ FileShape → Int → Maybe LineCol
 offsetLineCol (Shape lineWidths _) = f 1 lineWidths
