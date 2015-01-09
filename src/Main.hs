@@ -18,8 +18,6 @@ import qualified Data.ByteString.Lazy as LBS
 import qualified Data.ByteString.Lazy.Char8 as BC
 import qualified Data.Text as T
 
-import qualified Shelly
-
 import qualified Data.Map as M
 
 import           System.FilePath.Find                          ((==?))
@@ -44,20 +42,7 @@ depresolveCmd = cabalDependencies ⋙ Set.toList ⋙ mapM (resolve⋙return)
 getCabalInfo ∷ SourceUnit → CabalInfo
 getCabalInfo x = case C.fromSrcUnit x of
                    Just a → a
-
-{-
-dirname = undefined
-
-hsGlobs ∷ Text → [Text]
-hsGlobs x = undefined
-
-toSourceUnit ∷ CabalInfo → SourceUnit
-toSourceUnit (CabalInfo f pkg deps files dirs) =
-  SourceUnit f pkg (dirname f) deps dirs files (concatMap hsGlobs dirs)
-
-instance ToJSON CabalInfo where
- toJSON = toJSON . toSourceUnit
--}
+                   Nothing → error "NO CABAL INFO"
 
 usage ∷ IO ()
 usage = do
@@ -85,8 +70,6 @@ srclibRun _ = usage
 main ∷ IO ()
 main = getArgs >>= srclibRun
 
--- Bullshit taken out of Cabal.hs --------------------------------------------
-
 fromRight ∷ Either Text b → b
 fromRight (Left x) = error $ T.unpack x
 fromRight (Right y) = y
@@ -95,75 +78,39 @@ bindLeft ∷ a → Maybe b → Either a b
 bindLeft x Nothing = Left x
 bindLeft _ (Just y) = Right y
 
-{-
-repoFiles ∷ IO [Loc.RepoPath]
-repoFiles = do
-  root∷FilePath ← (Path.fromText <<< T.pack) <$> Sys.getCurrentDirectory
-  let fQuery = Find.fileType ==? Find.RegularFile
-  files ← map pFromStr <$> Find.find Find.always fQuery (pToStr root)
-  flip mapM files $ \fn → do
-    let pathText ∷ FilePath → Either Text Loc.RepoPath
-        pathText p = do
-          let root' = pFromStr(pToStr root <> "/")
-          relative ← bindLeft "Bad path" (Path.stripPrefix root' p)
-          textified ← Path.toText relative
-          let parseError = "Invalid relative path: " <> textified
-          parsed ← bindLeft parseError $ Loc.parseRelativePath textified
-          return $ Loc.Repo parsed
-    return $ fromRight $ pathText fn
--}
-
 pToStr ∷ FilePath → String
 pFromStr ∷ String → FilePath
 (pToStr,pFromStr) = (Path.encodeString, Path.decodeString)
 
 allRepoFiles ∷ FilePath → IO (Map Loc.RepoPath FilePath)
-allRepoFiles root = do
+allRepoFiles rootDir = do
   let pathText ∷ FilePath → Either Text Loc.RepoPath
       pathText p = do
-        let root' = pFromStr(pToStr root <> "/")
-        relative ← bindLeft "Bad path" (Path.stripPrefix root' p)
-        textified ← Path.toText relative
+        let rootDir' = pFromStr(pToStr rootDir <> "/")
+        relPath ← bindLeft "Bad path" (Path.stripPrefix rootDir' p)
+        textified ← Path.toText relPath
         let parseError = "Invalid relative path: " <> textified
         parsed ← bindLeft parseError $ Loc.parseRelativePath textified
         return $ Loc.Repo parsed
       toRepoPath = pathText >>> fromRight
 
   let fQuery = Find.fileType ==? Find.RegularFile
-  files ← map pFromStr <$> Find.find Find.always fQuery (pToStr root)
+  files ← map pFromStr <$> Find.find Find.always fQuery (pToStr rootDir)
   return $ M.fromList $ (\f→(toRepoPath f, f)) <$> files
 
 scan ∷ IO [CabalInfo]
 scan = do
-  root ← (Path.fromText <<< T.pack) <$> Sys.getCurrentDirectory
-  -- traceM $ "root" <> show root
-  fdb ← allRepoFiles root
-  -- traceM $ "fdb" <> show fdb
+  rootDir ← (Path.fromText <<< T.pack) <$> Sys.getCurrentDirectory
+  fdb ← allRepoFiles rootDir
   cabalFiles ← mapM readFile $ M.filterWithKey (\k _→C.isCabalFile k) fdb
-  -- traceM $ "cabalFiles" <> show(M.keys cabalFiles)
   let repo = C.Repo fdb cabalFiles
-  -- traceM $ show $ C.analyse repo
   return $ M.elems $ snd $ C.analyse repo
-
-{-
-  repo ← fmap M.fromList $ flip mapM files $ \fn → do
-    content ← readFile fn
-    let pathText ∷ FilePath → Either Text Loc.RepoPath
-        pathText p = do
-          let root' = toPath(toStr root <> "/")
-          relative ← bindLeft "Bad path" (Path.stripPrefix root' p)
-          textified ← Path.toText relative
-          let parseError = "Invalid relative path: " <> textified
-          parsed ← bindLeft parseError $ Loc.parseRelativePath textified
-          return $ Loc.Repo parsed
-    return (fromRight(pathText fn), content)
-  return $ M.elems $ snd $ C.analyse repo
--}
 
 testScan ∷ IO ()
-testScan = scan >>= flip forM_ print
+testScan = scan >>= mapM_ print
 
+testRun ∷ IO ()
 testRun = do
   infos ← scan
   graphs ← mapM H.graph infos
-  forM_ graphs $ JSON.encode ⋙ LBS.putStrLn
+  forM_ graphs $ JSON.encode ⋙ BC.putStrLn

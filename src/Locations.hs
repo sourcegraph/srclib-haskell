@@ -69,13 +69,27 @@ type Path      = [Text]
 type Extension = Maybe Text
 
 newtype ModulePath = MP Path
-newtype FilePath   = FP Path
+  deriving (Ord,Eq,Show)
 
-newtype SrcPath  = Src FilePath  -- relative to a Haskell source directory.
-newtype RepoPath = Repo FilePath -- relative to the root of a repository.
-newtype AbsPath  = Abs FilePath  -- relative to the filesystem root.
+-- | relative to some, unknown directory.
+newtype FilePath = FP Path
+  deriving (Ord,Eq,Semigroup,Monoid,Show)
+
+-- | relative to a Haskell source directory.
+newtype SrcPath  = Src FilePath
+  deriving (Ord,Eq,Show,Semigroup)
+
+-- | relative to the root of a repository.
+newtype RepoPath = Repo FilePath
+  deriving (Ord,Eq,Show,Semigroup)
+
+-- | relative to the filesystem root.
+newtype AbsPath  = Abs FilePath
+  deriving (Ord,Eq,Show,Semigroup)
 
 data Span = Span{spanFile∷RepoPath, spanStart∷Int, spanLength∷Int}
+  deriving (Ord,Eq,Show)
+
 type PathCol = (RepoPath, SrcPath, FileShape)
 type PathDB = (Set PathCol, Map String ModulePath)
 
@@ -85,37 +99,21 @@ type PathDB = (Set PathCol, Map String ModulePath)
 lazy ∷ Text -> TL.Text
 lazy = TL.fromStrict
 
+mkMaybe ∷ Bool → a → Maybe a
+mkMaybe False _ = Nothing
+mkMaybe True x = Just x
 
--- Basic Instances -----------------------------------------------------------
+indexL ∷ [a] → Int → Maybe a
+indexL l i = case drop i l of [] → Nothing
+                              (x:_) → Just x
 
-deriving instance Eq ModulePath
-deriving instance Ord ModulePath
-deriving instance Show ModulePath
+dropBytes ∷ Int → TL.Text → Maybe TL.Text
+dropBytes n = TL.encodeUtf8 ⋙ B.drop(fromIntegral n) ⋙ TL.decodeUtf8' ⋙ toMaybe
+  where toMaybe (Left _) = Nothing
+        toMaybe (Right a) = Just a
 
-deriving instance Eq FilePath
-deriving instance Ord FilePath
-deriving instance Semigroup FilePath
-deriving instance Monoid FilePath
-deriving instance Show FilePath
-
-deriving instance Eq Span
-deriving instance Ord Span
-deriving instance Show Span
-
-deriving instance Eq SrcPath
-deriving instance Ord SrcPath
-deriving instance Show SrcPath
-deriving instance Semigroup SrcPath
-
-deriving instance Eq RepoPath
-deriving instance Ord RepoPath
-deriving instance Show RepoPath
-deriving instance Semigroup RepoPath
-
-deriving instance Eq AbsPath
-deriving instance Ord AbsPath
-deriving instance Show AbsPath
-deriving instance Semigroup AbsPath
+dropChars ∷ Int → TL.Text → TL.Text
+dropChars n = TL.drop (fromIntegral n)
 
 
 -- Path Operations -----------------------------------------------------------
@@ -127,10 +125,6 @@ parent (Repo(FP(_:p))) = Just $ Repo $ FP p
 ext ∷ RepoPath → Extension
 ext (Repo(FP[])) = Nothing
 ext (Repo(FP(f:_))) = snd $ parseExtension f
-
-mkMaybe ∷ Bool → a → Maybe a
-mkMaybe False _ = Nothing
-mkMaybe True x = Just x
 
 validModuleComponent ∷ Text → Bool
 validModuleComponent t = case T.uncons t of Nothing → False
@@ -200,10 +194,10 @@ matchingSourceFiles ∷ PathDB → ModulePath → Set RepoPath
 matchingSourceFiles (db,x) mp = flattenSources(Set.filter f db,x)
   where f (_,s,_) = srcPathMatch mp s
 
---findSourceOfTmpFile ∷ PathDB → AbsPath → Set RepoPath
---findSourceOfTmpFile db p = Set.unions $ matchingSourceFiles db <$> modules
---  where tmp = pdbKnownTmpFiles db
---        modules = maybeToList $ M.lookup p tmp
+findSourceOfTmpFile ∷ PathDB → String → Set RepoPath
+findSourceOfTmpFile db@(_,tmpFiles) p =
+  Set.unions $ matchingSourceFiles db <$> modules
+    where modules = maybeToList $ M.lookup p tmpFiles
 
 
 -- FileShape Operations ------------------------------------------------------
@@ -223,8 +217,8 @@ eofPosition ∷ FileShape → LineCol
 eofPosition (Shape ws _) = LineCol (1+L.length ws) 1
 
 lineCol ∷ Int → Int → Maybe LineCol
-lineCol line col | line≥1 ∧ col≥1 = Just $ LineCol line col
-lineCol _    _                    = Nothing
+lineCol line col = if line≥1 ∧ col≥1 then Just $ LineCol line col
+                                     else Nothing
 
 spanFromByteOffsets ∷ (RepoPath,Int,Int) → Maybe Span
 spanFromByteOffsets (fp,start,end) =
@@ -241,32 +235,28 @@ multibyteChars = TL.foldl f (0,IntMap.empty) ⋙ snd
 
 textShape ∷ TL.Text → FileShape
 textShape "" = Shape [0] IntMap.empty
-textShape s = Shape ((TL.length⋙fromIntegral) <$> TL.lines s) (multibyteChars s)
+textShape s =
+   Shape ((TL.length ⋙ fromIntegral) <$> TL.lines s) (multibyteChars s)
 
 fileShape ∷ Text → IO FileShape
 fileShape f = (TL.pack ⋙ textShape) <$> readFile (Path.fromText f)
-
-indexL ∷ [a] → Int → Maybe a
-indexL l i = case drop i l of [] → Nothing
-                              (x:_) → Just x
 
 lineColOffset ∷ FileShape → LineCol → Maybe Int
 lineColOffset shp@(Shape lineWidths _) lc@(LineCol line col) =
   let nLines = L.length lineWidths
       eof = lc ≡ eofPosition shp
-  in
-    if eof then Just((line-1) + sum lineWidths) else
-      do width ← lineWidths `indexL` (line-1)
-         guard $ (col-1) ≤ width
-         return $ (col-1) + (line-1) + sum(take (line-1) lineWidths)
+  in if eof then Just((line-1) + sum lineWidths) else
+       do width ← lineWidths `indexL` (line-1)
+          guard $ (col-1) ≤ width
+          return $ (col-1) + (line-1) + sum(take (line-1) lineWidths)
 
 offsetLineCol ∷ FileShape → Int → Maybe LineCol
 offsetLineCol (Shape lineWidths _) = f 1 lineWidths
   where f ∷ Int → [Int] → Int → Maybe LineCol
-        f l []     off | off≡0     = Just $ LineCol l 1
-                       | otherwise = Nothing
-        f l (w:ws) off | off≤w     = Just $ LineCol l (1+off)
-                       | otherwise = f (l+1) ws (off-w-1)
+        f l []     off = if off≡0 then Just $ LineCol l 1
+                                  else Nothing
+        f l (w:ws) off = if off≤w then Just $ LineCol l (1+off)
+                                  else f (l+1) ws (off-w-1)
 
 charToByteOffset ∷ FileShape → Int → Int
 charToByteOffset (Shape _ mb) off = IntMap.fold (+) off mbs - IntMap.size mbs
@@ -288,35 +278,20 @@ mkSpanSafe fn shape start end = do sChr ← lineColOffset shape start
 
 showMkSpan ∷ RepoPath → ((Int,Int),(Int,Int)) → (Int,Int) → String
 showMkSpan p ((l,c),(λ,ξ)) (s,e) =
-  T.unpack $ T.concat $ [ "mkSpan ", srclibPath p, ":", ts l, ":", ts c
-                                   , "-", ts λ, ":", ts ξ
-                        , "\t", ts s, "-", ts e
-                        ]
+  T.unpack $ T.concat [ "mkSpan ", srclibPath p, ":", ts l, ":", ts c
+                                 , "-", ts λ, ":", ts ξ
+                      , "\t", ts s, "-", ts e
+                      ]
     where ts = show ⋙ T.pack
+
+bogusSpan ∷ Span
+bogusSpan = Span (Repo(FP["ERROR"])) (-999) (-999)
 
 mkSpan ∷ RepoPath → FileShape → LineCol → LineCol → Maybe Span
 mkSpan fn shape start@(LineCol l c) end@(LineCol λ ξ) =
-  let result@(Span _ s e) = fromMaybe (Span fn 0 0) $ mkSpanSafe fn shape start end
-  in trace (showMkSpan fn ((l,c),(λ,ξ)) (s,e)) $ Just result
-
-
-mkSpanUnsafe ∷ RepoPath → FileShape → LineCol → LineCol → Maybe Span
-mkSpanUnsafe fn shape start@(LineCol l c) end@(LineCol λ ξ) =
-    traceShow shape $ trace (showMkSpan fn ((l,c),(λ,ξ)) (s,e)) result
-    where result = Just $ Span fn s e
-          s' = case lineColOffset shape start of
-                 Just s → Just s
-                 Nothing → lineColOffset shape (LineCol l 1)
-          e' = case lineColOffset shape end of
-                 Just e → Just e
-                 Nothing → case lineColOffset shape (LineCol (λ+1) 1) of
-                   Just e → Just e
-                   Nothing → lineColOffset shape (LineCol λ 1)
-          (s,e) = case (s',e') of
-                    (Just a, Just b) → (a,b)
-                    (Just a, Nothing) → (a,a)
-                    (Nothing, Just b) → (b,b)
-                    (Nothing, Nothing) → (0,0)
+  trace (showMkSpan fn ((l,c),(λ,ξ)) (s,e)) result
+    where result = mkSpanSafe fn shape start end
+          (Span _ s e) = fromMaybe bogusSpan result
 
 
 -- Arbitrary Instances -------------------------------------------------------
@@ -324,11 +299,14 @@ mkSpanUnsafe fn shape start@(LineCol l c) end@(LineCol λ ξ) =
 instance Arbitrary Text where
   arbitrary = T.pack <$> arbitrary
 
+instance Arbitrary TL.Text where
+  arbitrary = lazy <$> arbitrary
+
 instance Arbitrary FilePath where
   arbitrary = genFP
     where genFP = do attempt ← arbitrary
                      if validPath (FP attempt) then return (FP attempt)
-                                              else genFP
+                                               else genFP
 
 deriving instance Arbitrary AbsPath
 deriving instance Arbitrary RepoPath
@@ -337,53 +315,30 @@ deriving instance Arbitrary SrcPath
 
 -- Tests ---------------------------------------------------------------------
 
-example ∷ Text
-example = unlines ["→a≡s≫ ⋘ ≫df←", "", "", "" ,"", "asγdf", "", "", "αaβs⇒d⇐f\0", ""]
+prop_equivalentDrops ∷ TL.Text → Bool
+prop_equivalentDrops txt = all ok $ allOffsets txt
+  where shape = textShape txt
+        ok offset = d1≡d2
+          where d1 = Just $ dropChars offset txt
+                d2 = dropBytes (charToByteOffset shape offset) txt
 
-dropBytes ∷ Int → TL.Text → Maybe TL.Text
-dropBytes n = TL.encodeUtf8 ⋙ B.drop(fromIntegral n) ⋙ TL.decodeUtf8' ⋙ toMaybe
-  where toMaybe (Left _) = Nothing
-        toMaybe (Right a) = Just a
-
-dropChars ∷ Int → TL.Text → TL.Text
-dropChars n = TL.drop (fromIntegral n)
-
-convertOffset ∷ FileShape → Int → Int
-convertOffset s = charToByteOffset s ⋙ byteToCharOffset s
-
-prop_equivalentDrops ∷ Text → Int → Property
-prop_equivalentDrops txt number = okOffset ==> d1≡d2
-  where okOffset = offset≥0 ∧ offset≤T.length txt
-        offset = number `mod` (1 + T.length txt)
-        shape = textShape $ lazy txt
-        d1 = Just $ dropChars offset $ lazy txt
-        d2 = dropBytes (charToByteOffset shape offset) $ lazy txt
-
-prop_convertableOffsets ∷ Text → Int → Property
-prop_convertableOffsets txt number = okOffset ==> offset≡o
-  where okOffset = offset≥0 ∧ offset≤T.length txt
-        offset = number `mod` (1 + T.length txt)
-        o = convertOffset (textShape $ lazy txt) offset
+prop_convertableOffsets ∷ TL.Text → Bool
+prop_convertableOffsets txt = all ok $ allOffsets txt
+  where ok o = o ≡ convertOffset (textShape txt) o
+        convertOffset s = charToByteOffset s ⋙ byteToCharOffset s
 
 prop_convertableIndexes ∷ Text → Bool
 prop_convertableIndexes txt = all ok $ allOffsets $ lazy txt
   where ok off = Just off ≡ (offsetLineCol shp off >>= lineColOffset shp)
         shp = textShape $ lazy txt
 
---okOffset ==> Just offset≡converted
---  where okOffset = offset≥0 ∧ offset≤T.length txt
---        offset = number `mod` (1 + T.length txt)
---        shape = textShape $ lazy txt
---        converted = offsetLineCol shape offset >>= lineColOffset shape
-
-prop_consistentIndexOrdering ∷ Text → Int → Int → Property
-prop_consistentIndexOrdering txt a b =
-  okOffset a ∧ okOffset b ==> Just(compare a b) ≡ (compare <$> a' <*> b')
-    where okOffset x = offset x≥0 ∧ offset x≤T.length txt
-          offset x = x `mod` (1 + T.length txt)
-          shape = textShape $ lazy txt
-          a' = offsetLineCol shape a
-          b' = offsetLineCol shape b
+prop_consistentIndexOrdering ∷ Text → Bool
+prop_consistentIndexOrdering txt = all ok $ allPerms $ lazy txt
+  where allPerms t = [(x,y) | x←allOffsets t, y←allOffsets t]
+        shape = textShape $ lazy txt
+        ok (a,b) = Just(compare a b) ≡ (compare <$> a' <*> b')
+          where a' = offsetLineCol shape a
+                b' = offsetLineCol shape b
 
 validPath ∷ FilePath → Bool
 validPath (FP path) = all valid path
@@ -409,7 +364,6 @@ edgeCases s = (first, last, eol, eof)
     eol   = off (textShape s) $ endOfLastLine shape
     eof   = off (textShape s) $ eofPosition shape
 
--- TODO These don't work yet!
 prop_lineColEdgeCases ∷ Text → Bool
 prop_lineColEdgeCases s = first ∧ last ∧ eol ∧ eof
   where
@@ -428,18 +382,13 @@ allLinesCols t = catMaybes $ offsetLineCol (textShape t) <$> allOffsets t
 
 test ∷ IO ()
 test = do
-  let manyChecks = quickCheckWith stdArgs{maxSuccess=5000}
-  quickCheck   prop_convertableIndexes
-  quickCheck   prop_convertableOffsets
-  quickCheck   prop_equivalentDrops
-  quickCheck $ prop_convertableOffsets example
-  quickCheck $ prop_equivalentDrops example
-  manyChecks   prop_convertableIndexes
-  -- quickCheck $ prop_convertableIndexes example
-  quickCheck   prop_serializablePath
-  quickCheck   prop_serializableAbsPath
+  quickCheckWith stdArgs{maxSuccess=100} prop_convertableIndexes
+  quickCheckWith stdArgs{maxSuccess=100} prop_convertableOffsets
+  quickCheckWith stdArgs{maxSuccess=100} prop_equivalentDrops
+  quickCheckWith stdArgs{maxSuccess=100} prop_convertableIndexes
+  quickCheckWith stdArgs{maxSuccess=100} prop_serializablePath
+  quickCheckWith stdArgs{maxSuccess=100} prop_serializableAbsPath
+  quickCheckWith stdArgs{maxSuccess=100} prop_consistentIndexOrdering
 
   putStrLn "==== KNOWN BAD ===="
-  quickCheck   prop_lineColEdgeCases
-  quickCheck   prop_consistentIndexOrdering
-  quickCheck $ prop_consistentIndexOrdering example
+  quickCheckWith stdArgs{maxSuccess=5000}   prop_lineColEdgeCases

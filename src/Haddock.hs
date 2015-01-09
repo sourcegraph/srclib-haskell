@@ -1,4 +1,3 @@
-{-# LANGUAGE StandaloneDeriving   #-}
 {-# LANGUAGE LambdaCase           #-}
 {-# LANGUAGE OverloadedStrings    #-}
 {-# LANGUAGE OverloadedLists      #-}
@@ -12,10 +11,7 @@
 module Haddock where
 
 import ClassyPrelude hiding ((</>), (<.>), maximumBy)
-
 import qualified Prelude
-
-import System.Posix.Directory
 
 import qualified Data.IntMap as IntMap
 import Control.Category.Unicode
@@ -42,8 +38,6 @@ allLocalBindings gr = Set.fromList $ exports ++ internal
   where exports = H.sgExports gr
         internal = lefts $ snd <$> H.sgReferences gr
 
-_3 (a,b,c) = c
-
 fudgeTmpFile ∷ PathDB → String → (RepoPath, SrcPath, FileShape)
 fudgeTmpFile (db,tmps) tmp = chooseFrom matches
   where modul = M.lookup tmp tmps
@@ -51,15 +45,12 @@ fudgeTmpFile (db,tmps) tmp = chooseFrom matches
         q m = Set.filter (srcPath ⋙ srcPathMatch m) db
         matches = fromMaybe Set.empty $ q <$> modul
         longest (_,Src(FP f),_) (_,Src(FP φ),_) = (compare `on` length) f φ
-        fallback = (Repo(FP([])), Src(FP([])), Shape [] IntMap.empty)
+        fallback = (Repo(FP[]), Src(FP[]), Shape [] IntMap.empty)
         chooseFrom s = if Set.null s then fallback else maximumBy longest s
-
-bogusSpan ∷ RepoPath → Span
-bogusSpan t = Span t 0 0 -- TODO Maybe Debug.Trace these occurences?
 
 tmpFileSpan ∷ PathDB → H.FileLoc → Span
 tmpFileSpan (db,tmps) (H.FileLoc fnS (l,c) (λ,ξ)) =
-  fromMaybe (bogusSpan rp) $ mkSpan rp shape (LineCol l c) (LineCol λ ξ)
+  fromMaybe bogusSpan $ mkSpan rp shape (LineCol l c) (LineCol λ ξ)
     where (r,s,shape) = fudgeTmpFile (db,tmps) fnS
           m = M.lookup fnS tmps
           rp = srcToRepo r s
@@ -101,20 +92,22 @@ convertRef pkg db (loc,bind) =
           (Span file start width) = tmpFileSpan db loc
           end = start + width
 
--- This drops defs with duplicated paths.
-fudge ∷ Src.Graph → Src.Graph
-fudge (Src.Graph defs refs) = Src.Graph (fudgeDefs defs) (fudgeRefs refs)
+-- TODO Drops duplicated refs and defs. This is a quick hack, but IT IS WRONG.
+--   The issue is that haskell allows multiple definitions for the same
+--   things. For example, a type declaration and two defintions that
+--   handle different pattern matches are all definitions from the perspective
+--   of the grapher.
+fudgeGraph ∷ Src.Graph → Src.Graph
+fudgeGraph (Src.Graph defs refs) = Src.Graph (fudgeDefs defs) (fudgeRefs refs)
+  where fudgeBy ∷ Ord b ⇒ (a → b) → [a] → [a]
+        fudgeBy f = M.elems . M.fromList . map (\x→(f x,x))
+        fudgeDefs ∷ [Src.Def] → [Src.Def]
+        fudgeDefs = fudgeBy Src.defPath
+        fudgeRefs ∷ [Src.Ref] → [Src.Ref]
+        fudgeRefs = fudgeBy $ Src.refStart &&& Src.refEnd
 
-fudgeBy ∷ Ord b ⇒ (a → b) → [a] → [a]
-fudgeBy f = M.elems . M.fromList . map (\x→(f x,x))
-
-fudgeDefs ∷ [Src.Def] → [Src.Def]
-fudgeDefs = fudgeBy Src.defPath
-
-fudgeRefs ∷ [Src.Ref] → [Src.Ref]
-fudgeRefs = fudgeBy $ \r → (Src.refStart r, Src.refEnd r)
-
-pos (x,y,nm) = (T.pack $ show x) <> ":" <> (T.pack $ show y) <> " (" <> nm
+pos ∷ (Int,Int,Text) → Text
+pos (x,y,nm) = T.pack(show x) <> ":" <> T.pack(show y) <> " (" <> nm
 
 summary ∷ Src.Graph → Text
 summary (Src.Graph dfs rfs) =
@@ -123,19 +116,19 @@ summary (Src.Graph dfs rfs) =
           refs = (\x→(Src.refStart x, Src.refEnd x, Src.refDefPath x)) <$> rfs
 
 convertGraph ∷ Text → PathDB → H.SymGraph → Src.Graph
-convertGraph pkg db gr = fudge $ Src.Graph defs refs
+convertGraph pkg db gr = fudgeGraph $ Src.Graph defs refs
   where defs = convertDef pkg db <$> Set.toList(allLocalBindings gr)
         refs = convertRef pkg db <$> H.sgReferences gr
 
-readSymGraphFile ∷ String → SymGraphFile
-readSymGraphFile = fmap Prelude.read . lines -- TODO Using `read` directly is not safe.
+-- TODO Using `read` directly is not safe.
+-- TODO Read/Show is a terrible approach to serializing to disk!
+readSymGraphFile ∷ String → H.SymGraphFile
+readSymGraphFile = fmap Prelude.read . lines
 
-type SymGraphFile = [(String, H.ModuleNm, H.Pkg, H.SymGraph)]
-
-loadSymGraphFile ∷ Path.FilePath → IO(SymGraphFile)
+loadSymGraphFile ∷ Path.FilePath → IO H.SymGraphFile
 loadSymGraphFile = readFile >=> (readSymGraphFile ⋙ return)
 
-tmpFiles ∷ SymGraphFile → Map String ModulePath
+tmpFiles ∷ H.SymGraphFile → Map String ModulePath
 tmpFiles = M.fromList . map (\(f,m,_,_)→(f,parseModulePath$T.pack m))
 
 graph ∷ C.CabalInfo → IO Src.Graph
@@ -171,12 +164,11 @@ graph info = do
   let pkg = C.cabalPkgName info
   pdb ← mkDB info graphs
 
-  return $ fudge $ mconcat $ (_4 ⋙ convertGraph pkg pdb) <$> graphs
-
-_4 (_,_,_,x) = x
+  let _4 (_,_,_,x) = x
+  return $ fudgeGraph $ mconcat $ (_4 ⋙ convertGraph pkg pdb) <$> graphs
 
 isParent ∷ RepoPath → RepoPath → Bool
-isParent (Repo(FP parent)) (Repo(FP child)) = isSuffixOf parent child
+isParent (Repo(FP parent)) (Repo(FP child)) = parent `isSuffixOf` child
 
 -- TODO I can avoid the fromJust by pattern matching on the result of
 --      stripPrefix instead of having a separate isParent and stripIt.
@@ -185,12 +177,7 @@ stripIt ∷ RepoPath → RepoPath → SrcPath
 stripIt (Repo(FP parent)) (Repo(FP child)) =
   Src $ FP $ reverse $ May.fromJust $ stripPrefix (reverse parent) (reverse child)
 
-fe2 info = [ (srcDir, stripIt srcDir repoPath, fileShape(srclibPath repoPath))
-               | srcDir   ← Set.toList $ C.cabalSrcDirs info
-               , repoPath ← Set.toList $ C.cabalSrcFiles info
-               , isParent srcDir repoPath
-               ]
-
+fe ∷ C.CabalInfo → [(RepoPath, SrcPath, IO FileShape)]
 fe info = do
   srcDir ← Set.toList $ C.cabalSrcDirs info
   repoPath ← Set.toList $ C.cabalSrcFiles info
@@ -198,84 +185,9 @@ fe info = do
   guard $ isParent srcDir repoPath
   return (srcDir, srcPath, fileShape(srclibPath repoPath))
 
-mkDB ∷ C.CabalInfo → SymGraphFile → IO PathDB
-mkDB info sgr = do
+mkDB ∷ C.CabalInfo → H.SymGraphFile → IO PathDB
+mkDB info graphFile = do
   let ugg (srcDir, srcPath, action) = do result ← action
                                          return (srcDir, srcPath, result)
   cols ← Set.fromList <$> mapM ugg (fe info)
-  return (cols,tmpFiles sgr)
-
-finfO = C.CabalInfo { C.cabalFile = Repo (FP ["haskell-hello-world.cabal"])
-                    , C.cabalPkgName = "haskell-hello-world"
-                    , C.cabalPkgDir = Repo (FP [])
-                    , C.cabalDependencies = Set.fromList ["base"]
-                    , C.cabalSrcFiles = Set.fromList [ Repo (FP ["Main.hs","src"])
-                                                     , Repo (FP ["Setup.hs"])
-                                                     ]
-                    , C.cabalSrcDirs = Set.fromList [Repo (FP ["src"])]
-                    , C.cabalGlobs = Set.fromList ["src/**/*.hs"]
-                    }
-
-finfo = C.CabalInfo { C.cabalFile = Repo (FP ["deepseq.cabal"])
-                    , C.cabalPkgName = "deepseq"
-                    , C.cabalPkgDir = Repo (FP [])
-                    , C.cabalDependencies = Set.fromList ["HUnit","array","base","ghc-prim","test-framework","test-framework-hunit"]
-                    , C.cabalSrcFiles = Set.fromList [ Repo (FP ["DeepSeq.hs","Control"])
-                                                     , Repo (FP ["Main.hs","tests"])
-                                                     , Repo (FP ["Setup.hs"])
-                                                     ]
-                    , C.cabalSrcDirs = Set.fromList [Repo (FP [])]
-                    , C.cabalGlobs = Set.fromList ["./**/*.hs"]
-                    }
-
-htest = do
-  changeWorkingDirectory "../testdata/case/deepseq"
-  gr ← loadSymGraphFile "/tmp/srclib-haskell-symbol-graph.11461"
-  print "<GR>"
-  print gr
-  print "</GR>"
-  pdb ← mkDB finfo gr
-  traceM "<PDB>"
-  traceShowM pdb
-  traceM "</PDB>"
-
-  -- let f pdb (_,_,pkg,gr) = convertGraph (T.pack pkg) pdb gr
-  -- mapM_ print $ f pdb <$> gr
-  -- print "=================="
-  -- mapM_ print $ f pdb <$> gr
-  -- print "=================="
-
-  let result = mconcat $ (_4 ⋙ convertGraph "deepseq" pdb) <$> gr
-  traceM "<result>"
-  traceM $ T.unpack $ summary result
-  traceM "</result>"
-
-{-
-
-findModuleFile = undefined
-
-srcSpanSpan = undefined
-
-moduleDef ∷ C.CabalInfo → H.InstalledInterface → IO Def
-moduleDef info iface = do
-  let modNm = T.pack $ moduleNameString $ moduleName $ H.instMod iface
-      modPath = parseModulePath modNm -- TODO
-  fnMay ← findModuleFile (Set.toList $ C.cabalSrcDirs info) modPath
-  let fn = show $ fromMaybe (P.asRelPath "UNKNOWN") fnMay
-  return $ Def modPath modNm Module $ Span (T.pack fn) 0 0
-
-nameDef ∷ C.CabalInfo → Name → IO(Maybe Def)
-nameDef info nm = do
-  let modul = nameModule nm
-      srcSpan = nameSrcSpan nm
-      modName = T.pack $ moduleNameString $ moduleName modul
-      nameStr = T.pack $ occNameString $ getOccName nm
-
-  fnMay ← findModuleFile (Set.toList $ C.cabalSrcDirs info) $ parseModulePath modName
-  let fn = tshow $ fromMaybe (P.asRelPath "UNKNOWN") fnMay
-  let ugg (a,b,c) = Span a b c
-  loc ← ugg <$> fromMaybe (fn,0,0) <$> srcSpanSpan fn srcSpan
-  let mod = MP $ nameStr : T.splitOn "." modName
-  return $ Just $ Def mod nameStr Value loc
-
--}
+  return (cols,tmpFiles graphFile)

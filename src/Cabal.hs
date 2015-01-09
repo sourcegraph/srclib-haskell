@@ -73,7 +73,9 @@ toSrcUnit (CabalInfo cf pkg pdir deps files dirs globs) =
 
 fromSrcUnit ∷ Src.SourceUnit → Maybe CabalInfo
 fromSrcUnit (Src.SourceUnit cf pkg pdir deps files dirs globs) =
-  Just $ CabalInfo cf pkg pdir (toSet deps) (toSet dirs) (toSet files) (toSet globs)
+  Just $ CabalInfo cf pkg pdir (set deps) (set dirs) (set files) (set globs)
+    where set ∷ Ord a ⇒ [a] → Set a
+          set = Set.fromList
 
 instance (Ord a,Arbitrary a) => Arbitrary(Set a) where
   arbitrary = Set.fromList <$> arbitrary
@@ -92,16 +94,6 @@ prToMaybe ∷ Cabal.ParseResult a → Maybe a
 prToMaybe (Cabal.ParseFailed x) = traceShow x Nothing
 prToMaybe (Cabal.ParseOk _ x) = Just x
 
-toGlob ∷ RepoPath → Text
-toGlob (Loc.Repo(Loc.FP[])) = "**/*.hs"
-toGlob rp = Loc.srclibPath rp <> "/**/*.hs"
-
-unSet ∷ Ord a ⇒ Set a → [a]
-unSet = Set.toList
-
-toSet ∷ Ord a ⇒ [a] → Set a
-toSet = Set.fromList
-
 cabalInfo ∷ Repo → RepoPath → String → Maybe CabalInfo
 cabalInfo repo cabalFilePath content = do
   genPkgDesc ← prToMaybe $ parsePackageDescription content
@@ -115,13 +107,17 @@ cabalInfo repo cabalFilePath content = do
                    , cabalPkgName = T.pack pkg
                    , cabalPkgDir = topLevelDir
                    , cabalDependencies = allDeps desc
-                   , cabalSrcFiles = toSet sourceFiles
-                   , cabalSrcDirs = toSet dirs
-                   , cabalGlobs = toSet $ toGlob <$> dirs
+                   , cabalSrcFiles = set sourceFiles
+                   , cabalSrcDirs = set dirs
+                   , cabalGlobs = set $ glob <$> dirs
                    }
+    where set ∷ Ord a ⇒ [a] → Set a
+          set = Set.fromList
+          glob (Loc.Repo(Loc.FP[])) = "**/*.hs"
+          glob rp = Loc.srclibPath rp <> "/**/*.hs"
 
 allDeps ∷ PackageDescription → Set Text
-allDeps desc = toSet $ toRawDep <$> deps
+allDeps desc = Set.fromList $ toRawDep <$> deps
   where deps = buildDepends desc ++ concatMap getDeps (allBuildInfo desc)
         toRawDep (Cabal.Dependency (PackageName nm) _) = T.pack nm
         getDeps build = L.concat [ buildTools build
