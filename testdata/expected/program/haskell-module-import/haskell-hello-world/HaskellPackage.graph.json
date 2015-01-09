@@ -6,9 +6,10 @@
       "Name": "hello",
       "Kind": "Value",
       "File": "src/Hello.hs",
-      "DefStart": 20,
-      "DefEnd": 51,
-      "Exported": true
+      "DefStart": 19,
+      "DefEnd": 50,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "haskell-hello-world/Main/main/Value",
@@ -16,9 +17,10 @@
       "Name": "main",
       "Kind": "Value",
       "File": "src/Main.hs",
-      "DefStart": 47,
-      "DefEnd": 65,
-      "Exported": true
+      "DefStart": 43,
+      "DefEnd": 61,
+      "Exported": true,
+      "Local": false
     }
   ],
   "Refs": [
@@ -30,8 +32,8 @@
       "Def": true,
       "Repo": "",
       "File": "src/Hello.hs",
-      "Start": 20,
-      "End": 25
+      "Start": 19,
+      "End": 24
     },
     {
       "DefRepo": "",
@@ -41,8 +43,8 @@
       "Def": true,
       "Repo": "",
       "File": "src/Main.hs",
-      "Start": 47,
-      "End": 51
+      "Start": 43,
+      "End": 47
     }
   ]
 }

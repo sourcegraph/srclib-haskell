@@ -1,17 +1,51 @@
 {
   "Defs": [
     {
+      "Path": "haskell-hello-world/Main/Proc/Type",
+      "TreePath": "haskell-hello-world/Main/Proc/Type",
+      "Name": "Proc",
+      "Kind": "Type",
+      "File": "src/Main.hs",
+      "DefStart": 19,
+      "DefEnd": 36,
+      "Exported": true,
+      "Local": false
+    },
+    {
+      "Path": "haskell-hello-world/Main/hello/Value",
+      "TreePath": "haskell-hello-world/Main/hello/Value",
+      "Name": "hello",
+      "Kind": "Value",
+      "File": "src/Main.hs",
+      "DefStart": 52,
+      "DefEnd": 83,
+      "Exported": true,
+      "Local": false
+    },
+    {
       "Path": "haskell-hello-world/Main/main/Value",
       "TreePath": "haskell-hello-world/Main/main/Value",
       "Name": "main",
       "Kind": "Value",
       "File": "src/Main.hs",
-      "DefStart": 19,
-      "DefEnd": 49,
-      "Exported": true
+      "DefStart": 98,
+      "DefEnd": 110,
+      "Exported": true,
+      "Local": false
     }
   ],
   "Refs": [
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-hello-world/Main/hello/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "src/Main.hs",
+      "Start": 52,
+      "End": 57
+    },
     {
       "DefRepo": "",
       "DefUnitType": "HaskellPackage",
@@ -20,8 +54,8 @@
       "Def": true,
       "Repo": "",
       "File": "src/Main.hs",
-      "Start": 19,
-      "End": 23
+      "Start": 98,
+      "End": 102
     }
   ]
 }

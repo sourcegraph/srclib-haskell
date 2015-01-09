@@ -6,9 +6,10 @@
       "Name": "==",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 137,
-      "DefEnd": 274,
-      "Exported": true
+      "DefStart": 5520,
+      "DefEnd": 5543,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/DList/Type",
@@ -16,9 +17,10 @@
       "Name": "DList",
       "Kind": "Type",
       "File": "Data/DList.hs",
-      "DefStart": 43,
-      "DefEnd": 86,
-      "Exported": true
+      "DefStart": 3043,
+      "DefEnd": 3086,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/\u003c*\u003e/Value",
@@ -26,9 +28,10 @@
       "Name": "\u003c*\u003e",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 124,
-      "DefEnd": 248,
-      "Exported": true
+      "DefStart": 6362,
+      "DefEnd": 6372,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/\u003c|\u003e/Value",
@@ -36,9 +39,10 @@
       "Name": "\u003c|\u003e",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 128,
-      "DefEnd": 256,
-      "Exported": true
+      "DefStart": 6429,
+      "DefEnd": 6443,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/\u003e\u003e=/Value",
@@ -46,9 +50,10 @@
       "Name": "\u003e\u003e=",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 86,
-      "DefEnd": 172,
-      "Exported": true
+      "DefStart": 6474,
+      "DefEnd": 6765,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/append/Value",
@@ -56,9 +61,10 @@
       "Name": "append",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 37,
-      "DefEnd": 74,
-      "Exported": true
+      "DefStart": 4093,
+      "DefEnd": 4130,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/apply/Value",
@@ -66,9 +72,10 @@
       "Name": "apply",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 18,
-      "DefEnd": 36,
-      "Exported": true
+      "DefStart": 3462,
+      "DefEnd": 3480,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/compare/Value",
@@ -76,9 +83,10 @@
       "Name": "compare",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 143,
-      "DefEnd": 286,
-      "Exported": true
+      "DefStart": 5587,
+      "DefEnd": 5616,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/concat/Value",
@@ -86,9 +94,10 @@
       "Name": "concat",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 38,
-      "DefEnd": 76,
-      "Exported": true
+      "DefStart": 4227,
+      "DefEnd": 4265,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/cons/Value",
@@ -96,9 +105,10 @@
       "Name": "cons",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 33,
-      "DefEnd": 66,
-      "Exported": true
+      "DefStart": 3809,
+      "DefEnd": 3842,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/empty/Value",
@@ -106,9 +116,10 @@
       "Name": "empty",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 127,
-      "DefEnd": 254,
-      "Exported": true
+      "DefStart": 6411,
+      "DefEnd": 6424,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/fail/Value",
@@ -116,9 +127,10 @@
       "Name": "fail",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 72,
-      "DefEnd": 144,
-      "Exported": true
+      "DefStart": 6842,
+      "DefEnd": 6858,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/fmap/Value",
@@ -126,9 +138,10 @@
       "Name": "fmap",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 124,
-      "DefEnd": 248,
-      "Exported": true
+      "DefStart": 6270,
+      "DefEnd": 6280,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/fold/Value",
@@ -136,9 +149,10 @@
       "Name": "fold",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 86,
-      "DefEnd": 172,
-      "Exported": true
+      "DefStart": 6985,
+      "DefEnd": 7015,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/foldMap/Value",
@@ -146,9 +160,10 @@
       "Name": "foldMap",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 90,
-      "DefEnd": 180,
-      "Exported": true
+      "DefStart": 7041,
+      "DefEnd": 7075,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/foldl'/Value",
@@ -156,9 +171,10 @@
       "Name": "foldl'",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 94,
-      "DefEnd": 188,
-      "Exported": true
+      "DefStart": 7550,
+      "DefEnd": 7588,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/foldl/Value",
@@ -166,9 +182,10 @@
       "Name": "foldl",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 93,
-      "DefEnd": 186,
-      "Exported": true
+      "DefStart": 7168,
+      "DefEnd": 7205,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/foldl1/Value",
@@ -176,9 +193,10 @@
       "Name": "foldl1",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 92,
-      "DefEnd": 184,
-      "Exported": true
+      "DefStart": 7296,
+      "DefEnd": 7332,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/foldr'/Value",
@@ -186,9 +204,10 @@
       "Name": "foldr'",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 91,
-      "DefEnd": 182,
-      "Exported": true
+      "DefStart": 7616,
+      "DefEnd": 7651,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/foldr/Value",
@@ -196,9 +215,10 @@
       "Name": "foldr",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 93,
-      "DefEnd": 186,
-      "Exported": true
+      "DefStart": 7104,
+      "DefEnd": 7141,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/foldr1/Value",
@@ -206,9 +226,10 @@
       "Name": "foldr1",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 92,
-      "DefEnd": 184,
-      "Exported": true
+      "DefStart": 7232,
+      "DefEnd": 7268,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/fromList/Value",
@@ -216,9 +237,10 @@
       "Name": "fromList",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 75,
-      "DefEnd": 150,
-      "Exported": true
+      "DefStart": 7984,
+      "DefEnd": 8003,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/fromString/Value",
@@ -226,9 +248,10 @@
       "Name": "fromString",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 77,
-      "DefEnd": 154,
-      "Exported": true
+      "DefStart": 7810,
+      "DefEnd": 7831,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/go/Value",
@@ -236,9 +259,10 @@
       "Name": "go",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
-      "Exported": true
+      "DefStart": 4414,
+      "DefEnd": 4416,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/head/Value",
@@ -246,9 +270,10 @@
       "Name": "head",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 56,
-      "DefEnd": 112,
-      "Exported": true
+      "DefStart": 4812,
+      "DefEnd": 4868,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/list/Value",
@@ -256,9 +281,10 @@
       "Name": "list",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 41,
-      "DefEnd": 82,
-      "Exported": true
+      "DefStart": 4652,
+      "DefEnd": 4790,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/map/Value",
@@ -266,9 +292,10 @@
       "Name": "map",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 37,
-      "DefEnd": 74,
-      "Exported": true
+      "DefStart": 5422,
+      "DefEnd": 5459,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/mappend/Value",
@@ -276,9 +303,10 @@
       "Name": "mappend",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 130,
-      "DefEnd": 260,
-      "Exported": true
+      "DefStart": 6219,
+      "DefEnd": 6235,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/mempty/Value",
@@ -286,9 +314,10 @@
       "Name": "mempty",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 129,
-      "DefEnd": 258,
-      "Exported": true
+      "DefStart": 6199,
+      "DefEnd": 6214,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/mplus/Value",
@@ -296,9 +325,10 @@
       "Name": "mplus",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 73,
-      "DefEnd": 146,
-      "Exported": true
+      "DefStart": 6934,
+      "DefEnd": 6951,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/mzero/Value",
@@ -306,9 +336,10 @@
       "Name": "mzero",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 72,
-      "DefEnd": 144,
-      "Exported": true
+      "DefStart": 6915,
+      "DefEnd": 6931,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/pure/Value",
@@ -316,9 +347,10 @@
       "Name": "pure",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 128,
-      "DefEnd": 256,
-      "Exported": true
+      "DefStart": 6343,
+      "DefEnd": 6357,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/readListPrec/Value",
@@ -326,9 +358,10 @@
       "Name": "readListPrec",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 90,
-      "DefEnd": 180,
-      "Exported": true
+      "DefStart": 5860,
+      "DefEnd": 5894,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/readPrec/Value",
@@ -336,9 +369,10 @@
       "Name": "readPrec",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 78,
-      "DefEnd": 156,
-      "Exported": true
+      "DefStart": 5752,
+      "DefEnd": 5857,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/replicate/Value",
@@ -346,9 +380,10 @@
       "Name": "replicate",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 35,
-      "DefEnd": 70,
-      "Exported": true
+      "DefStart": 4382,
+      "DefEnd": 4535,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/return/Value",
@@ -356,9 +391,10 @@
       "Name": "return",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 78,
-      "DefEnd": 156,
-      "Exported": true
+      "DefStart": 6792,
+      "DefEnd": 6814,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/rnf/Value",
@@ -366,9 +402,10 @@
       "Name": "rnf",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 74,
-      "DefEnd": 148,
-      "Exported": true
+      "DefStart": 7730,
+      "DefEnd": 7748,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/showsPrec/Value",
@@ -376,9 +413,10 @@
       "Name": "showsPrec",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 100,
-      "DefEnd": 200,
-      "Exported": true
+      "DefStart": 6077,
+      "DefEnd": 6161,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/singleton/Value",
@@ -386,9 +424,10 @@
       "Name": "singleton",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 22,
-      "DefEnd": 44,
-      "Exported": true
+      "DefStart": 3658,
+      "DefEnd": 3680,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/snoc/Value",
@@ -396,9 +435,10 @@
       "Name": "snoc",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 33,
-      "DefEnd": 66,
-      "Exported": true
+      "DefStart": 3965,
+      "DefEnd": 3998,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/tail/Value",
@@ -406,9 +446,10 @@
       "Name": "tail",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 63,
-      "DefEnd": 126,
-      "Exported": true
+      "DefStart": 4939,
+      "DefEnd": 5002,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/toList/Value",
@@ -416,9 +457,10 @@
       "Name": "toList",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 71,
-      "DefEnd": 142,
-      "Exported": true
+      "DefStart": 8032,
+      "DefEnd": 8047,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/unDL/Value",
@@ -426,9 +468,10 @@
       "Name": "unDL",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 0,
-      "DefEnd": 0,
-      "Exported": true
+      "DefStart": 3066,
+      "DefEnd": 3070,
+      "Exported": true,
+      "Local": false
     },
     {
       "Path": "dlist/DList/Data/unfoldr/Value",
@@ -436,9 +479,10 @@
       "Name": "unfoldr",
       "Kind": "Value",
       "File": "Data/DList.hs",
-      "DefStart": 40,
-      "DefEnd": 80,
-      "Exported": true
+      "DefStart": 5083,
+      "DefEnd": 5222,
+      "Exported": true,
+      "Local": false
     }
   ],
   "Refs": [
@@ -450,8 +494,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 124,
-      "End": 248
+      "Start": 6362,
+      "End": 6372
     },
     {
       "DefRepo": "",
@@ -461,8 +505,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 128,
-      "End": 256
+      "Start": 6429,
+      "End": 6443
     },
     {
       "DefRepo": "",
@@ -472,8 +516,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 137,
-      "End": 274
+      "Start": 5520,
+      "End": 5543
     },
     {
       "DefRepo": "",
@@ -483,8 +527,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 86,
-      "End": 172
+      "Start": 6474,
+      "End": 6765
     },
     {
       "DefRepo": "",
@@ -494,8 +538,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 6,
-      "End": 12
+      "Start": 4093,
+      "End": 4099
     },
     {
       "DefRepo": "",
@@ -505,8 +549,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 5,
-      "End": 10
+      "Start": 3462,
+      "End": 3467
     },
     {
       "DefRepo": "",
@@ -516,8 +560,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 143,
-      "End": 286
+      "Start": 5587,
+      "End": 5616
     },
     {
       "DefRepo": "",
@@ -527,8 +571,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 6,
-      "End": 12
+      "Start": 4227,
+      "End": 4233
     },
     {
       "DefRepo": "",
@@ -538,8 +582,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 4,
-      "End": 8
+      "Start": 3809,
+      "End": 3813
     },
     {
       "DefRepo": "",
@@ -549,8 +593,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 127,
-      "End": 254
+      "Start": 3548,
+      "End": 3553
     },
     {
       "DefRepo": "",
@@ -560,8 +604,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 5,
-      "End": 10
+      "Start": 6411,
+      "End": 6424
     },
     {
       "DefRepo": "",
@@ -571,8 +615,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 72,
-      "End": 144
+      "Start": 6842,
+      "End": 6858
     },
     {
       "DefRepo": "",
@@ -582,8 +626,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 124,
-      "End": 248
+      "Start": 6270,
+      "End": 6280
     },
     {
       "DefRepo": "",
@@ -593,8 +637,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 86,
-      "End": 172
+      "Start": 6985,
+      "End": 7015
     },
     {
       "DefRepo": "",
@@ -604,8 +648,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 90,
-      "End": 180
+      "Start": 7041,
+      "End": 7075
     },
     {
       "DefRepo": "",
@@ -615,8 +659,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 94,
-      "End": 188
+      "Start": 7550,
+      "End": 7588
     },
     {
       "DefRepo": "",
@@ -626,8 +670,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 93,
-      "End": 186
+      "Start": 7168,
+      "End": 7205
     },
     {
       "DefRepo": "",
@@ -637,8 +681,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 92,
-      "End": 184
+      "Start": 7296,
+      "End": 7332
     },
     {
       "DefRepo": "",
@@ -648,8 +692,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 91,
-      "End": 182
+      "Start": 7616,
+      "End": 7651
     },
     {
       "DefRepo": "",
@@ -659,8 +703,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 5,
-      "End": 10
+      "Start": 5274,
+      "End": 5279
     },
     {
       "DefRepo": "",
@@ -670,8 +714,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 93,
-      "End": 186
+      "Start": 7104,
+      "End": 7141
     },
     {
       "DefRepo": "",
@@ -681,8 +725,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 92,
-      "End": 184
+      "Start": 7232,
+      "End": 7268
     },
     {
       "DefRepo": "",
@@ -692,8 +736,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 75,
-      "End": 150
+      "Start": 3149,
+      "End": 3157
     },
     {
       "DefRepo": "",
@@ -703,8 +747,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 8,
-      "End": 16
+      "Start": 7984,
+      "End": 8003
     },
     {
       "DefRepo": "",
@@ -714,8 +758,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 77,
-      "End": 154
+      "Start": 7810,
+      "End": 7831
     },
     {
       "DefRepo": "",
@@ -725,8 +769,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 0,
-      "End": 0
+      "Start": 4414,
+      "End": 4416
     },
     {
       "DefRepo": "",
@@ -736,8 +780,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 4,
-      "End": 8
+      "Start": 4812,
+      "End": 4816
     },
     {
       "DefRepo": "",
@@ -747,8 +791,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 4,
-      "End": 8
+      "Start": 4652,
+      "End": 4656
     },
     {
       "DefRepo": "",
@@ -758,8 +802,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 3,
-      "End": 6
+      "Start": 5422,
+      "End": 5425
     },
     {
       "DefRepo": "",
@@ -769,8 +813,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 130,
-      "End": 260
+      "Start": 6219,
+      "End": 6235
     },
     {
       "DefRepo": "",
@@ -780,8 +824,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 129,
-      "End": 258
+      "Start": 6199,
+      "End": 6214
     },
     {
       "DefRepo": "",
@@ -791,8 +835,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 73,
-      "End": 146
+      "Start": 6934,
+      "End": 6951
     },
     {
       "DefRepo": "",
@@ -802,8 +846,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 72,
-      "End": 144
+      "Start": 6915,
+      "End": 6931
     },
     {
       "DefRepo": "",
@@ -813,8 +857,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 128,
-      "End": 256
+      "Start": 6343,
+      "End": 6357
     },
     {
       "DefRepo": "",
@@ -824,8 +868,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 90,
-      "End": 180
+      "Start": 5860,
+      "End": 5894
     },
     {
       "DefRepo": "",
@@ -835,8 +879,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 78,
-      "End": 156
+      "Start": 5752,
+      "End": 5857
     },
     {
       "DefRepo": "",
@@ -846,8 +890,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 9,
-      "End": 18
+      "Start": 4382,
+      "End": 4391
     },
     {
       "DefRepo": "",
@@ -857,8 +901,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 78,
-      "End": 156
+      "Start": 6792,
+      "End": 6814
     },
     {
       "DefRepo": "",
@@ -868,8 +912,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 74,
-      "End": 148
+      "Start": 7730,
+      "End": 7748
     },
     {
       "DefRepo": "",
@@ -879,8 +923,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 100,
-      "End": 200
+      "Start": 6077,
+      "End": 6161
     },
     {
       "DefRepo": "",
@@ -890,8 +934,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 9,
-      "End": 18
+      "Start": 3658,
+      "End": 3667
     },
     {
       "DefRepo": "",
@@ -901,8 +945,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 4,
-      "End": 8
+      "Start": 3965,
+      "End": 3969
     },
     {
       "DefRepo": "",
@@ -912,8 +956,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 4,
-      "End": 8
+      "Start": 4939,
+      "End": 4943
     },
     {
       "DefRepo": "",
@@ -923,8 +967,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 6,
-      "End": 12
+      "Start": 3259,
+      "End": 3265
     },
     {
       "DefRepo": "",
@@ -934,8 +978,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 71,
-      "End": 142
+      "Start": 8032,
+      "End": 8047
     },
     {
       "DefRepo": "",
@@ -945,19 +989,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 0,
-      "End": 0
-    },
-    {
-      "DefRepo": "",
-      "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
-      "DefPath": "dlist/DList/Data/unDL/Value",
-      "Def": true,
-      "Repo": "",
-      "File": "Data/DList.hs",
-      "Start": 0,
-      "End": 0
+      "Start": 3066,
+      "End": 3070
     },
     {
       "DefRepo": "",
@@ -967,8 +1000,8 @@
       "Def": true,
       "Repo": "",
       "File": "Data/DList.hs",
-      "Start": 7,
-      "End": 14
+      "Start": 5083,
+      "End": 5090
     }
   ]
 }
