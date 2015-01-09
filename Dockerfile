@@ -9,17 +9,23 @@ RUN chown -R srclib /src /srclib
 RUN cabal update
 ADD ./srclib-haskell.cabal /srclib/srclib-haskell/srclib-haskell.cabal
 WORKDIR /srclib/srclib-haskell
-RUN cabal install --only-dependencies -j4
+
+# TODO The dependency on our custom haddock breaks this.
+# RUN cabal install --only-dependencies -j4
 
 # Add the source code and compile.
 ADD ./src /srclib/srclib-haskell/src
+ADD ./haddock /srclib/srclib-haskell/haddock
 ADD ./LICENSE /srclib/srclib-haskell/LICENSE
+WORKDIR /srclib/srclib-haskell/haddock
+RUN cabal install -j4
 WORKDIR /srclib/srclib-haskell
+RUN cabal install --only-dependencies -j4
 RUN cabal install
-ENV PATH /srclib/srclib-haskell/.bin:$PATH
 
-# Copy the executeable to ./.bin/srclib-haskell
-RUN cd /srclib/srclib-haskell; ln -s ./dist/build/srclib-haskell .bin
+# Make sure that our srclib-haskell and our haddock fork are in the path.
+RUN cp ~/.cabal/bin/srclib-haskell ~/.cabal/bin/haddock /usr/bin
+ENV PATH /usr/bin:$PATH
 
 # Run
 USER srclib
