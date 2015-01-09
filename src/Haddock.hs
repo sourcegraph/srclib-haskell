@@ -23,6 +23,7 @@ import           Data.Foldable (maximumBy)
 
 import qualified Documentation.Haddock as H
 import Shelly hiding (FilePath, path, (</>), (<.>), canonicalize, trace)
+import qualified Shelly
 import qualified Filesystem.Path.CurrentOS as Path
 import System.Posix.Process (getProcessID)
 
@@ -131,21 +132,32 @@ loadSymGraphFile = readFile >=> (readSymGraphFile ⋙ return)
 tmpFiles ∷ H.SymGraphFile → Map String ModulePath
 tmpFiles = M.fromList . map (\(f,m,_,_)→(f,parseModulePath$T.pack m))
 
+instance Semigroup Shelly.FilePath where
+  a <> b = a `mappend` b
+
 graph ∷ C.CabalInfo → IO Src.Graph
 graph info = do
   pid ← toInteger <$> getProcessID
 
   let mkParam k v = "--" <> k <> "=" <> v <> ""
+      mkTmp ∷ Text → Text
       mkTmp n = "/tmp/srclib-haskell-" <> n <> "." <> fromString(show pid)
       symbolGraph = mkTmp "symbol-graph"
       sandbox = mkTmp "sandbox"
       buildDir = mkTmp "build-directory"
+      workDir = mkTmp "work-directory"
+      fromDir = fromText $ srclibPath $ C.cabalPkgDir info
 
   let toStderr = log_stdout_with $ T.unpack ⋙ hPutStrLn stderr
   let cabal_ = run_ "cabal"
+  let cabal_ = run_ "cabal"
 
   shelly $ toStderr $ do
-    cd $ fromText $ srclibPath $ C.cabalPkgDir info
+
+    -- Use a temporary working directory to avoid touching the user's files.
+    cp_r fromDir (fromText workDir)
+    cd (fromText workDir)
+
     cabal_ ["sandbox", "init", mkParam "sandbox" sandbox]
     cabal_ ["install", "--only-dependencies"]
     cabal_ ["configure", mkParam "builddir" buildDir]
@@ -156,10 +168,6 @@ graph info = do
 
   let badLoad = error $ T.unpack $ "Unable to load file: " <> symbolGraph
   graphs ← loadSymGraphFile $ Path.decodeString $ T.unpack symbolGraph
-
-  traceM "<graphs>"
-  traceShowM graphs
-  traceM "</graphs>"
 
   let pkg = C.cabalPkgName info
   pdb ← mkDB info graphs
