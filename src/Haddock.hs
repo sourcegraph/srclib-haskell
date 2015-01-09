@@ -102,8 +102,17 @@ convertRef pkg db (loc,bind) =
           end = start + width
 
 -- This drops defs with duplicated paths.
-fudge ∷ [Src.Def] → [Src.Def]
-fudge = M.elems . M.fromList . map (\d→(Src.defPath d,d))
+fudge ∷ Src.Graph → Src.Graph
+fudge (Src.Graph defs refs) = Src.Graph (fudgeDefs defs) (fudgeRefs refs)
+
+fudgeBy ∷ Ord b ⇒ (a → b) → [a] → [a]
+fudgeBy f = M.elems . M.fromList . map (\x→(f x,x))
+
+fudgeDefs ∷ [Src.Def] → [Src.Def]
+fudgeDefs = fudgeBy Src.defPath
+
+fudgeRefs ∷ [Src.Ref] → [Src.Ref]
+fudgeRefs = fudgeBy $ \r → (Src.refStart r, Src.refEnd r)
 
 pos (x,y,nm) = (T.pack $ show x) <> ":" <> (T.pack $ show y) <> " (" <> nm
 
@@ -113,12 +122,8 @@ summary (Src.Graph dfs rfs) =
     where defs = (\x→(Src.defDefStart x, Src.defDefEnd x, Src.defPath x)) <$> dfs
           refs = (\x→(Src.refStart x, Src.refEnd x, Src.refDefPath x)) <$> rfs
 
--- This drops defs with duplicated paths.
-fudge2 ∷ [Src.Ref] → [Src.Ref]
-fudge2 = M.elems . M.fromList . map (\r→((Src.refStart r, Src.refEnd r),r))
-
 convertGraph ∷ Text → PathDB → H.SymGraph → Src.Graph
-convertGraph pkg db gr = Src.Graph (fudge defs) (fudge2 refs)
+convertGraph pkg db gr = fudge $ Src.Graph defs refs
   where defs = convertDef pkg db <$> Set.toList(allLocalBindings gr)
         refs = convertRef pkg db <$> H.sgReferences gr
 
@@ -166,7 +171,7 @@ graph info = do
   let pkg = C.cabalPkgName info
   pdb ← mkDB info graphs
 
-  return $ mconcat $ (_4 ⋙ convertGraph pkg pdb) <$> graphs
+  return $ fudge $ mconcat $ (_4 ⋙ convertGraph pkg pdb) <$> graphs
 
 _4 (_,_,_,x) = x
 

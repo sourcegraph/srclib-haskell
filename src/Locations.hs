@@ -279,9 +279,12 @@ byteToCharOffset (Shape _ mb) = f 0
         f chr remain            = f (chr+1) (remain-bytesAtChar chr)
 
 mkSpanSafe ∷ RepoPath → FileShape → LineCol → LineCol → Maybe Span
-mkSpanSafe fn shape start end = do s ← lineColOffset shape start
-                                   e ← lineColOffset shape end
-                                   return $ Span fn s e
+mkSpanSafe fn shape start end = do sChr ← lineColOffset shape start
+                                   eChr ← lineColOffset shape end
+                                   let toBytes = charToByteOffset shape
+                                       (s,e) = (toBytes sChr, toBytes eChr)
+                                       w = e-s
+                                   return $ Span fn s w
 
 showMkSpan ∷ RepoPath → ((Int,Int),(Int,Int)) → (Int,Int) → String
 showMkSpan p ((l,c),(λ,ξ)) (s,e) =
@@ -293,6 +296,12 @@ showMkSpan p ((l,c),(λ,ξ)) (s,e) =
 
 mkSpan ∷ RepoPath → FileShape → LineCol → LineCol → Maybe Span
 mkSpan fn shape start@(LineCol l c) end@(LineCol λ ξ) =
+  let result@(Span _ s e) = fromMaybe (Span fn 0 0) $ mkSpanSafe fn shape start end
+  in trace (showMkSpan fn ((l,c),(λ,ξ)) (s,e)) $ Just result
+
+
+mkSpanUnsafe ∷ RepoPath → FileShape → LineCol → LineCol → Maybe Span
+mkSpanUnsafe fn shape start@(LineCol l c) end@(LineCol λ ξ) =
     traceShow shape $ trace (showMkSpan fn ((l,c),(λ,ξ)) (s,e)) result
     where result = Just $ Span fn s e
           s' = case lineColOffset shape start of
