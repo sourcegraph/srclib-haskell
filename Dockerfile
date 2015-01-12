@@ -5,23 +5,26 @@ RUN useradd -ms /bin/bash srclib
 RUN mkdir -p /src /srclib
 RUN chown -R srclib /src /srclib
 
-# This will cache dependency resolution to keep code updates from re-installing.
+# This will cache `cabal update` to keep code updates from re-installing.
 RUN cabal update
-ADD ./srclib-haskell.cabal /srclib/srclib-haskell/srclib-haskell.cabal
-WORKDIR /srclib/srclib-haskell
-RUN cabal install --only-dependencies -j4
 
 # Add the source code and compile.
+ADD ./haddock /srclib/srclib-haskell/haddock
+WORKDIR /srclib/srclib-haskell/haddock
+RUN cabal install --global -j4 --disable-optimization
+
+ADD ./srclib-haskell.cabal /srclib/srclib-haskell/srclib-haskell.cabal
+WORKDIR /srclib/srclib-haskell
+RUN cabal install --global -j4 --only-dependencies
+
 ADD ./src /srclib/srclib-haskell/src
 ADD ./LICENSE /srclib/srclib-haskell/LICENSE
 WORKDIR /srclib/srclib-haskell
-RUN cabal install
-ENV PATH /srclib/srclib-haskell/.bin:$PATH
+RUN cabal install --global --disable-optimization -j4
 
-# Copy the executeable to ./.bin/srclib-haskell
-RUN cd /srclib/srclib-haskell; ln -s ./dist/build/srclib-haskell .bin
+# Make sure our fork of haddock is choosen while graphing.
+ENV PATH /usr/local/bin/:$PATH
 
 # Run
-USER srclib
 WORKDIR /src
 ENTRYPOINT ["srclib-haskell"]

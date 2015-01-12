@@ -14,24 +14,28 @@ cabal-version:       >=1.10
 
 executable srclib-haskell
   main-is:             Main.hs
-  ghc-options:         -Wall -O2
+  ghc-options:         -Wall -O0
   hs-source-dirs:      src
   default-language:    Haskell2010
-  build-depends:       base >=4.7 && <4.8,
-                       text,
-                       bytestring==0.10.4.0,
-                       aeson,
-                       directory,
-                       pathtype,
-                       filemanip,
-                       Cabal==1.18.1.3,
-                       QuickCheck,
-                       mtl,
-                       haskell-src-exts,
-                       split,
-                       process,
-                       ghc,
-                       srclib-haddock-api,
-                       shelly,
-                       containers,
-                       unix
+  build-depends:       base>=4.7 && <4.8
+               ,       text
+               ,       bytestring
+               ,       aeson
+               ,       directory
+               ,       pathtype
+               ,       filemanip
+               ,       Cabal
+               ,       QuickCheck
+               ,       mtl
+               ,       haskell-src-exts
+               ,       split
+               ,       process
+               ,       ghc
+               ,       shelly
+               ,       containers
+               ,       unix
+               ,       derive
+               ,       base-unicode-symbols
+               ,       haddock
+               ,       classy-prelude
+               ,       system-filepath
