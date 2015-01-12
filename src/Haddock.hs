@@ -10,22 +10,26 @@
 
 module Haddock where
 
-import ClassyPrelude hiding ((</>), (<.>), maximumBy)
+import           ClassyPrelude hiding ((</>), (<.>), maximumBy)
 import qualified Prelude
+import           Prelude.Unicode
+import           Control.Category.Unicode
 
 import qualified Data.IntMap as IntMap
-import Control.Category.Unicode
 import qualified Data.Maybe as May
 import qualified Data.Map as M
 import qualified Data.Set as Set
 import qualified Data.Text as T
+import qualified Data.List as L
 import           Data.Foldable (maximumBy)
 
+import           Text.Printf (printf)
+
 import qualified Documentation.Haddock as H
-import Shelly hiding (FilePath, path, (</>), (<.>), canonicalize, trace)
+import           Shelly hiding (FilePath, path, (</>), (<.>), canonicalize, trace)
 import qualified Shelly
 import qualified Filesystem.Path.CurrentOS as Path
-import System.Posix.Process (getProcessID)
+import           System.Posix.Process (getProcessID)
 
 import qualified Cabal as C
 import           Locations as Loc
@@ -39,29 +43,40 @@ allLocalBindings gr = Set.fromList $ exports ++ internal
   where exports = H.sgExports gr
         internal = lefts $ snd <$> H.sgReferences gr
 
+srcPath ∷ (RepoPath, SrcPath, FileShape) → SrcPath
+srcPath (_,s,_) = s
+
 fudgeTmpFile ∷ PathDB → String → (RepoPath, SrcPath, FileShape)
 fudgeTmpFile (db,tmps) tmp = chooseFrom matches
-  where modul = M.lookup tmp tmps
-        srcPath (_,s,_) = s
+  where modul = M.elems $ M.filterWithKey (\k v → looksLike tmp k) tmps
+        looksLike a b = (a `L.isInfixOf` b) ∨ (b `L.isInfixOf` a)
         q m = Set.filter (srcPath ⋙ srcPathMatch m) db
-        matches = fromMaybe Set.empty $ q <$> modul
+        matches = Set.unions $ q <$> modul
         longest (_,Src(FP f),_) (_,Src(FP φ),_) = (compare `on` length) f φ
-        fallback = (Repo(FP[]), Src(FP[]), Shape [] IntMap.empty)
+        fallback = (Repo(FP["bogus"]), Src(FP["Bogus"]), Shape [] IntMap.empty)
         chooseFrom s = if Set.null s then fallback else maximumBy longest s
 
+tmpFileModule ∷ PathDB → String → ModulePath
+tmpFileModule db tmp = fileToModulePath $ srcPath $ fudgeTmpFile db tmp
+
 tmpFileSpan ∷ PathDB → H.FileLoc → Span
-tmpFileSpan (db,tmps) (H.FileLoc fnS (l,c) (λ,ξ)) =
+tmpFileSpan pdb@(db,tmps) (H.FileLoc fnS (l,c) (λ,ξ)) =
   fromMaybe bogusSpan $ mkSpan rp shape (LineCol l c) (LineCol λ ξ)
     where (r,s,shape) = fudgeTmpFile (db,tmps) fnS
-          m = M.lookup fnS tmps
+          m = tmpFileModule pdb fnS
           rp = srcToRepo r s
 
 localSpan ∷ PathDB → H.LocalBinding → Span
 localSpan db (H.Local _ _ loc) = tmpFileSpan db loc
 
+bogusModule ∷ PathDB → H.LocalBinding → ModulePath
+bogusModule (_,tmps) (H.Local fnS _ _) = trace warning $ parseModulePath $ T.pack fnS
+  where warning = "SymGraph is inconsistent. This file does not occur: " <> fnS
+               <> "\n" <> show tmps
+
 localModule ∷ PathDB → H.LocalBinding → ModulePath
-localModule (_,tmps) (H.Local _ _ (H.FileLoc fnS _ _)) =
-  fromMaybe (error("bad path: " <> fnS)) $ M.lookup fnS tmps
+localModule db@(_,tmps) loc@(H.Local _ _ (H.FileLoc fnS _ _)) =
+  tmpFileModule db fnS
 
 makeSrclibPath ∷ H.NameSpc → Text → ModulePath → Text → Text
 makeSrclibPath kind pkg (MP mp) nm =
@@ -155,11 +170,13 @@ graph info = do
   shelly $ toStderr $ do
 
     -- Use a temporary working directory to avoid touching the user's files.
-    cp_r fromDir (fromText workDir)
+    mkdir_p (fromText workDir)
+    let tarcmd∷String = printf "(tar c *) | (cd '%s'; tar x)" $ T.unpack workDir
+    run_ "/bin/sh" ["-c", T.pack tarcmd]
     cd (fromText workDir)
 
     cabal_ ["sandbox", "init", mkParam "sandbox" sandbox]
-    cabal_ ["install", "--only-dependencies"]
+    cabal_ ["install", "--only-dependencies", "-j4", "--disable-optimization"]
     cabal_ ["configure", mkParam "builddir" buildDir]
     cabal_ [ "haddock", "--executables", "--internal"
            , mkParam "haddock-options" ("-G" <> symbolGraph)
