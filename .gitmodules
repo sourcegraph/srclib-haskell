@@ -10,3 +10,7 @@
 [submodule "testdata/case/dlist"]
 	path = testdata/case/dlist
 	url = https://github.com/spl/dlist.git
+[submodule "haddock"]
+	path = haddock
+	url = git@github.com:sourcegraph/haddock.git
+	branch = symbol-graph
