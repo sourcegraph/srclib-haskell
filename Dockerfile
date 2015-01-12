@@ -26,5 +26,6 @@ RUN cabal install --global --disable-optimization -j4
 ENV PATH /usr/local/bin/:$PATH
 
 # Run
+USER srclib
 WORKDIR /src
 ENTRYPOINT ["srclib-haskell"]
