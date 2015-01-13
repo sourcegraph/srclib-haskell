@@ -39,6 +39,28 @@
       "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
+      "DefPath": "base/IO/System/putStrLn/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "src/Main.hs",
+      "Start": 60,
+      "End": 68
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-hello-world/Main/hello/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "src/Main.hs",
+      "Start": 105,
+      "End": 110
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
       "DefPath": "haskell-hello-world/Main/hello/Value",
       "Def": true,
       "Repo": "",

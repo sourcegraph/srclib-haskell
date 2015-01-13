@@ -165,7 +165,6 @@ graph info = do
 
   let toStderr = log_stdout_with $ T.unpack ⋙ hPutStrLn stderr
   let cabal_ = run_ "cabal"
-  let cabal_ = run_ "cabal"
 
   shelly $ toStderr $ do
 
