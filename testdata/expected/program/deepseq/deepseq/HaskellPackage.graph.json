@@ -1539,6 +1539,17 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 4164,
+      "End": 4165
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/a/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 4174,
       "End": 4175
     },
@@ -1550,8 +1561,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 4166,
+      "End": 4167
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/b/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 4182,
       "End": 4183
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/branch/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 8861,
+      "End": 8867
     },
     {
       "DefRepo": "",
@@ -1596,6 +1629,17 @@
       "File": "Control/DeepSeq.hs",
       "Start": 4796,
       "End": 4805
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/f/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 4380,
+      "End": 4381
     },
     {
       "DefRepo": "",
@@ -3277,8 +3321,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 8868,
+      "End": 8872
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/tags/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 8897,
       "End": 8901
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 13172,
+      "End": 13173
     },
     {
       "DefRepo": "",
@@ -3299,8 +3365,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 13269,
+      "End": 13270
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 13282,
       "End": 13283
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 3070,
+      "End": 3071
     },
     {
       "DefRepo": "",
@@ -3321,6 +3409,17 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 3198,
+      "End": 3199
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 3208,
       "End": 3209
     },
@@ -3332,8 +3431,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 3221,
+      "End": 3222
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 3231,
       "End": 3232
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 4386,
+      "End": 4387
     },
     {
       "DefRepo": "",
@@ -3365,6 +3486,17 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 4790,
+      "End": 4791
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 4794,
       "End": 4795
     },
@@ -3378,6 +3510,17 @@
       "File": "Control/DeepSeq.hs",
       "Start": 4806,
       "End": 4807
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 8391,
+      "End": 8392
     },
     {
       "DefRepo": "",
@@ -3409,8 +3552,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 8497,
+      "End": 8498
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 8509,
       "End": 8510
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 8643,
+      "End": 8644
     },
     {
       "DefRepo": "",
@@ -3431,6 +3596,17 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 8728,
+      "End": 8729
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 8738,
       "End": 8739
     },
@@ -3442,8 +3618,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 8966,
+      "End": 8967
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 8978,
       "End": 8979
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 9254,
+      "End": 9255
     },
     {
       "DefRepo": "",
@@ -3475,8 +3673,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 9400,
+      "End": 9401
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 9409,
       "End": 9410
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x1/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 13392,
+      "End": 13394
     },
     {
       "DefRepo": "",
@@ -3497,8 +3717,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 13638,
+      "End": 13640
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x1/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 13682,
       "End": 13684
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x1/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 13943,
+      "End": 13945
     },
     {
       "DefRepo": "",
@@ -3519,8 +3761,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 14298,
+      "End": 14300
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x1/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 14350,
       "End": 14352
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x1/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 14703,
+      "End": 14705
     },
     {
       "DefRepo": "",
@@ -3541,8 +3805,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 15158,
+      "End": 15160
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x1/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 15218,
       "End": 15220
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x2/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 13395,
+      "End": 13397
     },
     {
       "DefRepo": "",
@@ -3563,8 +3849,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 13642,
+      "End": 13644
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x2/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 13713,
       "End": 13715
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x2/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 13947,
+      "End": 13949
     },
     {
       "DefRepo": "",
@@ -3585,8 +3893,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 14302,
+      "End": 14304
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x2/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 14381,
       "End": 14383
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x2/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 14707,
+      "End": 14709
     },
     {
       "DefRepo": "",
@@ -3607,8 +3937,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 15162,
+      "End": 15164
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x2/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 15249,
       "End": 15251
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x3/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 13398,
+      "End": 13400
     },
     {
       "DefRepo": "",
@@ -3629,8 +3981,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 13646,
+      "End": 13648
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x3/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 13744,
       "End": 13746
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x3/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 13951,
+      "End": 13953
     },
     {
       "DefRepo": "",
@@ -3651,8 +4025,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 14306,
+      "End": 14308
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x3/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 14412,
       "End": 14414
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x3/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 14711,
+      "End": 14713
     },
     {
       "DefRepo": "",
@@ -3673,8 +4069,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 15166,
+      "End": 15168
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x3/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 15280,
       "End": 15282
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x4/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 13401,
+      "End": 13403
     },
     {
       "DefRepo": "",
@@ -3695,8 +4113,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 13650,
+      "End": 13652
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x4/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 13775,
       "End": 13777
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x4/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 13955,
+      "End": 13957
     },
     {
       "DefRepo": "",
@@ -3717,8 +4157,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 14310,
+      "End": 14312
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x4/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 14443,
       "End": 14445
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x4/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 14715,
+      "End": 14717
     },
     {
       "DefRepo": "",
@@ -3739,8 +4201,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 15170,
+      "End": 15172
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x4/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 15311,
       "End": 15313
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x5/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 13654,
+      "End": 13656
     },
     {
       "DefRepo": "",
@@ -3761,8 +4245,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 13959,
+      "End": 13961
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x5/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 14115,
       "End": 14117
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x5/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 14314,
+      "End": 14316
     },
     {
       "DefRepo": "",
@@ -3783,8 +4289,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 14719,
+      "End": 14721
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x5/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 14883,
       "End": 14885
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x5/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 15174,
+      "End": 15176
     },
     {
       "DefRepo": "",
@@ -3805,8 +4333,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 13963,
+      "End": 13965
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x6/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 14146,
       "End": 14148
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x6/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 14318,
+      "End": 14320
     },
     {
       "DefRepo": "",
@@ -3827,8 +4377,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 14723,
+      "End": 14725
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x6/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 14914,
       "End": 14916
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x6/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 15178,
+      "End": 15180
     },
     {
       "DefRepo": "",
@@ -3849,8 +4421,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 14322,
+      "End": 14324
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x7/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 14536,
       "End": 14538
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x7/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 14727,
+      "End": 14729
     },
     {
       "DefRepo": "",
@@ -3871,8 +4465,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 15182,
+      "End": 15184
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x7/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 15404,
       "End": 15406
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x8/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 14731,
+      "End": 14733
     },
     {
       "DefRepo": "",
@@ -3893,8 +4509,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 15186,
+      "End": 15188
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x8/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 15435,
       "End": 15437
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/x9/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 15190,
+      "End": 15192
     },
     {
       "DefRepo": "",
@@ -3915,8 +4553,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 8968,
+      "End": 8970
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/xs/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 8990,
       "End": 8992
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/y/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 13174,
+      "End": 13175
     },
     {
       "DefRepo": "",
@@ -3937,8 +4597,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 13271,
+      "End": 13272
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/y/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 13294,
       "End": 13295
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/y/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 3076,
+      "End": 3077
     },
     {
       "DefRepo": "",
@@ -3959,6 +4641,17 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 8500,
+      "End": 8501
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/y/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 8536,
       "End": 8537
     },
@@ -3970,8 +4663,30 @@
       "Def": true,
       "Repo": "",
       "File": "Control/DeepSeq.hs",
+      "Start": 8755,
+      "End": 8756
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/y/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
       "Start": 8764,
       "End": 8765
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "deepseq/DeepSeq/Control/z/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "Control/DeepSeq.hs",
+      "Start": 13273,
+      "End": 13274
     },
     {
       "DefRepo": "",

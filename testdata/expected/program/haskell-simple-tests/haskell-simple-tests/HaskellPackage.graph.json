@@ -45,6 +45,17 @@
       "Local": false
     },
     {
+      "Path": "haskell-simple-tests/Main/bar/Value",
+      "TreePath": "haskell-simple-tests/Main/bar/Value",
+      "Name": "bar",
+      "Kind": "Value",
+      "File": "src/Main.hs",
+      "DefStart": 303,
+      "DefEnd": 306,
+      "Exported": true,
+      "Local": false
+    },
+    {
       "Path": "haskell-simple-tests/Main/dump/Value",
       "TreePath": "haskell-simple-tests/Main/dump/Value",
       "Name": "dump",
@@ -52,6 +63,17 @@
       "File": "src/Main.hs",
       "DefStart": 176,
       "DefEnd": 218,
+      "Exported": true,
+      "Local": false
+    },
+    {
+      "Path": "haskell-simple-tests/Main/foo/Value",
+      "TreePath": "haskell-simple-tests/Main/foo/Value",
+      "Name": "foo",
+      "Kind": "Value",
+      "File": "src/Main.hs",
+      "DefStart": 288,
+      "DefEnd": 291,
       "Exported": true,
       "Local": false
     },
@@ -186,6 +208,17 @@
       "Def": true,
       "Repo": "",
       "File": "src/Main.hs",
+      "Start": 147,
+      "End": 148
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-simple-tests/Main/a/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "src/Main.hs",
       "Start": 156,
       "End": 157
     },
@@ -197,8 +230,30 @@
       "Def": true,
       "Repo": "",
       "File": "src/Main.hs",
+      "Start": 152,
+      "End": 153
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-simple-tests/Main/b/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "src/Main.hs",
       "Start": 158,
       "End": 159
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-simple-tests/Main/bar/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "src/Main.hs",
+      "Start": 303,
+      "End": 306
     },
     {
       "DefRepo": "",
@@ -221,6 +276,17 @@
       "File": "src/Main.hs",
       "Start": 240,
       "End": 244
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-simple-tests/Main/foo/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "src/Main.hs",
+      "Start": 288,
+      "End": 291
     },
     {
       "DefRepo": "",
@@ -309,6 +375,17 @@
       "File": "src/Main.hs",
       "Start": 276,
       "End": 280
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-simple-tests/Main/x/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "src/Main.hs",
+      "Start": 203,
+      "End": 204
     },
     {
       "DefRepo": "",
