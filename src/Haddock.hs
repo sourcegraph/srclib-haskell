@@ -37,11 +37,28 @@ import qualified Srclib as Src
 
 data DefKind = Module | Value | Type
 data Def = Def ModulePath Text DefKind Span
+data Bind = Bind String H.NameSpc H.FileLoc Bool Text
+  deriving (Show,Ord,Eq)
 
-allLocalBindings ∷ H.SymGraph → Set H.LocalBinding
-allLocalBindings gr = Set.fromList $ exports ++ internal
+allLocalBindings ∷ H.SymGraph → Set Bind
+allLocalBindings gr = Set.fromList internal
   where exports = H.sgExports gr
-        internal = lefts $ snd <$> H.sgReferences gr
+        internal = mkBind <$> (lefts $ snd <$> H.sgReferences gr)
+        isExported l = not $ L.null $ flip L.filter (H.sgExports gr) $ theSame l
+        theSame (H.Local _ uniq1 _ _) (H.Local _ uniq2 _ _) = uniq1 ≡ uniq2
+        mkBind ∷ H.LocalBinding → Bind
+        mkBind l@(H.Local nm u nmSpc floc) =
+          Bind nm nmSpc floc (isExported l) (T.pack u)
+
+sgReferences ∷ H.SymGraph → [(H.FileLoc,(Either Bind H.GlobalBinding))]
+sgReferences gr = map f $ H.sgReferences gr
+  where f (loc,Left l) = (loc,Left $ mkBind l)
+        f (loc,Right r) = (loc,Right r)
+        isExported l = not $ L.null $ flip L.filter (H.sgExports gr) $ theSame l
+        theSame (H.Local _ uniq1 _ _) (H.Local _ uniq2 _ _) = uniq1 ≡ uniq2
+        mkBind ∷ H.LocalBinding → Bind
+        mkBind l@(H.Local nm u nmSpc floc) =
+          Bind nm nmSpc floc (isExported l) (T.pack u)
 
 srcPath ∷ (RepoPath, SrcPath, FileShape) → SrcPath
 srcPath (_,s,_) = s
@@ -66,40 +83,46 @@ tmpFileSpan pdb@(db,tmps) (H.FileLoc fnS (l,c) (λ,ξ)) =
           m = tmpFileModule pdb fnS
           rp = srcToRepo r s
 
-localSpan ∷ PathDB → H.LocalBinding → Span
-localSpan db (H.Local _ _ loc) = tmpFileSpan db loc
+localSpan ∷ PathDB → Bind → Span
+localSpan db (Bind _ _ loc e _) = tmpFileSpan db loc
 
 bogusModule ∷ PathDB → H.LocalBinding → ModulePath
-bogusModule (_,tmps) (H.Local fnS _ _) = trace warning $ parseModulePath $ T.pack fnS
+bogusModule (_,tmps) (H.Local fnS _ _ _) = trace warning $ parseModulePath $ T.pack fnS
   where warning = "SymGraph is inconsistent. This file does not occur: " <> fnS
                <> "\n" <> show tmps
 
-localModule ∷ PathDB → H.LocalBinding → ModulePath
-localModule db@(_,tmps) loc@(H.Local _ _ (H.FileLoc fnS _ _)) =
+localModule ∷ PathDB → Bind → ModulePath
+localModule db@(_,tmps) loc@(Bind _ _ (H.FileLoc fnS _ _) _ _) =
   tmpFileModule db fnS
 
-makeSrclibPath ∷ H.NameSpc → Text → ModulePath → Text → Text
-makeSrclibPath kind pkg (MP mp) nm =
-  T.intercalate "/" $ [pkg] ++ mp ++ [nm,convertKind kind]
+makeSrclibPath ∷ H.NameSpc → Text → ModulePath → Text → Maybe Text → Text
+makeSrclibPath kind pkg (MP mp) nm uniq = T.intercalate "/" elems
+  where elems = [pkg] ++ mp ++ [nm,convertKind kind] ++ pos
+        pos = maybeToList uniq
 
 convertKind ∷ H.NameSpc → Text
 convertKind H.Value = "Value"
 convertKind H.Type = "Type"
 
-convertDef ∷ Text → PathDB → H.LocalBinding → Src.Def
-convertDef pkg db loc@(H.Local nm nmSpc _) =
-  Src.Def spath spath (T.pack nm) kind file start end True False
-    where (Span file start width) = localSpan db loc
+locStartLC ∷ H.FileLoc → LineCol
+locStartLC (H.FileLoc _ (l,c) _) = LineCol l c
+
+convertDef ∷ Text → PathDB → Bind → Src.Def
+convertDef pkg db l@(Bind nm nmSpc loc exported u) =
+  Src.Def spath spath (T.pack nm) kind file start end exported False
+    where (Span file start width) = localSpan db l
           end = start+width
           kind = convertKind nmSpc
-          modul = localModule db loc
-          spath = makeSrclibPath nmSpc pkg modul (T.pack nm)
+          modul = localModule db l
+          spath = makeSrclibPath nmSpc pkg modul (T.pack nm) pos
+          pos = if exported then Nothing else Just u
 
 globalPath ∷ H.GlobalBinding → Text
 globalPath glob@(H.Global nm nmSpc modul pkg) =
-  makeSrclibPath nmSpc (T.pack pkg) (parseModulePath $ T.pack modul) (T.pack nm)
+  makeSrclibPath nmSpc (T.pack pkg) mp (T.pack nm) Nothing
+    where mp = (parseModulePath $ T.pack modul)
 
-convertRef ∷ Text → PathDB → (H.FileLoc,Either H.LocalBinding H.GlobalBinding) → Src.Ref
+convertRef ∷ Text → PathDB → (H.FileLoc,Either Bind H.GlobalBinding) → Src.Ref
 convertRef pkg db (loc,bind) =
   Src.Ref repoURI "HaskellPackage" defUnit defPath True file start end
     where repoURI = ""
@@ -134,7 +157,7 @@ summary (Src.Graph dfs rfs) =
 convertGraph ∷ Text → PathDB → H.SymGraph → Src.Graph
 convertGraph pkg db gr = fudgeGraph $ Src.Graph defs refs
   where defs = convertDef pkg db <$> Set.toList(allLocalBindings gr)
-        refs = convertRef pkg db <$> H.sgReferences gr
+        refs = convertRef pkg db <$> sgReferences gr
 
 -- TODO Using `read` directly is not safe.
 -- TODO Read/Show is a terrible approach to serializing to disk!
