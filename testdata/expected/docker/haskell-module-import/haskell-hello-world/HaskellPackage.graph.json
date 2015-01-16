@@ -12,6 +12,17 @@
       "Local": false
     },
     {
+      "Path": "haskell-hello-world/Hello/hello/Value/r1wU",
+      "TreePath": "haskell-hello-world/Hello/hello/Value/r1wU",
+      "Name": "hello",
+      "Kind": "Value",
+      "File": "src/Hello.hs",
+      "DefStart": 19,
+      "DefEnd": 24,
+      "Exported": false,
+      "Local": false
+    },
+    {
       "Path": "haskell-hello-world/Main/main/Value",
       "TreePath": "haskell-hello-world/Main/main/Value",
       "Name": "main",
@@ -28,12 +39,56 @@
       "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
+      "DefPath": "base/IO/System/putStrLn/Value",
+      "Def": false,
+      "Repo": "",
+      "File": "src/Hello.hs",
+      "Start": 27,
+      "End": 35
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-hello-world/Hello/hello/Value/r1wU",
+      "Def": false,
+      "Repo": "",
+      "File": "src/Main.hs",
+      "Start": 50,
+      "End": 61
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-hello-world/Hello/hello/Value",
+      "Def": false,
+      "Repo": "",
+      "File": "src/Hello.hs",
+      "Start": 19,
+      "End": 24
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
       "DefPath": "haskell-hello-world/Hello/hello/Value",
       "Def": true,
       "Repo": "",
       "File": "src/Hello.hs",
       "Start": 19,
-      "End": 24
+      "End": 50
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-hello-world/Main/main/Value",
+      "Def": false,
+      "Repo": "",
+      "File": "src/Main.hs",
+      "Start": 43,
+      "End": 47
     },
     {
       "DefRepo": "",
@@ -44,7 +99,7 @@
       "Repo": "",
       "File": "src/Main.hs",
       "Start": 43,
-      "End": 47
+      "End": 61
     }
   ]
 }
