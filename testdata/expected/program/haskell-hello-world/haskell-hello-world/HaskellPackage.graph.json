@@ -7,19 +7,8 @@
       "Kind": "Value",
       "File": "src/Main.hs",
       "DefStart": 52,
-      "DefEnd": 57,
-      "Exported": true,
-      "Local": false
-    },
-    {
-      "Path": "haskell-hello-world/Main/hello/Value/a1RH",
-      "TreePath": "haskell-hello-world/Main/hello/Value/a1RH",
-      "Name": "hello",
-      "Kind": "Value",
-      "File": "src/Main.hs",
-      "DefStart": 52,
       "DefEnd": 83,
-      "Exported": false,
+      "Exported": true,
       "Local": false
     },
     {
@@ -29,19 +18,8 @@
       "Kind": "Value",
       "File": "src/Main.hs",
       "DefStart": 98,
-      "DefEnd": 102,
-      "Exported": true,
-      "Local": false
-    },
-    {
-      "Path": "haskell-hello-world/Main/main/Value/a1RK",
-      "TreePath": "haskell-hello-world/Main/main/Value/a1RK",
-      "Name": "main",
-      "Kind": "Value",
-      "File": "src/Main.hs",
-      "DefStart": 98,
       "DefEnd": 110,
-      "Exported": false,
+      "Exported": true,
       "Local": false
     }
   ],
@@ -56,17 +34,6 @@
       "File": "src/Main.hs",
       "Start": 60,
       "End": 68
-    },
-    {
-      "DefRepo": "",
-      "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
-      "DefPath": "haskell-hello-world/Main/hello/Value/a1RH",
-      "Def": false,
-      "Repo": "",
-      "File": "src/Main.hs",
-      "Start": 52,
-      "End": 57
     },
     {
       "DefRepo": "",
@@ -94,12 +61,12 @@
       "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
-      "DefPath": "haskell-hello-world/Main/main/Value/a1RK",
+      "DefPath": "haskell-hello-world/Main/hello/Value",
       "Def": false,
       "Repo": "",
       "File": "src/Main.hs",
-      "Start": 98,
-      "End": 102
+      "Start": 52,
+      "End": 57
     },
     {
       "DefRepo": "",
@@ -111,6 +78,17 @@
       "File": "src/Main.hs",
       "Start": 93,
       "End": 97
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-hello-world/Main/main/Value",
+      "Def": false,
+      "Repo": "",
+      "File": "src/Main.hs",
+      "Start": 98,
+      "End": 102
     }
   ]
 }

@@ -40,6 +40,26 @@ data Def = Def ModulePath Text DefKind Span
 data Bind = Bind String H.NameSpc H.FileLoc Bool Text
   deriving (Show,Ord,Eq)
 
+localUniq (H.Local _ u _ _) = u
+
+mkIndex ∷ Ord k ⇒ (a → k) → [a] → Map k a
+mkIndex f = map (\r→(f r,r)) ⋙ M.fromList
+
+allTheRenames ∷ H.SymGraph → H.SymGraph
+allTheRenames = renames . renames . renames . renames . renames
+
+renames ∷ H.SymGraph → H.SymGraph
+renames (H.SymGraph refs exports renames) =
+  H.SymGraph (rename <$> refs) (rnm <$> exports) renames
+    where rnmTbl = M.fromList renames
+          defsByUniq = mkIndex localUniq $ lefts $ snd <$> refs
+          rename (fl,Left(l)) = (fl, Left(rnm l))
+          rename x            = x
+          rnm def@(H.Local nm u nmSpc floc) = fromMaybe def $ do
+            otherUniq ← M.lookup u rnmTbl
+            realDef ← M.lookup otherUniq defsByUniq
+            return realDef
+
 allLocalBindings ∷ H.SymGraph → Set Bind
 allLocalBindings gr = Set.fromList internal
   where exports = H.sgExports gr
@@ -124,9 +144,12 @@ globalPath glob@(H.Global nm nmSpc modul pkg) =
 
 convertRef ∷ Text → PathDB → (H.FileLoc,Either Bind H.GlobalBinding) → Src.Ref
 convertRef pkg db (loc,bind) =
-  Src.Ref repoURI "HaskellPackage" defUnit defPath True file start end
+  Src.Ref repoURI "HaskellPackage" defUnit defPath isDef file start end
     where repoURI = ""
           defUnit = ""
+          isDef = case bind of Right _ → False
+                               Left (Bind _ _ bloc _ _) → loc ≡ bloc
+
           defPath = either (Src.defPath ⋘ convertDef pkg db) globalPath bind
           (Span file start width) = tmpFileSpan db loc
           end = start + width
@@ -155,9 +178,10 @@ summary (Src.Graph dfs rfs) =
           refs = (\x→(Src.refStart x, Src.refEnd x, Src.refDefPath x)) <$> rfs
 
 convertGraph ∷ Text → PathDB → H.SymGraph → Src.Graph
-convertGraph pkg db gr = fudgeGraph $ Src.Graph defs refs
+convertGraph pkg db agr = fudgeGraph $ Src.Graph defs refs
   where defs = convertDef pkg db <$> Set.toList(allLocalBindings gr)
         refs = convertRef pkg db <$> sgReferences gr
+        gr = allTheRenames agr
 
 -- TODO Using `read` directly is not safe.
 -- TODO Read/Show is a terrible approach to serializing to disk!
