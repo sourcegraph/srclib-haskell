@@ -142,13 +142,17 @@ globalPath glob@(H.Global nm nmSpc modul pkg) =
   makeSrclibPath nmSpc (T.pack pkg) mp (T.pack nm) Nothing
     where mp = (parseModulePath $ T.pack modul)
 
+baseRepo = "github.com/bsummer4/packages-base"
+
 convertRef ∷ Text → PathDB → (H.FileLoc,Either Bind H.GlobalBinding) → Src.Ref
 convertRef pkg db (loc,bind) =
   Src.Ref repoURI "HaskellPackage" defUnit defPath isDef file start end
-    where repoURI = ""
-          defUnit = ""
+    where repoURI = if isBase then baseRepo else ""
+          defUnit = if isBase then "base" else ""
+          isBase = "base" `isPrefixOf` defPath
+          startsAt (H.FileLoc _ s1 _) (H.FileLoc _ s2 _) = s1≡s2
           isDef = case bind of Right _ → False
-                               Left (Bind _ _ bloc _ _) → loc ≡ bloc
+                               Left (Bind _ _ bloc _ _) → loc `startsAt` bloc
 
           defPath = either (Src.defPath ⋘ convertDef pkg db) globalPath bind
           (Span file start width) = tmpFileSpan db loc

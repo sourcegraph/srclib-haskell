@@ -135,9 +135,9 @@
   ],
   "Refs": [
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/bsummer4/packages-base",
       "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
+      "DefUnit": "base",
       "DefPath": "base/Base/GHC/$/Value",
       "Def": false,
       "Repo": "",
@@ -146,9 +146,9 @@
       "End": 357
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/bsummer4/packages-base",
       "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
+      "DefUnit": "base",
       "DefPath": "base/Base/GHC/id/Value",
       "Def": false,
       "Repo": "",
@@ -157,9 +157,9 @@
       "End": 174
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/bsummer4/packages-base",
       "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
+      "DefUnit": "base",
       "DefPath": "base/Err/GHC/undefined/Value",
       "Def": false,
       "Repo": "",
@@ -168,9 +168,9 @@
       "End": 338
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/bsummer4/packages-base",
       "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
+      "DefUnit": "base",
       "DefPath": "base/Err/GHC/undefined/Value",
       "Def": false,
       "Repo": "",
@@ -179,9 +179,9 @@
       "End": 367
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/bsummer4/packages-base",
       "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
+      "DefUnit": "base",
       "DefPath": "base/IO/System/putStrLn/Value",
       "Def": false,
       "Repo": "",
@@ -190,9 +190,9 @@
       "End": 194
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/bsummer4/packages-base",
       "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
+      "DefUnit": "base",
       "DefPath": "base/IO/System/putStrLn/Value",
       "Def": false,
       "Repo": "",
@@ -326,7 +326,7 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "haskell-simple-tests/Main/dump/Value/a1SQ",
-      "Def": false,
+      "Def": true,
       "Repo": "",
       "File": "src/Main.hs",
       "Start": 322,
@@ -370,7 +370,7 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "haskell-simple-tests/Main/dump/Value",
-      "Def": false,
+      "Def": true,
       "Repo": "",
       "File": "src/Main.hs",
       "Start": 176,
@@ -414,7 +414,7 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "haskell-simple-tests/Main/hello/Value",
-      "Def": false,
+      "Def": true,
       "Repo": "",
       "File": "src/Main.hs",
       "Start": 220,
@@ -458,7 +458,7 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "haskell-simple-tests/Main/identity/Value",
-      "Def": false,
+      "Def": true,
       "Repo": "",
       "File": "src/Main.hs",
       "Start": 161,
@@ -513,7 +513,7 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "haskell-simple-tests/Main/main/Value",
-      "Def": false,
+      "Def": true,
       "Repo": "",
       "File": "src/Main.hs",
       "Start": 276,

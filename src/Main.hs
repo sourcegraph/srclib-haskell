@@ -33,8 +33,16 @@ import Haddock as H
 import Srclib as Src
 import qualified Locations as Loc
 
+baseDep = Src.ResolvedDependency
+            "base"
+            "github.com/bsummer4/packages-base"
+            "base"
+            "4.7.0.1"
+            "3cf9a57876e07b00d3c17683727c4336001ad2c0"
+
 resolve ∷ Text → Src.ResolvedDependency
-resolve nm = Src.ResolvedDependency nm "" nm "" ""
+resolve "base" = baseDep
+resolve nm     = Src.ResolvedDependency nm "" nm "" ""
 
 depresolveCmd ∷ CabalInfo → IO [Src.ResolvedDependency]
 depresolveCmd = cabalDependencies ⋙ Set.toList ⋙ mapM (resolve⋙return)
