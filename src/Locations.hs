@@ -269,12 +269,10 @@ byteToCharOffset (Shape _ mb) = f 0
         f chr remain            = f (chr+1) (remain-bytesAtChar chr)
 
 mkSpanSafe ∷ RepoPath → FileShape → LineCol → LineCol → Maybe Span
-mkSpanSafe fn shape start end = do sChr ← lineColOffset shape start
-                                   eChr ← lineColOffset shape end
-                                   let toBytes = charToByteOffset shape
-                                       (s,e) = (toBytes sChr, toBytes eChr)
-                                       w = e-s
-                                   return $ Span fn s w
+mkSpanSafe fn shape start end = do s ← lineColOffset shape start
+                                   e ← lineColOffset shape end
+                                   let width = e-s
+                                   return $ Span fn s width
 
 showMkSpan ∷ RepoPath → ((Int,Int),(Int,Int)) → (Int,Int) → String
 showMkSpan p ((l,c),(λ,ξ)) (s,e) =
