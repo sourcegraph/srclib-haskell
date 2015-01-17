@@ -1,0 +1,94 @@
+{
+  "Defs": [
+    {
+      "Path": "haskell-hello-world/Main/hello/Value",
+      "TreePath": "haskell-hello-world/Main/hello/Value",
+      "Name": "hello",
+      "Kind": "Value",
+      "File": "sub-unit/src/Main.hs",
+      "DefStart": 52,
+      "DefEnd": 83,
+      "Exported": true,
+      "Local": false
+    },
+    {
+      "Path": "haskell-hello-world/Main/main/Value",
+      "TreePath": "haskell-hello-world/Main/main/Value",
+      "Name": "main",
+      "Kind": "Value",
+      "File": "sub-unit/src/Main.hs",
+      "DefStart": 98,
+      "DefEnd": 110,
+      "Exported": true,
+      "Local": false
+    }
+  ],
+  "Refs": [
+    {
+      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "base",
+      "DefPath": "base/IO/System/putStrLn/Value",
+      "Def": false,
+      "Repo": "",
+      "File": "sub-unit/src/Main.hs",
+      "Start": 60,
+      "End": 68
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-hello-world/Main/hello/Value",
+      "Def": false,
+      "Repo": "",
+      "File": "sub-unit/src/Main.hs",
+      "Start": 105,
+      "End": 110
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-hello-world/Main/hello/Value",
+      "Def": false,
+      "Repo": "",
+      "File": "sub-unit/src/Main.hs",
+      "Start": 47,
+      "End": 51
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-hello-world/Main/hello/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "sub-unit/src/Main.hs",
+      "Start": 52,
+      "End": 57
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-hello-world/Main/main/Value",
+      "Def": false,
+      "Repo": "",
+      "File": "sub-unit/src/Main.hs",
+      "Start": 93,
+      "End": 97
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "haskell-hello-world/Main/main/Value",
+      "Def": true,
+      "Repo": "",
+      "File": "sub-unit/src/Main.hs",
+      "Start": 98,
+      "End": 102
+    }
+  ]
+}

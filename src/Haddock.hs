@@ -201,6 +201,13 @@ tmpFiles = M.fromList . map (\(f,m,_,_)→(f,parseModulePath$T.pack m))
 instance Semigroup Shelly.FilePath where
   a <> b = a `mappend` b
 
+-- We generate a lot of temporary directories:
+--   - We copy the root directory of a source unit to keep cabal from
+--     writting data to the source directory.
+--   - We use a new cabal sandbox per build.
+--   - We use tell Haddock to use a separate build directory. (This is
+--     probably not necessary).
+--   - The graphing process generates a `symbol-graph` file.
 graph ∷ C.CabalInfo → IO Src.Graph
 graph info = do
   pid ← toInteger <$> getProcessID
@@ -218,10 +225,10 @@ graph info = do
   let cabal_ = run_ "cabal"
 
   shelly $ toStderr $ do
-
-    -- Use a temporary working directory to avoid touching the user's files.
     mkdir_p (fromText workDir)
-    let tarcmd∷String = printf "(tar c *) | (cd '%s'; tar x)" $ T.unpack workDir
+    let wd = T.unpack workDir
+    let fd = T.unpack $ srclibPath $ C.cabalPkgDir info
+    let tarcmd∷String = printf "(cd '%s'; tar c *) | (cd '%s'; tar x)" fd wd
     run_ "/bin/sh" ["-c", T.pack tarcmd]
     cd (fromText workDir)
 
