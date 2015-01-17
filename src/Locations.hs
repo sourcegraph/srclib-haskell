@@ -73,7 +73,14 @@ newtype ModulePath = MP Path
 
 -- | relative to some, unknown directory.
 newtype FilePath = FP Path
-  deriving (Ord,Eq,Semigroup,Monoid,Show)
+  deriving (Ord,Eq,Show)
+
+instance Monoid FilePath where
+  mappend (FP a) (FP b) = FP(b `mappend` a)
+  mempty = FP[]
+
+instance Semigroup FilePath where
+  (FP a) <> (FP b) = FP(b<>a)
 
 -- | relative to a Haskell source directory.
 newtype SrcPath  = Src FilePath
@@ -121,6 +128,9 @@ dropChars n = TL.drop (fromIntegral n)
 parent ∷ RepoPath → Maybe RepoPath
 parent (Repo(FP [])) = Nothing
 parent (Repo(FP(_:p))) = Just $ Repo $ FP p
+
+contains ∷ RepoPath → RepoPath → Bool
+contains (Repo(FP d)) (Repo(FP f)) = d `isSuffixOf` f
 
 ext ∷ RepoPath → Extension
 ext (Repo(FP[])) = Nothing
