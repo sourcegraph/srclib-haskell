@@ -27,5 +27,21 @@ ENV PATH /usr/local/bin/:$PATH
 
 # Run
 USER srclib
+
+RUN cabal update
+RUN cabal install cabal-install
+RUN which cabal
+RUN echo $PATH
+
+USER root
+RUN apt-get install -y libicu-dev
+RUN apt-get install -y build-essential
+RUN apt-get install -y autotools-dev
+
+USER srclib
+ENV PATH /home/srclib/.cabal/bin:$PATH
+RUN which cabal
+RUN echo $PATH
+
 WORKDIR /src
 ENTRYPOINT ["srclib-haskell"]
