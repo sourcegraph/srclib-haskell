@@ -219,7 +219,8 @@ graph info = do
       sandbox = mkTmp "sandbox"
       buildDir = mkTmp "build-directory"
       workDir = mkTmp "work-directory"
-      fromDir = fromText $ srclibPath $ C.cabalPkgDir info
+      subDir = srclibPath $ C.cabalPkgDir info
+      workSubDir = workDir <> "/" <> subDir
 
   let toStderr = log_stdout_with $ T.unpack ⋙ hPutStrLn stderr
   let cabal_ = run_ "cabal"
@@ -227,13 +228,19 @@ graph info = do
   shelly $ toStderr $ do
     mkdir_p (fromText workDir)
     let wd = T.unpack workDir
-    let fd = T.unpack $ srclibPath $ C.cabalPkgDir info
-    let tarcmd∷String = printf "(cd '%s'; tar c *) | (cd '%s'; tar x)" fd wd
-    run_ "/bin/sh" ["-c", T.pack tarcmd]
+        tarcmd = T.pack $ printf "(tar c *) | (cd '%s'; tar x)" wd
+    run_ "/bin/sh" ["-c", tarcmd]
+
     cd (fromText workDir)
+    errExit False $ run_ "autoreconf" []
+
+    cd (fromText workSubDir)
+    errExit False $ run_ "autoreconf" []
 
     cabal_ ["sandbox", "init", mkParam "sandbox" sandbox]
-    cabal_ ["install", "--only-dependencies", "-j4", "--disable-optimization"]
+    errExit False $
+      cabal_ ["install", "--only-dependencies", "-j4", "--disable-optimization"]
+
     cabal_ ["configure", mkParam "builddir" buildDir]
     cabal_ [ "haddock", "--executables", "--internal"
            , mkParam "haddock-options" ("-G" <> symbolGraph)
