@@ -208,7 +208,7 @@ instance Semigroup Shelly.FilePath where
 --   - We use tell Haddock to use a separate build directory. (This is
 --     probably not necessary).
 --   - The graphing process generates a `symbol-graph` file.
-graph ∷ C.CabalInfo → IO Src.Graph
+graph ∷ C.CabalInfo → IO (Src.Graph, IO ())
 graph info = do
   pid ← toInteger <$> getProcessID
 
@@ -221,6 +221,11 @@ graph info = do
       workDir = mkTmp "work-directory"
       subDir = srclibPath $ C.cabalPkgDir info
       workSubDir = workDir <> "/" <> subDir
+      cleanup = shelly $ do
+        let tmps = [symbolGraph, sandbox, buildDir, workDir]
+            tmpFilePaths ∷ [Path.FilePath]
+            tmpFilePaths = fromText <$> tmps
+        mapM_ rm_rf tmpFilePaths
 
   let toStderr = log_stdout_with $ T.unpack ⋙ hPutStrLn stderr
   let cabal_ = run_ "cabal"
@@ -254,7 +259,12 @@ graph info = do
   pdb ← mkDB info graphs
 
   let _4 (_,_,_,x) = x
-  return $ fudgeGraph $ mconcat $ (_4 ⋙ convertGraph pkg pdb) <$> graphs
+  let results = fudgeGraph $ mconcat $ (_4 ⋙ convertGraph pkg pdb) <$> graphs
+
+  -- We can't cleanup here, since we're using lazy IO. Processing the graph file
+  -- hasn't (necessarily) happened yet.
+
+  return (results,cleanup)
 
 isParent ∷ RepoPath → RepoPath → Bool
 isParent (Repo(FP parent)) (Repo(FP child)) = parent `isSuffixOf` child

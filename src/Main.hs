@@ -69,10 +69,20 @@ withCabalInfoFromStdin proc = do
 dumpJSON ∷ ToJSON a ⇒ a → IO ()
 dumpJSON = JSON.encode >>> BC.putStrLn
 
+runGrapher ∷ IO ()
+runGrapher = do
+  unit ← JSON.decode <$> LBS.getContents
+  case getCabalInfo <$> unit of
+    Nothing → usage
+    Just info → do
+      (r,cleanup) ← graph info
+      dumpJSON r
+      cleanup
+
 srclibRun ∷ [Text] → IO ()
 srclibRun ("scan":_) = (map C.toSrcUnit <$> scan) >>= dumpJSON
-srclibRun ["graph"] = withCabalInfoFromStdin graph
 srclibRun ["depresolve"] = withCabalInfoFromStdin depresolveCmd
+srclibRun ["graph"] = runGrapher
 srclibRun _ = usage
 
 main ∷ IO ()
@@ -116,9 +126,3 @@ scan = do
 
 testScan ∷ IO ()
 testScan = scan >>= mapM_ print
-
-testRun ∷ IO ()
-testRun = do
-  infos ← scan
-  graphs ← mapM H.graph infos
-  forM_ graphs $ JSON.encode ⋙ BC.putStrLn
