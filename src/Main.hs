@@ -33,19 +33,22 @@ import Haddock as H
 import Srclib as Src
 import qualified Locations as Loc
 
-baseDep = Src.ResolvedDependency
-            "base"
-            "github.com/bsummer4/packages-base"
-            "base"
-            "4.7.0.1"
-            "3cf9a57876e07b00d3c17683727c4336001ad2c0"
+specialCases ∷ Map Text (Text,Text,Text)
+specialCases = M.fromList $
+ [("base"    ,("git.haskell.org/packages/base.git"    ,"4.7.0.1","ghc-7.8"))
+ ,("ghc-prim",("git.haskell.org/packages/ghc-prim.git","0.3.1.0","ghc-7.8"))
+ ]
 
-resolve ∷ Text → Src.ResolvedDependency
-resolve "base" = baseDep
-resolve nm     = Src.ResolvedDependency nm "" nm "" ""
+specialDepInfo :: C.RawDep → Maybe (Text,Text,Text)
+specialDepInfo (n,_) = M.lookup n specialCases
+
+resolve ∷ (Text,Text) → Src.ResolvedDependency
+resolve d@(nm,v) = case specialDepInfo d of
+  Nothing → Src.ResolvedDependency d "" nm v ""
+  Just (repo,ver,ref) → Src.ResolvedDependency d repo nm ver ref
 
 depresolveCmd ∷ CabalInfo → IO [Src.ResolvedDependency]
-depresolveCmd = cabalDependencies ⋙ Set.toList ⋙ mapM (resolve⋙return)
+depresolveCmd = cabalDependencies ⋙ Set.toList ⋙ mapM (resolve ⋙ return)
 
 getCabalInfo ∷ SourceUnit → CabalInfo
 getCabalInfo x = case C.fromSrcUnit x of

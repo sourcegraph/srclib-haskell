@@ -22,14 +22,14 @@ data SourceUnit = SourceUnit
   { suCabalFile    ∷ RepoPath
   , suPkgName      ∷ Text
   , suPkgDir       ∷ RepoPath
-  , suDependencies ∷ [Text]
+  , suDependencies ∷ [(Text,Text)]
   , suSrcDirs      ∷ [RepoPath]
   , suSrcFiles     ∷ [RepoPath]
   , suSrcGlobs     ∷ [Text]
   }
 
 data ResolvedDependency = ResolvedDependency
-  { depRaw             ∷ Text
+  { depRaw             ∷ (Text,Text)
   , depToRepoCloneURL  ∷ Text
   , depToUnit          ∷ Text
   , depToVersionString ∷ Text

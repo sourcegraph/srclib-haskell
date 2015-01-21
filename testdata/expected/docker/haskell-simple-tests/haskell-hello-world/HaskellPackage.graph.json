@@ -5,7 +5,7 @@
       "TreePath": "haskell-hello-world/Main/hello/Value",
       "Name": "hello",
       "Kind": "Value",
-      "File": "src/Main.hs",
+      "File": "sub-unit/src/Main.hs",
       "DefStart": 52,
       "DefEnd": 83,
       "Exported": true,
@@ -16,7 +16,7 @@
       "TreePath": "haskell-hello-world/Main/main/Value",
       "Name": "main",
       "Kind": "Value",
-      "File": "src/Main.hs",
+      "File": "sub-unit/src/Main.hs",
       "DefStart": 98,
       "DefEnd": 110,
       "Exported": true,
@@ -31,7 +31,7 @@
       "DefPath": "base/IO/System/putStrLn/Value",
       "Def": false,
       "Repo": "",
-      "File": "src/Main.hs",
+      "File": "sub-unit/src/Main.hs",
       "Start": 60,
       "End": 68
     },
@@ -42,7 +42,7 @@
       "DefPath": "haskell-hello-world/Main/hello/Value",
       "Def": false,
       "Repo": "",
-      "File": "src/Main.hs",
+      "File": "sub-unit/src/Main.hs",
       "Start": 105,
       "End": 110
     },
@@ -53,7 +53,7 @@
       "DefPath": "haskell-hello-world/Main/hello/Value",
       "Def": false,
       "Repo": "",
-      "File": "src/Main.hs",
+      "File": "sub-unit/src/Main.hs",
       "Start": 47,
       "End": 51
     },
@@ -64,7 +64,7 @@
       "DefPath": "haskell-hello-world/Main/hello/Value",
       "Def": true,
       "Repo": "",
-      "File": "src/Main.hs",
+      "File": "sub-unit/src/Main.hs",
       "Start": 52,
       "End": 57
     },
@@ -75,7 +75,7 @@
       "DefPath": "haskell-hello-world/Main/main/Value",
       "Def": false,
       "Repo": "",
-      "File": "src/Main.hs",
+      "File": "sub-unit/src/Main.hs",
       "Start": 93,
       "End": 97
     },
@@ -86,7 +86,7 @@
       "DefPath": "haskell-hello-world/Main/main/Value",
       "Def": true,
       "Repo": "",
-      "File": "src/Main.hs",
+      "File": "sub-unit/src/Main.hs",
       "Start": 98,
       "End": 102
     }

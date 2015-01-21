@@ -8,6 +8,7 @@
 
 module Cabal ( Repo(..)
              , isCabalFile
+             , RawDep
              , CabalInfo(..)
              , analyse, Warning(..)
              , toSrcUnit, fromSrcUnit
@@ -29,6 +30,7 @@ import Distribution.Package as Cabal
 import Distribution.PackageDescription as Cabal
 import Distribution.PackageDescription.Configuration as Cabal
 import Distribution.PackageDescription.Parse as Cabal
+import qualified Distribution.Text as Cabal
 
 import qualified Locations as Loc
 import Locations (RepoPath)
@@ -45,11 +47,13 @@ data Repo = Repo
 data Warning = InvalidCabalFile RepoPath Text
   deriving Show
 
+type RawDep = (Text,Text)
+
 data CabalInfo = CabalInfo
   { cabalFile         ∷ RepoPath
   , cabalPkgName      ∷ Text
   , cabalPkgDir       ∷ RepoPath
-  , cabalDependencies ∷ Set Text
+  , cabalDependencies ∷ Set RawDep
   , cabalSrcFiles     ∷ Set RepoPath
   , cabalSrcDirs      ∷ Set RepoPath
   , cabalGlobs        ∷ Set Text
@@ -117,10 +121,11 @@ cabalInfo repo cabalFilePath content = do
           glob (Loc.Repo(Loc.FP[])) = "**/*.hs"
           glob rp = Loc.srclibPath rp <> "/**/*.hs"
 
-allDeps ∷ PackageDescription → Set Text
+allDeps ∷ PackageDescription → Set RawDep
 allDeps desc = Set.fromList $ toRawDep <$> deps
   where deps = buildDepends desc ++ concatMap getDeps (allBuildInfo desc)
-        toRawDep (Cabal.Dependency (PackageName nm) _) = T.pack nm
+        toRawDep (Cabal.Dependency (PackageName nm) v) =
+          (T.pack nm, T.pack $ Cabal.display v)
         getDeps build = L.concat [ buildTools build
                                  , pkgconfigDepends build
                                  , targetBuildDepends build
