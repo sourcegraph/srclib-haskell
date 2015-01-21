@@ -36,7 +36,7 @@
   ],
   "Refs": [
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/IO/System/putStrLn/Value",

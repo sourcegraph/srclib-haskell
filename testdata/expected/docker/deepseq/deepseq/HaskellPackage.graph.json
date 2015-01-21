@@ -2599,7 +2599,7 @@
   ],
   "Refs": [
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Applicative/Control/getConst/Value",
@@ -2610,7 +2610,7 @@
       "End": 9180
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Applicative/Control/getZipList/Value",
@@ -2621,7 +2621,7 @@
       "End": 9087
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Arr/GHC/bounds/Value",
@@ -2632,7 +2632,7 @@
       "End": 9269
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Arr/GHC/elems/Value",
@@ -2643,7 +2643,7 @@
       "End": 9289
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -2654,7 +2654,7 @@
       "End": 2875
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -2665,7 +2665,7 @@
       "End": 2970
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -2676,7 +2676,7 @@
       "End": 6924
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -2687,7 +2687,7 @@
       "End": 9076
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -2698,7 +2698,7 @@
       "End": 9171
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -2709,7 +2709,7 @@
       "End": 9498
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -2720,7 +2720,7 @@
       "End": 9588
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -2731,7 +2731,7 @@
       "End": 9678
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -2742,7 +2742,7 @@
       "End": 9746
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -2753,7 +2753,7 @@
       "End": 9813
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -2764,7 +2764,7 @@
       "End": 9900
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -2775,7 +2775,7 @@
       "End": 9991
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Err/GHC/error/Value",
@@ -2786,7 +2786,7 @@
       "End": 2733
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Generics/GHC/unK1/Value",
@@ -2797,7 +2797,7 @@
       "End": 2880
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Generics/GHC/unM1/Value",
@@ -2808,7 +2808,7 @@
       "End": 2975
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Monoid/Data/getAll/Value",
@@ -2819,7 +2819,7 @@
       "End": 9820
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Monoid/Data/getAny/Value",
@@ -2830,7 +2830,7 @@
       "End": 9753
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Monoid/Data/getDual/Value",
@@ -2841,7 +2841,7 @@
       "End": 9506
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Monoid/Data/getFirst/Value",
@@ -2852,7 +2852,7 @@
       "End": 9597
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Monoid/Data/getLast/Value",
@@ -2863,7 +2863,7 @@
       "End": 9686
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Monoid/Data/getProduct/Value",
@@ -2874,7 +2874,7 @@
       "End": 10002
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Monoid/Data/getSum/Value",
@@ -2885,7 +2885,7 @@
       "End": 9907
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Real/GHC/denominator/Value",
@@ -2896,7 +2896,7 @@
       "End": 8424
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Real/GHC/numerator/Value",
@@ -7934,7 +7934,7 @@
       "End": 13307
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -7945,7 +7945,7 @@
       "End": 13190
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -7956,7 +7956,7 @@
       "End": 13289
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -7967,7 +7967,7 @@
       "End": 13301
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -7978,7 +7978,7 @@
       "End": 13419
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -7989,7 +7989,7 @@
       "End": 13454
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8000,7 +8000,7 @@
       "End": 13489
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8011,7 +8011,7 @@
       "End": 13690
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8022,7 +8022,7 @@
       "End": 13721
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8033,7 +8033,7 @@
       "End": 13752
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8044,7 +8044,7 @@
       "End": 13783
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8055,7 +8055,7 @@
       "End": 13999
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8066,7 +8066,7 @@
       "End": 14030
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8077,7 +8077,7 @@
       "End": 14061
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8088,7 +8088,7 @@
       "End": 14092
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8099,7 +8099,7 @@
       "End": 14123
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8110,7 +8110,7 @@
       "End": 14358
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8121,7 +8121,7 @@
       "End": 14389
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8132,7 +8132,7 @@
       "End": 14420
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8143,7 +8143,7 @@
       "End": 14451
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8154,7 +8154,7 @@
       "End": 14482
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8165,7 +8165,7 @@
       "End": 14513
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8176,7 +8176,7 @@
       "End": 14767
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8187,7 +8187,7 @@
       "End": 14798
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8198,7 +8198,7 @@
       "End": 14829
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8209,7 +8209,7 @@
       "End": 14860
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8220,7 +8220,7 @@
       "End": 14891
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8231,7 +8231,7 @@
       "End": 14922
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8242,7 +8242,7 @@
       "End": 14953
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8253,7 +8253,7 @@
       "End": 15226
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8264,7 +8264,7 @@
       "End": 15257
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8275,7 +8275,7 @@
       "End": 15288
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8286,7 +8286,7 @@
       "End": 15319
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8297,7 +8297,7 @@
       "End": 15350
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8308,7 +8308,7 @@
       "End": 15381
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8319,7 +8319,7 @@
       "End": 15412
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8330,7 +8330,7 @@
       "End": 15443
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8341,7 +8341,7 @@
       "End": 3093
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8352,7 +8352,7 @@
       "End": 4181
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8363,7 +8363,7 @@
       "End": 8516
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8374,7 +8374,7 @@
       "End": 8543
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8385,7 +8385,7 @@
       "End": 8892
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Prim/GHC/seq/Value",
@@ -8396,7 +8396,7 @@
       "End": 8985
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8407,7 +8407,7 @@
       "End": 10077
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8418,7 +8418,7 @@
       "End": 10206
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8429,7 +8429,7 @@
       "End": 10321
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8440,7 +8440,7 @@
       "End": 10962
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8451,7 +8451,7 @@
       "End": 11128
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8462,7 +8462,7 @@
       "End": 11191
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8473,7 +8473,7 @@
       "End": 11254
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8484,7 +8484,7 @@
       "End": 11317
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8495,7 +8495,7 @@
       "End": 11381
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8506,7 +8506,7 @@
       "End": 11442
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8517,7 +8517,7 @@
       "End": 11504
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8528,7 +8528,7 @@
       "End": 11566
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8539,7 +8539,7 @@
       "End": 11629
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8550,7 +8550,7 @@
       "End": 11694
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8561,7 +8561,7 @@
       "End": 11756
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8572,7 +8572,7 @@
       "End": 11819
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8583,7 +8583,7 @@
       "End": 11886
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8594,7 +8594,7 @@
       "End": 11949
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8605,7 +8605,7 @@
       "End": 12013
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8616,7 +8616,7 @@
       "End": 12077
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8627,7 +8627,7 @@
       "End": 12142
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8638,7 +8638,7 @@
       "End": 12206
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8649,7 +8649,7 @@
       "End": 12271
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8660,7 +8660,7 @@
       "End": 12334
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8671,7 +8671,7 @@
       "End": 12396
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8682,7 +8682,7 @@
       "End": 12490
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8693,7 +8693,7 @@
       "End": 12557
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8704,7 +8704,7 @@
       "End": 12627
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8715,7 +8715,7 @@
       "End": 12691
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8726,7 +8726,7 @@
       "End": 12897
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8737,7 +8737,7 @@
       "End": 12959
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8748,7 +8748,7 @@
       "End": 13023
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8759,7 +8759,7 @@
       "End": 2815
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8770,7 +8770,7 @@
       "End": 6980
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8781,7 +8781,7 @@
       "End": 7023
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8792,7 +8792,7 @@
       "End": 7066
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8803,7 +8803,7 @@
       "End": 7109
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8814,7 +8814,7 @@
       "End": 7152
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8825,7 +8825,7 @@
       "End": 7196
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8836,7 +8836,7 @@
       "End": 7239
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8847,7 +8847,7 @@
       "End": 7282
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8858,7 +8858,7 @@
       "End": 7326
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8869,7 +8869,7 @@
       "End": 7369
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8880,7 +8880,7 @@
       "End": 7412
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8891,7 +8891,7 @@
       "End": 7455
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8902,7 +8902,7 @@
       "End": 7499
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8913,7 +8913,7 @@
       "End": 7542
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8924,7 +8924,7 @@
       "End": 7585
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8935,7 +8935,7 @@
       "End": 7628
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8946,7 +8946,7 @@
       "End": 7725
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8957,7 +8957,7 @@
       "End": 8099
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8968,7 +8968,7 @@
       "End": 8292
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8979,7 +8979,7 @@
       "End": 8561
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",
@@ -8990,7 +8990,7 @@
       "End": 8628
     },
     {
-      "DefRepo": "",
+      "DefRepo": "git.haskell.org/packages/ghc-prim",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "ghc-prim/Tuple/GHC/()/Value",

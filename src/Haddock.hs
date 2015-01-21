@@ -35,6 +35,8 @@ import qualified Cabal as C
 import           Locations as Loc
 import qualified Srclib as Src
 
+import Distribution.Hackage.DB (Hackage, readHackage)
+
 data DefKind = Module | Value | Type
 data Def = Def ModulePath Text DefKind Span
 data Bind = Bind String H.NameSpc H.FileLoc Bool Text
@@ -144,10 +146,13 @@ globalPath glob@(H.Global nm nmSpc modul pkg) =
 
 baseRepo = "github.com/bsummer4/packages-base"
 
-convertRef ∷ Text → PathDB → (H.FileLoc,Either Bind H.GlobalBinding) → Src.Ref
-convertRef pkg db (loc,bind) =
+safeHead [] = Nothing
+safeHead (a:_) = Just a
+
+convertRef ∷ (Text→Text) → Text → PathDB → (H.FileLoc,Either Bind H.GlobalBinding) → Src.Ref
+convertRef lookupRepo pkg db (loc,bind) =
   Src.Ref repoURI "HaskellPackage" defUnit defPath isDef file start end
-    where repoURI = if isBase then baseRepo else ""
+    where repoURI = lookupRepo $ fromMaybe "" $ safeHead $ T.split (≡'/') defPath
           defUnit = if isBase then "base" else ""
           isBase = "base" `isPrefixOf` defPath
           startsAt (H.FileLoc _ s1 _) (H.FileLoc _ s2 _) = s1≡s2
@@ -181,10 +186,10 @@ summary (Src.Graph dfs rfs) =
     where defs = (\x→(Src.defDefStart x, Src.defDefEnd x, Src.defPath x)) <$> dfs
           refs = (\x→(Src.refStart x, Src.refEnd x, Src.refDefPath x)) <$> rfs
 
-convertGraph ∷ Text → PathDB → H.SymGraph → Src.Graph
-convertGraph pkg db agr = fudgeGraph $ Src.Graph defs refs
+convertGraph ∷ (Text→Text) → Text → PathDB → H.SymGraph → Src.Graph
+convertGraph lookupRepo pkg db agr = fudgeGraph $ Src.Graph defs refs
   where defs = convertDef pkg db <$> Set.toList(allLocalBindings gr)
-        refs = convertRef pkg db <$> sgReferences gr
+        refs = convertRef lookupRepo pkg db <$> sgReferences gr
         gr = allTheRenames agr
 
 -- TODO Using `read` directly is not safe.
@@ -201,6 +206,16 @@ tmpFiles = M.fromList . map (\(f,m,_,_)→(f,parseModulePath$T.pack m))
 instance Semigroup Shelly.FilePath where
   a <> b = a `mappend` b
 
+type PkgName = Text
+type RepoURI = Text
+
+repoMap ∷ C.CabalInfo → IO (Map PkgName RepoURI)
+repoMap info = do
+  hack ← readHackage
+  ds ← mapM(C.resolve hack ⋙ return) $ M.toList $ C.cabalDependencies info
+  return $ M.fromList $ (\d → (Src.depToUnit d, Src.depToRepoCloneURL d)) <$> ds
+
+
 -- We generate a lot of temporary directories:
 --   - We copy the root directory of a source unit to keep cabal from
 --     writting data to the source directory.
@@ -211,8 +226,11 @@ instance Semigroup Shelly.FilePath where
 graph ∷ C.CabalInfo → IO (Src.Graph, IO ())
 graph info = do
   pid ← toInteger <$> getProcessID
+  repos ← repoMap info
 
-  let mkParam k v = "--" <> k <> "=" <> v <> ""
+  let lookupRepo ∷ PkgName → RepoURI
+      lookupRepo = fromMaybe "" . flip M.lookup repos
+      mkParam k v = "--" <> k <> "=" <> v <> ""
       mkTmp ∷ Text → Text
       mkTmp n = "/tmp/srclib-haskell-" <> n <> "." <> fromString(show pid)
       symbolGraph = mkTmp "symbol-graph"
@@ -259,7 +277,7 @@ graph info = do
   pdb ← mkDB info graphs
 
   let _4 (_,_,_,x) = x
-  let results = fudgeGraph $ mconcat $ (_4 ⋙ convertGraph pkg pdb) <$> graphs
+  let results = fudgeGraph $ mconcat $ (_4 ⋙ convertGraph lookupRepo pkg pdb) <$> graphs
 
   -- We can't cleanup here, since we're using lazy IO. Processing the graph file
   -- hasn't (necessarily) happened yet.
