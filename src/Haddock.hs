@@ -152,9 +152,8 @@ safeHead (a:_) = Just a
 convertRef ∷ (Text→Text) → Text → PathDB → (H.FileLoc,Either Bind H.GlobalBinding) → Src.Ref
 convertRef lookupRepo pkg db (loc,bind) =
   Src.Ref repoURI "HaskellPackage" defUnit defPath isDef file start end
-    where repoURI = lookupRepo $ fromMaybe "" $ safeHead $ T.split (≡'/') defPath
-          defUnit = if isBase then "base" else ""
-          isBase = "base" `isPrefixOf` defPath
+    where repoURI = lookupRepo defUnit
+          defUnit = fromMaybe "" $ safeHead $ T.split (≡'/') defPath
           startsAt (H.FileLoc _ s1 _) (H.FileLoc _ s2 _) = s1≡s2
           isDef = case bind of Right _ → False
                                Left (Bind _ _ bloc _ _) → loc `startsAt` bloc

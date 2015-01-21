@@ -49,7 +49,7 @@
     {
       "DefRepo": "",
       "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
+      "DefUnit": "haskell-hello-world",
       "DefPath": "haskell-hello-world/Hello/hello/Value/r1wU",
       "Def": false,
       "Repo": "",
@@ -60,7 +60,7 @@
     {
       "DefRepo": "",
       "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
+      "DefUnit": "haskell-hello-world",
       "DefPath": "haskell-hello-world/Hello/hello/Value",
       "Def": true,
       "Repo": "",
@@ -71,7 +71,7 @@
     {
       "DefRepo": "",
       "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
+      "DefUnit": "haskell-hello-world",
       "DefPath": "haskell-hello-world/Hello/hello/Value",
       "Def": true,
       "Repo": "",
@@ -82,7 +82,7 @@
     {
       "DefRepo": "",
       "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
+      "DefUnit": "haskell-hello-world",
       "DefPath": "haskell-hello-world/Main/main/Value",
       "Def": true,
       "Repo": "",
@@ -93,7 +93,7 @@
     {
       "DefRepo": "",
       "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
+      "DefUnit": "haskell-hello-world",
       "DefPath": "haskell-hello-world/Main/main/Value",
       "Def": true,
       "Repo": "",
