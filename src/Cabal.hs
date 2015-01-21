@@ -57,6 +57,8 @@ data CabalInfo = CabalInfo
   , cabalSrcFiles     ∷ Set RepoPath
   , cabalSrcDirs      ∷ Set RepoPath
   , cabalGlobs        ∷ Set Text
+  , cabalRepoURI      ∷ Text
+  , cabalRepoRev      ∷ Text
   } deriving (Show, Eq)
 
 isCabalFile ∷ RepoPath → Bool
@@ -71,13 +73,13 @@ analyse repo = ([], M.fromList $ catMaybes $ info <$> cabalFiles)
                     return (f,ci)
 
 toSrcUnit ∷ CabalInfo → Src.SourceUnit
-toSrcUnit (CabalInfo cf pkg pdir deps files dirs globs) =
-  Src.SourceUnit cf pkg pdir (u deps) (u dirs) (u files) (u globs)
+toSrcUnit (CabalInfo cf pkg pdir deps files dirs globs uri rev) =
+  Src.SourceUnit cf pkg pdir (u deps) (u dirs) (u files) (u globs) uri rev
     where u = Set.toList
 
 fromSrcUnit ∷ Src.SourceUnit → Maybe CabalInfo
-fromSrcUnit (Src.SourceUnit cf pkg pdir deps files dirs globs) =
-  Just $ CabalInfo cf pkg pdir (set deps) (set dirs) (set files) (set globs)
+fromSrcUnit (Src.SourceUnit cf pkg pdir deps files dirs globs uri rev) = Just $
+  CabalInfo cf pkg pdir (set deps) (set dirs) (set files) (set globs) uri rev
     where set ∷ Ord a ⇒ [a] → Set a
           set = Set.fromList
 
@@ -86,7 +88,8 @@ instance (Ord a,Arbitrary a) => Arbitrary(Set a) where
 
 instance Arbitrary CabalInfo where
   arbitrary = CabalInfo <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
-                        <*> arbitrary <*> arbitrary <*> arbitrary
+                        <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+                        <*> arbitrary
 
 prop_srcUnitConversion ∷ CabalInfo → Bool
 prop_srcUnitConversion ci = Just ci≡fromSrcUnit(toSrcUnit ci)
@@ -103,6 +106,7 @@ cabalInfo repo cabalFilePath content = do
   genPkgDesc ← prToMaybe $ parsePackageDescription content
   topLevelDir ← Loc.parent cabalFilePath
   let desc = flattenPackageDescription genPkgDesc
+      (uri, rev) = fromMaybe ("","") $ repoInfo desc
       PackageName pkg = pkgName $ package desc
       allRepoFiles = M.keys $ repoFiles repo
       dirs = (topLevelDir <>) <$> sourceDirs desc
@@ -115,11 +119,33 @@ cabalInfo repo cabalFilePath content = do
                    , cabalSrcFiles = set sourceFiles
                    , cabalSrcDirs = set dirs
                    , cabalGlobs = set $ glob <$> dirs
+                   , cabalRepoURI = uri
+                   , cabalRepoRev = rev
                    }
     where set ∷ Ord a ⇒ [a] → Set a
           set = Set.fromList
           glob (Loc.Repo(Loc.FP[])) = "**/*.hs"
           glob rp = Loc.srclibPath rp <> "/**/*.hs"
+
+repoInfo ∷ PackageDescription → Maybe (Text,Text)
+repoInfo desc = best $ catMaybes $ cvt <$> Cabal.sourceRepos desc
+  where best ∷ [(Cabal.RepoKind, Text, Text)] → Maybe (Text,Text)
+        best [] = Nothing
+        best x = Just $ (\(_,b,c)→(b,c)) $ L.maximumBy cmp x
+          where cmp a b = compare (n a) (n b)
+                n (Cabal.RepoKindUnknown _,_,_) = 1 :: Int
+                n (Cabal.RepoHead,_,_)          = 2 :: Int
+                n (Cabal.RepoThis,_,_)          = 3 :: Int
+        cvt ∷ Cabal.SourceRepo → Maybe (Cabal.RepoKind, Text, Text)
+        cvt r = do
+          let k = Cabal.repoKind r
+          loc ← Cabal.repoLocation r
+          rev ← case (Cabal.repoTag r, Cabal.repoBranch r, Cabal.repoType r) of
+                  (Just tag, _          , _       ) → Just tag
+                  (Nothing , Just branch, _       ) → Just branch
+                  (Nothing , Nothing    , Just Git) → Just "master"
+                  (Nothing , Nothing    , _       ) → Nothing
+          return (k, T.pack loc, T.pack rev)
 
 allDeps ∷ PackageDescription → Set RawDep
 allDeps desc = Set.fromList $ toRawDep <$> deps

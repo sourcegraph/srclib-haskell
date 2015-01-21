@@ -26,6 +26,8 @@ data SourceUnit = SourceUnit
   , suSrcDirs      ∷ [RepoPath]
   , suSrcFiles     ∷ [RepoPath]
   , suSrcGlobs     ∷ [Text]
+  , suRepoURI      ∷ Text
+  , suRepoRev      ∷ Text
   }
 
 data ResolvedDependency = ResolvedDependency
@@ -74,7 +76,8 @@ deriving instance Show SourceUnit
 
 instance Arbitrary SourceUnit where
   arbitrary = SourceUnit <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
-                         <*> arbitrary <*> arbitrary <*> arbitrary
+                         <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+                         <*> arbitrary
 
 instance Arbitrary Graph where
   arbitrary = Graph <$> arbitrary <*> arbitrary
@@ -153,8 +156,11 @@ instance ToJSON SourceUnit where
     , "Globs" .= suSrcGlobs su
     , "Files" .= suSrcFiles su
     , "Dependencies" .= suDependencies su
-    , "Data" .= object["CabalFile".=suCabalFile su, "Dirs".=suSrcDirs su]
-    , "Repo" .= Null
+    , "Data" .= object [ "CabalFile" .= suCabalFile su
+                       , "Dirs" .= suSrcDirs su
+                       , "Rev" .= suRepoRev su
+                       ]
+    , "Repo" .= suRepoURI su
     , "Config" .= Null
     , "Ops" .= object
         [ "graph" .=
@@ -174,6 +180,8 @@ instance FromJSON SourceUnit where
                <*> extraData .: "Dirs"
                <*> v .: "Files"
                <*> v .: "Globs"
+               <*> v .: "Repo"
+               <*> extraData .: "Rev"
   parseJSON _ = mzero
 
 prop_sourceUnitJSON ∷ SourceUnit → Bool

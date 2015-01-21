@@ -89,7 +89,11 @@ srclibRun ["graph"] = runGrapher
 srclibRun _ = usage
 
 main ∷ IO ()
-main = getArgs >>= srclibRun
+main = do
+  args ← getArgs
+  dir ← Sys.getCurrentDirectory
+  (show ⋙ (("srclib-haskell @" ++ dir ++ " ")++) ⋙ hPutStrLn stderr) args
+  srclibRun args
 
 fromRight ∷ Either Text b → b
 fromRight (Left x) = error $ T.unpack x
