@@ -73,7 +73,7 @@ resolve hackage d@(nm,vrange) = L.head $ catMaybes[special,bestMatch,Just fallba
 depresolveCmd ∷ CabalInfo → IO [Src.ResolvedDependency]
 depresolveCmd info = do
   hack ← readHackage
-  (cabalDependencies ⋙ Set.toList ⋙ mapM (resolve hack ⋙ return)) info
+  (cabalDependencies ⋙ M.toList ⋙ mapM (resolve hack ⋙ return)) info
 
 getCabalInfo ∷ SourceUnit → CabalInfo
 getCabalInfo x = case C.fromSrcUnit x of

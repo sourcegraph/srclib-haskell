@@ -54,7 +54,7 @@ data CabalInfo = CabalInfo
   { cabalFile         ∷ RepoPath
   , cabalPkgName      ∷ Text
   , cabalPkgDir       ∷ RepoPath
-  , cabalDependencies ∷ Set RawDep
+  , cabalDependencies ∷ Map Text Text
   , cabalSrcFiles     ∷ Set RepoPath
   , cabalSrcDirs      ∷ Set RepoPath
   , cabalGlobs        ∷ Set Text
@@ -75,22 +75,24 @@ analyse repo = ([], M.fromList $ catMaybes $ info <$> cabalFiles)
 
 toSrcUnit ∷ CabalInfo → Src.SourceUnit
 toSrcUnit (CabalInfo cf pkg pdir deps files dirs globs uri rev) =
-  Src.SourceUnit cf pkg pdir (u deps) (u dirs) (u files) (u globs) uri rev
-    where u = Set.toList
+  Src.SourceUnit cf pkg pdir (m deps) (s dirs) (s files) (s globs) uri rev
+    where s = Set.toList
+          m = M.toList
 
 fromSrcUnit ∷ Src.SourceUnit → Maybe CabalInfo
 fromSrcUnit (Src.SourceUnit cf pkg pdir deps files dirs globs uri rev) = Just $
-  CabalInfo cf pkg pdir (set deps) (set dirs) (set files) (set globs) uri rev
-    where set ∷ Ord a ⇒ [a] → Set a
-          set = Set.fromList
+  CabalInfo cf pkg pdir (m deps) (s dirs) (s files) (s globs) uri rev
+    where s ∷ Ord a ⇒ [a] → Set a
+          s = Set.fromList
+          m = M.fromList
 
 instance (Ord a,Arbitrary a) => Arbitrary(Set a) where
   arbitrary = Set.fromList <$> arbitrary
 
 instance Arbitrary CabalInfo where
-  arbitrary = CabalInfo <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+  arbitrary = CabalInfo <$> arbitrary <*> arbitrary <*> arbitrary
+                        <*> (M.fromList <$> arbitrary) <*> arbitrary
                         <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
-                        <*> arbitrary
 
 prop_srcUnitConversion ∷ CabalInfo → Bool
 prop_srcUnitConversion ci = Just ci≡fromSrcUnit(toSrcUnit ci)
@@ -148,8 +150,8 @@ repoInfo desc = best $ catMaybes $ cvt <$> Cabal.sourceRepos desc
                   (Nothing , Nothing    , _       ) → Nothing
           return (k, T.pack loc, T.pack rev)
 
-allDeps ∷ PackageDescription → Set RawDep
-allDeps desc = Set.fromList $ toRawDep <$> deps
+allDeps ∷ PackageDescription → Map Text Text
+allDeps desc = M.fromList $ toRawDep <$> deps
   where deps = buildDepends desc ++ concatMap getDeps (allBuildInfo desc)
         toRawDep (Cabal.Dependency (PackageName nm) v) =
           (T.pack nm, T.pack $ Cabal.display v)
