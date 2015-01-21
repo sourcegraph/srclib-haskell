@@ -135,7 +135,7 @@
   ],
   "Refs": [
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/$/Value",
@@ -146,7 +146,7 @@
       "End": 409
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/id/Value",
@@ -157,7 +157,7 @@
       "End": 219
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Err/GHC/undefined/Value",
@@ -168,7 +168,7 @@
       "End": 388
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Err/GHC/undefined/Value",
@@ -179,7 +179,7 @@
       "End": 419
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/IO/System/putStrLn/Value",
@@ -190,7 +190,7 @@
       "End": 239
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/IO/System/putStrLn/Value",

@@ -10,13 +10,18 @@
 module Main where
 
 import ClassyPrelude
-import Control.Category
 import Control.Category.Unicode
 import Data.Aeson as JSON
 import qualified Data.Set as Set
+import qualified Data.List as L
 import qualified Data.ByteString.Lazy as LBS
 import qualified Data.ByteString.Lazy.Char8 as BC
 import qualified Data.Text as T
+
+import qualified Distribution.Version as Cabal
+import qualified Distribution.PackageDescription as Cabal
+import qualified Distribution.PackageDescription.Configuration as Cabal
+import qualified Distribution.Text as Cabal
 
 import qualified Data.Map as M
 
@@ -33,22 +38,13 @@ import Haddock as H
 import Srclib as Src
 import qualified Locations as Loc
 
-specialCases ∷ Map Text (Text,Text,Text)
-specialCases = M.fromList $
- [("base"    ,("git.haskell.org/packages/base.git"    ,"4.7.0.1","ghc-7.8"))
- ,("ghc-prim",("git.haskell.org/packages/ghc-prim.git","0.3.1.0","ghc-7.8"))
- ]
+import Distribution.Hackage.DB (Hackage, readHackage)
 
-specialDepInfo :: C.RawDep → Maybe (Text,Text,Text)
-specialDepInfo (n,_) = M.lookup n specialCases
-
-resolve ∷ (Text,Text) → Src.ResolvedDependency
-resolve d@(nm,v) = case specialDepInfo d of
-  Nothing → Src.ResolvedDependency d "" nm v ""
-  Just (repo,ver,ref) → Src.ResolvedDependency d repo nm ver ref
 
 depresolveCmd ∷ CabalInfo → IO [Src.ResolvedDependency]
-depresolveCmd = cabalDependencies ⋙ Set.toList ⋙ mapM (resolve ⋙ return)
+depresolveCmd info = do
+  hack ← readHackage
+  mapM (C.resolve hack ⋙ return) $ M.toList $ cabalDependencies info
 
 getCabalInfo ∷ SourceUnit → CabalInfo
 getCabalInfo x = case C.fromSrcUnit x of
@@ -70,7 +66,7 @@ withCabalInfoFromStdin proc = do
   maybe usage (proc >=> dumpJSON) $ getCabalInfo <$> unit
 
 dumpJSON ∷ ToJSON a ⇒ a → IO ()
-dumpJSON = JSON.encode >>> BC.putStrLn
+dumpJSON = JSON.encode ⋙ BC.putStrLn
 
 runGrapher ∷ IO ()
 runGrapher = do
@@ -117,7 +113,7 @@ allRepoFiles rootDir = do
         let parseError = "Invalid relative path: " <> textified
         parsed ← bindLeft parseError $ Loc.parseRelativePath textified
         return $ Loc.Repo parsed
-      toRepoPath = pathText >>> fromRight
+      toRepoPath = pathText ⋙ fromRight
 
   let fQuery = Find.fileType ==? Find.RegularFile
   files ← map pFromStr <$> Find.find Find.always fQuery (pToStr rootDir)
@@ -125,7 +121,7 @@ allRepoFiles rootDir = do
 
 scan ∷ IO [CabalInfo]
 scan = do
-  rootDir ← (Path.fromText <<< T.pack) <$> Sys.getCurrentDirectory
+  rootDir ← (Path.fromText ⋘ T.pack) <$> Sys.getCurrentDirectory
   fdb ← allRepoFiles rootDir
   cabalFiles ← mapM readFile $ M.filterWithKey (\k _→C.isCabalFile k) fdb
   let repo = C.Repo fdb cabalFiles

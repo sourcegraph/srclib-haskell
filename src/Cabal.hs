@@ -13,6 +13,7 @@ module Cabal ( Repo(..)
              , analyse, Warning(..)
              , toSrcUnit, fromSrcUnit
              , prop_srcUnitConversion
+             , resolve
              ) where
 
 import ClassyPrelude hiding ((<.>), (</>))
@@ -27,6 +28,7 @@ import qualified Data.Set as Set
 import qualified Data.Text as T
 
 import Distribution.Package as Cabal
+import Distribution.Version as Cabal
 import Distribution.PackageDescription as Cabal
 import Distribution.PackageDescription.Configuration as Cabal
 import Distribution.PackageDescription.Parse as Cabal
@@ -35,6 +37,8 @@ import qualified Distribution.Text as Cabal
 import qualified Locations as Loc
 import Locations (RepoPath)
 import qualified Srclib as Src
+
+import Distribution.Hackage.DB (Hackage, readHackage)
 
 
 -- Interface -----------------------------------------------------------------
@@ -53,7 +57,7 @@ data CabalInfo = CabalInfo
   { cabalFile         ∷ RepoPath
   , cabalPkgName      ∷ Text
   , cabalPkgDir       ∷ RepoPath
-  , cabalDependencies ∷ Set RawDep
+  , cabalDependencies ∷ Map Text Text
   , cabalSrcFiles     ∷ Set RepoPath
   , cabalSrcDirs      ∷ Set RepoPath
   , cabalGlobs        ∷ Set Text
@@ -74,28 +78,57 @@ analyse repo = ([], M.fromList $ catMaybes $ info <$> cabalFiles)
 
 toSrcUnit ∷ CabalInfo → Src.SourceUnit
 toSrcUnit (CabalInfo cf pkg pdir deps files dirs globs uri rev) =
-  Src.SourceUnit cf pkg pdir (u deps) (u dirs) (u files) (u globs) uri rev
-    where u = Set.toList
+  Src.SourceUnit cf pkg pdir (m deps) (s dirs) (s files) (s globs) uri rev
+    where s = Set.toList
+          m = M.toList
 
 fromSrcUnit ∷ Src.SourceUnit → Maybe CabalInfo
 fromSrcUnit (Src.SourceUnit cf pkg pdir deps files dirs globs uri rev) = Just $
-  CabalInfo cf pkg pdir (set deps) (set dirs) (set files) (set globs) uri rev
-    where set ∷ Ord a ⇒ [a] → Set a
-          set = Set.fromList
+  CabalInfo cf pkg pdir (m deps) (s dirs) (s files) (s globs) uri rev
+    where s ∷ Ord a ⇒ [a] → Set a
+          s = Set.fromList
+          m = M.fromList
 
 instance (Ord a,Arbitrary a) => Arbitrary(Set a) where
   arbitrary = Set.fromList <$> arbitrary
 
 instance Arbitrary CabalInfo where
-  arbitrary = CabalInfo <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+  arbitrary = CabalInfo <$> arbitrary <*> arbitrary <*> arbitrary
+                        <*> (M.fromList <$> arbitrary) <*> arbitrary
                         <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
-                        <*> arbitrary
 
 prop_srcUnitConversion ∷ CabalInfo → Bool
 prop_srcUnitConversion ci = Just ci≡fromSrcUnit(toSrcUnit ci)
 
 
 -- Implementation ------------------------------------------------------------
+
+specialDepInfo ∷ RawDep → Maybe (Text,Text,Text)
+specialDepInfo (n,_) = M.lookup n $ M.fromList $
+ [("base"    ,("git.haskell.org/packages/base.git"    ,"4.7.0.1","ghc-7.8"))
+ ,("ghc-prim",("git.haskell.org/packages/ghc-prim.git","0.3.1.0","ghc-7.8"))
+ ]
+
+resolve ∷ Hackage → (Text,Text) → Src.ResolvedDependency
+resolve hackage d@(nm,vrange) = L.head $ catMaybes[special,bestMatch,Just fallback]
+  where dep = Src.ResolvedDependency
+        special ∷ Maybe Src.ResolvedDependency
+        special = (\(repo,v,ref)→dep d repo nm v ref) <$> specialDepInfo d
+        fromRepoInfo ∷ Cabal.Version → (Text,Text) → Src.ResolvedDependency
+        fromRepoInfo v (uri,rev) = dep d uri nm (T.pack $ Cabal.display v) rev
+        fallback ∷ Src.ResolvedDependency
+        fallback = dep d "" nm vrange ""
+        availableVersions ∷ Map Cabal.Version Cabal.GenericPackageDescription
+        availableVersions = fromMaybe M.empty $ M.lookup (T.unpack nm) hackage
+        acceptableVersions = M.filterWithKey (\k _→okVersion k) availableVersions
+        safeMax m = if M.null m then Nothing else Just(M.findMax m)
+        bestMatch ∷ Maybe Src.ResolvedDependency
+        bestMatch = join $ cabalDep <$> safeMax acceptableVersions
+        cabalDep ∷ (Cabal.Version, Cabal.GenericPackageDescription) → Maybe Src.ResolvedDependency
+        cabalDep (v,desc) = fromRepoInfo v <$> (repoInfo $ Cabal.flattenPackageDescription desc)
+        okVersion ∷ Cabal.Version → Bool
+        okVersion v = fromMaybe False $
+          Cabal.withinRange v <$> Cabal.simpleParse (T.unpack vrange)
 
 prToMaybe ∷ Cabal.ParseResult a → Maybe a
 prToMaybe (Cabal.ParseFailed x) = traceShow x Nothing
@@ -147,8 +180,8 @@ repoInfo desc = best $ catMaybes $ cvt <$> Cabal.sourceRepos desc
                   (Nothing , Nothing    , _       ) → Nothing
           return (k, T.pack loc, T.pack rev)
 
-allDeps ∷ PackageDescription → Set RawDep
-allDeps desc = Set.fromList $ toRawDep <$> deps
+allDeps ∷ PackageDescription → Map Text Text
+allDeps desc = M.fromList $ toRawDep <$> deps
   where deps = buildDepends desc ++ concatMap getDeps (allBuildInfo desc)
         toRawDep (Cabal.Dependency (PackageName nm) v) =
           (T.pack nm, T.pack $ Cabal.display v)

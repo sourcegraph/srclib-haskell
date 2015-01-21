@@ -1334,7 +1334,7 @@
   ],
   "Refs": [
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/$/Value",
@@ -1345,7 +1345,7 @@
       "End": 3275
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/$/Value",
@@ -1356,7 +1356,7 @@
       "End": 4402
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/$/Value",
@@ -1367,7 +1367,7 @@
       "End": 5771
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/$/Value",
@@ -1378,7 +1378,7 @@
       "End": 5781
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/$/Value",
@@ -1389,7 +1389,7 @@
       "End": 6114
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/++/Value",
@@ -1400,7 +1400,7 @@
       "End": 3172
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1411,7 +1411,7 @@
       "End": 3167
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1422,7 +1422,7 @@
       "End": 3280
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1433,7 +1433,7 @@
       "End": 3676
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1444,7 +1444,7 @@
       "End": 3833
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1455,7 +1455,7 @@
       "End": 3992
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1466,7 +1466,7 @@
       "End": 4121
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1477,7 +1477,7 @@
       "End": 5305
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1488,7 +1488,7 @@
       "End": 5450
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1499,7 +1499,7 @@
       "End": 6143
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1510,7 +1510,7 @@
       "End": 6754
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1521,7 +1521,7 @@
       "End": 7008
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1532,7 +1532,7 @@
       "End": 7068
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1543,7 +1543,7 @@
       "End": 7134
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1554,7 +1554,7 @@
       "End": 7198
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1565,7 +1565,7 @@
       "End": 7261
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1576,7 +1576,7 @@
       "End": 7325
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1587,7 +1587,7 @@
       "End": 7581
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1598,7 +1598,7 @@
       "End": 7644
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/./Value",
@@ -1609,7 +1609,7 @@
       "End": 7741
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/const/Value",
@@ -1620,7 +1620,7 @@
       "End": 4868
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/const/Value",
@@ -1631,7 +1631,7 @@
       "End": 5001
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/flip/Value",
@@ -1642,7 +1642,7 @@
       "End": 4995
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/foldr/Value",
@@ -1653,7 +1653,7 @@
       "End": 4252
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/foldr/Value",
@@ -1664,7 +1664,7 @@
       "End": 5299
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/foldr/Value",
@@ -1675,7 +1675,7 @@
       "End": 7128
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/id/Value",
@@ -1686,7 +1686,7 @@
       "End": 3567
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Base/GHC/otherwise/Value",
@@ -1697,7 +1697,7 @@
       "End": 4484
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Err/GHC/error/Value",
@@ -1708,7 +1708,7 @@
       "End": 4830
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Err/GHC/error/Value",
@@ -1719,7 +1719,7 @@
       "End": 4957
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Function/Data/on/Value",
@@ -1730,7 +1730,7 @@
       "End": 5536
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Function/Data/on/Value",
@@ -1741,7 +1741,7 @@
       "End": 5609
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/List/Data/foldl'/Value",
@@ -1752,7 +1752,7 @@
       "End": 7575
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/List/Data/foldl1/Value",
@@ -1763,7 +1763,7 @@
       "End": 7321
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/List/GHC/foldl/Value",
@@ -1774,7 +1774,7 @@
       "End": 7192
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/List/GHC/foldr1/Value",
@@ -1785,7 +1785,7 @@
       "End": 7257
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Monad/Control/ap/Value",
@@ -1796,7 +1796,7 @@
       "End": 6372
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Monoid/Data/mconcat/Value",
@@ -1807,7 +1807,7 @@
       "End": 7006
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Num/GHC/-/Value",
@@ -1818,7 +1818,7 @@
       "End": 4497
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Read/GHC/lexP/Value",
@@ -1829,7 +1829,7 @@
       "End": 5813
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Read/GHC/parens/Value",
@@ -1840,7 +1840,7 @@
       "End": 5769
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Read/GHC/readListPrecDefault/Value",
@@ -1851,7 +1851,7 @@
       "End": 5894
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Read/GHC/readPrec/Value",
@@ -1862,7 +1862,7 @@
       "End": 5832
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/ReadPrec/ParserCombinators/Text/prec/Value",
@@ -1873,7 +1873,7 @@
       "End": 5776
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Show/GHC/showParen/Value",
@@ -1884,7 +1884,7 @@
       "End": 6103
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Show/GHC/showString/Value",
@@ -1895,7 +1895,7 @@
       "End": 6129
     },
     {
-      "DefRepo": "github.com/bsummer4/packages-base",
+      "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Show/GHC/shows/Value",
@@ -1917,7 +1917,7 @@
       "End": 7739
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/$fFoldableDList/Value/r31k",
@@ -1928,7 +1928,7 @@
       "End": 6976
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/$fIsStringDList/Value/r30U",
@@ -1939,7 +1939,7 @@
       "End": 7801
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/$fMonadPlusDList/Value/r31t",
@@ -1950,7 +1950,7 @@
       "End": 6906
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/$fNFDataDList/Value/r313",
@@ -1961,7 +1961,7 @@
       "End": 7721
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data//=/Value/a3lu",
@@ -1972,7 +1972,7 @@
       "End": 5509
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/\u003c$/Value/a3eM",
@@ -1983,7 +1983,7 @@
       "End": 6259
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/\u003c*/Value/a3er",
@@ -1994,7 +1994,7 @@
       "End": 6332
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/\u003c*\u003e/Value/a3e4",
@@ -2005,7 +2005,7 @@
       "End": 6367
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/\u003c*\u003e/Value/a3e4",
@@ -2016,7 +2016,7 @@
       "End": 6372
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/\u003c|\u003e/Value/a3du",
@@ -2027,7 +2027,7 @@
       "End": 6434
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/\u003c|\u003e/Value/a3du",
@@ -2038,7 +2038,7 @@
       "End": 6443
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/==/Value/a3lk",
@@ -2049,7 +2049,7 @@
       "End": 5524
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/==/Value/a3lk",
@@ -2060,7 +2060,7 @@
       "End": 5543
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/\u003e\u003e/Value/a3cX",
@@ -2071,7 +2071,7 @@
       "End": 6465
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/\u003e\u003e=/Value/a3cN",
@@ -2082,7 +2082,7 @@
       "End": 6765
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/\u003e\u003e=/Value/a3cN",
@@ -2093,7 +2093,7 @@
       "End": 6479
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/DL/Value/r30n",
@@ -2104,7 +2104,7 @@
       "End": 3165
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/DL/Value/r30n",
@@ -2115,7 +2115,7 @@
       "End": 3564
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/DL/Value/r30n",
@@ -2126,7 +2126,7 @@
       "End": 3674
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/DL/Value/r30n",
@@ -2137,7 +2137,7 @@
       "End": 3825
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/DL/Value/r30n",
@@ -2148,7 +2148,7 @@
       "End": 3981
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/DL/Value/r30n",
@@ -2159,7 +2159,7 @@
       "End": 4110
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/DL/Value/r30n",
@@ -2170,7 +2170,7 @@
       "End": 4400
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/a/Value/a2Up",
@@ -2181,7 +2181,7 @@
       "End": 5149
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/a/Value/a2Up",
@@ -2192,7 +2192,7 @@
       "End": 5164
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/append/Value",
@@ -2203,7 +2203,7 @@
       "End": 4092
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/append/Value",
@@ -2214,7 +2214,7 @@
       "End": 4099
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/append/Value",
@@ -2225,7 +2225,7 @@
       "End": 4259
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/append/Value",
@@ -2236,7 +2236,7 @@
       "End": 6235
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/append/Value",
@@ -2247,7 +2247,7 @@
       "End": 6443
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/append/Value",
@@ -2258,7 +2258,7 @@
       "End": 6752
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/append/Value",
@@ -2269,7 +2269,7 @@
       "End": 6951
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/apply/Value",
@@ -2280,7 +2280,7 @@
       "End": 3461
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/apply/Value",
@@ -2291,7 +2291,7 @@
       "End": 3467
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/b'/Value/a2Uq",
@@ -2302,7 +2302,7 @@
       "End": 5153
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/b'/Value/a2Uq",
@@ -2313,7 +2313,7 @@
       "End": 5179
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/b/Value/a2Uo",
@@ -2324,7 +2324,7 @@
       "End": 5095
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/b/Value/a2Uo",
@@ -2335,7 +2335,7 @@
       "End": 5109
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/b/Value/a2Us",
@@ -2346,7 +2346,7 @@
       "End": 5283
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/b/Value/a2Us",
@@ -2357,7 +2357,7 @@
       "End": 5303
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/compare/Value/a3kz",
@@ -2368,7 +2368,7 @@
       "End": 5594
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/compare/Value/a3kz",
@@ -2379,7 +2379,7 @@
       "End": 5616
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/concat/Value",
@@ -2390,7 +2390,7 @@
       "End": 4226
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/concat/Value",
@@ -2401,7 +2401,7 @@
       "End": 4233
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/cons/Value",
@@ -2412,7 +2412,7 @@
       "End": 3808
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/cons/Value",
@@ -2423,7 +2423,7 @@
       "End": 3813
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/cons/Value",
@@ -2434,7 +2434,7 @@
       "End": 5162
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/cons/Value",
@@ -2445,7 +2445,7 @@
       "End": 5448
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/consit/Value/a2Ui",
@@ -2456,7 +2456,7 @@
       "End": 4668
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/consit/Value/a2Ui",
@@ -2467,7 +2467,7 @@
       "End": 4731
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/dl/Value/a2Uj",
@@ -2478,7 +2478,7 @@
       "End": 4671
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/dl/Value/a2Uj",
@@ -2489,7 +2489,7 @@
       "End": 4690
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/dl/Value/a2WS",
@@ -2500,7 +2500,7 @@
       "End": 6091
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/dl/Value/a2WS",
@@ -2511,7 +2511,7 @@
       "End": 6160
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/dl/Value/a30i",
@@ -2522,7 +2522,7 @@
       "End": 5820
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/dl/Value/a30i",
@@ -2533,7 +2533,7 @@
       "End": 5856
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/empty/Value/a3do",
@@ -2544,7 +2544,7 @@
       "End": 6416
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/empty/Value/a3do",
@@ -2555,7 +2555,7 @@
       "End": 6424
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/empty/Value",
@@ -2566,7 +2566,7 @@
       "End": 3547
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/empty/Value",
@@ -2577,7 +2577,7 @@
       "End": 3553
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/empty/Value",
@@ -2588,7 +2588,7 @@
       "End": 4265
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/empty/Value",
@@ -2599,7 +2599,7 @@
       "End": 5137
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/empty/Value",
@@ -2610,7 +2610,7 @@
       "End": 5459
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/empty/Value",
@@ -2621,7 +2621,7 @@
       "End": 6214
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/empty/Value",
@@ -2632,7 +2632,7 @@
       "End": 6424
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/empty/Value",
@@ -2643,7 +2643,7 @@
       "End": 6763
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/empty/Value",
@@ -2654,7 +2654,7 @@
       "End": 6858
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/empty/Value",
@@ -2665,7 +2665,7 @@
       "End": 6931
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2Ur",
@@ -2676,7 +2676,7 @@
       "End": 5281
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2Ur",
@@ -2687,7 +2687,7 @@
       "End": 5301
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2Ut",
@@ -2698,7 +2698,7 @@
       "End": 5427
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2Ut",
@@ -2709,7 +2709,7 @@
       "End": 5452
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2Uw",
@@ -2720,7 +2720,7 @@
       "End": 7050
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2Uw",
@@ -2731,7 +2731,7 @@
       "End": 7066
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2Ux",
@@ -2742,7 +2742,7 @@
       "End": 7111
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2Ux",
@@ -2753,7 +2753,7 @@
       "End": 7130
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2Uz",
@@ -2764,7 +2764,7 @@
       "End": 7175
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2Uz",
@@ -2775,7 +2775,7 @@
       "End": 7194
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2WG",
@@ -2786,7 +2786,7 @@
       "End": 7240
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2WG",
@@ -2797,7 +2797,7 @@
       "End": 7259
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2WH",
@@ -2808,7 +2808,7 @@
       "End": 7304
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2WH",
@@ -2819,7 +2819,7 @@
       "End": 7323
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2WI",
@@ -2830,7 +2830,7 @@
       "End": 7558
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2WI",
@@ -2841,7 +2841,7 @@
       "End": 7577
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2WK",
@@ -2852,7 +2852,7 @@
       "End": 7624
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/f/Value/a2WK",
@@ -2863,7 +2863,7 @@
       "End": 7640
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fail/Value/a3dg",
@@ -2874,7 +2874,7 @@
       "End": 6846
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fail/Value/a3dg",
@@ -2885,7 +2885,7 @@
       "End": 6858
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fmap/Value/a3eH",
@@ -2896,7 +2896,7 @@
       "End": 6274
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fmap/Value/a3eH",
@@ -2907,7 +2907,7 @@
       "End": 6280
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fold/Value/a3aD",
@@ -2918,7 +2918,7 @@
       "End": 6989
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fold/Value/a3aD",
@@ -2929,7 +2929,7 @@
       "End": 7015
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldMap/Value/a3aS",
@@ -2940,7 +2940,7 @@
       "End": 7048
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldMap/Value/a3aS",
@@ -2951,7 +2951,7 @@
       "End": 7075
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldl'/Value/a3bU",
@@ -2962,7 +2962,7 @@
       "End": 7556
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldl'/Value/a3bU",
@@ -2973,7 +2973,7 @@
       "End": 7588
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldl/Value/a3bE",
@@ -2984,7 +2984,7 @@
       "End": 7173
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldl/Value/a3bE",
@@ -2995,7 +2995,7 @@
       "End": 7205
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldl1/Value/a3ck",
@@ -3006,7 +3006,7 @@
       "End": 7302
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldl1/Value/a3ck",
@@ -3017,7 +3017,7 @@
       "End": 7332
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldr'/Value/a3bn",
@@ -3028,7 +3028,7 @@
       "End": 7622
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldr'/Value/a3bn",
@@ -3039,7 +3039,7 @@
       "End": 7651
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldr/Value/a3ba",
@@ -3050,7 +3050,7 @@
       "End": 7109
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldr/Value/a3ba",
@@ -3061,7 +3061,7 @@
       "End": 7141
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldr/Value",
@@ -3072,7 +3072,7 @@
       "End": 5273
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldr/Value",
@@ -3083,7 +3083,7 @@
       "End": 5279
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldr/Value",
@@ -3094,7 +3094,7 @@
       "End": 5442
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldr/Value",
@@ -3105,7 +3105,7 @@
       "End": 6744
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldr1/Value/a3c8",
@@ -3116,7 +3116,7 @@
       "End": 7238
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/foldr1/Value/a3c8",
@@ -3127,7 +3127,7 @@
       "End": 7268
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fromList/Value/a39Z",
@@ -3138,7 +3138,7 @@
       "End": 7992
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fromList/Value/a39Z",
@@ -3149,7 +3149,7 @@
       "End": 8003
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fromList/Value",
@@ -3160,7 +3160,7 @@
       "End": 3148
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fromList/Value",
@@ -3171,7 +3171,7 @@
       "End": 3157
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fromList/Value",
@@ -3182,7 +3182,7 @@
       "End": 4743
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fromList/Value",
@@ -3193,7 +3193,7 @@
       "End": 5853
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fromList/Value",
@@ -3204,7 +3204,7 @@
       "End": 7831
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fromListN/Value/a3a5",
@@ -3215,7 +3215,7 @@
       "End": 7949
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fromString/Value/a3ai",
@@ -3226,7 +3226,7 @@
       "End": 7820
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/fromString/Value/a3ai",
@@ -3237,7 +3237,7 @@
       "End": 7831
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/go/Value/a2Tu",
@@ -3248,7 +3248,7 @@
       "End": 4416
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/go/Value/a2Tu",
@@ -3259,7 +3259,7 @@
       "End": 4493
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/go/Value/a2Tu",
@@ -3270,7 +3270,7 @@
       "End": 4533
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/head/Value",
@@ -3281,7 +3281,7 @@
       "End": 4811
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/head/Value",
@@ -3292,7 +3292,7 @@
       "End": 4816
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/k/Value/a2WN",
@@ -3303,7 +3303,7 @@
       "End": 6481
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/k/Value/a2WN",
@@ -3314,7 +3314,7 @@
       "End": 6756
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/list/Value",
@@ -3325,7 +3325,7 @@
       "End": 4651
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/list/Value",
@@ -3336,7 +3336,7 @@
       "End": 4656
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/list/Value",
@@ -3347,7 +3347,7 @@
       "End": 4823
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/list/Value",
@@ -3358,7 +3358,7 @@
       "End": 4950
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/m/Value/a2Tv",
@@ -3369,7 +3369,7 @@
       "End": 4418
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/m/Value/a2Tv",
@@ -3380,7 +3380,7 @@
       "End": 4422
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/m/Value/a2Tv",
@@ -3391,7 +3391,7 @@
       "End": 4496
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/m/Value/a2WM",
@@ -3402,7 +3402,7 @@
       "End": 6475
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/m/Value/a2WM",
@@ -3413,7 +3413,7 @@
       "End": 6765
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/many/Value/a3dG",
@@ -3424,7 +3424,7 @@
       "End": 6400
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/map/Value",
@@ -3435,7 +3435,7 @@
       "End": 5421
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/map/Value",
@@ -3446,7 +3446,7 @@
       "End": 5425
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/map/Value",
@@ -3457,7 +3457,7 @@
       "End": 6280
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/mappend/Value/a3f2",
@@ -3468,7 +3468,7 @@
       "End": 6226
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/mappend/Value/a3f2",
@@ -3479,7 +3479,7 @@
       "End": 6235
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/mconcat/Value/a3f6",
@@ -3490,7 +3490,7 @@
       "End": 6188
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/mempty/Value/a3eY",
@@ -3501,7 +3501,7 @@
       "End": 6205
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/mempty/Value/a3eY",
@@ -3512,7 +3512,7 @@
       "End": 6214
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/min/Value/a3lc",
@@ -3523,7 +3523,7 @@
       "End": 5576
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/mplus/Value/a3cE",
@@ -3534,7 +3534,7 @@
       "End": 6939
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/mplus/Value/a3cE",
@@ -3545,7 +3545,7 @@
       "End": 6951
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/mzero/Value/a3cy",
@@ -3556,7 +3556,7 @@
       "End": 6920
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/mzero/Value/a3cy",
@@ -3567,7 +3567,7 @@
       "End": 6931
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/n/Value/a2Tr",
@@ -3578,7 +3578,7 @@
       "End": 4393
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/n/Value/a2Tr",
@@ -3589,7 +3589,7 @@
       "End": 4535
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/nill/Value/a2Uh",
@@ -3600,7 +3600,7 @@
       "End": 4661
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/nill/Value/a2Uh",
@@ -3611,7 +3611,7 @@
       "End": 4708
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/p/Value/a2WR",
@@ -3622,7 +3622,7 @@
       "End": 6088
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/p/Value/a2WR",
@@ -3633,7 +3633,7 @@
       "End": 6106
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/pf/Value/a2Un",
@@ -3644,7 +3644,7 @@
       "End": 5093
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/pf/Value/a2Un",
@@ -3655,7 +3655,7 @@
       "End": 5107
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/pf/Value/a2Un",
@@ -3666,7 +3666,7 @@
       "End": 5176
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/pure/Value/a3dS",
@@ -3677,7 +3677,7 @@
       "End": 6347
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/pure/Value/a3dS",
@@ -3688,7 +3688,7 @@
       "End": 6357
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/readList/Value/a3ix",
@@ -3699,7 +3699,7 @@
       "End": 5716
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/readListPrec/Value/a3k7",
@@ -3710,7 +3710,7 @@
       "End": 5872
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/readListPrec/Value/a3k7",
@@ -3721,7 +3721,7 @@
       "End": 5894
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/readPrec/Value/a3iJ",
@@ -3732,7 +3732,7 @@
       "End": 5760
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/readPrec/Value/a3iJ",
@@ -3743,7 +3743,7 @@
       "End": 5857
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/replicate/Value",
@@ -3754,7 +3754,7 @@
       "End": 4381
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/replicate/Value",
@@ -3765,7 +3765,7 @@
       "End": 4391
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/return/Value/a3da",
@@ -3776,7 +3776,7 @@
       "End": 6798
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/return/Value/a3da",
@@ -3787,7 +3787,7 @@
       "End": 6814
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/rnf/Value/a3ap",
@@ -3798,7 +3798,7 @@
       "End": 7733
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/rnf/Value/a3ap",
@@ -3809,7 +3809,7 @@
       "End": 7748
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/showList/Value/a3fD",
@@ -3820,7 +3820,7 @@
       "End": 6068
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/showsPrec/Value/a3ff",
@@ -3831,7 +3831,7 @@
       "End": 6086
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/showsPrec/Value/a3ff",
@@ -3842,7 +3842,7 @@
       "End": 6161
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/singleton/Value",
@@ -3853,7 +3853,7 @@
       "End": 3657
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/singleton/Value",
@@ -3864,7 +3864,7 @@
       "End": 3667
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/singleton/Value",
@@ -3875,7 +3875,7 @@
       "End": 6812
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/snoc/Value",
@@ -3886,7 +3886,7 @@
       "End": 3964
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/snoc/Value",
@@ -3897,7 +3897,7 @@
       "End": 3969
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/tail/Value",
@@ -3908,7 +3908,7 @@
       "End": 4938
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/tail/Value",
@@ -3919,7 +3919,7 @@
       "End": 4943
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value/a3aa",
@@ -3930,7 +3930,7 @@
       "End": 8038
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value/a3aa",
@@ -3941,7 +3941,7 @@
       "End": 8047
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -3952,7 +3952,7 @@
       "End": 3258
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -3963,7 +3963,7 @@
       "End": 3265
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -3974,7 +3974,7 @@
       "End": 4687
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -3985,7 +3985,7 @@
       "End": 5312
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -3996,7 +3996,7 @@
       "End": 5543
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -4007,7 +4007,7 @@
       "End": 5616
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -4018,7 +4018,7 @@
       "End": 6157
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -4029,7 +4029,7 @@
       "End": 7015
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -4040,7 +4040,7 @@
       "End": 7075
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -4051,7 +4051,7 @@
       "End": 7141
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -4062,7 +4062,7 @@
       "End": 7205
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -4073,7 +4073,7 @@
       "End": 7268
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -4084,7 +4084,7 @@
       "End": 7332
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -4095,7 +4095,7 @@
       "End": 7588
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -4106,7 +4106,7 @@
       "End": 7651
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/toList/Value",
@@ -4117,7 +4117,7 @@
       "End": 7748
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/unDL/Value/a30y",
@@ -4128,7 +4128,7 @@
       "End": 3070
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/unDL/Value/a30y",
@@ -4139,7 +4139,7 @@
       "End": 3285
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/unDL/Value/a30y",
@@ -4150,7 +4150,7 @@
       "End": 3480
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/unDL/Value/a30y",
@@ -4161,7 +4161,7 @@
       "End": 3838
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/unDL/Value/a30y",
@@ -4172,7 +4172,7 @@
       "End": 3987
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/unDL/Value/a30y",
@@ -4183,7 +4183,7 @@
       "End": 4116
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/unDL/Value/a30y",
@@ -4194,7 +4194,7 @@
       "End": 4126
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/unfoldr/Value",
@@ -4205,7 +4205,7 @@
       "End": 5082
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/unfoldr/Value",
@@ -4216,7 +4216,7 @@
       "End": 5090
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/unfoldr/Value",
@@ -4227,7 +4227,7 @@
       "End": 5173
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2Tl",
@@ -4238,7 +4238,7 @@
       "End": 3815
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2Tl",
@@ -4249,7 +4249,7 @@
       "End": 3829
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2To",
@@ -4260,7 +4260,7 @@
       "End": 3974
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2To",
@@ -4271,7 +4271,7 @@
       "End": 3995
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2Ts",
@@ -4282,7 +4282,7 @@
       "End": 4395
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2Ts",
@@ -4293,7 +4293,7 @@
       "End": 4488
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2UA",
@@ -4304,7 +4304,7 @@
       "End": 7177
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2UA",
@@ -4315,7 +4315,7 @@
       "End": 7196
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2Uk",
@@ -4326,7 +4326,7 @@
       "End": 4715
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2Uk",
@@ -4337,7 +4337,7 @@
       "End": 4733
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2Uy",
@@ -4348,7 +4348,7 @@
       "End": 7113
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2Uy",
@@ -4359,7 +4359,7 @@
       "End": 7132
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2WJ",
@@ -4370,7 +4370,7 @@
       "End": 7560
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2WJ",
@@ -4381,7 +4381,7 @@
       "End": 7579
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2WL",
@@ -4392,7 +4392,7 @@
       "End": 7626
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2WL",
@@ -4403,7 +4403,7 @@
       "End": 7642
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2WO",
@@ -4414,7 +4414,7 @@
       "End": 6800
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/x/Value/a2WO",
@@ -4425,7 +4425,7 @@
       "End": 6814
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/xs/Value/a2Tm",
@@ -4436,7 +4436,7 @@
       "End": 3818
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/xs/Value/a2Tm",
@@ -4447,7 +4447,7 @@
       "End": 3841
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/xs/Value/a2Tn",
@@ -4458,7 +4458,7 @@
       "End": 3972
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/xs/Value/a2Tn",
@@ -4469,7 +4469,7 @@
       "End": 3990
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/xs/Value/a2Tp",
@@ -4480,7 +4480,7 @@
       "End": 4102
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/xs/Value/a2Tp",
@@ -4491,7 +4491,7 @@
       "End": 4119
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/xs/Value/a2Tt",
@@ -4502,7 +4502,7 @@
       "End": 4406
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/xs/Value/a2Tt",
@@ -4513,7 +4513,7 @@
       "End": 4435
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/xs/Value/a2Ul",
@@ -4524,7 +4524,7 @@
       "End": 4720
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/xs/Value/a2Ul",
@@ -4535,7 +4535,7 @@
       "End": 4746
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/ys/Value/a2Tq",
@@ -4546,7 +4546,7 @@
       "End": 4105
     },
     {
-      "DefRepo": "",
+      "DefRepo": "github.com/spl/dlist",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "",
       "DefPath": "dlist/DList/Data/ys/Value/a2Tq",
