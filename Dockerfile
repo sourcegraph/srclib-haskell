@@ -5,8 +5,20 @@ RUN useradd -ms /bin/bash srclib
 RUN mkdir -p /src /srclib
 RUN chown -R srclib /src /srclib
 
-# This will cache `cabal update` to keep code updates from re-installing.
+# Update package lists
 RUN cabal update
+RUN apt-get update
+
+# Setup cabal-install for the srclib user.
+USER srclib
+RUN cabal update
+RUN cabal install cabal-install
+USER root
+
+# Install C libraries and build tools
+RUN apt-get install -y libicu-dev
+RUN apt-get install -y build-essential
+RUN apt-get install -y autotools-dev dh-autoreconf
 
 # Add the source code and compile.
 ADD ./haddock /srclib/srclib-haskell/haddock
@@ -25,23 +37,8 @@ RUN cabal install --global --disable-optimization -j4
 # Make sure our fork of haddock is choosen while graphing.
 ENV PATH /usr/local/bin/:$PATH
 
-# Run
-USER srclib
-
-RUN cabal update
-RUN cabal install cabal-install
-RUN which cabal
-RUN echo $PATH
-
-USER root
-RUN apt-get install -y libicu-dev
-RUN apt-get install -y build-essential
-RUN apt-get install -y autotools-dev
-
+# Setup srclib-haskell
 USER srclib
 ENV PATH /home/srclib/.cabal/bin:$PATH
-RUN which cabal
-RUN echo $PATH
-
 WORKDIR /src
 ENTRYPOINT ["srclib-haskell"]
