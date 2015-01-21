@@ -40,40 +40,11 @@ import qualified Locations as Loc
 
 import Distribution.Hackage.DB (Hackage, readHackage)
 
-specialCases ∷ Map Text (Text,Text,Text)
-specialCases = M.fromList $
- [("base"    ,("git.haskell.org/packages/base.git"    ,"4.7.0.1","ghc-7.8"))
- ,("ghc-prim",("git.haskell.org/packages/ghc-prim.git","0.3.1.0","ghc-7.8"))
- ]
-
-specialDepInfo ∷ C.RawDep → Maybe (Text,Text,Text)
-specialDepInfo (n,_) = M.lookup n specialCases
-
-resolve ∷ Hackage → (Text,Text) → Src.ResolvedDependency
-resolve hackage d@(nm,vrange) = L.head $ catMaybes[special,bestMatch,Just fallback]
-  where dep = Src.ResolvedDependency
-        special ∷ Maybe Src.ResolvedDependency
-        special = (\(repo,v,ref)→dep d repo nm v ref) <$> specialDepInfo d
-        fromRepoInfo ∷ Cabal.Version → (Text,Text) → Src.ResolvedDependency
-        fromRepoInfo v (uri,rev) = dep d uri nm (T.pack $ Cabal.display v) rev
-        fallback ∷ Src.ResolvedDependency
-        fallback = dep d "" nm vrange ""
-        availableVersions ∷ Map Cabal.Version Cabal.GenericPackageDescription
-        availableVersions = fromMaybe M.empty $ M.lookup (T.unpack nm) hackage
-        acceptableVersions = M.filterWithKey (\k _→okVersion k) availableVersions
-        safeMax m = if M.null m then Nothing else Just(M.findMax m)
-        bestMatch ∷ Maybe Src.ResolvedDependency
-        bestMatch = join $ cabalDep <$> safeMax acceptableVersions
-        cabalDep ∷ (Cabal.Version, Cabal.GenericPackageDescription) → Maybe Src.ResolvedDependency
-        cabalDep (v,desc) = fromRepoInfo v <$>(C.repoInfo $ Cabal.flattenPackageDescription desc)
-        okVersion ∷ Cabal.Version → Bool
-        okVersion v = fromMaybe False $
-          Cabal.withinRange v <$> Cabal.simpleParse (T.unpack vrange)
 
 depresolveCmd ∷ CabalInfo → IO [Src.ResolvedDependency]
 depresolveCmd info = do
   hack ← readHackage
-  (cabalDependencies ⋙ M.toList ⋙ mapM (resolve hack ⋙ return)) info
+  mapM (C.resolve hack ⋙ return) $ M.toList $ cabalDependencies info
 
 getCabalInfo ∷ SourceUnit → CabalInfo
 getCabalInfo x = case C.fromSrcUnit x of
