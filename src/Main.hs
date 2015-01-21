@@ -10,13 +10,18 @@
 module Main where
 
 import ClassyPrelude
-import Control.Category
 import Control.Category.Unicode
 import Data.Aeson as JSON
 import qualified Data.Set as Set
+import qualified Data.List as L
 import qualified Data.ByteString.Lazy as LBS
 import qualified Data.ByteString.Lazy.Char8 as BC
 import qualified Data.Text as T
+
+import qualified Distribution.Version as Cabal
+import qualified Distribution.PackageDescription as Cabal
+import qualified Distribution.PackageDescription.Configuration as Cabal
+import qualified Distribution.Text as Cabal
 
 import qualified Data.Map as M
 
@@ -33,22 +38,42 @@ import Haddock as H
 import Srclib as Src
 import qualified Locations as Loc
 
+import Distribution.Hackage.DB (Hackage, readHackage)
+
 specialCases ∷ Map Text (Text,Text,Text)
 specialCases = M.fromList $
  [("base"    ,("git.haskell.org/packages/base.git"    ,"4.7.0.1","ghc-7.8"))
  ,("ghc-prim",("git.haskell.org/packages/ghc-prim.git","0.3.1.0","ghc-7.8"))
  ]
 
-specialDepInfo :: C.RawDep → Maybe (Text,Text,Text)
+specialDepInfo ∷ C.RawDep → Maybe (Text,Text,Text)
 specialDepInfo (n,_) = M.lookup n specialCases
 
-resolve ∷ (Text,Text) → Src.ResolvedDependency
-resolve d@(nm,v) = case specialDepInfo d of
-  Nothing → Src.ResolvedDependency d "" nm v ""
-  Just (repo,ver,ref) → Src.ResolvedDependency d repo nm ver ref
+resolve ∷ Hackage → (Text,Text) → Src.ResolvedDependency
+resolve hackage d@(nm,vrange) = L.head $ catMaybes[special,bestMatch,Just fallback]
+  where dep = Src.ResolvedDependency
+        special ∷ Maybe Src.ResolvedDependency
+        special = (\(repo,v,ref)→dep d repo nm v ref) <$> specialDepInfo d
+        fromRepoInfo ∷ Cabal.Version → (Text,Text) → Src.ResolvedDependency
+        fromRepoInfo v (uri,rev) = dep d uri nm (T.pack $ Cabal.display v) rev
+        fallback ∷ Src.ResolvedDependency
+        fallback = dep d "" nm vrange ""
+        availableVersions ∷ Map Cabal.Version Cabal.GenericPackageDescription
+        availableVersions = fromMaybe M.empty $ M.lookup (T.unpack nm) hackage
+        acceptableVersions = M.filterWithKey (\k _→okVersion k) availableVersions
+        safeMax m = if M.null m then Nothing else Just(M.findMax m)
+        bestMatch ∷ Maybe Src.ResolvedDependency
+        bestMatch = join $ cabalDep <$> safeMax acceptableVersions
+        cabalDep ∷ (Cabal.Version, Cabal.GenericPackageDescription) → Maybe Src.ResolvedDependency
+        cabalDep (v,desc) = fromRepoInfo v <$>(C.repoInfo $ Cabal.flattenPackageDescription desc)
+        okVersion ∷ Cabal.Version → Bool
+        okVersion v = fromMaybe False $
+          Cabal.withinRange v <$> Cabal.simpleParse (T.unpack vrange)
 
 depresolveCmd ∷ CabalInfo → IO [Src.ResolvedDependency]
-depresolveCmd = cabalDependencies ⋙ Set.toList ⋙ mapM (resolve ⋙ return)
+depresolveCmd info = do
+  hack ← readHackage
+  (cabalDependencies ⋙ Set.toList ⋙ mapM (resolve hack ⋙ return)) info
 
 getCabalInfo ∷ SourceUnit → CabalInfo
 getCabalInfo x = case C.fromSrcUnit x of
@@ -70,7 +95,7 @@ withCabalInfoFromStdin proc = do
   maybe usage (proc >=> dumpJSON) $ getCabalInfo <$> unit
 
 dumpJSON ∷ ToJSON a ⇒ a → IO ()
-dumpJSON = JSON.encode >>> BC.putStrLn
+dumpJSON = JSON.encode ⋙ BC.putStrLn
 
 runGrapher ∷ IO ()
 runGrapher = do
@@ -117,7 +142,7 @@ allRepoFiles rootDir = do
         let parseError = "Invalid relative path: " <> textified
         parsed ← bindLeft parseError $ Loc.parseRelativePath textified
         return $ Loc.Repo parsed
-      toRepoPath = pathText >>> fromRight
+      toRepoPath = pathText ⋙ fromRight
 
   let fQuery = Find.fileType ==? Find.RegularFile
   files ← map pFromStr <$> Find.find Find.always fQuery (pToStr rootDir)
@@ -125,7 +150,7 @@ allRepoFiles rootDir = do
 
 scan ∷ IO [CabalInfo]
 scan = do
-  rootDir ← (Path.fromText <<< T.pack) <$> Sys.getCurrentDirectory
+  rootDir ← (Path.fromText ⋘ T.pack) <$> Sys.getCurrentDirectory
   fdb ← allRepoFiles rootDir
   cabalFiles ← mapM readFile $ M.filterWithKey (\k _→C.isCabalFile k) fdb
   let repo = C.Repo fdb cabalFiles

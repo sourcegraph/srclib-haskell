@@ -13,6 +13,7 @@ module Cabal ( Repo(..)
              , analyse, Warning(..)
              , toSrcUnit, fromSrcUnit
              , prop_srcUnitConversion
+             , repoInfo
              ) where
 
 import ClassyPrelude hiding ((<.>), (</>))
