@@ -1,6 +1,5 @@
 {-# LANGUAGE LambdaCase           #-}
 {-# LANGUAGE OverloadedStrings    #-}
-{-# LANGUAGE OverloadedLists      #-}
 {-# LANGUAGE ScopedTypeVariables  #-}
 {-# LANGUAGE UnicodeSyntax        #-}
 {-# LANGUAGE NoImplicitPrelude    #-}
@@ -47,8 +46,17 @@ localUniq (H.Local _ u _ _) = u
 mkIndex ∷ Ord k ⇒ (a → k) → [a] → Map k a
 mkIndex f = map (\r→(f r,r)) ⋙ M.fromList
 
+composeN ∷ Int → (a → a) → (a → a)
+composeN 0 _ = id
+composeN 1 f = f
+composeN n f = composeN (n-1) (f.f)
+
 allTheRenames ∷ H.SymGraph → H.SymGraph
-allTheRenames = renames . renames . renames . renames . renames
+allTheRenames = composeN 10 renames
+
+instance Monoid H.SymGraph where
+ mempty = H.SymGraph [] [] []
+ mappend (H.SymGraph a b c) (H.SymGraph d e f) = H.SymGraph (a++d) (b++e) (c++f)
 
 renames ∷ H.SymGraph → H.SymGraph
 renames (H.SymGraph refs exports renames) =
@@ -146,6 +154,7 @@ globalPath glob@(H.Global nm nmSpc modul pkg) =
 
 baseRepo = "github.com/bsummer4/packages-base"
 
+safeHead ∷ [a] → Maybe a
 safeHead [] = Nothing
 safeHead (a:_) = Just a
 
@@ -276,7 +285,10 @@ graph info = do
   pdb ← mkDB info graphs
 
   let _4 (_,_,_,x) = x
-  let results = fudgeGraph $ mconcat $ (_4 ⋙ convertGraph lookupRepo pkg pdb) <$> graphs
+
+  let completeSymGraph = mconcat $ _4 <$> graphs
+
+  let results = fudgeGraph $ convertGraph lookupRepo pkg pdb completeSymGraph
 
   -- We can't cleanup here, since we're using lazy IO. Processing the graph file
   -- hasn't (necessarily) happened yet.
