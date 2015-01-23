@@ -127,7 +127,7 @@ localModule db@(_,tmps) loc@(Bind _ _ (H.FileLoc fnS _ _) _ _) =
 
 makeSrclibPath ∷ H.NameSpc → Text → ModulePath → Text → Maybe Text → Text
 makeSrclibPath kind pkg (MP mp) nm uniq = T.intercalate "/" elems
-  where elems = [pkg] ++ mp ++ [nm,convertKind kind] ++ pos
+  where elems = [pkg] ++ reverse mp ++ [nm,convertKind kind] ++ pos
         pos = maybeToList uniq
 
 convertKind ∷ H.NameSpc → Text

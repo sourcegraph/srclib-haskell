@@ -28,7 +28,7 @@
       "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
-      "DefPath": "base/IO/System/putStrLn/Value",
+      "DefPath": "base/System/IO/putStrLn/Value",
       "Def": false,
       "Repo": "",
       "File": "sub-unit/src/Main.hs",
