@@ -6,6 +6,7 @@
   , { "Subcmd": "graph"
     , "Op": "graph"
     , "SourceUnitTypes": ["HaskellPackage"]
+    , "OffsetType": "character"
     }
   , { "Subcmd": "depresolve"
     , "Op": "depresolve"
