@@ -270,7 +270,11 @@ graph info = do
 
     cabal_ ["sandbox", "init", mkParam "sandbox" sandbox]
     errExit False $
-      cabal_ ["install", "--only-dependencies", "-j4", "--disable-optimization"]
+      cabal_ [ "install", "--only-dependencies"
+                        , "-j4"
+                        , "--disable-optimization"
+                        , "--force-reinstalls"
+                        ]
 
     cabal_ ["configure", mkParam "builddir" buildDir]
     cabal_ [ "haddock", "--executables", "--internal"
