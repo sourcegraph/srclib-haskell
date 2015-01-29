@@ -9,14 +9,54 @@
 module Srclib where
 
 import           ClassyPrelude
-import           Locations       (RepoPath)
-import qualified Locations       as L
 
+import qualified Data.Text       as T
 import           Data.Aeson      as JSON
 import           Test.QuickCheck
 
+import           Locations       (RepoPath,ModulePath(..))
+import qualified Locations       as L
+
 
 -- Types ---------------------------------------------------------------------
+
+type URI = Text
+type Pkg = Text
+type IdName = Text
+type Uniq = Text
+
+data Kind = Module | Value | Type
+  deriving (Eq,Ord)
+
+data Path = PModule Pkg ModulePath
+          | PPkg Pkg
+          | PGlobal Pkg ModulePath IdName Kind
+          | PLocal Pkg ModulePath IdName Kind Uniq
+  deriving (Eq,Ord)
+
+-- Can probalby just use the derivied show, but want to be explicit.
+instance Show Kind where
+  show Module = "Module"
+  show Value  = "Value"
+  show Type   = "Type"
+
+modulePath ∷ ModulePath → [Text]
+modulePath (MP mp) = reverse mp
+
+pathList ∷ Path → [Text]
+pathList (PModule p mp)       = p : modulePath mp
+pathList (PPkg p)             = [p]
+pathList (PGlobal p mp id k)  = [p] <> modulePath mp <> [id,tshow k]
+pathList (PLocal p mp id k u) = [p] <> modulePath mp <> [id,tshow k,u]
+
+instance Show Path where
+  show = T.unpack . T.intercalate "/" . pathList
+
+pathPkg :: Path -> Pkg
+pathPkg (PModule p _) = p
+pathPkg (PPkg p) = p
+pathPkg (PGlobal p _ _ _) = p
+pathPkg (PLocal p _ _ _ _) = p
 
 data SourceUnit = SourceUnit
   { suCabalFile    ∷ RepoPath
@@ -26,23 +66,23 @@ data SourceUnit = SourceUnit
   , suSrcDirs      ∷ [RepoPath]
   , suSrcFiles     ∷ [RepoPath]
   , suSrcGlobs     ∷ [Text]
-  , suRepoURI      ∷ Text
+  , suRepoURI      ∷ URI
   , suRepoRev      ∷ Text
   }
 
 data ResolvedDependency = ResolvedDependency
   { depRaw             ∷ (Text,Text)
-  , depToRepoCloneURL  ∷ Text
+  , depToRepoCloneURL  ∷ URI
   , depToUnit          ∷ Text
   , depToVersionString ∷ Text
   , depToRevSpec       ∷ Text
   }
 
 data Ref = Ref
-  { refDefRepo     ∷ Text
+  { refDefRepo     ∷ URI
   , refDefUnitType ∷ Text
   , refDefUnit     ∷ Text
-  , refDefPath     ∷ Text
+  , refDefPath     ∷ Path
   , refIsDef       ∷ Bool
   , refFile        ∷ RepoPath
   , refStart       ∷ Int
@@ -50,10 +90,10 @@ data Ref = Ref
   }
 
 data Def = Def
-  { defPath     ∷ Text
-  , defTreePath ∷ Text
+  { defPath     ∷ Path
+  , defTreePath ∷ Path
   , defName     ∷ Text
-  , defKind     ∷ Text
+  , defKind     ∷ Kind
   , defFile     ∷ RepoPath
   , defDefStart ∷ Int
   , defDefEnd   ∷ Int
@@ -73,6 +113,23 @@ deriving instance Show Graph
 
 deriving instance Eq SourceUnit
 deriving instance Show SourceUnit
+
+instance Arbitrary ModulePath where
+  arbitrary = MP . reverse <$> arbitrary
+
+instance Arbitrary Kind where
+  arbitrary = do
+    i <- arbitrary
+    return $ case (i::Int) `mod` 3 of {0->Type; 1->Value; 2->Module}
+
+instance Arbitrary Path where
+  arbitrary = do
+    i <- arbitrary
+    case (i::Int) `mod` 4 of
+      0 -> PModule <$> arbitrary <*> arbitrary
+      1 -> PPkg <$> arbitrary
+      2 -> PGlobal <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+      _ -> PLocal <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
 
 instance Arbitrary SourceUnit where
   arbitrary = SourceUnit <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
@@ -94,6 +151,12 @@ instance Arbitrary Def where
 instance Arbitrary ResolvedDependency where
   arbitrary = ResolvedDependency <$> arbitrary <*> arbitrary <*> arbitrary
                                  <*> arbitrary <*> arbitrary
+
+instance ToJSON Kind where
+  toJSON k = toJSON $ show k
+
+instance ToJSON Path where
+  toJSON p = toJSON $ show p
 
 instance ToJSON RepoPath where
   toJSON r = toJSON $ L.srclibPath r

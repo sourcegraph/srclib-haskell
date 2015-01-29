@@ -13,6 +13,7 @@ import           ClassyPrelude hiding ((</>), (<.>), maximumBy)
 import qualified Prelude
 import           Prelude.Unicode
 import           Control.Category.Unicode
+import qualified Imports as Imp
 
 import qualified Data.IntMap as IntMap
 import qualified Data.Maybe as May
@@ -37,8 +38,7 @@ import qualified Srclib as Src
 
 import Distribution.Hackage.DB (Hackage, readHackage)
 
-data DefKind = Module | Value | Type
-data Def = Def ModulePath Text DefKind Span
+data Def = Def ModulePath Text Src.Kind Span
 data Bind = Bind String H.NameSpc H.FileLoc Bool Text
   deriving (Show,Ord,Eq)
 
@@ -104,6 +104,10 @@ fudgeTmpFile (db,tmps) tmp = chooseFrom matches
         fallback = (Repo(FP["bogus"]), Src(FP["Bogus"]), Shape [] IntMap.empty)
         chooseFrom s = if Set.null s then fallback else maximumBy longest s
 
+pdbSourceFileNames ∷ PathDB → [Text]
+pdbSourceFileNames (srcFiles, _) = fnStr <$> Set.toList srcFiles
+  where fnStr (repo, src, _) = srclibPath $ Loc.srcToRepo repo src
+
 tmpFileModule ∷ PathDB → String → ModulePath
 tmpFileModule db tmp = fileToModulePath $ srcPath $ fudgeTmpFile db tmp
 
@@ -135,14 +139,14 @@ fudgePkgName pkg =
     []                 → []
     full@(last:before) → if isVersionNumber last then before else full
 
-makeSrclibPath ∷ H.NameSpc → Text → ModulePath → Text → Maybe Text → Text
-makeSrclibPath kind pkg (MP mp) nm uniq = T.intercalate "/" elems
-  where elems = [pkg] ++ reverse mp ++ [nm,convertKind kind] ++ pos
-        pos = maybeToList uniq
+makeSrclibPath ∷ H.NameSpc → Text → ModulePath → Text → Maybe Text → Src.Path
+makeSrclibPath kind pkg mp nm uniq = case uniq of
+  Nothing -> Src.PGlobal pkg mp nm (convertKind kind)
+  Just u  -> Src.PLocal pkg mp nm (convertKind kind) u
 
-convertKind ∷ H.NameSpc → Text
-convertKind H.Value = "Value"
-convertKind H.Type = "Type"
+convertKind ∷ H.NameSpc → Src.Kind
+convertKind H.Value = Src.Value
+convertKind H.Type = Src.Type
 
 locStartLC ∷ H.FileLoc → LineCol
 locStartLC (H.FileLoc _ (l,c) _) = LineCol l c
@@ -157,7 +161,7 @@ convertDef pkg db l@(Bind nm nmSpc loc exported u) =
           spath = makeSrclibPath nmSpc pkg modul (T.pack nm) pos
           pos = if exported then Nothing else Just u
 
-globalPath ∷ H.GlobalBinding → Text
+globalPath ∷ H.GlobalBinding → Src.Path
 globalPath glob@(H.Global nm nmSpc modul pkg) =
   makeSrclibPath nmSpc (fudgePkgName $ T.pack pkg) mp (T.pack nm) Nothing
     where mp = (parseModulePath $ T.pack modul)
@@ -172,7 +176,7 @@ convertRef ∷ (Text→Text) → Text → PathDB → (H.FileLoc,Either Bind H.Gl
 convertRef lookupRepo pkg db (loc,bind) =
   Src.Ref repoURI "HaskellPackage" defUnit defPath isDef file start end
     where repoURI = lookupRepo defUnit
-          defUnit = fromMaybe "" $ safeHead $ T.split (≡'/') defPath
+          defUnit = Src.pathPkg defPath
           startsAt (H.FileLoc _ s1 _) (H.FileLoc _ s2 _) = s1≡s2
           isDef = case bind of Right _ → False
                                Left (Bind _ _ bloc _ _) → loc `startsAt` bloc
@@ -196,13 +200,13 @@ fudgeGraph (Src.Graph defs refs) = Src.Graph (fudgeDefs defs) (fudgeRefs refs)
         fudgeRefs = fudgeBy $ Src.refStart &&& Src.refEnd
 
 pos ∷ (Int,Int,Text) → Text
-pos (x,y,nm) = T.pack(show x) <> ":" <> T.pack(show y) <> " (" <> nm
+pos (x,y,nm) = tshow x <> ":" <> tshow y <> " (" <> nm
 
 summary ∷ Src.Graph → Text
 summary (Src.Graph dfs rfs) =
   unlines("[refs]" : (pos<$>refs)) <> unlines("[defs]" : (pos<$>defs))
-    where defs = (\x→(Src.defDefStart x, Src.defDefEnd x, Src.defPath x)) <$> dfs
-          refs = (\x→(Src.refStart x, Src.refEnd x, Src.refDefPath x)) <$> rfs
+    where defs = (\x→(Src.defDefStart x, Src.defDefEnd x, tshow $ Src.defPath x)) <$> dfs
+          refs = (\x→(Src.refStart x, Src.refEnd x, tshow $ Src.refDefPath x)) <$> rfs
 
 convertGraph ∷ (Text→Text) → Text → PathDB → H.SymGraph → Src.Graph
 convertGraph lookupRepo pkgWithJunk db agr = fudgeGraph $ Src.Graph defs refs
@@ -234,6 +238,49 @@ repoMap info = do
   ds ← mapM(C.resolve hack ⋙ return) $ M.toList $ C.cabalDependencies info
   return $ M.fromList $ (\d → (Src.depToUnit d, Src.depToRepoCloneURL d)) <$> ds
 
+type ModuleLookup = ModulePath → (Src.URI,Src.Pkg)
+type SrcLocLookup = (String,Int,Int) → Int
+convertModuleGraph ∷ ModuleLookup → SrcLocLookup → [(Text,[Imp.ModuleRef])] → Src.Graph
+convertModuleGraph toRepoAndPkg toOffset refMap =
+  Src.Graph [] $ concat $ fmap cvt . snd <$> refMap
+    where repoFile = Repo . fromMaybe mempty . Loc.parseRelativePath . T.pack
+          cvt ∷ Imp.ModuleRef → Src.Ref
+          cvt (fn,(sl,sc),(el,ec),mp) =
+           let (repo,pkg) = toRepoAndPkg mp
+           in Src.Ref
+                { Src.refDefRepo     = repo
+                , Src.refDefUnitType = "HaskellPackage"
+                , Src.refDefUnit     = pkg
+                , Src.refDefPath     = Src.PModule pkg mp
+                , Src.refIsDef       = False
+                , Src.refFile        = repoFile fn
+                , Src.refStart       = toOffset (fn,sl,sc)
+                , Src.refEnd         = toOffset (fn,el,ec)
+                }
+
+_3_2 ∷ (a,b,c) → b
+_3_2 (_,b,_) = b
+
+ourModules ∷ PathDB → [(RepoPath,ModulePath)]
+ourModules = fmap f . Set.toList . fst
+  where f (a,b,c) = (srcToRepo a b, fileToModulePath b)
+
+moduleName (MP[])     = "Main"
+moduleName (MP (m:_)) = m
+
+moduleDefs ∷ Src.Pkg → [(RepoPath,ModulePath)] → Src.Graph
+moduleDefs pkg = flip Src.Graph [] . fmap cvt
+    where cvt (filename,mp) = Src.Def
+            { Src.defPath     = Src.PModule pkg mp
+            , Src.defTreePath = Src.PModule pkg mp
+            , Src.defName     = moduleName mp
+            , Src.defKind     = Src.Module
+            , Src.defFile     = filename
+            , Src.defDefStart = 0
+            , Src.defDefEnd   = 0
+            , Src.defExported = True
+            , Src.defTest     = False
+            }
 
 -- We generate a lot of temporary directories:
 --   - We copy the root directory of a source unit to keep cabal from
@@ -246,6 +293,7 @@ graph ∷ C.CabalInfo → IO (Src.Graph, IO ())
 graph info = do
   pid ← toInteger <$> getProcessID
   repos ← repoMap info
+  modules ∷ Map Loc.ModulePath Src.Pkg ← C.moduleMap info
 
   let lookupRepo ∷ PkgName → RepoURI
       lookupRepo = fromMaybe "" . flip M.lookup repos
@@ -296,14 +344,32 @@ graph info = do
   let badLoad = error $ T.unpack $ "Unable to load file: " <> symbolGraph
   graphs ← loadSymGraphFile $ Path.decodeString $ T.unpack symbolGraph
 
-  let pkg = C.cabalPkgName info
+  let packageName = C.cabalPkgName info
   pdb ← mkDB info graphs
 
   let _4 (_,_,_,x) = x
 
   let completeSymGraph = mconcat $ _4 <$> graphs
 
-  let results = fudgeGraph $ convertGraph lookupRepo pkg pdb completeSymGraph
+  let haddockResults = fudgeGraph $ convertGraph lookupRepo packageName pdb completeSymGraph
+
+  modRefs ← forM (pdbSourceFileNames pdb) $ \fn → do
+    source ← readFile $ fpFromText fn
+    return (fn, Imp.moduleRefs (T.unpack fn) source)
+
+  let _3 (a,b,c) = c
+      toOffsets ∷ (String,Int,Int) → Int
+      toOffsets (fn,l,c) = fromMaybe 0 $ join $ flip Loc.lineColOffset (Loc.LineCol l c) <$> shape
+        where frm = Repo $ fromMaybe mempty $ Loc.parseRelativePath $ T.pack fn
+              shapes = Set.toList $ fst pdb
+              shape = _3 <$> L.find (\(rp,sp,_) → frm ≡ Loc.srcToRepo rp sp) shapes
+      toRepoAndPkg ∷ ModulePath → (Src.URI,Src.Pkg)
+      toRepoAndPkg mp = (repo,pkg)
+        where repo = fromMaybe "" $ M.lookup pkg repos
+              pkg = fromMaybe "" $ M.lookup mp modules
+
+  let moduleGraph = convertModuleGraph toRepoAndPkg toOffsets modRefs
+  let results = moduleGraph ++ haddockResults ++ moduleDefs packageName (ourModules pdb)
 
   -- We can't cleanup here, since we're using lazy IO. Processing the graph file
   -- hasn't (necessarily) happened yet.

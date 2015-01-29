@@ -1,6 +1,17 @@
 {
   "Defs": [
     {
+      "Path": "deepseq/Control/DeepSeq",
+      "TreePath": "deepseq/Control/DeepSeq",
+      "Name": "DeepSeq",
+      "Kind": "Module",
+      "File": "Control/DeepSeq.hs",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true,
+      "Local": false
+    },
+    {
       "Path": "deepseq/Control/DeepSeq/$!!/Value",
       "TreePath": "deepseq/Control/DeepSeq/$!!/Value",
       "Name": "$!!",
@@ -2595,9 +2606,53 @@
       "DefEnd": 13274,
       "Exported": false,
       "Local": false
+    },
+    {
+      "Path": "deepseq/Setup",
+      "TreePath": "deepseq/Setup",
+      "Name": "Setup",
+      "Kind": "Module",
+      "File": "Setup.hs",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true,
+      "Local": false
+    },
+    {
+      "Path": "deepseq/tests/Main",
+      "TreePath": "deepseq/tests/Main",
+      "Name": "Main",
+      "Kind": "Module",
+      "File": "tests/Main.hs",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true,
+      "Local": false
     }
   ],
   "Refs": [
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "/Distribution/Simple",
+      "Def": false,
+      "Repo": "",
+      "File": "Setup.hs",
+      "Start": 33,
+      "End": 52
+    },
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "/Main",
+      "Def": false,
+      "Repo": "",
+      "File": "Setup.hs",
+      "Start": 7,
+      "End": 11
+    },
     {
       "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",

@@ -40,3 +40,4 @@ executable srclib-haskell
                ,       system-filepath
                ,       text
                ,       unix
+               ,       haskell-src-exts
