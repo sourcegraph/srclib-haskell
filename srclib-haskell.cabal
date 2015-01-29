@@ -34,6 +34,7 @@ executable srclib-haskell
                ,       pathtype
                ,       process
                ,       QuickCheck
+               ,       regex-tdfa
                ,       shelly
                ,       split
                ,       system-filepath

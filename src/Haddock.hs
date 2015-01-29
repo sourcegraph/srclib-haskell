@@ -29,6 +29,7 @@ import           Shelly hiding (FilePath, path, (</>), (<.>), canonicalize, trac
 import qualified Shelly
 import qualified Filesystem.Path.CurrentOS as Path
 import           System.Posix.Process (getProcessID)
+import           Text.Regex.TDFA
 
 import qualified Cabal as C
 import           Locations as Loc
@@ -125,6 +126,15 @@ localModule ∷ PathDB → Bind → ModulePath
 localModule db@(_,tmps) loc@(Bind _ _ (H.FileLoc fnS _ _) _ _) =
   tmpFileModule db fnS
 
+isVersionNumber ∷ Text → Bool
+isVersionNumber = T.unpack ⋙ (=~ ("^([0-9]+\\.)*[0-9]+$"::String))
+
+fudgePkgName ∷ Text → Text
+fudgePkgName pkg =
+  T.intercalate "-" $ reverse $ case reverse $ T.split (≡'-') pkg of
+    []                 → []
+    full@(last:before) → if isVersionNumber last then before else full
+
 makeSrclibPath ∷ H.NameSpc → Text → ModulePath → Text → Maybe Text → Text
 makeSrclibPath kind pkg (MP mp) nm uniq = T.intercalate "/" elems
   where elems = [pkg] ++ reverse mp ++ [nm,convertKind kind] ++ pos
@@ -149,7 +159,7 @@ convertDef pkg db l@(Bind nm nmSpc loc exported u) =
 
 globalPath ∷ H.GlobalBinding → Text
 globalPath glob@(H.Global nm nmSpc modul pkg) =
-  makeSrclibPath nmSpc (T.pack pkg) mp (T.pack nm) Nothing
+  makeSrclibPath nmSpc (fudgePkgName $ T.pack pkg) mp (T.pack nm) Nothing
     where mp = (parseModulePath $ T.pack modul)
 
 baseRepo = "github.com/bsummer4/packages-base"
@@ -195,8 +205,9 @@ summary (Src.Graph dfs rfs) =
           refs = (\x→(Src.refStart x, Src.refEnd x, Src.refDefPath x)) <$> rfs
 
 convertGraph ∷ (Text→Text) → Text → PathDB → H.SymGraph → Src.Graph
-convertGraph lookupRepo pkg db agr = fudgeGraph $ Src.Graph defs refs
-  where defs = convertDef pkg db <$> Set.toList(allLocalBindings gr)
+convertGraph lookupRepo pkgWithJunk db agr = fudgeGraph $ Src.Graph defs refs
+  where pkg = traceShowId $ fudgePkgName $ traceShowId pkgWithJunk
+        defs = convertDef pkg db <$> Set.toList(allLocalBindings gr)
         refs = convertRef lookupRepo pkg db <$> sgReferences gr
         gr = allTheRenames agr
 
