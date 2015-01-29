@@ -88,7 +88,7 @@ main ∷ IO ()
 main = do
   args ← getArgs
   dir ← Sys.getCurrentDirectory
-  (show ⋙ (("srclib-haskell @" ++ dir ++ " ")++) ⋙ hPutStrLn stderr) args
+  -- (show ⋙ (("srclib-haskell @" ++ dir ++ " ")++) ⋙ hPutStrLn stderr) args
   srclibRun args
 
 fromRight ∷ Either Text b → b
