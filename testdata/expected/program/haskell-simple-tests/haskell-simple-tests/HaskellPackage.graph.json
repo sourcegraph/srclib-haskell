@@ -1,6 +1,17 @@
 {
   "Defs": [
     {
+      "Path": "haskell-simple-tests/Main",
+      "TreePath": "haskell-simple-tests/Main",
+      "Name": "Main",
+      "Kind": "Module",
+      "File": "src/Main.hs",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true,
+      "Local": false
+    },
+    {
       "Path": "haskell-simple-tests/Main/a/Value/a1zs",
       "TreePath": "haskell-simple-tests/Main/a/Value/a1zs",
       "Name": "a",

@@ -3,6 +3,7 @@
 {-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax       #-}
+{-# LANGUAGE TupleSections       #-}
 
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
@@ -14,6 +15,7 @@ module Cabal ( Repo(..)
              , toSrcUnit, fromSrcUnit
              , prop_srcUnitConversion
              , resolve
+             , moduleMap
              ) where
 
 import ClassyPrelude hiding ((<.>), (</>))
@@ -109,26 +111,48 @@ specialDepInfo (n,_) = M.lookup n $ M.fromList $
  ,("ghc-prim",("git.haskell.org/packages/ghc-prim.git","0.3.1.0","ghc-7.8"))
  ]
 
-resolve ∷ Hackage → (Text,Text) → Src.ResolvedDependency
-resolve hackage d@(nm,vrange) = L.head $ catMaybes[special,bestMatch,Just fallback]
+
+moduleMap ∷ CabalInfo → IO (Map Loc.ModulePath Src.Pkg)
+moduleMap info = do
+  hack ← readHackage
+  let pkgs = catMaybes(lookupPackage hack <$>(M.toList(cabalDependencies info)))
+      flatten = Cabal.flattenPackageDescription
+      pModules = Cabal.library
+               ⋙ maybeToList
+               ⋙ fmap Cabal.exposedModules
+               ⋙ join
+               ⋙ fmap (Cabal.display ⋙ T.pack ⋙ Loc.parseModulePath)
+      pName = T.pack . Cabal.display . Cabal.pkgName . Cabal.package
+      flatPkgs = flatten <$> pkgs
+  return $ M.fromList $ join $ (\p → (,pName p) <$> pModules p) <$> flatPkgs
+
+safeMax ∷ Map k v → Maybe (k,v)
+safeMax m = if M.null m then Nothing else Just(M.findMax m)
+
+lookupPackage ∷ Hackage → (Text,Text) → Maybe Cabal.GenericPackageDescription
+lookupPackage hackage d@(nm,vrange) = snd <$> safeMax acceptableVersions
   where dep = Src.ResolvedDependency
-        special ∷ Maybe Src.ResolvedDependency
-        special = (\(repo,v,ref)→dep d repo nm v ref) <$> specialDepInfo d
-        fromRepoInfo ∷ Cabal.Version → (Text,Text) → Src.ResolvedDependency
-        fromRepoInfo v (uri,rev) = dep d uri nm (T.pack $ Cabal.display v) rev
-        fallback ∷ Src.ResolvedDependency
-        fallback = dep d "" nm vrange ""
         availableVersions ∷ Map Cabal.Version Cabal.GenericPackageDescription
         availableVersions = fromMaybe M.empty $ M.lookup (T.unpack nm) hackage
         acceptableVersions = M.filterWithKey (\k _→okVersion k) availableVersions
-        safeMax m = if M.null m then Nothing else Just(M.findMax m)
-        bestMatch ∷ Maybe Src.ResolvedDependency
-        bestMatch = join $ cabalDep <$> safeMax acceptableVersions
-        cabalDep ∷ (Cabal.Version, Cabal.GenericPackageDescription) → Maybe Src.ResolvedDependency
-        cabalDep (v,desc) = fromRepoInfo v <$> (repoInfo $ Cabal.flattenPackageDescription desc)
         okVersion ∷ Cabal.Version → Bool
         okVersion v = fromMaybe False $
           Cabal.withinRange v <$> Cabal.simpleParse (T.unpack vrange)
+
+resolve ∷ Hackage → (Text,Text) → Src.ResolvedDependency
+resolve hackage d@(nm,vrange) = L.head $ catMaybes[special,bestMatch,Just fallback]
+  where dep = Src.ResolvedDependency
+        special = (\(repo,v,ref)→dep d repo nm v ref) <$> specialDepInfo d
+        fallback = dep d "" nm vrange ""
+        bestMatch = join $ cabalDep <$> lookupPackage hackage d
+
+        fromRepoInfo ∷ Cabal.Version → (Text,Text) → Src.ResolvedDependency
+        fromRepoInfo v (uri,rev) = dep d uri nm (T.pack $ Cabal.display v) rev
+
+        cabalDep ∷ Cabal.GenericPackageDescription→Maybe Src.ResolvedDependency
+        cabalDep genDesc = fromRepoInfo version <$> (repoInfo $ desc)
+          where version = Cabal.pkgVersion $ Cabal.package desc
+                desc = Cabal.flattenPackageDescription genDesc
 
 prToMaybe ∷ Cabal.ParseResult a → Maybe a
 prToMaybe (Cabal.ParseFailed x) = traceShow x Nothing
