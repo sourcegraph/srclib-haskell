@@ -1,6 +1,17 @@
 {
   "Defs": [
     {
+      "Path": "haskell-hello-world/Main",
+      "TreePath": "haskell-hello-world/Main",
+      "Name": "Main",
+      "Kind": "Module",
+      "File": "sub-unit/src/Main.hs",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true,
+      "Local": false
+    },
+    {
       "Path": "haskell-hello-world/Main/hello/Value",
       "TreePath": "haskell-hello-world/Main/hello/Value",
       "Name": "hello",
@@ -24,6 +35,17 @@
     }
   ],
   "Refs": [
+    {
+      "DefRepo": "",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "",
+      "DefPath": "/Main",
+      "Def": false,
+      "Repo": "",
+      "File": "sub-unit/src/Main.hs",
+      "Start": 7,
+      "End": 11
+    },
     {
       "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",

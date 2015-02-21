@@ -1,6 +1,17 @@
 {
   "Defs": [
     {
+      "Path": "dlist/Data/DList",
+      "TreePath": "dlist/Data/DList",
+      "Name": "DList",
+      "Kind": "Module",
+      "File": "Data/DList.hs",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true,
+      "Local": false
+    },
+    {
       "Path": "dlist/Data/DList/$fAlternativeDList/Value/r31O",
       "TreePath": "dlist/Data/DList/$fAlternativeDList/Value/r31O",
       "Name": "$fAlternativeDList",
@@ -1329,6 +1340,28 @@
       "DefStart": 4103,
       "DefEnd": 4105,
       "Exported": false,
+      "Local": false
+    },
+    {
+      "Path": "dlist/Setup",
+      "TreePath": "dlist/Setup",
+      "Name": "Setup",
+      "Kind": "Module",
+      "File": "Setup.lhs",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true,
+      "Local": false
+    },
+    {
+      "Path": "dlist/tests/Main",
+      "TreePath": "dlist/tests/Main",
+      "Name": "Main",
+      "Kind": "Module",
+      "File": "tests/Main.hs",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true,
       "Local": false
     }
   ],
