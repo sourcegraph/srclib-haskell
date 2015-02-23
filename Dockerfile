@@ -8,6 +8,7 @@ RUN chown -R srclib /src /srclib
 # Update package lists
 RUN cabal update
 RUN apt-get update
+RUN cabal install cabal-install
 
 # Setup cabal-install for the srclib user.
 USER srclib
