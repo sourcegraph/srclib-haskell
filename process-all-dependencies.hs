@@ -56,6 +56,7 @@ printVCS ∷ (URI,Text) → IO ()
 printVCS (uri,br) = do
   (pathFromGitURI $ T.pack $ uriPath uri) & \case
     Nothing → return()
+    Just "zlib" → return()
     Just d → do
       h ← home
       echo $ "cd " <> T.pack(P.encodeString(h <> "warpdeps"))
