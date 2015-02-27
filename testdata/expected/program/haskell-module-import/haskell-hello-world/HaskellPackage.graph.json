@@ -2,79 +2,63 @@
   "Defs": [
     {
       "Path": "haskell-hello-world/Hello",
-      "TreePath": "haskell-hello-world/Hello",
       "Name": "Hello",
       "Kind": "Module",
       "File": "src/Hello.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true,
-      "Local": false
+      "TreePath": "haskell-hello-world/Hello"
     },
     {
       "Path": "haskell-hello-world/Hello/hello/Value",
-      "TreePath": "haskell-hello-world/Hello/hello/Value",
       "Name": "hello",
       "Kind": "Value",
       "File": "src/Hello.hs",
       "DefStart": 19,
       "DefEnd": 50,
       "Exported": true,
-      "Local": false
+      "TreePath": "haskell-hello-world/Hello/hello/Value"
     },
     {
       "Path": "haskell-hello-world/Main",
-      "TreePath": "haskell-hello-world/Main",
       "Name": "Main",
       "Kind": "Module",
       "File": "src/Main.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true,
-      "Local": false
+      "TreePath": "haskell-hello-world/Main"
     },
     {
       "Path": "haskell-hello-world/Main/main/Value",
-      "TreePath": "haskell-hello-world/Main/main/Value",
       "Name": "main",
       "Kind": "Value",
       "File": "src/Main.hs",
       "DefStart": 5586,
       "DefEnd": 5604,
       "Exported": true,
-      "Local": false
+      "TreePath": "haskell-hello-world/Main/main/Value"
     }
   ],
   "Refs": [
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
       "DefPath": "/Hello",
-      "Def": false,
-      "Repo": "",
       "File": "src/Hello.hs",
       "Start": 7,
       "End": 12
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
       "DefPath": "/Hello",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 36,
       "End": 41
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
-      "DefUnit": "",
       "DefPath": "/Main",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 7,
       "End": 11
@@ -84,8 +68,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Applicative",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 60,
       "End": 79
@@ -95,8 +77,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Arrow",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 97,
       "End": 110
@@ -106,8 +86,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Category",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 128,
       "End": 144
@@ -117,8 +95,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Concurrent/Chan",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 198,
       "End": 221
@@ -128,8 +104,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Concurrent/MVar",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 239,
       "End": 262
@@ -139,8 +113,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Concurrent/QSemN",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 321,
       "End": 345
@@ -150,8 +122,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Concurrent/QSem",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 280,
       "End": 303
@@ -161,8 +131,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Concurrent",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 162,
       "End": 180
@@ -172,8 +140,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Exception/Base",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 398,
       "End": 420
@@ -183,8 +149,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Exception",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 363,
       "End": 380
@@ -194,8 +158,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Monad/Fix",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 469,
       "End": 486
@@ -205,8 +167,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Monad/ST/Lazy/Safe",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 577,
       "End": 603
@@ -216,8 +176,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Monad/ST/Lazy/Unsafe",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 621,
       "End": 649
@@ -227,8 +185,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Monad/ST/Lazy",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 538,
       "End": 559
@@ -238,8 +194,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Monad/ST/Safe",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 667,
       "End": 688
@@ -249,8 +203,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Monad/ST/Strict",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 706,
       "End": 729
@@ -260,8 +212,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Monad/ST/Unsafe",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 747,
       "End": 770
@@ -271,8 +221,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Monad/ST",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 504,
       "End": 520
@@ -282,8 +230,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Monad/Zip",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 788,
       "End": 805
@@ -293,8 +239,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Monad",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 438,
       "End": 451
@@ -304,8 +248,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Bits",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 823,
       "End": 832
@@ -315,8 +257,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Bool",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 850,
       "End": 859
@@ -326,8 +266,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Char",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 877,
       "End": 886
@@ -337,8 +275,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Coerce",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 904,
       "End": 915
@@ -348,8 +284,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Complex",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 933,
       "End": 945
@@ -359,8 +293,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Data",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 963,
       "End": 972
@@ -370,8 +302,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Dynamic",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 990,
       "End": 1002
@@ -381,8 +311,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Either",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1020,
       "End": 1031
@@ -392,8 +320,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Eq",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1049,
       "End": 1056
@@ -403,8 +329,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Fixed",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1074,
       "End": 1084
@@ -414,8 +338,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Foldable",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1102,
       "End": 1115
@@ -425,8 +347,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Function",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1133,
       "End": 1146
@@ -436,8 +356,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Functor",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1164,
       "End": 1176
@@ -447,8 +365,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/IORef",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1220,
       "End": 1230
@@ -458,8 +374,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Int",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1194,
       "End": 1202
@@ -469,8 +383,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Ix",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1248,
       "End": 1255
@@ -480,8 +392,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/List",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1273,
       "End": 1282
@@ -491,8 +401,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Maybe",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1300,
       "End": 1310
@@ -502,8 +410,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Monoid",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1328,
       "End": 1339
@@ -513,8 +419,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Ord",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1357,
       "End": 1365
@@ -524,8 +428,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Proxy",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1383,
       "End": 1393
@@ -535,8 +437,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Ratio",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1411,
       "End": 1421
@@ -546,8 +446,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/STRef/Lazy",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1467,
       "End": 1482
@@ -557,8 +455,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/STRef/Strict",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1500,
       "End": 1517
@@ -568,8 +464,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/STRef",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1439,
       "End": 1449
@@ -579,8 +473,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/String",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1535,
       "End": 1546
@@ -590,8 +482,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Traversable",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1564,
       "End": 1580
@@ -601,8 +491,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Tuple",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1598,
       "End": 1608
@@ -612,8 +500,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Type/Bool",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1697,
       "End": 1711
@@ -623,8 +509,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Type/Coercion",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1729,
       "End": 1747
@@ -634,8 +518,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Type/Equality",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1765,
       "End": 1783
@@ -645,8 +527,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Typeable/Internal",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1657,
       "End": 1679
@@ -656,8 +536,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Typeable",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1626,
       "End": 1639
@@ -667,8 +545,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Unique",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1801,
       "End": 1812
@@ -678,8 +554,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Version",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1830,
       "End": 1842
@@ -689,8 +563,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Word",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1860,
       "End": 1869
@@ -700,8 +572,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Debug/Trace",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1887,
       "End": 1898
@@ -711,8 +581,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/C/Error",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1968,
       "End": 1983
@@ -722,8 +590,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/C/String",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2037,
       "End": 2053
@@ -733,8 +599,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/C/Types",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2071,
       "End": 2086
@@ -744,8 +608,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/C",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1941,
       "End": 1950
@@ -755,8 +617,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/Concurrent",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2001,
       "End": 2019
@@ -766,8 +626,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/ForeignPtr/Safe",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2140,
       "End": 2163
@@ -777,8 +635,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/ForeignPtr/Unsafe",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2181,
       "End": 2206
@@ -788,8 +644,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/ForeignPtr",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2104,
       "End": 2122
@@ -799,8 +653,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/Marshal/Alloc",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2257,
       "End": 2278
@@ -810,8 +662,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/Marshal/Array",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2296,
       "End": 2317
@@ -821,8 +671,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/Marshal/Error",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2335,
       "End": 2356
@@ -832,8 +680,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/Marshal/Pool",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2374,
       "End": 2394
@@ -843,8 +689,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/Marshal/Safe",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2412,
       "End": 2432
@@ -854,8 +698,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/Marshal/Unsafe",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2450,
       "End": 2472
@@ -865,8 +707,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/Marshal/Utils",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2490,
       "End": 2511
@@ -876,8 +716,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/Marshal",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2224,
       "End": 2239
@@ -887,8 +725,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/Ptr",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2529,
       "End": 2540
@@ -898,8 +734,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/Safe",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2558,
       "End": 2570
@@ -909,8 +743,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/StablePtr",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2588,
       "End": 2605
@@ -920,8 +752,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign/Storable",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2623,
       "End": 2639
@@ -931,8 +761,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Foreign",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 1916,
       "End": 1923
@@ -942,8 +770,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Arr",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2657,
       "End": 2664
@@ -953,8 +779,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2682,
       "End": 2690
@@ -964,8 +788,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Char",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2708,
       "End": 2716
@@ -975,8 +797,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Conc/IO",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2760,
       "End": 2771
@@ -986,8 +806,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Conc/Signal",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2789,
       "End": 2804
@@ -997,8 +815,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Conc/Sync",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2822,
       "End": 2835
@@ -1008,8 +824,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Conc",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2734,
       "End": 2742
@@ -1019,8 +833,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/ConsoleHandler",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2853,
       "End": 2871
@@ -1030,8 +842,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Constants",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2889,
       "End": 2902
@@ -1041,8 +851,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Desugar",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2920,
       "End": 2931
@@ -1052,8 +860,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Enum",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2949,
       "End": 2957
@@ -1063,8 +869,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Environment",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 2975,
       "End": 2990
@@ -1074,8 +878,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Err",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3008,
       "End": 3015
@@ -1085,8 +887,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Event",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3033,
       "End": 3042
@@ -1096,8 +896,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Exception",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3060,
       "End": 3073
@@ -1107,8 +905,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Exts",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3091,
       "End": 3099
@@ -1118,8 +914,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Fingerprint/Type",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3150,
       "End": 3170
@@ -1129,8 +923,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Fingerprint",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3117,
       "End": 3132
@@ -1140,8 +932,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Float/ConversionUtils",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3215,
       "End": 3240
@@ -1151,8 +941,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Float/RealFracMethods",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3258,
       "End": 3283
@@ -1162,8 +950,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Float",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3188,
       "End": 3197
@@ -1173,8 +959,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/ForeignPtr",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3330,
       "End": 3344
@@ -1184,8 +968,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Foreign",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3301,
       "End": 3312
@@ -1195,8 +977,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Generics",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3362,
       "End": 3374
@@ -1206,8 +986,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/BufferedIO",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3501,
       "End": 3518
@@ -1217,8 +995,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Buffer",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3470,
       "End": 3483
@@ -1228,8 +1004,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Device",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3536,
       "End": 3549
@@ -1239,8 +1013,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Encoding/CodePage",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3600,
       "End": 3624
@@ -1250,8 +1022,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Encoding/Failure",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3642,
       "End": 3665
@@ -1261,8 +1031,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Encoding/Iconv",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3683,
       "End": 3704
@@ -1272,8 +1040,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Encoding/Latin1",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3722,
       "End": 3744
@@ -1283,8 +1049,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Encoding/Types",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3762,
       "End": 3783
@@ -1294,8 +1058,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Encoding/UTF16",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3801,
       "End": 3822
@@ -1305,8 +1067,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Encoding/UTF32",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3840,
       "End": 3861
@@ -1316,8 +1076,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Encoding/UTF8",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3879,
       "End": 3899
@@ -1327,8 +1085,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Encoding",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3567,
       "End": 3582
@@ -1338,8 +1094,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Exception",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3917,
       "End": 3933
@@ -1349,8 +1103,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/FD",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3951,
       "End": 3960
@@ -1360,8 +1112,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Handle/FD",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4009,
       "End": 4025
@@ -1371,8 +1121,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Handle/Internals",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4043,
       "End": 4066
@@ -1382,8 +1130,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Handle/Text",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4084,
       "End": 4102
@@ -1393,8 +1139,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Handle/Types",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4120,
       "End": 4139
@@ -1404,8 +1148,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/Handle",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3978,
       "End": 3991
@@ -1415,8 +1157,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO/IOMode",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4157,
       "End": 4170
@@ -1426,8 +1166,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IOArray",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3441,
       "End": 3452
@@ -1437,8 +1175,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IORef",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4188,
       "End": 4197
@@ -1448,8 +1184,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IO",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3417,
       "End": 3423
@@ -1459,8 +1193,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/IP",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4215,
       "End": 4221
@@ -1470,8 +1202,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Int",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 3392,
       "End": 3399
@@ -1481,8 +1211,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/List",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4239,
       "End": 4247
@@ -1492,8 +1220,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/MVar",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4265,
       "End": 4273
@@ -1503,8 +1229,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Num",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4291,
       "End": 4298
@@ -1514,8 +1238,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/PArr",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4342,
       "End": 4350
@@ -1525,8 +1247,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Pack",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4316,
       "End": 4324
@@ -1536,8 +1256,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Profiling",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4368,
       "End": 4381
@@ -1547,8 +1265,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Ptr",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4399,
       "End": 4406
@@ -1558,8 +1274,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Read",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4424,
       "End": 4432
@@ -1569,8 +1283,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Real",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4450,
       "End": 4458
@@ -1580,8 +1292,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/STRef",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4638,
       "End": 4647
@@ -1591,8 +1301,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/ST",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4502,
       "End": 4508
@@ -1602,8 +1310,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Show",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4476,
       "End": 4484
@@ -1613,8 +1319,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Stable",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4526,
       "End": 4536
@@ -1624,8 +1328,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Stack",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4554,
       "End": 4563
@@ -1635,8 +1337,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Stats",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4581,
       "End": 4590
@@ -1646,8 +1346,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Storable",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4608,
       "End": 4620
@@ -1657,8 +1355,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/TopHandler",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4665,
       "End": 4679
@@ -1668,8 +1364,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/TypeLits",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4697,
       "End": 4709
@@ -1679,8 +1373,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Unicode",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4727,
       "End": 4738
@@ -1690,8 +1382,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Weak",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4756,
       "End": 4764
@@ -1701,8 +1391,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Word",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4782,
       "End": 4790
@@ -1712,8 +1400,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Numeric",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4808,
       "End": 4815
@@ -1723,8 +1409,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Prelude",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4833,
       "End": 4840
@@ -1734,8 +1418,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/CPUTime",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4897,
       "End": 4911
@@ -1745,8 +1427,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/Console/GetOpt",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4858,
       "End": 4879
@@ -1756,8 +1436,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/Environment",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4929,
       "End": 4947
@@ -1767,8 +1445,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/Exit",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4965,
       "End": 4976
@@ -1778,8 +1454,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/IO/Error",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5050,
       "End": 5065
@@ -1789,8 +1463,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/IO/Unsafe",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5083,
       "End": 5099
@@ -1800,8 +1472,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/IO/putStrLn/Value",
-      "Def": false,
-      "Repo": "",
       "File": "src/Hello.hs",
       "Start": 27,
       "End": 35
@@ -1811,8 +1481,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/IO",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5023,
       "End": 5032
@@ -1822,8 +1490,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/Info",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 4994,
       "End": 5005
@@ -1833,8 +1499,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/Mem/StableName",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5145,
       "End": 5166
@@ -1844,8 +1508,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/Mem/Weak",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5184,
       "End": 5199
@@ -1855,8 +1517,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/Mem",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5117,
       "End": 5127
@@ -1866,8 +1526,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/Posix/Internals",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5217,
       "End": 5239
@@ -1877,8 +1535,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/Posix/Types",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5257,
       "End": 5275
@@ -1888,8 +1544,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/System/Timeout",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5293,
       "End": 5307
@@ -1899,8 +1553,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Text/ParserCombinators/ReadP",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5325,
       "End": 5353
@@ -1910,8 +1562,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Text/ParserCombinators/ReadPrec",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5371,
       "End": 5402
@@ -1921,8 +1571,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Text/Printf",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5420,
       "End": 5431
@@ -1932,8 +1580,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Text/Read/Lex",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5476,
       "End": 5489
@@ -1943,8 +1589,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Text/Read",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5449,
       "End": 5458
@@ -1954,8 +1598,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Text/Show/Functions",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5534,
       "End": 5553
@@ -1965,8 +1607,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Text/Show",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5507,
       "End": 5516
@@ -1976,63 +1616,50 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Unsafe/Coerce",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5571,
       "End": 5584
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "haskell-hello-world",
       "DefPath": "haskell-hello-world/Hello/hello/Value",
       "Def": true,
-      "Repo": "",
       "File": "src/Hello.hs",
       "Start": 19,
       "End": 24
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "haskell-hello-world",
       "DefPath": "haskell-hello-world/Hello/hello/Value",
       "Def": true,
-      "Repo": "",
       "File": "src/Hello.hs",
       "Start": 19,
       "End": 50
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "haskell-hello-world",
       "DefPath": "haskell-hello-world/Hello/hello/Value",
-      "Def": false,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5593,
       "End": 5604
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "haskell-hello-world",
       "DefPath": "haskell-hello-world/Main/main/Value",
       "Def": true,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5586,
       "End": 5590
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "haskell-hello-world",
       "DefPath": "haskell-hello-world/Main/main/Value",
       "Def": true,
-      "Repo": "",
       "File": "src/Main.hs",
       "Start": 5586,
       "End": 5604

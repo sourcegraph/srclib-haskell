@@ -2,1367 +2,1138 @@
   "Defs": [
     {
       "Path": "dlist/Data/DList",
-      "TreePath": "dlist/Data/DList",
       "Name": "DList",
       "Kind": "Module",
       "File": "Data/DList.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList"
     },
     {
       "Path": "dlist/Data/DList/$fAlternativeDList/Value/r31O",
-      "TreePath": "dlist/Data/DList/$fAlternativeDList/Value/r31O",
       "Name": "$fAlternativeDList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6383,
       "DefEnd": 6400,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/$fAlternativeDList/Value/r31O"
     },
     {
       "Path": "dlist/Data/DList/$fApplicativeDList/Value/r31Z",
-      "TreePath": "dlist/Data/DList/$fApplicativeDList/Value/r31Z",
       "Name": "$fApplicativeDList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6315,
       "DefEnd": 6332,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/$fApplicativeDList/Value/r31Z"
     },
     {
       "Path": "dlist/Data/DList/$fEqDList/Value/r33b",
-      "TreePath": "dlist/Data/DList/$fEqDList/Value/r33b",
       "Name": "$fEqDList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5489,
       "DefEnd": 5509,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/$fEqDList/Value/r33b"
     },
     {
       "Path": "dlist/Data/DList/$fFoldableDList/Value/r31k",
-      "TreePath": "dlist/Data/DList/$fFoldableDList/Value/r31k",
       "Name": "$fFoldableDList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6962,
       "DefEnd": 6976,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/$fFoldableDList/Value/r31k"
     },
     {
       "Path": "dlist/Data/DList/$fFunctorDList/Value/r327",
-      "TreePath": "dlist/Data/DList/$fFunctorDList/Value/r327",
       "Name": "$fFunctorDList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6246,
       "DefEnd": 6259,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/$fFunctorDList/Value/r327"
     },
     {
       "Path": "dlist/Data/DList/$fIsListDList/Value/r30M",
-      "TreePath": "dlist/Data/DList/$fIsListDList/Value/r30M",
       "Name": "$fIsListDList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7933,
       "DefEnd": 7949,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/$fIsListDList/Value/r30M"
     },
     {
       "Path": "dlist/Data/DList/$fIsStringDList/Value/r30U",
-      "TreePath": "dlist/Data/DList/$fIsStringDList/Value/r30U",
       "Name": "$fIsStringDList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7780,
       "DefEnd": 7801,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/$fIsStringDList/Value/r30U"
     },
     {
       "Path": "dlist/Data/DList/$fMonadDList/Value/r31D",
-      "TreePath": "dlist/Data/DList/$fMonadDList/Value/r31D",
       "Name": "$fMonadDList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6454,
       "DefEnd": 6465,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/$fMonadDList/Value/r31D"
     },
     {
       "Path": "dlist/Data/DList/$fMonadPlusDList/Value/r31t",
-      "TreePath": "dlist/Data/DList/$fMonadPlusDList/Value/r31t",
       "Name": "$fMonadPlusDList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6891,
       "DefEnd": 6906,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/$fMonadPlusDList/Value/r31t"
     },
     {
       "Path": "dlist/Data/DList/$fMonoidDList/Value/r32h",
-      "TreePath": "dlist/Data/DList/$fMonoidDList/Value/r32h",
       "Name": "$fMonoidDList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6172,
       "DefEnd": 6188,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/$fMonoidDList/Value/r32h"
     },
     {
       "Path": "dlist/Data/DList/$fNFDataDList/Value/r313",
-      "TreePath": "dlist/Data/DList/$fNFDataDList/Value/r313",
       "Name": "$fNFDataDList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7693,
       "DefEnd": 7721,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/$fNFDataDList/Value/r313"
     },
     {
       "Path": "dlist/Data/DList/$fOrdDList/Value/r32Z",
-      "TreePath": "dlist/Data/DList/$fOrdDList/Value/r32Z",
       "Name": "$fOrdDList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5554,
       "DefEnd": 5576,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/$fOrdDList/Value/r32Z"
     },
     {
       "Path": "dlist/Data/DList/$fReadDList/Value/r32H",
-      "TreePath": "dlist/Data/DList/$fReadDList/Value/r32H",
       "Name": "$fReadDList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5692,
       "DefEnd": 5716,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/$fReadDList/Value/r32H"
     },
     {
       "Path": "dlist/Data/DList/$fShowDList/Value/r32t",
-      "TreePath": "dlist/Data/DList/$fShowDList/Value/r32t",
       "Name": "$fShowDList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6044,
       "DefEnd": 6068,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/$fShowDList/Value/r32t"
     },
     {
       "Path": "dlist/Data/DList/*\u003e/Value/a3eg",
-      "TreePath": "dlist/Data/DList/*\u003e/Value/a3eg",
       "Name": "*\u003e",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6315,
       "DefEnd": 6332,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/*\u003e/Value/a3eg"
     },
     {
       "Path": "dlist/Data/DList//=/Value/a3lu",
-      "TreePath": "dlist/Data/DList//=/Value/a3lu",
       "Name": "/=",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5489,
       "DefEnd": 5509,
-      "Exported": false,
-      "Local": false
-    },
-    {
-      "Path": "dlist/Data/DList/==/Value/a3lk",
-      "TreePath": "dlist/Data/DList/==/Value/a3lk",
-      "Name": "==",
-      "Kind": "Value",
-      "File": "Data/DList.hs",
-      "DefStart": 5520,
-      "DefEnd": 5543,
-      "Exported": false,
-      "Local": false
-    },
-    {
-      "Path": "dlist/Data/DList/DL/Value/r30n",
-      "TreePath": "dlist/Data/DList/DL/Value/r30n",
-      "Name": "DL",
-      "Kind": "Value",
-      "File": "Data/DList.hs",
-      "DefStart": 3061,
-      "DefEnd": 3086,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList//=/Value/a3lu"
     },
     {
       "Path": "dlist/Data/DList/\u003c$/Value/a3eM",
-      "TreePath": "dlist/Data/DList/\u003c$/Value/a3eM",
       "Name": "\u003c$",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6246,
       "DefEnd": 6259,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/\u003c$/Value/a3eM"
     },
     {
       "Path": "dlist/Data/DList/\u003c*/Value/a3er",
-      "TreePath": "dlist/Data/DList/\u003c*/Value/a3er",
       "Name": "\u003c*",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6315,
       "DefEnd": 6332,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/\u003c*/Value/a3er"
     },
     {
       "Path": "dlist/Data/DList/\u003c*\u003e/Value/a3e4",
-      "TreePath": "dlist/Data/DList/\u003c*\u003e/Value/a3e4",
       "Name": "\u003c*\u003e",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6362,
       "DefEnd": 6372,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/\u003c*\u003e/Value/a3e4"
     },
     {
       "Path": "dlist/Data/DList/\u003c/Value/a3kN",
-      "TreePath": "dlist/Data/DList/\u003c/Value/a3kN",
       "Name": "\u003c",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5554,
       "DefEnd": 5576,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/\u003c/Value/a3kN"
     },
     {
       "Path": "dlist/Data/DList/\u003c=/Value/a3l2",
-      "TreePath": "dlist/Data/DList/\u003c=/Value/a3l2",
       "Name": "\u003c=",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5554,
       "DefEnd": 5576,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/\u003c=/Value/a3l2"
     },
     {
       "Path": "dlist/Data/DList/\u003c|\u003e/Value/a3du",
-      "TreePath": "dlist/Data/DList/\u003c|\u003e/Value/a3du",
       "Name": "\u003c|\u003e",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6429,
       "DefEnd": 6443,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/\u003c|\u003e/Value/a3du"
+    },
+    {
+      "Path": "dlist/Data/DList/==/Value/a3lk",
+      "Name": "==",
+      "Kind": "Value",
+      "File": "Data/DList.hs",
+      "DefStart": 5520,
+      "DefEnd": 5543,
+      "TreePath": "dlist/Data/DList/==/Value/a3lk"
     },
     {
       "Path": "dlist/Data/DList/\u003e/Value/a3kX",
-      "TreePath": "dlist/Data/DList/\u003e/Value/a3kX",
       "Name": "\u003e",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5554,
       "DefEnd": 5576,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/\u003e/Value/a3kX"
     },
     {
       "Path": "dlist/Data/DList/\u003e=/Value/a3kS",
-      "TreePath": "dlist/Data/DList/\u003e=/Value/a3kS",
       "Name": "\u003e=",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5554,
       "DefEnd": 5576,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/\u003e=/Value/a3kS"
     },
     {
       "Path": "dlist/Data/DList/\u003e\u003e/Value/a3cX",
-      "TreePath": "dlist/Data/DList/\u003e\u003e/Value/a3cX",
       "Name": "\u003e\u003e",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6454,
       "DefEnd": 6465,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/\u003e\u003e/Value/a3cX"
     },
     {
       "Path": "dlist/Data/DList/\u003e\u003e=/Value/a3cN",
-      "TreePath": "dlist/Data/DList/\u003e\u003e=/Value/a3cN",
       "Name": "\u003e\u003e=",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6474,
       "DefEnd": 6765,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/\u003e\u003e=/Value/a3cN"
+    },
+    {
+      "Path": "dlist/Data/DList/DL/Value/r30n",
+      "Name": "DL",
+      "Kind": "Value",
+      "File": "Data/DList.hs",
+      "DefStart": 3061,
+      "DefEnd": 3086,
+      "TreePath": "dlist/Data/DList/DL/Value/r30n"
     },
     {
       "Path": "dlist/Data/DList/a/Value/a2Up",
-      "TreePath": "dlist/Data/DList/a/Value/a2Up",
       "Name": "a",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5148,
       "DefEnd": 5149,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/a/Value/a2Up"
     },
     {
       "Path": "dlist/Data/DList/append/Value",
-      "TreePath": "dlist/Data/DList/append/Value",
       "Name": "append",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4093,
       "DefEnd": 4130,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/append/Value"
     },
     {
       "Path": "dlist/Data/DList/apply/Value",
-      "TreePath": "dlist/Data/DList/apply/Value",
       "Name": "apply",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 3462,
       "DefEnd": 3480,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/apply/Value"
     },
     {
       "Path": "dlist/Data/DList/b'/Value/a2Uq",
-      "TreePath": "dlist/Data/DList/b'/Value/a2Uq",
       "Name": "b'",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5151,
       "DefEnd": 5153,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/b'/Value/a2Uq"
     },
     {
       "Path": "dlist/Data/DList/b/Value/a2Uo",
-      "TreePath": "dlist/Data/DList/b/Value/a2Uo",
       "Name": "b",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5094,
       "DefEnd": 5095,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/b/Value/a2Uo"
     },
     {
       "Path": "dlist/Data/DList/b/Value/a2Us",
-      "TreePath": "dlist/Data/DList/b/Value/a2Us",
       "Name": "b",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5282,
       "DefEnd": 5283,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/b/Value/a2Us"
     },
     {
       "Path": "dlist/Data/DList/compare/Value/a3kz",
-      "TreePath": "dlist/Data/DList/compare/Value/a3kz",
       "Name": "compare",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5587,
       "DefEnd": 5616,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/compare/Value/a3kz"
     },
     {
       "Path": "dlist/Data/DList/concat/Value",
-      "TreePath": "dlist/Data/DList/concat/Value",
       "Name": "concat",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4227,
       "DefEnd": 4265,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/concat/Value"
     },
     {
       "Path": "dlist/Data/DList/cons/Value",
-      "TreePath": "dlist/Data/DList/cons/Value",
       "Name": "cons",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 3809,
       "DefEnd": 3842,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/cons/Value"
     },
     {
       "Path": "dlist/Data/DList/consit/Value/a2Ui",
-      "TreePath": "dlist/Data/DList/consit/Value/a2Ui",
       "Name": "consit",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4662,
       "DefEnd": 4668,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/consit/Value/a2Ui"
     },
     {
       "Path": "dlist/Data/DList/dl/Value/a2Uj",
-      "TreePath": "dlist/Data/DList/dl/Value/a2Uj",
       "Name": "dl",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4669,
       "DefEnd": 4671,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/dl/Value/a2Uj"
     },
     {
       "Path": "dlist/Data/DList/dl/Value/a2WS",
-      "TreePath": "dlist/Data/DList/dl/Value/a2WS",
       "Name": "dl",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6089,
       "DefEnd": 6091,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/dl/Value/a2WS"
     },
     {
       "Path": "dlist/Data/DList/dl/Value/a30i",
-      "TreePath": "dlist/Data/DList/dl/Value/a30i",
       "Name": "dl",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5818,
       "DefEnd": 5820,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/dl/Value/a30i"
     },
     {
       "Path": "dlist/Data/DList/empty/Value",
-      "TreePath": "dlist/Data/DList/empty/Value",
       "Name": "empty",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 3548,
       "DefEnd": 3567,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/empty/Value"
     },
     {
       "Path": "dlist/Data/DList/empty/Value/a3do",
-      "TreePath": "dlist/Data/DList/empty/Value/a3do",
       "Name": "empty",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6411,
       "DefEnd": 6424,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/empty/Value/a3do"
     },
     {
       "Path": "dlist/Data/DList/f/Value/a2Ur",
-      "TreePath": "dlist/Data/DList/f/Value/a2Ur",
       "Name": "f",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5280,
       "DefEnd": 5281,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/f/Value/a2Ur"
     },
     {
       "Path": "dlist/Data/DList/f/Value/a2Ut",
-      "TreePath": "dlist/Data/DList/f/Value/a2Ut",
       "Name": "f",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5426,
       "DefEnd": 5427,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/f/Value/a2Ut"
     },
     {
       "Path": "dlist/Data/DList/f/Value/a2Uw",
-      "TreePath": "dlist/Data/DList/f/Value/a2Uw",
       "Name": "f",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7049,
       "DefEnd": 7050,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/f/Value/a2Uw"
     },
     {
       "Path": "dlist/Data/DList/f/Value/a2Ux",
-      "TreePath": "dlist/Data/DList/f/Value/a2Ux",
       "Name": "f",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7110,
       "DefEnd": 7111,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/f/Value/a2Ux"
     },
     {
       "Path": "dlist/Data/DList/f/Value/a2Uz",
-      "TreePath": "dlist/Data/DList/f/Value/a2Uz",
       "Name": "f",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7174,
       "DefEnd": 7175,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/f/Value/a2Uz"
     },
     {
       "Path": "dlist/Data/DList/f/Value/a2WG",
-      "TreePath": "dlist/Data/DList/f/Value/a2WG",
       "Name": "f",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7239,
       "DefEnd": 7240,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/f/Value/a2WG"
     },
     {
       "Path": "dlist/Data/DList/f/Value/a2WH",
-      "TreePath": "dlist/Data/DList/f/Value/a2WH",
       "Name": "f",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7303,
       "DefEnd": 7304,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/f/Value/a2WH"
     },
     {
       "Path": "dlist/Data/DList/f/Value/a2WI",
-      "TreePath": "dlist/Data/DList/f/Value/a2WI",
       "Name": "f",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7557,
       "DefEnd": 7558,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/f/Value/a2WI"
     },
     {
       "Path": "dlist/Data/DList/f/Value/a2WK",
-      "TreePath": "dlist/Data/DList/f/Value/a2WK",
       "Name": "f",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7623,
       "DefEnd": 7624,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/f/Value/a2WK"
     },
     {
       "Path": "dlist/Data/DList/fail/Value/a3dg",
-      "TreePath": "dlist/Data/DList/fail/Value/a3dg",
       "Name": "fail",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6842,
       "DefEnd": 6858,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/fail/Value/a3dg"
     },
     {
       "Path": "dlist/Data/DList/fmap/Value/a3eH",
-      "TreePath": "dlist/Data/DList/fmap/Value/a3eH",
       "Name": "fmap",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6270,
       "DefEnd": 6280,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/fmap/Value/a3eH"
     },
     {
       "Path": "dlist/Data/DList/fold/Value/a3aD",
-      "TreePath": "dlist/Data/DList/fold/Value/a3aD",
       "Name": "fold",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6985,
       "DefEnd": 7015,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/fold/Value/a3aD"
     },
     {
       "Path": "dlist/Data/DList/foldMap/Value/a3aS",
-      "TreePath": "dlist/Data/DList/foldMap/Value/a3aS",
       "Name": "foldMap",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7041,
       "DefEnd": 7075,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/foldMap/Value/a3aS"
     },
     {
       "Path": "dlist/Data/DList/foldl'/Value/a3bU",
-      "TreePath": "dlist/Data/DList/foldl'/Value/a3bU",
       "Name": "foldl'",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7550,
       "DefEnd": 7588,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/foldl'/Value/a3bU"
     },
     {
       "Path": "dlist/Data/DList/foldl/Value/a3bE",
-      "TreePath": "dlist/Data/DList/foldl/Value/a3bE",
       "Name": "foldl",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7168,
       "DefEnd": 7205,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/foldl/Value/a3bE"
     },
     {
       "Path": "dlist/Data/DList/foldl1/Value/a3ck",
-      "TreePath": "dlist/Data/DList/foldl1/Value/a3ck",
       "Name": "foldl1",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7296,
       "DefEnd": 7332,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/foldl1/Value/a3ck"
     },
     {
       "Path": "dlist/Data/DList/foldr'/Value/a3bn",
-      "TreePath": "dlist/Data/DList/foldr'/Value/a3bn",
       "Name": "foldr'",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7616,
       "DefEnd": 7651,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/foldr'/Value/a3bn"
     },
     {
       "Path": "dlist/Data/DList/foldr/Value",
-      "TreePath": "dlist/Data/DList/foldr/Value",
       "Name": "foldr",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5274,
       "DefEnd": 5312,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/foldr/Value"
     },
     {
       "Path": "dlist/Data/DList/foldr/Value/a3ba",
-      "TreePath": "dlist/Data/DList/foldr/Value/a3ba",
       "Name": "foldr",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7104,
       "DefEnd": 7141,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/foldr/Value/a3ba"
     },
     {
       "Path": "dlist/Data/DList/foldr1/Value/a3c8",
-      "TreePath": "dlist/Data/DList/foldr1/Value/a3c8",
       "Name": "foldr1",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7232,
       "DefEnd": 7268,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/foldr1/Value/a3c8"
     },
     {
       "Path": "dlist/Data/DList/fromList/Value",
-      "TreePath": "dlist/Data/DList/fromList/Value",
       "Name": "fromList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 3149,
       "DefEnd": 3172,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/fromList/Value"
     },
     {
       "Path": "dlist/Data/DList/fromList/Value/a39Z",
-      "TreePath": "dlist/Data/DList/fromList/Value/a39Z",
       "Name": "fromList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7984,
       "DefEnd": 8003,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/fromList/Value/a39Z"
     },
     {
       "Path": "dlist/Data/DList/fromListN/Value/a3a5",
-      "TreePath": "dlist/Data/DList/fromListN/Value/a3a5",
       "Name": "fromListN",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7933,
       "DefEnd": 7949,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/fromListN/Value/a3a5"
     },
     {
       "Path": "dlist/Data/DList/fromString/Value/a3ai",
-      "TreePath": "dlist/Data/DList/fromString/Value/a3ai",
       "Name": "fromString",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7810,
       "DefEnd": 7831,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/fromString/Value/a3ai"
     },
     {
       "Path": "dlist/Data/DList/go/Value/a2Tu",
-      "TreePath": "dlist/Data/DList/go/Value/a2Tu",
       "Name": "go",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4414,
       "DefEnd": 4416,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/go/Value/a2Tu"
     },
     {
       "Path": "dlist/Data/DList/head/Value",
-      "TreePath": "dlist/Data/DList/head/Value",
       "Name": "head",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4812,
       "DefEnd": 4868,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/head/Value"
     },
     {
       "Path": "dlist/Data/DList/k/Value/a2WN",
-      "TreePath": "dlist/Data/DList/k/Value/a2WN",
       "Name": "k",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6480,
       "DefEnd": 6481,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/k/Value/a2WN"
     },
     {
       "Path": "dlist/Data/DList/list/Value",
-      "TreePath": "dlist/Data/DList/list/Value",
       "Name": "list",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4652,
       "DefEnd": 4790,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/list/Value"
     },
     {
       "Path": "dlist/Data/DList/m/Value/a2Tv",
-      "TreePath": "dlist/Data/DList/m/Value/a2Tv",
       "Name": "m",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4417,
       "DefEnd": 4418,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/m/Value/a2Tv"
     },
     {
       "Path": "dlist/Data/DList/m/Value/a2WM",
-      "TreePath": "dlist/Data/DList/m/Value/a2WM",
       "Name": "m",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6474,
       "DefEnd": 6475,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/m/Value/a2WM"
     },
     {
       "Path": "dlist/Data/DList/many/Value/a3dG",
-      "TreePath": "dlist/Data/DList/many/Value/a3dG",
       "Name": "many",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6383,
       "DefEnd": 6400,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/many/Value/a3dG"
     },
     {
       "Path": "dlist/Data/DList/map/Value",
-      "TreePath": "dlist/Data/DList/map/Value",
       "Name": "map",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5422,
       "DefEnd": 5459,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/map/Value"
     },
     {
       "Path": "dlist/Data/DList/mappend/Value/a3f2",
-      "TreePath": "dlist/Data/DList/mappend/Value/a3f2",
       "Name": "mappend",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6219,
       "DefEnd": 6235,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/mappend/Value/a3f2"
     },
     {
       "Path": "dlist/Data/DList/max/Value/a3l7",
-      "TreePath": "dlist/Data/DList/max/Value/a3l7",
       "Name": "max",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5554,
       "DefEnd": 5576,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/max/Value/a3l7"
     },
     {
       "Path": "dlist/Data/DList/mconcat/Value/a3f6",
-      "TreePath": "dlist/Data/DList/mconcat/Value/a3f6",
       "Name": "mconcat",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6172,
       "DefEnd": 6188,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/mconcat/Value/a3f6"
     },
     {
       "Path": "dlist/Data/DList/mempty/Value/a3eY",
-      "TreePath": "dlist/Data/DList/mempty/Value/a3eY",
       "Name": "mempty",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6199,
       "DefEnd": 6214,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/mempty/Value/a3eY"
     },
     {
       "Path": "dlist/Data/DList/min/Value/a3lc",
-      "TreePath": "dlist/Data/DList/min/Value/a3lc",
       "Name": "min",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5554,
       "DefEnd": 5576,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/min/Value/a3lc"
     },
     {
       "Path": "dlist/Data/DList/mplus/Value/a3cE",
-      "TreePath": "dlist/Data/DList/mplus/Value/a3cE",
       "Name": "mplus",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6934,
       "DefEnd": 6951,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/mplus/Value/a3cE"
     },
     {
       "Path": "dlist/Data/DList/mzero/Value/a3cy",
-      "TreePath": "dlist/Data/DList/mzero/Value/a3cy",
       "Name": "mzero",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6915,
       "DefEnd": 6931,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/mzero/Value/a3cy"
     },
     {
       "Path": "dlist/Data/DList/n/Value/a2Tr",
-      "TreePath": "dlist/Data/DList/n/Value/a2Tr",
       "Name": "n",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4392,
       "DefEnd": 4393,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/n/Value/a2Tr"
     },
     {
       "Path": "dlist/Data/DList/nill/Value/a2Uh",
-      "TreePath": "dlist/Data/DList/nill/Value/a2Uh",
       "Name": "nill",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4657,
       "DefEnd": 4661,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/nill/Value/a2Uh"
     },
     {
       "Path": "dlist/Data/DList/p/Value/a2WR",
-      "TreePath": "dlist/Data/DList/p/Value/a2WR",
       "Name": "p",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6087,
       "DefEnd": 6088,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/p/Value/a2WR"
     },
     {
       "Path": "dlist/Data/DList/pf/Value/a2Un",
-      "TreePath": "dlist/Data/DList/pf/Value/a2Un",
       "Name": "pf",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5091,
       "DefEnd": 5093,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/pf/Value/a2Un"
     },
     {
       "Path": "dlist/Data/DList/pure/Value/a3dS",
-      "TreePath": "dlist/Data/DList/pure/Value/a3dS",
       "Name": "pure",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6343,
       "DefEnd": 6357,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/pure/Value/a3dS"
     },
     {
       "Path": "dlist/Data/DList/readList/Value/a3ix",
-      "TreePath": "dlist/Data/DList/readList/Value/a3ix",
       "Name": "readList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5692,
       "DefEnd": 5716,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/readList/Value/a3ix"
     },
     {
       "Path": "dlist/Data/DList/readListPrec/Value/a3k7",
-      "TreePath": "dlist/Data/DList/readListPrec/Value/a3k7",
       "Name": "readListPrec",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5860,
       "DefEnd": 5894,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/readListPrec/Value/a3k7"
     },
     {
       "Path": "dlist/Data/DList/readPrec/Value/a3iJ",
-      "TreePath": "dlist/Data/DList/readPrec/Value/a3iJ",
       "Name": "readPrec",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5752,
       "DefEnd": 5857,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/readPrec/Value/a3iJ"
     },
     {
       "Path": "dlist/Data/DList/readsPrec/Value/a3fL",
-      "TreePath": "dlist/Data/DList/readsPrec/Value/a3fL",
       "Name": "readsPrec",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5692,
       "DefEnd": 5716,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/readsPrec/Value/a3fL"
     },
     {
       "Path": "dlist/Data/DList/replicate/Value",
-      "TreePath": "dlist/Data/DList/replicate/Value",
       "Name": "replicate",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4382,
       "DefEnd": 4535,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/replicate/Value"
     },
     {
       "Path": "dlist/Data/DList/return/Value/a3da",
-      "TreePath": "dlist/Data/DList/return/Value/a3da",
       "Name": "return",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6792,
       "DefEnd": 6814,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/return/Value/a3da"
     },
     {
       "Path": "dlist/Data/DList/rnf/Value/a3ap",
-      "TreePath": "dlist/Data/DList/rnf/Value/a3ap",
       "Name": "rnf",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7730,
       "DefEnd": 7748,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/rnf/Value/a3ap"
     },
     {
       "Path": "dlist/Data/DList/show/Value/a3fy",
-      "TreePath": "dlist/Data/DList/show/Value/a3fy",
       "Name": "show",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6044,
       "DefEnd": 6068,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/show/Value/a3fy"
     },
     {
       "Path": "dlist/Data/DList/showList/Value/a3fD",
-      "TreePath": "dlist/Data/DList/showList/Value/a3fD",
       "Name": "showList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6044,
       "DefEnd": 6068,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/showList/Value/a3fD"
     },
     {
       "Path": "dlist/Data/DList/showsPrec/Value/a3ff",
-      "TreePath": "dlist/Data/DList/showsPrec/Value/a3ff",
       "Name": "showsPrec",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6077,
       "DefEnd": 6161,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/showsPrec/Value/a3ff"
     },
     {
       "Path": "dlist/Data/DList/singleton/Value",
-      "TreePath": "dlist/Data/DList/singleton/Value",
       "Name": "singleton",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 3658,
       "DefEnd": 3680,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/singleton/Value"
     },
     {
       "Path": "dlist/Data/DList/snoc/Value",
-      "TreePath": "dlist/Data/DList/snoc/Value",
       "Name": "snoc",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 3965,
       "DefEnd": 3998,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/snoc/Value"
     },
     {
       "Path": "dlist/Data/DList/some/Value/a3dy",
-      "TreePath": "dlist/Data/DList/some/Value/a3dy",
       "Name": "some",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6383,
       "DefEnd": 6400,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/some/Value/a3dy"
     },
     {
       "Path": "dlist/Data/DList/tail/Value",
-      "TreePath": "dlist/Data/DList/tail/Value",
       "Name": "tail",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4939,
       "DefEnd": 5002,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/tail/Value"
     },
     {
       "Path": "dlist/Data/DList/toList/Value",
-      "TreePath": "dlist/Data/DList/toList/Value",
       "Name": "toList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 3259,
       "DefEnd": 3285,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/toList/Value"
     },
     {
       "Path": "dlist/Data/DList/toList/Value/a3aa",
-      "TreePath": "dlist/Data/DList/toList/Value/a3aa",
       "Name": "toList",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 8032,
       "DefEnd": 8047,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/toList/Value/a3aa"
     },
     {
       "Path": "dlist/Data/DList/unDL/Value/B1",
-      "TreePath": "dlist/Data/DList/unDL/Value/B1",
       "Name": "unDL",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 3066,
       "DefEnd": 3070,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/unDL/Value/B1"
     },
     {
       "Path": "dlist/Data/DList/unDL/Value/a30y",
-      "TreePath": "dlist/Data/DList/unDL/Value/a30y",
       "Name": "unDL",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 3066,
       "DefEnd": 3070,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/unDL/Value/a30y"
     },
     {
       "Path": "dlist/Data/DList/unfoldr/Value",
-      "TreePath": "dlist/Data/DList/unfoldr/Value",
       "Name": "unfoldr",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 5083,
       "DefEnd": 5222,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Data/DList/unfoldr/Value"
     },
     {
       "Path": "dlist/Data/DList/x/Value/a2Tl",
-      "TreePath": "dlist/Data/DList/x/Value/a2Tl",
       "Name": "x",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 3814,
       "DefEnd": 3815,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/x/Value/a2Tl"
     },
     {
       "Path": "dlist/Data/DList/x/Value/a2To",
-      "TreePath": "dlist/Data/DList/x/Value/a2To",
       "Name": "x",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 3973,
       "DefEnd": 3974,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/x/Value/a2To"
     },
     {
       "Path": "dlist/Data/DList/x/Value/a2Ts",
-      "TreePath": "dlist/Data/DList/x/Value/a2Ts",
       "Name": "x",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4394,
       "DefEnd": 4395,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/x/Value/a2Ts"
     },
     {
       "Path": "dlist/Data/DList/x/Value/a2UA",
-      "TreePath": "dlist/Data/DList/x/Value/a2UA",
       "Name": "x",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7176,
       "DefEnd": 7177,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/x/Value/a2UA"
     },
     {
       "Path": "dlist/Data/DList/x/Value/a2Uk",
-      "TreePath": "dlist/Data/DList/x/Value/a2Uk",
       "Name": "x",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4714,
       "DefEnd": 4715,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/x/Value/a2Uk"
     },
     {
       "Path": "dlist/Data/DList/x/Value/a2Uy",
-      "TreePath": "dlist/Data/DList/x/Value/a2Uy",
       "Name": "x",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7112,
       "DefEnd": 7113,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/x/Value/a2Uy"
     },
     {
       "Path": "dlist/Data/DList/x/Value/a2WJ",
-      "TreePath": "dlist/Data/DList/x/Value/a2WJ",
       "Name": "x",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7559,
       "DefEnd": 7560,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/x/Value/a2WJ"
     },
     {
       "Path": "dlist/Data/DList/x/Value/a2WL",
-      "TreePath": "dlist/Data/DList/x/Value/a2WL",
       "Name": "x",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 7625,
       "DefEnd": 7626,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/x/Value/a2WL"
     },
     {
       "Path": "dlist/Data/DList/x/Value/a2WO",
-      "TreePath": "dlist/Data/DList/x/Value/a2WO",
       "Name": "x",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 6799,
       "DefEnd": 6800,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/x/Value/a2WO"
     },
     {
       "Path": "dlist/Data/DList/xs/Value/a2Tm",
-      "TreePath": "dlist/Data/DList/xs/Value/a2Tm",
       "Name": "xs",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 3816,
       "DefEnd": 3818,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/xs/Value/a2Tm"
     },
     {
       "Path": "dlist/Data/DList/xs/Value/a2Tn",
-      "TreePath": "dlist/Data/DList/xs/Value/a2Tn",
       "Name": "xs",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 3970,
       "DefEnd": 3972,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/xs/Value/a2Tn"
     },
     {
       "Path": "dlist/Data/DList/xs/Value/a2Tp",
-      "TreePath": "dlist/Data/DList/xs/Value/a2Tp",
       "Name": "xs",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4100,
       "DefEnd": 4102,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/xs/Value/a2Tp"
     },
     {
       "Path": "dlist/Data/DList/xs/Value/a2Tt",
-      "TreePath": "dlist/Data/DList/xs/Value/a2Tt",
       "Name": "xs",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4404,
       "DefEnd": 4406,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/xs/Value/a2Tt"
     },
     {
       "Path": "dlist/Data/DList/xs/Value/a2Ul",
-      "TreePath": "dlist/Data/DList/xs/Value/a2Ul",
       "Name": "xs",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4718,
       "DefEnd": 4720,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/xs/Value/a2Ul"
     },
     {
       "Path": "dlist/Data/DList/ys/Value/a2Tq",
-      "TreePath": "dlist/Data/DList/ys/Value/a2Tq",
       "Name": "ys",
       "Kind": "Value",
       "File": "Data/DList.hs",
       "DefStart": 4103,
       "DefEnd": 4105,
-      "Exported": false,
-      "Local": false
+      "TreePath": "dlist/Data/DList/ys/Value/a2Tq"
     },
     {
       "Path": "dlist/Setup",
-      "TreePath": "dlist/Setup",
       "Name": "Setup",
       "Kind": "Module",
       "File": "Setup.lhs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/Setup"
     },
     {
       "Path": "dlist/tests/Main",
-      "TreePath": "dlist/tests/Main",
       "Name": "Main",
       "Kind": "Module",
       "File": "tests/Main.hs",
       "DefStart": 0,
       "DefEnd": 0,
       "Exported": true,
-      "Local": false
+      "TreePath": "dlist/tests/Main"
     }
   ],
   "Refs": [
@@ -1371,8 +1142,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Control/Monad/ap/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6370,
       "End": 6372
@@ -1382,8 +1151,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Function/on/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5532,
       "End": 5536
@@ -1393,8 +1160,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Function/on/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5605,
       "End": 5609
@@ -1404,8 +1169,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/List/foldl'/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7564,
       "End": 7575
@@ -1415,8 +1178,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/List/foldl1/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7310,
       "End": 7321
@@ -1426,8 +1187,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Data/Monoid/mconcat/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6999,
       "End": 7006
@@ -1437,8 +1196,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/$/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3274,
       "End": 3275
@@ -1448,8 +1205,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/$/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4401,
       "End": 4402
@@ -1459,8 +1214,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/$/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5770,
       "End": 5771
@@ -1470,8 +1223,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/$/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5780,
       "End": 5781
@@ -1481,8 +1232,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/$/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6113,
       "End": 6114
@@ -1492,8 +1241,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/++/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3168,
       "End": 3172
@@ -1503,8 +1250,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3166,
       "End": 3167
@@ -1514,8 +1259,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3279,
       "End": 3280
@@ -1525,8 +1268,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3675,
       "End": 3676
@@ -1536,8 +1277,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3832,
       "End": 3833
@@ -1547,8 +1286,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3991,
       "End": 3992
@@ -1558,8 +1295,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4120,
       "End": 4121
@@ -1569,8 +1304,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5304,
       "End": 5305
@@ -1580,8 +1313,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5449,
       "End": 5450
@@ -1591,8 +1322,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6142,
       "End": 6143
@@ -1602,8 +1331,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6753,
       "End": 6754
@@ -1613,8 +1340,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7007,
       "End": 7008
@@ -1624,8 +1349,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7067,
       "End": 7068
@@ -1635,8 +1358,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7133,
       "End": 7134
@@ -1646,8 +1367,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7197,
       "End": 7198
@@ -1657,8 +1376,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7260,
       "End": 7261
@@ -1668,8 +1385,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7324,
       "End": 7325
@@ -1679,8 +1394,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7580,
       "End": 7581
@@ -1690,8 +1403,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7643,
       "End": 7644
@@ -1701,8 +1412,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/./Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7740,
       "End": 7741
@@ -1712,8 +1421,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/const/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4863,
       "End": 4868
@@ -1723,8 +1430,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/const/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4996,
       "End": 5001
@@ -1734,8 +1439,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/flip/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4991,
       "End": 4995
@@ -1745,8 +1448,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/foldr/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4242,
       "End": 4252
@@ -1756,8 +1457,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/foldr/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5289,
       "End": 5299
@@ -1767,8 +1466,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/foldr/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7118,
       "End": 7128
@@ -1778,8 +1475,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/id/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3565,
       "End": 3567
@@ -1789,8 +1484,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Base/otherwise/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4475,
       "End": 4484
@@ -1800,8 +1493,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Err/error/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4825,
       "End": 4830
@@ -1811,8 +1502,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Err/error/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4952,
       "End": 4957
@@ -1822,8 +1511,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/List/foldl/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7182,
       "End": 7192
@@ -1833,8 +1520,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/List/foldr1/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7246,
       "End": 7257
@@ -1844,8 +1529,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Num/-/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4496,
       "End": 4497
@@ -1855,8 +1538,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Read/lexP/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5809,
       "End": 5813
@@ -1866,8 +1547,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Read/parens/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5763,
       "End": 5769
@@ -1877,8 +1556,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Read/readListPrecDefault/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5875,
       "End": 5894
@@ -1888,8 +1565,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Read/readPrec/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5824,
       "End": 5832
@@ -1899,8 +1574,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Show/showParen/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6094,
       "End": 6103
@@ -1910,8 +1583,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Show/showString/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6119,
       "End": 6129
@@ -1921,8 +1592,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/GHC/Show/shows/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6144,
       "End": 6149
@@ -1932,8 +1601,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
       "DefPath": "base/Text/ParserCombinators/ReadPrec/prec/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5772,
       "End": 5776
@@ -1943,8 +1610,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "deepseq",
       "DefPath": "deepseq/Control/DeepSeq/rnf/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7736,
       "End": 7739
@@ -1955,7 +1620,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/$fFoldableDList/Value/r31k",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6962,
       "End": 6976
@@ -1966,7 +1630,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/$fIsStringDList/Value/r30U",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7780,
       "End": 7801
@@ -1977,7 +1640,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/$fMonadPlusDList/Value/r31t",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6891,
       "End": 6906
@@ -1988,7 +1650,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/$fNFDataDList/Value/r313",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7693,
       "End": 7721
@@ -1999,7 +1660,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList//=/Value/a3lu",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5489,
       "End": 5509
@@ -2010,7 +1670,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/\u003c$/Value/a3eM",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6246,
       "End": 6259
@@ -2021,7 +1680,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/\u003c*/Value/a3er",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6315,
       "End": 6332
@@ -2032,7 +1690,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/\u003c*\u003e/Value/a3e4",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6362,
       "End": 6367
@@ -2043,7 +1700,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/\u003c*\u003e/Value/a3e4",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6362,
       "End": 6372
@@ -2054,7 +1710,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/\u003c|\u003e/Value/a3du",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6429,
       "End": 6434
@@ -2065,7 +1720,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/\u003c|\u003e/Value/a3du",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6429,
       "End": 6443
@@ -2076,7 +1730,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/==/Value/a3lk",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5520,
       "End": 5524
@@ -2087,7 +1740,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/==/Value/a3lk",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5520,
       "End": 5543
@@ -2098,7 +1750,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/\u003e\u003e/Value/a3cX",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6454,
       "End": 6465
@@ -2109,7 +1760,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/\u003e\u003e=/Value/a3cN",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6474,
       "End": 6765
@@ -2119,8 +1769,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/\u003e\u003e=/Value/a3cN",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6476,
       "End": 6479
@@ -2130,8 +1778,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/DL/Value/r30n",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3163,
       "End": 3165
@@ -2141,8 +1787,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/DL/Value/r30n",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3562,
       "End": 3564
@@ -2152,8 +1796,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/DL/Value/r30n",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3672,
       "End": 3674
@@ -2163,8 +1805,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/DL/Value/r30n",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3823,
       "End": 3825
@@ -2174,8 +1814,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/DL/Value/r30n",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3979,
       "End": 3981
@@ -2185,8 +1823,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/DL/Value/r30n",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4108,
       "End": 4110
@@ -2196,8 +1832,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/DL/Value/r30n",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4398,
       "End": 4400
@@ -2208,7 +1842,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/a/Value/a2Up",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5148,
       "End": 5149
@@ -2218,8 +1851,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/a/Value/a2Up",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5163,
       "End": 5164
@@ -2229,8 +1860,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/append/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4063,
       "End": 4092
@@ -2241,7 +1870,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/append/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4093,
       "End": 4099
@@ -2251,8 +1879,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/append/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4253,
       "End": 4259
@@ -2262,8 +1888,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/append/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6229,
       "End": 6235
@@ -2273,8 +1897,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/append/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6437,
       "End": 6443
@@ -2284,8 +1906,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/append/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6746,
       "End": 6752
@@ -2295,8 +1915,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/append/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6945,
       "End": 6951
@@ -2306,8 +1924,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/apply/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3440,
       "End": 3461
@@ -2318,7 +1934,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/apply/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3462,
       "End": 3467
@@ -2329,7 +1944,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/b'/Value/a2Uq",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5151,
       "End": 5153
@@ -2339,8 +1953,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/b'/Value/a2Uq",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5177,
       "End": 5179
@@ -2351,7 +1963,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/b/Value/a2Uo",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5094,
       "End": 5095
@@ -2361,8 +1972,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/b/Value/a2Uo",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5108,
       "End": 5109
@@ -2373,7 +1982,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/b/Value/a2Us",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5282,
       "End": 5283
@@ -2383,8 +1991,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/b/Value/a2Us",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5302,
       "End": 5303
@@ -2395,7 +2001,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/compare/Value/a3kz",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5587,
       "End": 5594
@@ -2406,7 +2011,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/compare/Value/a3kz",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5587,
       "End": 5616
@@ -2416,8 +2020,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/concat/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4206,
       "End": 4226
@@ -2428,7 +2030,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/concat/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4227,
       "End": 4233
@@ -2438,8 +2039,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/cons/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3785,
       "End": 3808
@@ -2450,7 +2049,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/cons/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3809,
       "End": 3813
@@ -2460,8 +2058,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/cons/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5158,
       "End": 5162
@@ -2471,8 +2067,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/cons/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5444,
       "End": 5448
@@ -2483,7 +2077,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/consit/Value/a2Ui",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4662,
       "End": 4668
@@ -2493,8 +2086,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/consit/Value/a2Ui",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4725,
       "End": 4731
@@ -2505,7 +2096,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/dl/Value/a2Uj",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4669,
       "End": 4671
@@ -2515,8 +2105,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/dl/Value/a2Uj",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4688,
       "End": 4690
@@ -2527,7 +2115,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/dl/Value/a2WS",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6089,
       "End": 6091
@@ -2537,8 +2124,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/dl/Value/a2WS",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6158,
       "End": 6160
@@ -2549,7 +2134,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/dl/Value/a30i",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5818,
       "End": 5820
@@ -2559,8 +2143,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/dl/Value/a30i",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5854,
       "End": 5856
@@ -2571,7 +2153,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/empty/Value/a3do",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6411,
       "End": 6416
@@ -2582,7 +2163,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/empty/Value/a3do",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6411,
       "End": 6424
@@ -2592,8 +2172,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/empty/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3540,
       "End": 3547
@@ -2604,7 +2182,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/empty/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3548,
       "End": 3553
@@ -2614,8 +2191,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/empty/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4260,
       "End": 4265
@@ -2625,8 +2200,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/empty/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5132,
       "End": 5137
@@ -2636,8 +2209,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/empty/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5454,
       "End": 5459
@@ -2647,8 +2218,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/empty/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6209,
       "End": 6214
@@ -2658,8 +2227,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/empty/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6419,
       "End": 6424
@@ -2669,8 +2236,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/empty/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6758,
       "End": 6763
@@ -2680,8 +2245,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/empty/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6853,
       "End": 6858
@@ -2691,8 +2254,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/empty/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6926,
       "End": 6931
@@ -2703,7 +2264,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2Ur",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5280,
       "End": 5281
@@ -2713,8 +2273,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2Ur",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5300,
       "End": 5301
@@ -2725,7 +2283,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2Ut",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5426,
       "End": 5427
@@ -2735,8 +2292,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2Ut",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5451,
       "End": 5452
@@ -2747,7 +2302,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2Uw",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7049,
       "End": 7050
@@ -2757,8 +2311,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2Uw",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7065,
       "End": 7066
@@ -2769,7 +2321,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2Ux",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7110,
       "End": 7111
@@ -2779,8 +2330,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2Ux",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7129,
       "End": 7130
@@ -2791,7 +2340,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2Uz",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7174,
       "End": 7175
@@ -2801,8 +2349,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2Uz",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7193,
       "End": 7194
@@ -2813,7 +2359,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2WG",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7239,
       "End": 7240
@@ -2823,8 +2368,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2WG",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7258,
       "End": 7259
@@ -2835,7 +2378,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2WH",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7303,
       "End": 7304
@@ -2845,8 +2387,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2WH",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7322,
       "End": 7323
@@ -2857,7 +2397,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2WI",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7557,
       "End": 7558
@@ -2867,8 +2406,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2WI",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7576,
       "End": 7577
@@ -2879,7 +2416,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2WK",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7623,
       "End": 7624
@@ -2889,8 +2425,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/f/Value/a2WK",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7639,
       "End": 7640
@@ -2901,7 +2435,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fail/Value/a3dg",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6842,
       "End": 6846
@@ -2912,7 +2445,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fail/Value/a3dg",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6842,
       "End": 6858
@@ -2923,7 +2455,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fmap/Value/a3eH",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6270,
       "End": 6274
@@ -2934,7 +2465,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fmap/Value/a3eH",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6270,
       "End": 6280
@@ -2945,7 +2475,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fold/Value/a3aD",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6985,
       "End": 6989
@@ -2956,7 +2485,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fold/Value/a3aD",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6985,
       "End": 7015
@@ -2967,7 +2495,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldMap/Value/a3aS",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7041,
       "End": 7048
@@ -2978,7 +2505,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldMap/Value/a3aS",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7041,
       "End": 7075
@@ -2989,7 +2515,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldl'/Value/a3bU",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7550,
       "End": 7556
@@ -3000,7 +2525,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldl'/Value/a3bU",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7550,
       "End": 7588
@@ -3011,7 +2535,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldl/Value/a3bE",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7168,
       "End": 7173
@@ -3022,7 +2545,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldl/Value/a3bE",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7168,
       "End": 7205
@@ -3033,7 +2555,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldl1/Value/a3ck",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7296,
       "End": 7302
@@ -3044,7 +2565,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldl1/Value/a3ck",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7296,
       "End": 7332
@@ -3055,7 +2575,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldr'/Value/a3bn",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7616,
       "End": 7622
@@ -3066,7 +2585,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldr'/Value/a3bn",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7616,
       "End": 7651
@@ -3077,7 +2595,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldr/Value/a3ba",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7104,
       "End": 7109
@@ -3088,7 +2605,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldr/Value/a3ba",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7104,
       "End": 7141
@@ -3098,8 +2614,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldr/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5239,
       "End": 5273
@@ -3110,7 +2624,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldr/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5274,
       "End": 5279
@@ -3120,8 +2633,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldr/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5437,
       "End": 5442
@@ -3131,8 +2642,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldr/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6739,
       "End": 6744
@@ -3143,7 +2652,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldr1/Value/a3c8",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7232,
       "End": 7238
@@ -3154,7 +2662,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/foldr1/Value/a3c8",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7232,
       "End": 7268
@@ -3165,7 +2672,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fromList/Value/a39Z",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7984,
       "End": 7992
@@ -3176,7 +2682,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fromList/Value/a39Z",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7984,
       "End": 8003
@@ -3186,8 +2691,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fromList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3134,
       "End": 3148
@@ -3198,7 +2701,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fromList/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3149,
       "End": 3157
@@ -3208,8 +2710,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fromList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4735,
       "End": 4743
@@ -3219,8 +2719,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fromList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5845,
       "End": 5853
@@ -3230,8 +2728,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fromList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7823,
       "End": 7831
@@ -3242,7 +2738,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fromListN/Value/a3a5",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7933,
       "End": 7949
@@ -3253,7 +2748,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fromString/Value/a3ai",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7810,
       "End": 7820
@@ -3264,7 +2758,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/fromString/Value/a3ai",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7810,
       "End": 7831
@@ -3275,7 +2768,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/go/Value/a2Tu",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4414,
       "End": 4416
@@ -3285,8 +2777,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/go/Value/a2Tu",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4491,
       "End": 4493
@@ -3296,8 +2786,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/go/Value/a2Tu",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4531,
       "End": 4533
@@ -3307,8 +2795,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/head/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4799,
       "End": 4811
@@ -3319,7 +2805,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/head/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4812,
       "End": 4816
@@ -3330,7 +2815,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/k/Value/a2WN",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6480,
       "End": 6481
@@ -3340,8 +2824,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/k/Value/a2WN",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6755,
       "End": 6756
@@ -3351,8 +2833,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/list/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4611,
       "End": 4651
@@ -3363,7 +2843,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/list/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4652,
       "End": 4656
@@ -3373,8 +2852,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/list/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4819,
       "End": 4823
@@ -3384,8 +2861,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/list/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4946,
       "End": 4950
@@ -3396,7 +2871,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/m/Value/a2Tv",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4417,
       "End": 4418
@@ -3406,8 +2880,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/m/Value/a2Tv",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4421,
       "End": 4422
@@ -3417,8 +2889,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/m/Value/a2Tv",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4495,
       "End": 4496
@@ -3429,7 +2899,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/m/Value/a2WM",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6474,
       "End": 6475
@@ -3439,8 +2908,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/m/Value/a2WM",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6764,
       "End": 6765
@@ -3451,7 +2918,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/many/Value/a3dG",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6383,
       "End": 6400
@@ -3461,8 +2927,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/map/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5391,
       "End": 5421
@@ -3473,7 +2937,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/map/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5422,
       "End": 5425
@@ -3483,8 +2946,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/map/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6277,
       "End": 6280
@@ -3495,7 +2956,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/mappend/Value/a3f2",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6219,
       "End": 6226
@@ -3506,7 +2966,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/mappend/Value/a3f2",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6219,
       "End": 6235
@@ -3517,7 +2976,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/mconcat/Value/a3f6",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6172,
       "End": 6188
@@ -3528,7 +2986,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/mempty/Value/a3eY",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6199,
       "End": 6205
@@ -3539,7 +2996,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/mempty/Value/a3eY",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6199,
       "End": 6214
@@ -3550,7 +3006,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/min/Value/a3lc",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5554,
       "End": 5576
@@ -3561,7 +3016,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/mplus/Value/a3cE",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6934,
       "End": 6939
@@ -3572,7 +3026,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/mplus/Value/a3cE",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6934,
       "End": 6951
@@ -3583,7 +3036,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/mzero/Value/a3cy",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6915,
       "End": 6920
@@ -3594,7 +3046,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/mzero/Value/a3cy",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6915,
       "End": 6931
@@ -3605,7 +3056,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/n/Value/a2Tr",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4392,
       "End": 4393
@@ -3615,8 +3065,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/n/Value/a2Tr",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4534,
       "End": 4535
@@ -3627,7 +3075,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/nill/Value/a2Uh",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4657,
       "End": 4661
@@ -3637,8 +3084,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/nill/Value/a2Uh",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4704,
       "End": 4708
@@ -3649,7 +3094,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/p/Value/a2WR",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6087,
       "End": 6088
@@ -3659,8 +3103,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/p/Value/a2WR",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6105,
       "End": 6106
@@ -3671,7 +3113,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/pf/Value/a2Un",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5091,
       "End": 5093
@@ -3681,8 +3122,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/pf/Value/a2Un",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5105,
       "End": 5107
@@ -3692,8 +3131,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/pf/Value/a2Un",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5174,
       "End": 5176
@@ -3704,7 +3141,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/pure/Value/a3dS",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6343,
       "End": 6347
@@ -3715,7 +3151,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/pure/Value/a3dS",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6343,
       "End": 6357
@@ -3726,7 +3161,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/readList/Value/a3ix",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5692,
       "End": 5716
@@ -3737,7 +3171,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/readListPrec/Value/a3k7",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5860,
       "End": 5872
@@ -3748,7 +3181,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/readListPrec/Value/a3k7",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5860,
       "End": 5894
@@ -3759,7 +3191,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/readPrec/Value/a3iJ",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5752,
       "End": 5760
@@ -3770,7 +3201,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/readPrec/Value/a3iJ",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5752,
       "End": 5857
@@ -3780,8 +3210,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/replicate/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4362,
       "End": 4381
@@ -3792,7 +3220,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/replicate/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4382,
       "End": 4391
@@ -3803,7 +3230,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/return/Value/a3da",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6792,
       "End": 6798
@@ -3814,7 +3240,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/return/Value/a3da",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6792,
       "End": 6814
@@ -3825,7 +3250,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/rnf/Value/a3ap",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7730,
       "End": 7733
@@ -3836,7 +3260,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/rnf/Value/a3ap",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7730,
       "End": 7748
@@ -3847,7 +3270,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/showList/Value/a3fD",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6044,
       "End": 6068
@@ -3858,7 +3280,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/showsPrec/Value/a3ff",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6077,
       "End": 6086
@@ -3869,7 +3290,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/showsPrec/Value/a3ff",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6077,
       "End": 6161
@@ -3879,8 +3299,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/singleton/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3645,
       "End": 3657
@@ -3891,7 +3309,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/singleton/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3658,
       "End": 3667
@@ -3901,8 +3318,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/singleton/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6803,
       "End": 6812
@@ -3912,8 +3327,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/snoc/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3941,
       "End": 3964
@@ -3924,7 +3337,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/snoc/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3965,
       "End": 3969
@@ -3934,8 +3346,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/tail/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4920,
       "End": 4938
@@ -3946,7 +3356,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/tail/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4939,
       "End": 4943
@@ -3957,7 +3366,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value/a3aa",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 8032,
       "End": 8038
@@ -3968,7 +3376,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value/a3aa",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 8032,
       "End": 8047
@@ -3978,8 +3385,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3244,
       "End": 3258
@@ -3990,7 +3395,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3259,
       "End": 3265
@@ -4000,8 +3404,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4681,
       "End": 4687
@@ -4011,8 +3413,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5306,
       "End": 5312
@@ -4022,8 +3422,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5537,
       "End": 5543
@@ -4033,8 +3431,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5610,
       "End": 5616
@@ -4044,8 +3440,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6151,
       "End": 6157
@@ -4055,8 +3449,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7009,
       "End": 7015
@@ -4066,8 +3458,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7069,
       "End": 7075
@@ -4077,8 +3467,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7135,
       "End": 7141
@@ -4088,8 +3476,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7199,
       "End": 7205
@@ -4099,8 +3485,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7262,
       "End": 7268
@@ -4110,8 +3494,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7326,
       "End": 7332
@@ -4121,8 +3503,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7582,
       "End": 7588
@@ -4132,8 +3512,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7645,
       "End": 7651
@@ -4143,8 +3521,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/toList/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7742,
       "End": 7748
@@ -4155,7 +3531,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/unDL/Value/a30y",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3066,
       "End": 3070
@@ -4165,8 +3540,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/unDL/Value/a30y",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3281,
       "End": 3285
@@ -4176,8 +3549,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/unDL/Value/a30y",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3476,
       "End": 3480
@@ -4187,8 +3558,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/unDL/Value/a30y",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3834,
       "End": 3838
@@ -4198,8 +3567,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/unDL/Value/a30y",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3983,
       "End": 3987
@@ -4209,8 +3576,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/unDL/Value/a30y",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4112,
       "End": 4116
@@ -4220,8 +3585,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/unDL/Value/a30y",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4122,
       "End": 4126
@@ -4231,8 +3594,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/unfoldr/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5047,
       "End": 5082
@@ -4243,7 +3604,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/unfoldr/Value",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5083,
       "End": 5090
@@ -4253,8 +3613,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/unfoldr/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5166,
       "End": 5173
@@ -4265,7 +3623,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2Tl",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3814,
       "End": 3815
@@ -4275,8 +3632,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2Tl",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3828,
       "End": 3829
@@ -4287,7 +3642,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2To",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3973,
       "End": 3974
@@ -4297,8 +3651,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2To",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3994,
       "End": 3995
@@ -4309,7 +3661,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2Ts",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4394,
       "End": 4395
@@ -4319,8 +3670,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2Ts",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4487,
       "End": 4488
@@ -4331,7 +3680,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2UA",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7176,
       "End": 7177
@@ -4341,8 +3689,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2UA",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7195,
       "End": 7196
@@ -4353,7 +3699,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2Uk",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4714,
       "End": 4715
@@ -4363,8 +3708,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2Uk",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4732,
       "End": 4733
@@ -4375,7 +3718,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2Uy",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7112,
       "End": 7113
@@ -4385,8 +3727,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2Uy",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7131,
       "End": 7132
@@ -4397,7 +3737,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2WJ",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7559,
       "End": 7560
@@ -4407,8 +3746,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2WJ",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7578,
       "End": 7579
@@ -4419,7 +3756,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2WL",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7625,
       "End": 7626
@@ -4429,8 +3765,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2WL",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 7641,
       "End": 7642
@@ -4441,7 +3775,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2WO",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6799,
       "End": 6800
@@ -4451,8 +3784,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/x/Value/a2WO",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6813,
       "End": 6814
@@ -4463,7 +3794,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/xs/Value/a2Tm",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3816,
       "End": 3818
@@ -4473,8 +3803,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/xs/Value/a2Tm",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3839,
       "End": 3841
@@ -4485,7 +3813,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/xs/Value/a2Tn",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3970,
       "End": 3972
@@ -4495,8 +3822,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/xs/Value/a2Tn",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3988,
       "End": 3990
@@ -4507,7 +3832,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/xs/Value/a2Tp",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4100,
       "End": 4102
@@ -4517,8 +3841,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/xs/Value/a2Tp",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4117,
       "End": 4119
@@ -4529,7 +3851,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/xs/Value/a2Tt",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4404,
       "End": 4406
@@ -4539,8 +3860,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/xs/Value/a2Tt",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4433,
       "End": 4435
@@ -4551,7 +3870,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/xs/Value/a2Ul",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4718,
       "End": 4720
@@ -4561,8 +3879,6 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/xs/Value/a2Ul",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4744,
       "End": 4746
@@ -4573,7 +3889,6 @@
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/ys/Value/a2Tq",
       "Def": true,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4103,
       "End": 4105
@@ -4583,96 +3898,70 @@
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
       "DefPath": "dlist/Data/DList/ys/Value/a2Tq",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4127,
       "End": 4129
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "ghc-prim",
       "DefPath": "ghc-prim/GHC/Classes/\u003c=/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4423,
       "End": 4425
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "ghc-prim",
       "DefPath": "ghc-prim/GHC/Classes/==/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5527,
       "End": 5531
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "ghc-prim",
       "DefPath": "ghc-prim/GHC/Classes/\u003e/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 6107,
       "End": 6108
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "ghc-prim",
       "DefPath": "ghc-prim/GHC/Classes/compare/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 5597,
       "End": 5604
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "ghc-prim",
       "DefPath": "ghc-prim/GHC/Types/:/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3677,
       "End": 3680
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "ghc-prim",
       "DefPath": "ghc-prim/GHC/Types/:/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3829,
       "End": 3830
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "ghc-prim",
       "DefPath": "ghc-prim/GHC/Types/:/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 3995,
       "End": 3996
     },
     {
-      "DefRepo": "",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "ghc-prim",
       "DefPath": "ghc-prim/GHC/Types/:/Value",
-      "Def": false,
-      "Repo": "",
       "File": "Data/DList.hs",
       "Start": 4489,
       "End": 4490
