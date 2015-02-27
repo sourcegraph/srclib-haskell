@@ -1138,6 +1138,15 @@
   ],
   "Refs": [
     {
+      "DefRepo": "github.com/haskell/cabal",
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "Cabal",
+      "DefPath": "Cabal/Distribution/Simple",
+      "File": "Setup.lhs",
+      "Start": 9,
+      "End": 0
+    },
+    {
       "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",

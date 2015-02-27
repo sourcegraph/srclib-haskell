@@ -16,7 +16,7 @@ type ModuleRef = (String, (Int,Int), (Int,Int), Loc.ModulePath)
 
 prToMaybe ∷ ParseResult a → Maybe a
 prToMaybe (ParseOk x) = Just x
-prToMaybe _ = Nothing
+prToMaybe (ParseFailed l c) = flip trace Nothing $ mconcat["Parse failed! ", show l, "", show c]
 
 allImports ∷ Module l → [ImportDecl l]
 allImports (XmlPage _ _ _ _ _ _ _) = []
@@ -35,17 +35,17 @@ importToModPath (ImportDecl _ (ModuleName l n) _ _ _ _ _ _) =
 moduleRefs ∷ String → String → [ModuleRef]
 moduleRefs fn source = cvt <$> results -- trace tree results
   where modul ∷ Maybe (Module Span)
-        modul = prToMaybe $ parseWithMode mode source
+        modul = prToMaybe $ parseFileContentsWithMode mode source
         tree = show modul
         imports = map importToModPath $ fromMaybe [] $ allImports <$> modul
-        results = maybe imports (:imports) $ join $ moduleDecl <$> modul
+        results = maybe imports (:imports) $ traceShowId $ join $ moduleDecl <$> modul
         mode = defaultParseMode {parseFilename=fn}
         cvt (SrcSpanInfo (SrcSpan fn sl sc el ec) _, mp) =
           (fn,(sl,sc),(el,ec),mp)
 
 hello ∷ IO ()
 hello = print $ moduleRefs "Main.hs" $ unlines $
-  [ "{-# NoExplicitPrelude #-}"
+  [ "{-# LANGUAGE NoExplicitPrelude, UnicodeSyntax #-}"
   , "module Main where"
   , ""
   , "import Prelude"
@@ -53,6 +53,6 @@ hello = print $ moduleRefs "Main.hs" $ unlines $
   , "import Data.Text"
   , ""
   , "-- | The program entry point. It prints \"Hello World\"."
-  , "main :: IO ()"
+  , "main ∷ IO ()"
   , "main = putStrLn \"Hello World\""
   ]
