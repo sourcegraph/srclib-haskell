@@ -39,7 +39,7 @@ moduleRefs fn source = cvt <$> results -- trace tree results
         tree = show modul
         imports = map importToModPath $ fromMaybe [] $ allImports <$> modul
         results = maybe imports (:imports) $ traceShowId $ join $ moduleDecl <$> modul
-        mode = defaultParseMode {parseFilename=fn}
+        mode = defaultParseMode {parseFilename=fn, fixities=Nothing}
         cvt (SrcSpanInfo (SrcSpan fn sl sc el ec) _, mp) =
           (fn,(sl,sc),(el,ec),mp)
 
