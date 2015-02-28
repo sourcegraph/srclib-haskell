@@ -315,34 +315,7 @@ graph info = do
   let toStderr = log_stdout_with $ T.unpack ⋙ hPutStrLn stderr
   let cabal_ = run_ "cabal"
 
-  shelly $ toStderr $ do
-    mkdir_p (fromText workDir)
-    let wd = T.unpack workDir
-        tarcmd = T.pack $ printf "(tar c *) | (cd '%s'; tar x)" wd
-    run_ "/bin/sh" ["-c", tarcmd]
-
-    cd (fromText workDir)
-    errExit False $ run_ "autoreconf" []
-
-    cd (fromText workSubDir)
-    errExit False $ run_ "autoreconf" []
-
-    cabal_ ["sandbox", "init", mkParam "sandbox" sandbox]
-    errExit False $
-      cabal_ [ "install", "--only-dependencies"
-                        , "-j4"
-                        , "--disable-optimization"
-                        , "--force-reinstalls"
-                        ]
-
-    cabal_ ["configure", mkParam "builddir" buildDir]
-    cabal_ [ "haddock", "--executables", "--internal"
-           , mkParam "haddock-options" ("-G" <> symbolGraph)
-           , mkParam "builddir" buildDir
-           ]
-
-  let badLoad = error $ T.unpack $ "Unable to load file: " <> symbolGraph
-  graphs ← loadSymGraphFile $ Path.decodeString $ T.unpack symbolGraph
+  graphs ← return mempty
 
   let packageName = C.cabalPkgName info
   pdb ← mkDB info graphs
