@@ -2161,20 +2161,6 @@
   ],
   "Refs": [
     {
-      "DefUnitType": "HaskellPackage",
-      "DefPath": "/Distribution/Simple",
-      "File": "Setup.hs",
-      "Start": 33,
-      "End": 52
-    },
-    {
-      "DefUnitType": "HaskellPackage",
-      "DefPath": "/Main",
-      "File": "Setup.hs",
-      "Start": 7,
-      "End": 11
-    },
-    {
       "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
@@ -6395,6 +6381,22 @@
       "File": "Control/DeepSeq.hs",
       "Start": 13306,
       "End": 13307
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Distribution/Simple",
+      "File": "Setup.hs",
+      "Start": 33,
+      "End": 52
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Main",
+      "File": "Setup.hs",
+      "Start": 7,
+      "End": 11
     },
     {
       "DefRepo": "git.haskell.org/packages/ghc-prim",

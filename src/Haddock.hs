@@ -364,9 +364,9 @@ graph info = do
               shapes = Set.toList $ fst pdb
               shape = _3 <$> L.find (\(rp,sp,_) → frm ≡ Loc.srcToRepo rp sp) shapes
       toRepoAndPkg ∷ ModulePath → (Src.URI,Src.Pkg)
-      toRepoAndPkg mp = (repo,pkg)
+      toRepoAndPkg mp = trace "toRepoAndPkg" $ traceShow mp $ traceShowId (repo,pkg)
         where repo = fromMaybe "" $ M.lookup pkg repos
-              pkg = fromMaybe "" $ M.lookup mp modules
+              pkg = fromMaybe packageName $ M.lookup mp modules
 
   let moduleGraph = convertModuleGraph toRepoAndPkg toOffsets modRefs
   let results = moduleGraph ++ haddockResults ++ moduleDefs packageName (ourModules pdb)

@@ -126,13 +126,6 @@
   ],
   "Refs": [
     {
-      "DefUnitType": "HaskellPackage",
-      "DefPath": "/Main",
-      "File": "src/Main.hs",
-      "Start": 39,
-      "End": 43
-    },
-    {
       "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
@@ -445,6 +438,14 @@
       "File": "src/Main.hs",
       "Start": 93,
       "End": 114
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "haskell-simple-tests",
+      "DefPath": "haskell-simple-tests/Main",
+      "File": "src/Main.hs",
+      "Start": 39,
+      "End": 43
     }
   ]
 }
