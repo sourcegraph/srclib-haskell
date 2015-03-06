@@ -30,7 +30,7 @@
 
 module Locations where
 
-import           ClassyPrelude             hiding (FilePath,filename,first,last)
+import           ClassyPrelude             hiding (FilePath,filename,first,last,Vector)
 
 import qualified Filesystem.Path.CurrentOS as Path
 
@@ -50,6 +50,9 @@ import qualified Data.Text.Lazy.Encoding   as TL
 
 import           Test.QuickCheck
 
+import qualified Data.Vector.Unboxed as V
+import Data.Vector.Unboxed (Vector,(!),(!?))
+
 
 -- Types ---------------------------------------------------------------------
 
@@ -62,7 +65,10 @@ instance Ord LineCol where
       (EQ,colDifference) → colDifference
       (lineDifference,_) → lineDifference
 
-data FileShape = Shape {fsLineWidths ∷ [Int], fsUnicodeChars ∷ IntMap Int}
+type IntVec = Vector Int
+data FileShape = Shape { fsLineWidths ∷ !IntVec
+                       , fsUnicodeChars ∷ !(IntMap Int)
+                       }
   deriving (Ord, Eq, Show)
 
 type Path      = [Text]
@@ -98,7 +104,7 @@ data Span = Span{spanFile∷RepoPath, spanStart∷Int, spanLength∷Int}
   deriving (Ord,Eq,Show)
 
 type PathCol = (RepoPath, SrcPath, FileShape)
-type PathDB = (Set PathCol, Map String ModulePath)
+type PathDB = Set PathCol
 
 
 -- Utilities -----------------------------------------------------------------
@@ -180,10 +186,10 @@ fileToModulePath (Src(FP[])) = MP []
 fileToModulePath (Src(FP(f:fp))) = MP $ fst(parseExtension f) : fp
 
 flattenSources ∷ PathDB → Set RepoPath
-flattenSources = Set.map (\(r,s,_) → srcToRepo r s) . fst
+flattenSources = Set.map (\(r,s,_) → srcToRepo r s)
 
 moduleToRepoFPs ∷ PathDB → ModulePath → Set RepoPath
-moduleToRepoFPs (db,m) mp = flattenSources(Set.filter doesMatch db,m)
+moduleToRepoFPs db mp = flattenSources $ Set.filter doesMatch db
   where combine (r,s,_) = srcToRepo r s
         doesMatch (_,s,_) = srcPathMatch mp s
 
@@ -201,13 +207,8 @@ pdbSourceFiles ∷ PathDB → Set RepoPath
 pdbSourceFiles = flattenSources
 
 matchingSourceFiles ∷ PathDB → ModulePath → Set RepoPath
-matchingSourceFiles (db,x) mp = flattenSources(Set.filter f db,x)
+matchingSourceFiles db mp = flattenSources $ Set.filter f db
   where f (_,s,_) = srcPathMatch mp s
-
-findSourceOfTmpFile ∷ PathDB → String → Set RepoPath
-findSourceOfTmpFile db@(_,tmpFiles) p =
-  Set.unions $ matchingSourceFiles db <$> modules
-    where modules = maybeToList $ M.lookup p tmpFiles
 
 
 -- FileShape Operations ------------------------------------------------------
@@ -216,15 +217,17 @@ firstChar ∷ LineCol
 firstChar = LineCol 0 0
 
 lastChar ∷ FileShape → LineCol
-lastChar (Shape [] _) = LineCol 1 1
-lastChar (Shape ws _) = LineCol (L.length ws) (L.last ws)
+lastChar (Shape ws _) =
+  if V.null ws then LineCol 1 1 else
+   LineCol (V.length ws) (V.last ws)
 
 endOfLastLine ∷ FileShape → LineCol
-endOfLastLine (Shape [] _) = LineCol 1 1
-endOfLastLine (Shape ws _) = LineCol (L.length ws) (1+L.last ws)
+endOfLastLine (Shape ws _) =
+  if V.null ws then LineCol 1 1 else
+    LineCol (V.length ws) (1+V.last ws)
 
 eofPosition ∷ FileShape → LineCol
-eofPosition (Shape ws _) = LineCol (1+L.length ws) 1
+eofPosition (Shape ws _) = LineCol (1+V.length ws) 1
 
 lineCol ∷ Int → Int → Maybe LineCol
 lineCol line col = if line≥1 ∧ col≥1 then Just $ LineCol line col
@@ -244,24 +247,25 @@ multibyteChars = TL.foldl f (0,IntMap.empty) ⋙ snd
         f (i,m) _                     = (i+1, m)
 
 textShape ∷ TL.Text → FileShape
-textShape "" = Shape [0] IntMap.empty
+textShape "" = Shape (V.fromList [0]) IntMap.empty
 textShape s =
-   Shape ((TL.length ⋙ fromIntegral) <$> TL.lines s) (multibyteChars s)
+   Shape (V.fromList $ (TL.length ⋙ fromIntegral) <$> TL.lines s) (multibyteChars s)
 
 fileShape ∷ Text → IO FileShape
 fileShape f = (TL.pack ⋙ textShape) <$> readFile (Path.fromText f)
 
 lineColOffset ∷ FileShape → LineCol → Maybe Int
 lineColOffset shp@(Shape lineWidths _) lc@(LineCol line col) =
-  let nLines = L.length lineWidths
+  let nLines = V.length lineWidths
       eof = lc ≡ eofPosition shp
   in if eof then Just((line-1) + sum lineWidths) else
-       do width ← lineWidths `indexL` (line-1)
+       do width ← lineWidths!?(line-1)
           guard $ (col-1) ≤ width
           return $ (col-1) + (line-1) + sum(take (line-1) lineWidths)
 
+-- TODO Don't convert to a list!
 offsetLineCol ∷ FileShape → Int → Maybe LineCol
-offsetLineCol (Shape lineWidths _) = f 1 lineWidths
+offsetLineCol (Shape lineWidths _) = f 1 $ V.toList lineWidths
   where f ∷ Int → [Int] → Int → Maybe LineCol
         f l []     off = if off≡0 then Just $ LineCol l 1
                                   else Nothing

@@ -28,8 +28,8 @@ executable srclib-haskell
                ,       filemanip
                ,       ghc
                ,       hackage-db
-               ,       haddock
                ,       haskell-src-exts
+               ,       here
                ,       mtl
                ,       pathtype
                ,       process
@@ -40,4 +40,4 @@ executable srclib-haskell
                ,       system-filepath
                ,       text
                ,       unix
-               ,       here
+               ,       vector
