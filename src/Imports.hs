@@ -1,15 +1,13 @@
 {-# LANGUAGE UnicodeSyntax, NoImplicitPrelude #-}
 
--- TODO haskell-src-exts seems to choke on CPP stuff.
--- TODO We somehow need to handle the cabal's version-check macros.
-
-module Imports(moduleRefs,ModuleRef) where
+module Imports(moduleRefs,ModuleRef,hello) where
 
 import ClassyPrelude
 
 import qualified Data.Text as T
 import Language.Haskell.Exts.Annotated as HSE
 import qualified Locations as Loc
+import qualified Examples as Ex
 
 type Span = SrcSpanInfo
 type ModuleRef = (String, (Int,Int), (Int,Int), Loc.ModulePath)
@@ -44,15 +42,4 @@ moduleRefs fn source = cvt <$> results -- trace tree results
           (fn,(sl,sc),(el,ec),mp)
 
 hello ∷ IO ()
-hello = print $ moduleRefs "Main.hs" $ unlines $
-  [ "{-# LANGUAGE NoExplicitPrelude, UnicodeSyntax #-}"
-  , "module Main where"
-  , ""
-  , "import Prelude"
-  , "import Bogus.Module.Name"
-  , "import Data.Text"
-  , ""
-  , "-- | The program entry point. It prints \"Hello World\"."
-  , "main ∷ IO ()"
-  , "main = putStrLn \"Hello World\""
-  ]
+hello = print $ moduleRefs "Main.hs" Ex.hello
