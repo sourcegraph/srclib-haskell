@@ -10,7 +10,6 @@
 module Haddock where
 
 import           ClassyPrelude hiding ((</>), (<.>), maximumBy)
-import qualified Prelude
 import           Prelude.Unicode
 import           Control.Category.Unicode
 import qualified Imports as Imp
@@ -23,9 +22,6 @@ import qualified Data.Text as T
 import qualified Data.List as L
 import           Data.Foldable (maximumBy)
 
-import           Text.Printf (printf)
-
-import qualified Documentation.Haddock as H
 import           Shelly hiding (FilePath, path, (</>), (<.>), canonicalize, trace)
 import qualified Shelly
 import qualified Filesystem.Path.CurrentOS as Path
@@ -36,13 +32,19 @@ import qualified Cabal as C
 import           Locations as Loc
 import qualified Srclib as Src
 
-import Distribution.Hackage.DB (Hackage, readHackage)
+import Distribution.Hackage.DB (readHackage)
+
+
+-- Types ---------------------------------------------------------------------
 
 data Def = Def ModulePath Text Src.Kind Span
-data Bind = Bind String H.NameSpc H.FileLoc Bool Text
-  deriving (Show,Ord,Eq)
+type PkgName = Text
+type RepoURI = Text
+type ModuleLookup = ModulePath → (Src.URI,Src.Pkg)
+type SrcLocLookup = (String,Int,Int) → Int
 
-localUniq (H.Local _ u _ _) = u
+
+-- Values --------------------------------------------------------------------
 
 mkIndex ∷ Ord k ⇒ (a → k) → [a] → Map k a
 mkIndex f = map (\r→(f r,r)) ⋙ M.fromList
@@ -51,45 +53,6 @@ composeN ∷ Int → (a → a) → (a → a)
 composeN 0 _ = id
 composeN 1 f = f
 composeN n f = composeN (n-1) (f.f)
-
-allTheRenames ∷ H.SymGraph → H.SymGraph
-allTheRenames = composeN 10 renames
-
-instance Monoid H.SymGraph where
- mempty = H.SymGraph [] [] []
- mappend (H.SymGraph a b c) (H.SymGraph d e f) = H.SymGraph (a++d) (b++e) (c++f)
-
-renames ∷ H.SymGraph → H.SymGraph
-renames (H.SymGraph refs exports renames) =
-  H.SymGraph (rename <$> refs) (rnm <$> exports) renames
-    where rnmTbl = M.fromList renames
-          defsByUniq = mkIndex localUniq $ lefts $ snd <$> refs
-          rename (fl,Left(l)) = (fl, Left(rnm l))
-          rename x            = x
-          rnm def@(H.Local nm u nmSpc floc) = fromMaybe def $ do
-            otherUniq ← M.lookup u rnmTbl
-            realDef ← M.lookup otherUniq defsByUniq
-            return realDef
-
-allLocalBindings ∷ H.SymGraph → Set Bind
-allLocalBindings gr = Set.fromList internal
-  where exports = H.sgExports gr
-        internal = mkBind <$> (lefts $ snd <$> H.sgReferences gr)
-        isExported l = not $ L.null $ flip L.filter (H.sgExports gr) $ theSame l
-        theSame (H.Local _ uniq1 _ _) (H.Local _ uniq2 _ _) = uniq1 ≡ uniq2
-        mkBind ∷ H.LocalBinding → Bind
-        mkBind l@(H.Local nm u nmSpc floc) =
-          Bind nm nmSpc floc (isExported l) (T.pack u)
-
-sgReferences ∷ H.SymGraph → [(H.FileLoc,(Either Bind H.GlobalBinding))]
-sgReferences gr = map f $ H.sgReferences gr
-  where f (loc,Left l) = (loc,Left $ mkBind l)
-        f (loc,Right r) = (loc,Right r)
-        isExported l = not $ L.null $ flip L.filter (H.sgExports gr) $ theSame l
-        theSame (H.Local _ uniq1 _ _) (H.Local _ uniq2 _ _) = uniq1 ≡ uniq2
-        mkBind ∷ H.LocalBinding → Bind
-        mkBind l@(H.Local nm u nmSpc floc) =
-          Bind nm nmSpc floc (isExported l) (T.pack u)
 
 srcPath ∷ (RepoPath, SrcPath, FileShape) → SrcPath
 srcPath (_,s,_) = s
@@ -111,25 +74,6 @@ pdbSourceFileNames (srcFiles, _) = fnStr <$> Set.toList srcFiles
 tmpFileModule ∷ PathDB → String → ModulePath
 tmpFileModule db tmp = fileToModulePath $ srcPath $ fudgeTmpFile db tmp
 
-tmpFileSpan ∷ PathDB → H.FileLoc → Span
-tmpFileSpan pdb@(db,tmps) (H.FileLoc fnS (l,c) (λ,ξ)) =
-  fromMaybe bogusSpan $ mkSpan rp shape (LineCol l c) (LineCol λ ξ)
-    where (r,s,shape) = fudgeTmpFile (db,tmps) fnS
-          m = tmpFileModule pdb fnS
-          rp = srcToRepo r s
-
-localSpan ∷ PathDB → Bind → Span
-localSpan db (Bind _ _ loc e _) = tmpFileSpan db loc
-
-bogusModule ∷ PathDB → H.LocalBinding → ModulePath
-bogusModule (_,tmps) (H.Local fnS _ _ _) = trace warning $ parseModulePath $ T.pack fnS
-  where warning = "SymGraph is inconsistent. This file does not occur: " <> fnS
-               <> "\n" <> show tmps
-
-localModule ∷ PathDB → Bind → ModulePath
-localModule db@(_,tmps) loc@(Bind _ _ (H.FileLoc fnS _ _) _ _) =
-  tmpFileModule db fnS
-
 isVersionNumber ∷ Text → Bool
 isVersionNumber = T.unpack ⋙ (=~ ("^([0-9]+\\.)*[0-9]+$"::String))
 
@@ -139,51 +83,11 @@ fudgePkgName pkg =
     []                 → []
     full@(last:before) → if isVersionNumber last then before else full
 
-makeSrclibPath ∷ H.NameSpc → Text → ModulePath → Text → Maybe Text → Src.Path
-makeSrclibPath kind pkg mp nm uniq = case uniq of
-  Nothing -> Src.PGlobal pkg mp nm (convertKind kind)
-  Just u  -> Src.PLocal pkg mp nm (convertKind kind) u
-
-convertKind ∷ H.NameSpc → Src.Kind
-convertKind H.Value = Src.Value
-convertKind H.Type = Src.Type
-
-locStartLC ∷ H.FileLoc → LineCol
-locStartLC (H.FileLoc _ (l,c) _) = LineCol l c
-
-convertDef ∷ Text → Text → PathDB → Bind → Src.Def
-convertDef repo pkg db l@(Bind nm nmSpc loc exported u) =
-  Src.Def spath spath (T.pack nm) kind file start end exported False repo
-    where (Span file start width) = localSpan db l
-          end = start+width
-          kind = convertKind nmSpc
-          modul = localModule db l
-          spath = makeSrclibPath nmSpc pkg modul (T.pack nm) pos
-          pos = if exported then Nothing else Just u
-
-globalPath ∷ H.GlobalBinding → Src.Path
-globalPath glob@(H.Global nm nmSpc modul pkg) =
-  makeSrclibPath nmSpc (fudgePkgName $ T.pack pkg) mp (T.pack nm) Nothing
-    where mp = (parseModulePath $ T.pack modul)
-
 baseRepo = "github.com/bsummer4/packages-base"
 
 safeHead ∷ [a] → Maybe a
 safeHead [] = Nothing
 safeHead (a:_) = Just a
-
-convertRef ∷ Text → (Text→Text) → Text → PathDB → (H.FileLoc,Either Bind H.GlobalBinding) → Src.Ref
-convertRef repo lookupRepo pkg db (loc,bind) =
-  Src.Ref repoURI "HaskellPackage" defUnit defPath isDef file start end
-    where repoURI = lookupRepo defUnit
-          defUnit = Src.pathPkg defPath
-          startsAt (H.FileLoc _ s1 _) (H.FileLoc _ s2 _) = s1≡s2
-          isDef = case bind of Right _ → False
-                               Left (Bind _ _ bloc _ _) → loc `startsAt` bloc
-
-          defPath = either (Src.defPath ⋘ convertDef repo pkg db) globalPath bind
-          (Span file start width) = tmpFileSpan db loc
-          end = start + width
 
 -- TODO Drops duplicated refs and defs. This is a quick hack, but IT IS WRONG.
 --   The issue is that haskell allows multiple definitions for the same
@@ -208,29 +112,11 @@ summary (Src.Graph dfs rfs) =
     where defs = (\x→(Src.defDefStart x, Src.defDefEnd x, tshow $ Src.defPath x)) <$> dfs
           refs = (\x→(Src.refStart x, Src.refEnd x, tshow $ Src.refDefPath x)) <$> rfs
 
-convertGraph ∷ Text → (Text→Text) → Text → PathDB → H.SymGraph → Src.Graph
-convertGraph repo lookupRepo pkgWithJunk db agr = fudgeGraph $ Src.Graph defs refs
-  where pkg = traceShowId $ fudgePkgName $ traceShowId pkgWithJunk
-        defs = convertDef repo pkg db <$> Set.toList(allLocalBindings gr)
-        refs = convertRef repo lookupRepo pkg db <$> sgReferences gr
-        gr = allTheRenames agr
-
--- TODO Using `read` directly is not safe.
--- TODO Read/Show is a terrible approach to serializing to disk!
-readSymGraphFile ∷ String → H.SymGraphFile
-readSymGraphFile = fmap Prelude.read . lines
-
-loadSymGraphFile ∷ Path.FilePath → IO H.SymGraphFile
-loadSymGraphFile = readFile >=> (readSymGraphFile ⋙ return)
-
-tmpFiles ∷ H.SymGraphFile → Map String ModulePath
-tmpFiles = M.fromList . map (\(f,m,_,_)→(f,parseModulePath$T.pack m))
+convertGraph ∷ a → b → c → d → e → Src.Graph
+convertGraph x y z p r = mempty
 
 instance Semigroup Shelly.FilePath where
   a <> b = a `mappend` b
-
-type PkgName = Text
-type RepoURI = Text
 
 repoMap ∷ C.CabalInfo → IO (Map PkgName RepoURI)
 repoMap info = do
@@ -238,8 +124,6 @@ repoMap info = do
   ds ← mapM(C.resolve hack ⋙ return) $ M.toList $ C.cabalDependencies info
   return $ M.fromList $ (\d → (Src.depToUnit d, Src.depToRepoCloneURL d)) <$> ds
 
-type ModuleLookup = ModulePath → (Src.URI,Src.Pkg)
-type SrcLocLookup = (String,Int,Int) → Int
 convertModuleGraph ∷ ModuleLookup → SrcLocLookup → [(Text,[Imp.ModuleRef])] → Src.Graph
 convertModuleGraph toRepoAndPkg toOffset refMap =
   Src.Graph [] $ concat $ fmap cvt . snd <$> refMap
@@ -316,14 +200,12 @@ graph info = do
   let toStderr = log_stdout_with $ T.unpack ⋙ hPutStrLn stderr
   let cabal_ = run_ "cabal"
 
-  graphs ← return mempty
-
   let packageName = C.cabalPkgName info
-  pdb ← mkDB info graphs
+  pdb ← mkDB info
 
   let _4 (_,_,_,x) = x
 
-  let completeSymGraph = mconcat $ _4 <$> graphs
+  let completeSymGraph = mempty∷Src.Graph
 
   let repo = C.cabalRepoURI info
   let haddockResults = fudgeGraph $ convertGraph repo lookupRepo packageName pdb completeSymGraph
@@ -369,9 +251,9 @@ fe info = do
   guard $ isParent srcDir repoPath
   return (srcDir, srcPath, fileShape(srclibPath repoPath))
 
-mkDB ∷ C.CabalInfo → H.SymGraphFile → IO PathDB
-mkDB info graphFile = do
+mkDB ∷ C.CabalInfo → IO PathDB
+mkDB info = do
   let ugg (srcDir, srcPath, action) = do result ← action
                                          return (srcDir, srcPath, result)
   cols ← Set.fromList <$> mapM ugg (fe info)
-  return (cols,tmpFiles graphFile)
+  return (cols,M.fromList [])

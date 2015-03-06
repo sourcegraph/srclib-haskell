@@ -28,7 +28,6 @@ executable srclib-haskell
                ,       filemanip
                ,       ghc
                ,       hackage-db
-               ,       haddock
                ,       haskell-src-exts
                ,       mtl
                ,       pathtype
