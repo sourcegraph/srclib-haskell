@@ -1,6 +1,9 @@
 {
   "Defs": [
     {
+      "Repo": "github.com/sgtest/haskell-simple-tests",
+      "UnitType": "HaskellPackage",
+      "Unit": "haskell-simple-tests",
       "Path": "haskell-simple-tests/Main",
       "Name": "Main",
       "Kind": "Module",

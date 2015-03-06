@@ -1,6 +1,9 @@
 {
   "Defs": [
     {
+      "Repo": "github.com/sgtest/haskell-hello-world",
+      "UnitType": "HaskellPackage",
+      "Unit": "haskell-hello-world",
       "Path": "haskell-hello-world/Main",
       "Name": "Main",
       "Kind": "Module",

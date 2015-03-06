@@ -1,6 +1,9 @@
 {
   "Defs": [
     {
+      "Repo": "github.com/sgtest/haskell-module-import",
+      "UnitType": "HaskellPackage",
+      "Unit": "haskell-hello-world",
       "Path": "haskell-hello-world/Hello",
       "Name": "Hello",
       "Kind": "Module",
@@ -11,6 +14,9 @@
       "TreePath": "haskell-hello-world/Hello"
     },
     {
+      "Repo": "github.com/sgtest/haskell-module-import",
+      "UnitType": "HaskellPackage",
+      "Unit": "haskell-hello-world",
       "Path": "haskell-hello-world/Main",
       "Name": "Main",
       "Kind": "Module",

@@ -30,6 +30,7 @@ executable srclib-haskell
                ,       hackage-db
                ,       haddock
                ,       haskell-src-exts
+               ,       haskell-src-exts
                ,       mtl
                ,       pathtype
                ,       process
@@ -40,4 +41,3 @@ executable srclib-haskell
                ,       system-filepath
                ,       text
                ,       unix
-               ,       haskell-src-exts

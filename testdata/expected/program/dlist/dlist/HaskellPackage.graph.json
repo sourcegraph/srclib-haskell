@@ -1,6 +1,9 @@
 {
   "Defs": [
     {
+      "Repo": "github.com/spl/dlist",
+      "UnitType": "HaskellPackage",
+      "Unit": "dlist",
       "Path": "dlist/Data/DList",
       "Name": "DList",
       "Kind": "Module",
@@ -11,6 +14,9 @@
       "TreePath": "dlist/Data/DList"
     },
     {
+      "Repo": "github.com/spl/dlist",
+      "UnitType": "HaskellPackage",
+      "Unit": "dlist",
       "Path": "dlist/Setup",
       "Name": "Setup",
       "Kind": "Module",
@@ -21,6 +27,9 @@
       "TreePath": "dlist/Setup"
     },
     {
+      "Repo": "github.com/spl/dlist",
+      "UnitType": "HaskellPackage",
+      "Unit": "dlist",
       "Path": "dlist/tests/Main",
       "Name": "Main",
       "Kind": "Module",

@@ -1,6 +1,9 @@
 {
   "Defs": [
     {
+      "Repo": "github.com/haskell/deepseq",
+      "UnitType": "HaskellPackage",
+      "Unit": "deepseq",
       "Path": "deepseq/Control/DeepSeq",
       "Name": "DeepSeq",
       "Kind": "Module",
@@ -11,6 +14,9 @@
       "TreePath": "deepseq/Control/DeepSeq"
     },
     {
+      "Repo": "github.com/haskell/deepseq",
+      "UnitType": "HaskellPackage",
+      "Unit": "deepseq",
       "Path": "deepseq/Setup",
       "Name": "Setup",
       "Kind": "Module",
@@ -21,6 +27,9 @@
       "TreePath": "deepseq/Setup"
     },
     {
+      "Repo": "github.com/haskell/deepseq",
+      "UnitType": "HaskellPackage",
+      "Unit": "deepseq",
       "Path": "deepseq/tests/Main",
       "Name": "Main",
       "Kind": "Module",

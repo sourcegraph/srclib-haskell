@@ -17,3 +17,6 @@
 [submodule "testdata/case/haskell-simple-tests"]
 	path = testdata/case/haskell-simple-tests
 	url = git@github.com:sgtest/haskell-simple-tests
+[submodule "preprocess-haskell"]
+	path = preprocess-haskell
+	url = https://github.com/sourcegraph/preprocess-haskell.git

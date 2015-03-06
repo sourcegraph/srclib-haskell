@@ -151,9 +151,9 @@ convertKind H.Type = Src.Type
 locStartLC ∷ H.FileLoc → LineCol
 locStartLC (H.FileLoc _ (l,c) _) = LineCol l c
 
-convertDef ∷ Text → PathDB → Bind → Src.Def
-convertDef pkg db l@(Bind nm nmSpc loc exported u) =
-  Src.Def spath spath (T.pack nm) kind file start end exported False
+convertDef ∷ Text → Text → PathDB → Bind → Src.Def
+convertDef repo pkg db l@(Bind nm nmSpc loc exported u) =
+  Src.Def spath spath (T.pack nm) kind file start end exported False repo
     where (Span file start width) = localSpan db l
           end = start+width
           kind = convertKind nmSpc
@@ -172,8 +172,8 @@ safeHead ∷ [a] → Maybe a
 safeHead [] = Nothing
 safeHead (a:_) = Just a
 
-convertRef ∷ (Text→Text) → Text → PathDB → (H.FileLoc,Either Bind H.GlobalBinding) → Src.Ref
-convertRef lookupRepo pkg db (loc,bind) =
+convertRef ∷ Text → (Text→Text) → Text → PathDB → (H.FileLoc,Either Bind H.GlobalBinding) → Src.Ref
+convertRef repo lookupRepo pkg db (loc,bind) =
   Src.Ref repoURI "HaskellPackage" defUnit defPath isDef file start end
     where repoURI = lookupRepo defUnit
           defUnit = Src.pathPkg defPath
@@ -181,7 +181,7 @@ convertRef lookupRepo pkg db (loc,bind) =
           isDef = case bind of Right _ → False
                                Left (Bind _ _ bloc _ _) → loc `startsAt` bloc
 
-          defPath = either (Src.defPath ⋘ convertDef pkg db) globalPath bind
+          defPath = either (Src.defPath ⋘ convertDef repo pkg db) globalPath bind
           (Span file start width) = tmpFileSpan db loc
           end = start + width
 
@@ -208,11 +208,11 @@ summary (Src.Graph dfs rfs) =
     where defs = (\x→(Src.defDefStart x, Src.defDefEnd x, tshow $ Src.defPath x)) <$> dfs
           refs = (\x→(Src.refStart x, Src.refEnd x, tshow $ Src.refDefPath x)) <$> rfs
 
-convertGraph ∷ (Text→Text) → Text → PathDB → H.SymGraph → Src.Graph
-convertGraph lookupRepo pkgWithJunk db agr = fudgeGraph $ Src.Graph defs refs
+convertGraph ∷ Text → (Text→Text) → Text → PathDB → H.SymGraph → Src.Graph
+convertGraph repo lookupRepo pkgWithJunk db agr = fudgeGraph $ Src.Graph defs refs
   where pkg = traceShowId $ fudgePkgName $ traceShowId pkgWithJunk
-        defs = convertDef pkg db <$> Set.toList(allLocalBindings gr)
-        refs = convertRef lookupRepo pkg db <$> sgReferences gr
+        defs = convertDef repo pkg db <$> Set.toList(allLocalBindings gr)
+        refs = convertRef repo lookupRepo pkg db <$> sgReferences gr
         gr = allTheRenames agr
 
 -- TODO Using `read` directly is not safe.
@@ -268,8 +268,8 @@ ourModules = fmap f . Set.toList . fst
 moduleName (MP[])     = "Main"
 moduleName (MP (m:_)) = m
 
-moduleDefs ∷ Src.Pkg → [(RepoPath,ModulePath)] → Src.Graph
-moduleDefs pkg = flip Src.Graph [] . fmap cvt
+moduleDefs ∷ Text → Src.Pkg → [(RepoPath,ModulePath)] → Src.Graph
+moduleDefs repo pkg = flip Src.Graph [] . fmap cvt
     where cvt (filename,mp) = Src.Def
             { Src.defPath     = Src.PModule pkg mp
             , Src.defTreePath = Src.PModule pkg mp
@@ -280,6 +280,7 @@ moduleDefs pkg = flip Src.Graph [] . fmap cvt
             , Src.defDefEnd   = 0
             , Src.defExported = True
             , Src.defTest     = False
+            , Src.defRepo     = repo
             }
 
 -- We generate a lot of temporary directories:
@@ -324,7 +325,8 @@ graph info = do
 
   let completeSymGraph = mconcat $ _4 <$> graphs
 
-  let haddockResults = fudgeGraph $ convertGraph lookupRepo packageName pdb completeSymGraph
+  let repo = C.cabalRepoURI info
+  let haddockResults = fudgeGraph $ convertGraph repo lookupRepo packageName pdb completeSymGraph
 
   modRefs ← forM (pdbSourceFileNames pdb) $ \fn → do
     source ← readFile $ fpFromText fn
@@ -342,7 +344,7 @@ graph info = do
               pkg = fromMaybe packageName $ M.lookup mp modules
 
   let moduleGraph = convertModuleGraph toRepoAndPkg toOffsets modRefs
-  let results = moduleGraph ++ haddockResults ++ moduleDefs packageName (ourModules pdb)
+  let results = moduleGraph ++ haddockResults ++ moduleDefs repo packageName (ourModules pdb)
 
   -- We can't cleanup here, since we're using lazy IO. Processing the graph file
   -- hasn't (necessarily) happened yet.

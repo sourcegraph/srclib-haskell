@@ -1,6 +1,9 @@
 {
   "Defs": [
     {
+      "Repo": "github.com/sgtest/haskell-module-import",
+      "UnitType": "HaskellPackage",
+      "Unit": "haskell-hello-world",
       "Path": "haskell-hello-world/Hello",
       "Name": "Hello",
       "Kind": "Module",
@@ -11,16 +14,9 @@
       "TreePath": "haskell-hello-world/Hello"
     },
     {
-      "Path": "haskell-hello-world/Hello/hello/Value",
-      "Name": "hello",
-      "Kind": "Value",
-      "File": "src/Hello.hs",
-      "DefStart": 19,
-      "DefEnd": 50,
-      "Exported": true,
-      "TreePath": "haskell-hello-world/Hello/hello/Value"
-    },
-    {
+      "Repo": "github.com/sgtest/haskell-module-import",
+      "UnitType": "HaskellPackage",
+      "Unit": "haskell-hello-world",
       "Path": "haskell-hello-world/Main",
       "Name": "Main",
       "Kind": "Module",
@@ -29,16 +25,6 @@
       "DefEnd": 0,
       "Exported": true,
       "TreePath": "haskell-hello-world/Main"
-    },
-    {
-      "Path": "haskell-hello-world/Main/main/Value",
-      "Name": "main",
-      "Kind": "Value",
-      "File": "src/Main.hs",
-      "DefStart": 5586,
-      "DefEnd": 5604,
-      "Exported": true,
-      "TreePath": "haskell-hello-world/Main/main/Value"
     }
   ],
   "Refs": [
@@ -1450,15 +1436,6 @@
       "DefRepo": "git.haskell.org/packages/base",
       "DefUnitType": "HaskellPackage",
       "DefUnit": "base",
-      "DefPath": "base/System/IO/putStrLn/Value",
-      "File": "src/Hello.hs",
-      "Start": 27,
-      "End": 35
-    },
-    {
-      "DefRepo": "git.haskell.org/packages/base",
-      "DefUnitType": "HaskellPackage",
-      "DefUnit": "base",
       "DefPath": "base/System/IO",
       "File": "src/Main.hs",
       "Start": 5023,
@@ -1602,32 +1579,6 @@
     {
       "DefUnitType": "HaskellPackage",
       "DefUnit": "haskell-hello-world",
-      "DefPath": "haskell-hello-world/Hello/hello/Value",
-      "Def": true,
-      "File": "src/Hello.hs",
-      "Start": 19,
-      "End": 24
-    },
-    {
-      "DefUnitType": "HaskellPackage",
-      "DefUnit": "haskell-hello-world",
-      "DefPath": "haskell-hello-world/Hello/hello/Value",
-      "Def": true,
-      "File": "src/Hello.hs",
-      "Start": 19,
-      "End": 50
-    },
-    {
-      "DefUnitType": "HaskellPackage",
-      "DefUnit": "haskell-hello-world",
-      "DefPath": "haskell-hello-world/Hello/hello/Value",
-      "File": "src/Main.hs",
-      "Start": 5593,
-      "End": 5604
-    },
-    {
-      "DefUnitType": "HaskellPackage",
-      "DefUnit": "haskell-hello-world",
       "DefPath": "haskell-hello-world/Hello",
       "File": "src/Hello.hs",
       "Start": 7,
@@ -1640,24 +1591,6 @@
       "File": "src/Main.hs",
       "Start": 36,
       "End": 41
-    },
-    {
-      "DefUnitType": "HaskellPackage",
-      "DefUnit": "haskell-hello-world",
-      "DefPath": "haskell-hello-world/Main/main/Value",
-      "Def": true,
-      "File": "src/Main.hs",
-      "Start": 5586,
-      "End": 5590
-    },
-    {
-      "DefUnitType": "HaskellPackage",
-      "DefUnit": "haskell-hello-world",
-      "DefPath": "haskell-hello-world/Main/main/Value",
-      "Def": true,
-      "File": "src/Main.hs",
-      "Start": 5586,
-      "End": 5604
     },
     {
       "DefUnitType": "HaskellPackage",

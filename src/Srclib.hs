@@ -99,6 +99,7 @@ data Def = Def
   , defDefEnd   ∷ Int
   , defExported ∷ Bool
   , defTest     ∷ Bool
+  , defRepo     ∷ Text
   }
 
 data Graph = Graph [Def] [Ref]
@@ -146,7 +147,7 @@ instance Arbitrary Ref where
 instance Arbitrary Def where
   arbitrary = Def <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
                   <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
-                  <*> arbitrary
+                  <*> arbitrary <*> arbitrary
 
 instance Arbitrary ResolvedDependency where
   arbitrary = ResolvedDependency <$> arbitrary <*> arbitrary <*> arbitrary
@@ -184,6 +185,9 @@ instance ToJSON Def where
                     , "Name" .= defName d
                     , "Kind" .= defKind d
                     , "File" .= defFile d
+                    , "Unit" .= pathPkg(defPath d)
+                    , "Repo" .= defRepo d
+                    , "UnitType" .= ("HaskellPackage"∷String)
                     , "DefStart" .= defDefStart d
                     , "DefEnd" .= defDefEnd d
                     , "Exported" .= defExported d
