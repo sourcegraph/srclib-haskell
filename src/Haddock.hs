@@ -107,9 +107,10 @@ instance Semigroup Shelly.FilePath where
 
 repoMap ∷ C.CabalInfo → IO (Map PkgName RepoURI)
 repoMap info = do
-  hack ← readHackage
-  ds ← mapM(C.resolve hack ⋙ return) $ M.toList $ C.cabalDependencies info
-  return $ M.fromList $ (\d → (Src.depToUnit d, Src.depToRepoCloneURL d)) <$> ds
+  return (M.empty)
+  -- hack ← readHackage
+  -- ds ← mapM(C.resolve hack ⋙ return) $ M.toList $ C.cabalDependencies info
+  -- return $ M.fromList $ (\d → (Src.depToUnit d, Src.depToRepoCloneURL d)) <$> ds
 
 convertModuleGraph ∷ ModuleLookup → SrcLocLookup → [(Text,[Imp.ModuleRef])] → Src.Graph
 convertModuleGraph toRepoAndPkg toOffset refMap =
