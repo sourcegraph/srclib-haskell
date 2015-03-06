@@ -1,0 +1,10 @@
+█ Remove the code for preprocess-haskell from this source tree.
+	█ Read about the sanest way to depend against a local library.
+█ Interactive testing with srcco.
+	█ Get fast test iterations set up.
+█ Strictly separate depresolve from graphing.
+  █ Formaize the information that I need from the depresolve phase.
+	█ Get depresolve to produce this infomrmaiton, FAST!
+	█ Write the graphing code to accept depresolve information up front.
+	█ In Main.hs, always run depresolve before graphing, and pass that
+	  information to the grapher.

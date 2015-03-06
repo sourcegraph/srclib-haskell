@@ -36,6 +36,8 @@ import Distribution.Hackage.DB (readHackage)
 
 import Control.DeepSeq
 
+import Language.Haskell.Preprocess hiding (moduleName)
+
 
 -- Types ---------------------------------------------------------------------
 
