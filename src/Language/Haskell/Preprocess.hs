@@ -107,6 +107,8 @@ processFile macros fn = do
           CPP.preInclude = [fp],
           CPP.boolopts = (CPP.boolopts defaults) {
             CPP.warnings = False,
+            CPP.hashline = False,
+            CPP.stripC89 = True,
             CPP.literate = literateHaskellFilename(unSTP fn) }}
     noMacros ← CPP.runCpphs cppOpts pstr contents
     noMacros `deepseq` return(Module fn noMacros)

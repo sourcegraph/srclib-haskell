@@ -197,12 +197,12 @@ graph info = do
       modRefs = flip map (M.toList cleanTree) $ \(modNm,Module fn source) →
 		(T.pack(stpStr fn), Imp.moduleRefs (stpStr fn) source)
 
-  forM (M.toList cleanTree) $ \(modNm,Module fn source) → do
-		traceM $ printf ("================")
-		traceM $ printf ("====== %s ======"∷String) (stpStr fn)
-		traceM $ printf ("================"∷String)
-		traceM source
-		traceM $ ""
+  --forM (M.toList cleanTree) $ \(modNm,Module fn source) → do
+		--traceM $ printf "================"
+		--traceM $ printf "====== %s ======" (stpStr fn)
+		--traceM $ printf "================"
+		--traceM source
+		--traceM $ ""
 
   let packageName = C.cabalPkgName info
   traceM "mkDB"

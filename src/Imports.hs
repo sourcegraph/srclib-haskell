@@ -6,6 +6,7 @@ import ClassyPrelude
 
 import qualified Data.Text as T
 import Language.Haskell.Exts.Annotated as HSE
+import Language.Haskell.Exts.Extension as HSE
 import qualified Locations as Loc
 import qualified Examples as Ex
 
@@ -37,7 +38,12 @@ moduleRefs fn source = cvt <$> results -- trace tree results
         tree = show modul
         imports = map importToModPath $ fromMaybe [] $ allImports <$> modul
         results = maybe imports (:imports) $ traceShowId $ join $ moduleDecl <$> modul
-        mode = defaultParseMode {parseFilename=fn, fixities=Nothing}
+        mode = defaultParseMode
+          { parseFilename     = fn
+          , fixities          = Nothing
+          , ignoreLinePragmas = False
+          , extensions        = EnableExtension CPP : extensions defaultParseMode
+          }
         cvt (SrcSpanInfo (SrcSpan fn sl sc el ec) _, mp) =
           (fn,(sl,sc),(el,ec),mp)
 

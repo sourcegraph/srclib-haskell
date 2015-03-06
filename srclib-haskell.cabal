@@ -34,7 +34,7 @@ executable srclib-haskell
                ,       foldl
                ,       ghc
                ,       hackage-db
-               ,       haskell-src-exts
+               ,       haskell-src-exts==1.16.0.1
                ,       here
                ,       mtl
                ,       pathtype
