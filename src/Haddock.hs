@@ -9,10 +9,12 @@
 
 module Haddock where
 
+import qualified Prelude
 import           ClassyPrelude hiding ((</>), (<.>), maximumBy)
 import           Prelude.Unicode
 import           Control.Category.Unicode
 import qualified Imports as Imp
+import Text.Printf
 
 import qualified Data.IntMap as IntMap
 import qualified Data.Maybe as May
@@ -183,15 +185,24 @@ graph info = do
       workDir = mkTmp "work-directory"
       subDir = srclibPath $ C.cabalPkgDir info
       workSubDir = workDir <> "/" <> subDir
-      cleanup ∷ IO ()
-      cleanup = shelly $ do
-        let tmps = [symbolGraph, sandbox, buildDir, workDir]
-            tmpFilePaths ∷ [Path.FilePath]
-            tmpFilePaths = fromText <$> tmps
-        mapM_ rm_rf tmpFilePaths
 
-  let toStderr = log_stdout_with $ T.unpack ⋙ hPutStrLn stderr
-  let cabal_ = run_ "cabal"
+  let pkgFile = T.unpack $ srclibPath $ C.cabalFile info
+  cleanTree ← processPackage $ STP $ Path.decodeString pkgFile
+
+  -- let allCode = join $ mSource <$> M.elems cleanTree
+  -- let loc = length $ Prelude.lines $ allCode
+  -- traceM $ printf "%d lines of code in package %s" loc pkgFile
+
+  let modRefs ∷ [(Text,[Imp.ModuleRef])]
+      modRefs = flip map (M.toList cleanTree) $ \(modNm,Module fn source) →
+		(T.pack(stpStr fn), Imp.moduleRefs (stpStr fn) source)
+
+  forM (M.toList cleanTree) $ \(modNm,Module fn source) → do
+		traceM $ printf ("================")
+		traceM $ printf ("====== %s ======"∷String) (stpStr fn)
+		traceM $ printf ("================"∷String)
+		traceM source
+		traceM $ ""
 
   let packageName = C.cabalPkgName info
   traceM "mkDB"
@@ -206,13 +217,6 @@ graph info = do
 
   let repo = C.cabalRepoURI info
   let haddockResults = fudgeGraph $ convertGraph repo lookupRepo packageName pdb completeSymGraph
-
-  modRefs ← forM (pdbSourceFileNames pdb) $ \fn → do
-    source ← readFile $ fpFromText fn
-    traceM $ T.unpack ("<" <> fn <> ">")
-    let result = (fn, Imp.moduleRefs (T.unpack fn) source)
-    result `deepseq` traceM(T.unpack $ "</" ++ fn ++ ">")
-    return result
 
   let _3 (a,b,c) = c
       toOffsets ∷ (String,Int,Int) → Int
