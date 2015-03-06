@@ -34,6 +34,8 @@ import qualified Srclib as Src
 
 import Distribution.Hackage.DB (readHackage)
 
+import Control.DeepSeq
+
 
 -- Types ---------------------------------------------------------------------
 
@@ -179,6 +181,7 @@ graph info = do
       workDir = mkTmp "work-directory"
       subDir = srclibPath $ C.cabalPkgDir info
       workSubDir = workDir <> "/" <> subDir
+      cleanup ∷ IO ()
       cleanup = shelly $ do
         let tmps = [symbolGraph, sandbox, buildDir, workDir]
             tmpFilePaths ∷ [Path.FilePath]
@@ -190,20 +193,24 @@ graph info = do
 
   let packageName = C.cabalPkgName info
   traceM "mkDB"
+
+  traceM "Building PDB."
   pdb ← mkDB info
+  pdb `deepseq` traceM "Built PDB."
 
   let _4 (_,_,_,x) = x
 
   let completeSymGraph = mempty∷Src.Graph
-
-  traceM "foo"
 
   let repo = C.cabalRepoURI info
   let haddockResults = fudgeGraph $ convertGraph repo lookupRepo packageName pdb completeSymGraph
 
   modRefs ← forM (pdbSourceFileNames pdb) $ \fn → do
     source ← readFile $ fpFromText fn
-    return (fn, Imp.moduleRefs (T.unpack fn) source)
+    traceM $ T.unpack ("<" <> fn <> ">")
+    let result = (fn, Imp.moduleRefs (T.unpack fn) source)
+    result `deepseq` traceM(T.unpack $ "</" ++ fn ++ ">")
+    return result
 
   let _3 (a,b,c) = c
       toOffsets ∷ (String,Int,Int) → Int
@@ -218,13 +225,11 @@ graph info = do
 
   traceM "moduleGraph"
   let moduleGraph = convertModuleGraph toRepoAndPkg toOffsets modRefs
-  let results = moduleGraph ++ haddockResults ++ moduleDefs repo packageName (ourModules pdb)
+  let results = moduleGraph ++ moduleDefs repo packageName (ourModules pdb)
 
-  -- We can't cleanup here, since we're using lazy IO. Processing the graph file
-  -- hasn't (necessarily) happened yet.
-
-  traceM "done"
-  return (results,cleanup)
+  traceM "almost done"
+  results `deepseq` traceM "done"
+  return (results,return())
 
 isParent ∷ RepoPath → RepoPath → Bool
 isParent (Repo(FP parent)) (Repo(FP child)) = parent `isSuffixOf` child

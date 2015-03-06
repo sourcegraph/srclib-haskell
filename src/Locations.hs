@@ -22,6 +22,7 @@
 {-# LANGUAGE LambdaCase                 #-}
 {-# LANGUAGE NoImplicitPrelude          #-}
 {-# LANGUAGE OverloadedStrings          #-}
+{-# LANGUAGE DeriveGeneric              #-}
 {-# LANGUAGE ScopedTypeVariables        #-}
 {-# LANGUAGE StandaloneDeriving         #-}
 {-# LANGUAGE UnicodeSyntax              #-}
@@ -39,6 +40,8 @@ import           Data.Char
 import qualified Data.List                 as L
 import           Data.Monoid.Unicode
 import           Prelude.Unicode           hiding (π)
+
+import           Control.DeepSeq
 
 import qualified Data.ByteString.Lazy      as B
 import qualified Data.IntMap               as IntMap
@@ -71,15 +74,17 @@ data FileShape = Shape { fsLineWidths ∷ !IntVec
                        }
   deriving (Ord, Eq, Show)
 
+instance NFData FileShape
+
 type Path      = [Text]
 type Extension = Maybe Text
 
 newtype ModulePath = MP Path
-  deriving (Ord,Eq,Show)
+  deriving (Ord,Eq,Show,NFData)
 
 -- | relative to some, unknown directory.
 newtype FilePath = FP Path
-  deriving (Ord,Eq,Show)
+  deriving (Ord,Eq,Show,NFData)
 
 instance Monoid FilePath where
   mappend (FP a) (FP b) = FP(b `mappend` a)
@@ -90,15 +95,15 @@ instance Semigroup FilePath where
 
 -- | relative to a Haskell source directory.
 newtype SrcPath  = Src FilePath
-  deriving (Ord,Eq,Show,Semigroup)
+  deriving (Ord,Eq,Show,Semigroup,NFData)
 
 -- | relative to the root of a repository.
 newtype RepoPath = Repo FilePath
-  deriving (Ord,Eq,Show,Semigroup)
+  deriving (Ord,Eq,Show,Semigroup,NFData)
 
 -- | relative to the filesystem root.
 newtype AbsPath  = Abs FilePath
-  deriving (Ord,Eq,Show,Semigroup)
+  deriving (Ord,Eq,Show,Semigroup,NFData)
 
 data Span = Span{spanFile∷RepoPath, spanStart∷Int, spanLength∷Int}
   deriving (Ord,Eq,Show)

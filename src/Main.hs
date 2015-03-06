@@ -76,7 +76,10 @@ runGrapher = do
     Nothing → usage
     Just info → do
       (r,cleanup) ← graph info
+      traceM "<JSON>"
+      traceM $ show r
       dumpJSON r
+      traceM "</JSON>"
       cleanup
 
 srclibRun ∷ [Text] → IO ()

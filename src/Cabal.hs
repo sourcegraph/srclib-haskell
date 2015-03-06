@@ -114,17 +114,18 @@ specialDepInfo (n,_) = M.lookup n $ M.fromList $
 
 moduleMap ∷ CabalInfo → IO (Map Loc.ModulePath Src.Pkg)
 moduleMap info = do
-  hack ← readHackage
-  let pkgs = catMaybes(lookupPackage hack <$>(M.toList(cabalDependencies info)))
-      flatten = Cabal.flattenPackageDescription
-      pModules = Cabal.library
-               ⋙ maybeToList
-               ⋙ fmap Cabal.exposedModules
-               ⋙ join
-               ⋙ fmap (Cabal.display ⋙ T.pack ⋙ Loc.parseModulePath)
-      pName = T.pack . Cabal.display . Cabal.pkgName . Cabal.package
-      flatPkgs = flatten <$> pkgs
-  return $ M.fromList $ join $ (\p → (,pName p) <$> pModules p) <$> flatPkgs
+  return M.empty
+--  hack ← readHackage
+--  let pkgs = catMaybes(lookupPackage hack <$>(M.toList(cabalDependencies info)))
+--      flatten = Cabal.flattenPackageDescription
+--      pModules = Cabal.library
+--               ⋙ maybeToList
+--               ⋙ fmap Cabal.exposedModules
+--               ⋙ join
+--               ⋙ fmap (Cabal.display ⋙ T.pack ⋙ Loc.parseModulePath)
+--      pName = T.pack . Cabal.display . Cabal.pkgName . Cabal.package
+--      flatPkgs = flatten <$> pkgs
+--  return $ M.fromList $ join $ (\p → (,pName p) <$> pModules p) <$> flatPkgs
 
 safeMax ∷ Map k v → Maybe (k,v)
 safeMax m = if M.null m then Nothing else Just(M.findMax m)

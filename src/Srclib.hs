@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveGeneric       #-}
 {-# LANGUAGE NoImplicitPrelude   #-}
 {-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
@@ -13,6 +14,7 @@ import           ClassyPrelude
 import qualified Data.Text       as T
 import           Data.Aeson      as JSON
 import           Test.QuickCheck
+import           Control.DeepSeq
 
 import           Locations       (RepoPath,ModulePath(..))
 import qualified Locations       as L
@@ -104,6 +106,7 @@ data Def = Def
 
 data Graph = Graph [Def] [Ref]
 
+instance NFData Graph
 instance Monoid Graph where
   mempty = Graph [] []
   (Graph a b) `mappend` (Graph α β) = Graph (mappend a α) (mappend b β)
