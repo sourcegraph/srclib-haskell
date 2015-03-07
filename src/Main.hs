@@ -43,9 +43,7 @@ import Distribution.Hackage.DB (Hackage, readHackage)
 
 
 depresolveCmd ∷ CabalInfo → IO [Src.ResolvedDependency]
-depresolveCmd info = do
-  hack ← readHackage
-  mapM (C.resolve hack ⋙ return) $ M.toList $ cabalDependencies info
+depresolveCmd info = return []
 
 getCabalInfo ∷ SourceUnit → CabalInfo
 getCabalInfo x = case C.fromSrcUnit x of
