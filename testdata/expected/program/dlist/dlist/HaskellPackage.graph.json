@@ -44,10 +44,170 @@
     {
       "DefUnitType": "HaskellPackage",
       "DefUnit": "dlist",
-      "DefPath": "dlist/Distribution/Simple",
-      "File": "Setup.lhs",
-      "Start": 9,
-      "End": 0
+      "DefPath": "dlist/Control/Applicative",
+      "File": "Data/DList.hs",
+      "Start": 2158,
+      "End": 2177
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Control/Applicative",
+      "File": "Data/DList.hs",
+      "Start": 2232,
+      "End": 2251
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Control/DeepSeq",
+      "File": "Data/DList.hs",
+      "Start": 1631,
+      "End": 1646
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Control/Monad",
+      "File": "Data/DList.hs",
+      "Start": 1667,
+      "End": 1680
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Data/DList",
+      "File": "Data/DList.hs",
+      "Start": 708,
+      "End": 718
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Data/DList",
+      "File": "tests/Main.hs",
+      "Start": 527,
+      "End": 537
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Data/Foldable",
+      "File": "Data/DList.hs",
+      "Start": 1773,
+      "End": 1786
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Data/Foldable",
+      "File": "Data/DList.hs",
+      "Start": 1815,
+      "End": 1828
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Data/Function",
+      "File": "Data/DList.hs",
+      "Start": 1712,
+      "End": 1725
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Data/List",
+      "File": "Data/DList.hs",
+      "Start": 1606,
+      "End": 1615
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Data/List",
+      "File": "tests/Main.hs",
+      "Start": 448,
+      "End": 457
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Data/Monoid",
+      "File": "Data/DList.hs",
+      "Start": 1693,
+      "End": 1704
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Data/String",
+      "File": "Data/DList.hs",
+      "Start": 1738,
+      "End": 1749
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/GHC/Exts",
+      "File": "Data/DList.hs",
+      "Start": 2018,
+      "End": 2026
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/GHC/Exts",
+      "File": "Data/DList.hs",
+      "Start": 2126,
+      "End": 2134
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Main",
+      "File": "tests/Main.hs",
+      "Start": 264,
+      "End": 268
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Prelude",
+      "File": "Data/DList.hs",
+      "Start": 1530,
+      "End": 1537
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Prelude",
+      "File": "tests/Main.hs",
+      "Start": 372,
+      "End": 379
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Test/QuickCheck",
+      "File": "tests/Main.hs",
+      "Start": 503,
+      "End": 518
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Text/Read",
+      "File": "Data/DList.hs",
+      "Start": 1870,
+      "End": 1879
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "dlist",
+      "DefPath": "dlist/Text/Show/Functions",
+      "File": "tests/Main.hs",
+      "Start": 473,
+      "End": 492
     }
   ]
 }

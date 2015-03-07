@@ -13,15 +13,5 @@
       "Exported": true,
       "TreePath": "haskell-hello-world/Main"
     }
-  ],
-  "Refs": [
-    {
-      "DefUnitType": "HaskellPackage",
-      "DefUnit": "haskell-hello-world",
-      "DefPath": "haskell-hello-world/Main",
-      "File": "sub-unit/src/Main.hs",
-      "Start": 7,
-      "End": 11
-    }
   ]
 }

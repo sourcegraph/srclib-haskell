@@ -193,8 +193,9 @@ processPackage ∷ SrcTreePath → IO Package
 processPackage fn = do
   -- traceM $ P.encodeString $ unSTP fn
   (srcDirs,macros) ← cabalInfo fn
+  let pkgDir = (STP . P.directory . unSTP) fn
   -- traceM $ "srcDirs: " ++ Prelude.show srcDirs
-  hsFiles ← fmap STP <$> shellLines (find haskellFiles ".")
+  hsFiles ← fmap STP <$> shellLines (find haskellFiles (unSTP pkgDir))
   -- traceM $ "hsFiles: " ++ Prelude.show hsFiles
   fmap (M.fromList . catMaybes) $ forM hsFiles $ \hs → do
     case moduleName srcDirs hs of

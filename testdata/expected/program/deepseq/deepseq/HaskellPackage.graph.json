@@ -44,6 +44,166 @@
     {
       "DefUnitType": "HaskellPackage",
       "DefUnit": "deepseq",
+      "DefPath": "deepseq/Control/Applicative",
+      "File": "Control/DeepSeq.hs",
+      "Start": 1796,
+      "End": 1815
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Control/Concurrent/MVar",
+      "File": "tests/Main.hs",
+      "Start": 226,
+      "End": 249
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Control/Concurrent",
+      "File": "Control/DeepSeq.hs",
+      "Start": 1823,
+      "End": 1841
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Control/DeepSeq",
+      "File": "Control/DeepSeq.hs",
+      "Start": 1715,
+      "End": 1730
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Control/DeepSeq",
+      "File": "tests/Main.hs",
+      "Start": 585,
+      "End": 600
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Control/Exception",
+      "File": "tests/Main.hs",
+      "Start": 257,
+      "End": 274
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Control/Monad",
+      "File": "tests/Main.hs",
+      "Start": 282,
+      "End": 295
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Data/Array",
+      "File": "Control/DeepSeq.hs",
+      "Start": 1933,
+      "End": 1943
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Data/Bits",
+      "File": "tests/Main.hs",
+      "Start": 303,
+      "End": 312
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Data/Complex",
+      "File": "Control/DeepSeq.hs",
+      "Start": 1913,
+      "End": 1925
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Data/Fixed",
+      "File": "Control/DeepSeq.hs",
+      "Start": 1951,
+      "End": 1961
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Data/IORef",
+      "File": "tests/Main.hs",
+      "Start": 320,
+      "End": 330
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Data/Int",
+      "File": "Control/DeepSeq.hs",
+      "Start": 1862,
+      "End": 1870
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Data/Monoid",
+      "File": "Control/DeepSeq.hs",
+      "Start": 1989,
+      "End": 2000
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Data/Ratio",
+      "File": "Control/DeepSeq.hs",
+      "Start": 1895,
+      "End": 1905
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Data/Typeable",
+      "File": "tests/Main.hs",
+      "Start": 338,
+      "End": 351
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Data/Unique",
+      "File": "Control/DeepSeq.hs",
+      "Start": 2008,
+      "End": 2019
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Data/Version",
+      "File": "Control/DeepSeq.hs",
+      "Start": 1969,
+      "End": 1981
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Data/Word",
+      "File": "Control/DeepSeq.hs",
+      "Start": 1878,
+      "End": 1887
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Data/Word",
+      "File": "tests/Main.hs",
+      "Start": 359,
+      "End": 368
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
       "DefPath": "deepseq/Distribution/Simple",
       "File": "Setup.hs",
       "Start": 33,
@@ -52,10 +212,90 @@
     {
       "DefUnitType": "HaskellPackage",
       "DefUnit": "deepseq",
+      "DefPath": "deepseq/Foreign/C/Types",
+      "File": "Control/DeepSeq.hs",
+      "Start": 2038,
+      "End": 2053
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/GHC/Fingerprint/Type",
+      "File": "Control/DeepSeq.hs",
+      "Start": 2556,
+      "End": 2576
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/GHC/Generics",
+      "File": "Control/DeepSeq.hs",
+      "Start": 2604,
+      "End": 2616
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/GHC/Generics",
+      "File": "tests/Main.hs",
+      "Start": 376,
+      "End": 388
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
       "DefPath": "deepseq/Main",
       "File": "Setup.hs",
       "Start": 7,
       "End": 11
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Main",
+      "File": "tests/Main.hs",
+      "Start": 200,
+      "End": 204
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/System/IO/Unsafe",
+      "File": "tests/Main.hs",
+      "Start": 396,
+      "End": 412
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/System/Mem/StableName",
+      "File": "Control/DeepSeq.hs",
+      "Start": 2061,
+      "End": 2082
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Test/Framework/Providers/HUnit",
+      "File": "tests/Main.hs",
+      "Start": 521,
+      "End": 551
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Test/Framework",
+      "File": "tests/Main.hs",
+      "Start": 499,
+      "End": 513
+    },
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "deepseq",
+      "DefPath": "deepseq/Test/HUnit",
+      "File": "tests/Main.hs",
+      "Start": 559,
+      "End": 569
     }
   ]
 }

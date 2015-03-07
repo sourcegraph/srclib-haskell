@@ -187,7 +187,10 @@ graph info = do
       workSubDir = workDir <> "/" <> subDir
 
   let pkgFile = T.unpack $ srclibPath $ C.cabalFile info
+
+  traceM $ printf "pkgFile: %s" pkgFile
   cleanTree ← processPackage $ STP $ Path.decodeString pkgFile
+  traceM $ printf "pkg modules: %s" $ show $ M.keys cleanTree
 
   -- let allCode = join $ mSource <$> M.elems cleanTree
   -- let loc = length $ Prelude.lines $ allCode
