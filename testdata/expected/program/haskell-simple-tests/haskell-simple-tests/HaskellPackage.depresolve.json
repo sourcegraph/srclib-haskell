@@ -1,1 +1,1 @@
-[{"Raw":["base",">=4.7 && <4.8"],"Target":{"ToVersionString":"4.7.0.1","ToUnit":"base","ToRepoCloneURL":"git.haskell.org/packages/base.git","ToRevSpec":"ghc-7.8","ToUnitType":"HaskellPackage"}}]
+[]

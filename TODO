@@ -1,10 +1,41 @@
 █ Remove the code for preprocess-haskell from this source tree.
 	█ Read about the sanest way to depend against a local library.
+
 █ Interactive testing with srcco.
 	█ Get fast test iterations set up.
+
+█ Improve the test suite.
+	█ I should start doing loose TDD style testing. It makes a ton of
+	  sense with this type of program.
+
 █ Strictly separate depresolve from graphing.
   █ Formaize the information that I need from the depresolve phase.
 	█ Get depresolve to produce this infomrmaiton, FAST!
 	█ Write the graphing code to accept depresolve information up front.
 	█ In Main.hs, always run depresolve before graphing, and pass that
 	  information to the grapher.
+
+█ The code is currently not outputing any refs. Why?
+
+█ Allow available packages to be manually specified.
+	█ First step: Always use the greatest available version.
+	█ Final version: Actually resolve dependencies.
+
+█ Cleanup
+	█ Some code calls `cd`, which changes the working directory
+	  of the entire program.
+		█ Make this change local to that IO action.
+	█ Parse failuers are logged with `traceM`.
+		█ This is easy, but shouldn't be used in production.
+		█ What's the best way to handle this? WriterT over IO?
+	█ This code currently exposes an interface based on lazy IO.
+		█ Instead, expose a set of IO actions that give the library
+		  consumer control over when things happen.
+
+█ Instead of just exporting the filename of the cabal package, also export:
+	█ the set of header files that are included
+	█ the set of extensions that are enabled by default for all source files.
+
+█ Make header files that are included with a package available to cpphs.
+	█ Get information from *.cabal about where these header files are located.
+	█ Copy these files to the temporary directory.
