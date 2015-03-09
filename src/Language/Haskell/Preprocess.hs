@@ -102,8 +102,8 @@ yuck = T.pack
      ⋙ T.replace "defined(MIN_VERSION_integer_gmp)" "1"
      ⋙ T.unpack
 
-processFile ∷ String → SrcTreePath → IO Module
-processFile macros fn = do
+processFile ∷ String → [SrcTreePath] → SrcTreePath → IO Module
+processFile macros includeDirs fn = do
   IO.withSystemTempFile "cabal_macros.h" $ \fp handle → do
     IO.hPutStrLn handle macros
     IO.hPutStrLn handle ghcMacros
@@ -115,8 +115,8 @@ processFile macros fn = do
     let defaults = CPP.defaultCpphsOptions
         cppOpts = defaults {
           CPP.preInclude = [fp],
+          CPP.includes = stpStr <$> includeDirs,
           CPP.boolopts = (CPP.boolopts defaults) {
-            CPP.warnings = False,
             CPP.hashline = False,
             CPP.stripC89 = True,
             CPP.literate = literateHaskellFilename(unSTP fn) }}
@@ -221,7 +221,7 @@ processPackage fn = do
   modules ← fmap (M.fromList . catMaybes) $ forM hsFiles $ \hs → do
     case moduleName srcDirs hs of
       Nothing → return Nothing
-      Just nm → Just . (nm,) <$> processFile macros hs
+      Just nm → Just . (nm,) <$> processFile macros includeDirs hs
   return $ Package modules includeDirs defaultExtensions
 
   -- pModules           ∷ Map ModuleName Module,
