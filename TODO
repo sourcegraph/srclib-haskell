@@ -1,12 +1,26 @@
 █ Remove the code for preprocess-haskell from this source tree.
 	█ Read about the sanest way to depend against a local library.
 
-█ Interactive testing with srcco.
-	█ Get fast test iterations set up.
-
 █ Improve the test suite.
+	█ Interactive testing with srcco.
+		█ Get fast test iterations set up.
 	█ I should start doing loose TDD style testing. It makes a ton of
 	  sense with this type of program.
+	█ Added a new test repo for cpp tests.
+		█ Test cases where code #include's header files that
+		  are bundled with the project.
+		█ Test that all of the compiler macros are working correctly.
+		█ Test that `MachDeps.h` and `ghcautoconf.h` can be included properly.
+		█ Test cases where mingw32 and linux are both assumed to be the host OS.
+			| #ifdef mingw32_HOST_OS
+			| # if defined(i386_HOST_ARCH)
+			| #  define WINDOWS_CCONV stdcall
+			| # elif defined(x86_64_HOST_ARCH)
+			| #  define WINDOWS_CCONV ccall
+			| # else
+			| #  error Unknown mingw32 arch
+			| # endif
+			| #endif
 
 █ Strictly separate depresolve from graphing.
   █ Formaize the information that I need from the depresolve phase.
@@ -26,12 +40,15 @@
 	█ Parse failuers are logged with `traceM`.
 		█ This is easy, but shouldn't be used in production.
 		█ What's the best way to handle this? WriterT over IO?
+	█ Stop hiding CPP warnings.
 	█ This code currently exposes an interface based on lazy IO.
 		█ Instead, expose a set of IO actions that give the library
 		  consumer control over when things happen.
 
 █ Instead of just exporting the filename of the cabal package, also export:
 	█ the set of header files that are included
+		█ This is the `include-dirs` property.
+
 	█ the set of extensions that are enabled by default for all source files.
 
 █ Make header files that are included with a package available to cpphs.
