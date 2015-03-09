@@ -15,8 +15,6 @@
 	█ In Main.hs, always run depresolve before graphing, and pass that
 	  information to the grapher.
 
-█ The code is currently not outputing any refs. Why?
-
 █ Allow available packages to be manually specified.
 	█ First step: Always use the greatest available version.
 	█ Final version: Actually resolve dependencies.

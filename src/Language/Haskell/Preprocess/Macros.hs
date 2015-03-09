@@ -18,7 +18,7 @@ machDeps ∷ String
 machDeps = [hereFile|MachDeps.h|]
 
 compilerMacros ∷ String
-compilerMacros = [here|
+compilerMacros = x++"\n" where x = [here|
 #define __GLASGOW_HASKELL__ 708
 #define x86_64_HOST_ARCH 1
 #define linux_HOST_OS 1
