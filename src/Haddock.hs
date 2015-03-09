@@ -190,14 +190,14 @@ graph info = do
 
   traceM $ printf "pkgFile: %s" pkgFile
   cleanTree ← processPackage $ STP $ Path.decodeString pkgFile
-  traceM $ printf "pkg modules: %s" $ show $ M.keys cleanTree
+  traceM $ printf "pkg modules: %s" $ show $ M.keys $ pModules cleanTree
 
   -- let allCode = join $ mSource <$> M.elems cleanTree
   -- let loc = length $ Prelude.lines $ allCode
   -- traceM $ printf "%d lines of code in package %s" loc pkgFile
 
   let modRefs ∷ [(Text,[Imp.ModuleRef])]
-      modRefs = flip map (M.toList cleanTree) $ \(modNm,Module fn source) →
+      modRefs = flip map (M.toList $ pModules cleanTree) $ \(modNm,Module fn source) →
 		(T.pack(stpStr fn), Imp.moduleRefs (stpStr fn) source)
 
   --forM (M.toList cleanTree) $ \(modNm,Module fn source) → do

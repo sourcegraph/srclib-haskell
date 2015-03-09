@@ -37,10 +37,13 @@ import qualified Distribution.PackageDescription.Parse as C
 import qualified Distribution.Verbosity as C
 import qualified Distribution.Version as C
 import qualified Distribution.PackageDescription.Configuration as C
+import qualified Language.Haskell.Extension as C
 
 import Debug.Trace
 
 import Language.Haskell.Preprocess.Macros
+
+import System.Directory
 
 
 -- Types ---------------------------------------------------------------------
@@ -60,7 +63,14 @@ data Module = Module
   deriving (Show)
 
 -- | The files of a cabal package.
-type Package = Map ModuleName Module
+data Package = Package {
+  pModules           ∷ Map ModuleName Module,
+  pInculdeDirs       ∷ [SrcTreePath],
+  pDefaultExtensions ∷ [C.Extension]
+}
+
+-- C.defaultExtnsions ∷ C.BuildInfo → [C.Extension]
+-- C.includeDirs ∷ C.BuildInfo → [String]
 
 -- | Map from a cabal file to it's associated source files.
 type SourceTree = Map SrcTreePath Package
@@ -138,11 +148,29 @@ moduleName srcDirs fn = listToMaybe $ moduleNames
 
 -- TODO nub is not your friend.
 -- TODO Handle parse failures!
-allSourceDirs ∷ C.PackageDescription → [Prelude.FilePath]
+allSourceDirs ∷ C.PackageDescription → [String]
 allSourceDirs desc = nub $ join $ libDirs ++ exeDirs
   where
      libDirs = maybeToList (C.hsSourceDirs . C.libBuildInfo <$> C.library desc)
      exeDirs = C.hsSourceDirs . C.buildInfo <$> C.executables desc
+
+-- TODO nub is not your friend.
+-- TODO Handle parse failures!
+-- TODO Copy-pasta!
+allHeaderIncludeDirs ∷ C.PackageDescription → [String]
+allHeaderIncludeDirs desc = nub $ join $ libDirs ++ exeDirs
+  where
+     libDirs = maybeToList (C.includeDirs . C.libBuildInfo <$> C.library desc)
+     exeDirs = C.includeDirs . C.buildInfo <$> C.executables desc
+
+-- TODO nub is not your friend.
+-- TODO Handle parse failures!
+-- TODO Copy-pasta!
+allDefaultExtensions ∷ C.PackageDescription → [C.Extension]
+allDefaultExtensions desc = nub $ join $ libDirs ++ exeDirs
+  where
+     libDirs = maybeToList (C.defaultExtensions . C.libBuildInfo <$> C.library desc)
+     exeDirs = C.defaultExtensions . C.buildInfo <$> C.executables desc
 
 macroPlaceholder ∷ IO String
 macroPlaceholder = do
@@ -171,53 +199,59 @@ cabalMacros = C.generatePackageVersionMacros . pkgs
   where resolve (C.Dependency n v) = C.PackageIdentifier n $ chooseVersion v
         pkgs = fmap resolve . pkgDeps
 
-cabalInfo ∷ SrcTreePath → IO ([SrcTreePath],String)
+cabalInfo ∷ SrcTreePath → IO ([SrcTreePath],String,[SrcTreePath],[C.Extension])
 cabalInfo cabalFile = do
   traceM $ "cabalInfo " <> stpStr cabalFile
   gdesc ← C.readPackageDescription C.normal $ stpStr cabalFile
   let desc        = C.flattenPackageDescription gdesc
       pkgRoot     = directory $ unSTP cabalFile
       dirStrs     = allSourceDirs desc
+      incDirs     = allHeaderIncludeDirs desc
+      exts        = allDefaultExtensions desc
       toSTP d     = STP $ P.collapse $ pkgRoot </> P.decodeString(d <> "/")
+      macros      = cabalMacros gdesc
 
-  -- traceM $ Prelude.show $ toSTP <$> dirStrs
-  let macros = cabalMacros gdesc
-
-  -- traceM $ "<macros pkg=" ++ stpStr cabalFile ++ ">"
-  -- traceM $ macros
-  -- traceM $ "</macros>"
-
-  return (toSTP <$> dirStrs, macros)
+  return (toSTP <$> dirStrs, macros, toSTP <$> incDirs, exts)
 
 processPackage ∷ SrcTreePath → IO Package
 processPackage fn = do
-  -- traceM $ P.encodeString $ unSTP fn
-  (srcDirs,macros) ← cabalInfo fn
+  (srcDirs,macros,includeDirs,defaultExtensions) ← cabalInfo fn
   let pkgDir = (STP . P.directory . unSTP) fn
-  -- traceM $ "srcDirs: " ++ Prelude.show srcDirs
   hsFiles ← fmap STP <$> shellLines (find haskellFiles (unSTP pkgDir))
-  -- traceM $ "hsFiles: " ++ Prelude.show hsFiles
-  fmap (M.fromList . catMaybes) $ forM hsFiles $ \hs → do
+  modules ← fmap (M.fromList . catMaybes) $ forM hsFiles $ \hs → do
     case moduleName srcDirs hs of
       Nothing → return Nothing
       Just nm → Just . (nm,) <$> processFile macros hs
+  return $ Package modules includeDirs defaultExtensions
+
+  -- pModules           ∷ Map ModuleName Module,
+  -- pInculdeDirs       ∷ [SrcTreePath],
+  -- pDefaultExtensions ∷ [C.Extension]
 
 findPackages ∷ IO [SrcTreePath]
 findPackages = fmap STP <$> shellLines (find cabalFiles ".")
 
+
+-- TODO Maybe store the root directory and use (root<>fp) instead of
+--   changeing the current directory?
 processSourceTree ∷ FilePath → IO SourceTree
 processSourceTree fp = do
-  -- traceM $ "cd " ++ Prelude.show fp
-  cd fp
-  -- traceM $ "findPackages"
+  oldDir ← getCurrentDirectory
+  setCurrentDirectory $ P.encodeString fp
+
   packages ← findPackages
-  -- traceM $ "packages " ++ (Prelude.show packages)
-  fmap M.fromList $ forM packages $ \p → do
+  result ← fmap M.fromList $ forM packages $ \p → do
     result ← processPackage p
     return (p,result)
+
+  -- TODO This is not exception safe!
+  -- TODO Use a bracket or find a library that does this.
+  setCurrentDirectory oldDir
+
+  return result
 
 loc ∷ FilePath → IO Int
 loc fp = do
   tree ← processSourceTree fp
-  let allCode = join $ (mSource <$> join(M.elems <$> M.elems tree))
+  let allCode = join $ mSource <$> join(M.elems . pModules <$> M.elems tree)
   return $ length $ Prelude.lines $ allCode

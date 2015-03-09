@@ -45,12 +45,6 @@
 		█ Instead, expose a set of IO actions that give the library
 		  consumer control over when things happen.
 
-█ Instead of just exporting the filename of the cabal package, also export:
-	█ the set of header files that are included
-		█ This is the `include-dirs` property.
-
-	█ the set of extensions that are enabled by default for all source files.
-
 █ Make header files that are included with a package available to cpphs.
 	█ Get information from *.cabal about where these header files are located.
 	█ Copy these files to the temporary directory.
