@@ -20,3 +20,6 @@
 [submodule "preprocess-haskell"]
 	path = preprocess-haskell
 	url = https://github.com/sourcegraph/preprocess-haskell.git
+[submodule "testdata/case/haskell-cpp-tests"]
+	path = testdata/case/haskell-cpp-tests
+	url = git@github.com:sgtest/haskell-cpp-tests.git

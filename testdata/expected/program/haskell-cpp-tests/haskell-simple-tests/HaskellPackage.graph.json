@@ -1,0 +1,27 @@
+{
+  "Defs": [
+    {
+      "Repo": "github.com/sgtest/haskell-cpp-tests",
+      "UnitType": "HaskellPackage",
+      "Unit": "haskell-simple-tests",
+      "Path": "haskell-simple-tests/Main",
+      "Name": "Main",
+      "Kind": "Module",
+      "File": "src/Main.hs",
+      "DefStart": 0,
+      "DefEnd": 0,
+      "Exported": true,
+      "TreePath": "haskell-simple-tests/Main"
+    }
+  ],
+  "Refs": [
+    {
+      "DefUnitType": "HaskellPackage",
+      "DefUnit": "haskell-simple-tests",
+      "DefPath": "haskell-simple-tests/Main",
+      "File": "src/Main.hs",
+      "Start": 72,
+      "End": 76
+    }
+  ]
+}
