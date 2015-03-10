@@ -193,20 +193,9 @@ graph info = do
   cleanTree ← processPackage $ STP $ Path.decodeString pkgFile
   traceM $ printf "pkg modules: %s" $ show $ (undefined ∷ a → Int) $ M.keys $ pModules cleanTree
 
-  -- let allCode = join $ mSource <$> M.elems cleanTree
-  -- let loc = length $ Prelude.lines $ allCode
-  -- traceM $ printf "%d lines of code in package %s" loc pkgFile
-
   let modRefs ∷ [(Text,[Imp.ModuleRef])]
       modRefs = flip map (M.toList $ pModules cleanTree) $ \(modNm,(fn,source)) →
 		(T.pack(stpStr fn), Imp.moduleRefs (stpStr fn) source)
-
-  --forM (M.toList cleanTree) $ \(modNm,Module fn source) → do
-		--traceM $ printf "================"
-		--traceM $ printf "====== %s ======" (stpStr fn)
-		--traceM $ printf "================"
-		--traceM source
-		--traceM $ ""
 
   let packageName = C.cabalPkgName info
   traceM "mkDB"

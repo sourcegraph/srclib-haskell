@@ -10,11 +10,15 @@ module Language.Haskell.Preprocess where
 
 -- Imports -------------------------------------------------------------------
 
-import BasicPrelude hiding (empty,find, Map, mapM, forM)
+import BasicPrelude hiding (empty,find, Map, mapM, forM, show)
 import Prelude.Unicode
 import Control.Category.Unicode
 import Turtle
 import qualified Prelude
+import Prelude (show)
+
+import Language.Haskell.Exts.Annotated as HSE hiding (ModuleName)
+import Language.Haskell.Exts.Extension as HSE hiding (ModuleName)
 
 import qualified Filesystem.Path.CurrentOS as P
 import qualified Control.Foldl as Fold
@@ -64,6 +68,8 @@ newtype SrcTreePath = STP { unSTP ∷ P.FilePath }
   deriving (Eq,Ord,IsString,Show,NFData)
 
 instance NFData C.Extension
+instance NFData SrcSpanInfo
+instance NFData a ⇒ NFData (Module a)
 
 -- TODO Write a newtype for CabalFile
 -- TODO Write a newtype for HSFile
@@ -105,10 +111,141 @@ hackAroundCPPHSFlaws = T.pack
      ⋙ T.replace "defined(MIN_VERSION_integer_gmp)" "1"
      ⋙ T.unpack
 
+prToMaybe ∷ ParseResult a → Maybe a
+prToMaybe (ParseOk x) = Just x
+prToMaybe (ParseFailed l c) =
+  flip trace Nothing $ printf "Parse failed! %s %s" (show l) (show c)
+
+cvtKExt ∷ C.KnownExtension → Maybe KnownExtension
+cvtKExt e = case e of
+  C.OverlappingInstances → Just OverlappingInstances
+  C.UndecidableInstances → Just UndecidableInstances
+  C.IncoherentInstances → Just IncoherentInstances
+  C.InstanceSigs → Just InstanceSigs
+  C.DoRec → Just DoRec
+  C.RecursiveDo → Just RecursiveDo
+  C.ParallelListComp → Just ParallelListComp
+  C.MultiParamTypeClasses → Just MultiParamTypeClasses
+  C.MonomorphismRestriction → Just MonomorphismRestriction
+  C.FunctionalDependencies → Just FunctionalDependencies
+  C.Rank2Types → Just Rank2Types
+  C.RankNTypes → Just RankNTypes
+  C.PolymorphicComponents → Just PolymorphicComponents
+  C.ExistentialQuantification → Just ExistentialQuantification
+  C.ScopedTypeVariables → Just ScopedTypeVariables
+  C.PatternSignatures → Just PatternSignatures
+  C.ImplicitParams → Just ImplicitParams
+  C.FlexibleContexts → Just FlexibleContexts
+  C.FlexibleInstances → Just FlexibleInstances
+  C.EmptyDataDecls → Just EmptyDataDecls
+  C.CPP → Just CPP
+  C.KindSignatures → Just KindSignatures
+  C.BangPatterns → Just BangPatterns
+  C.TypeSynonymInstances → Just TypeSynonymInstances
+  C.TemplateHaskell → Just TemplateHaskell
+  C.ForeignFunctionInterface → Just ForeignFunctionInterface
+  C.Arrows → Just Arrows
+  C.Generics → Just Generics
+  C.ImplicitPrelude → Just ImplicitPrelude
+  C.NamedFieldPuns → Just NamedFieldPuns
+  C.PatternGuards → Just PatternGuards
+  C.GeneralizedNewtypeDeriving → Just GeneralizedNewtypeDeriving
+  C.ExtensibleRecords → Just ExtensibleRecords
+  C.RestrictedTypeSynonyms → Just RestrictedTypeSynonyms
+  C.HereDocuments → Just HereDocuments
+  C.MagicHash → Just MagicHash
+  C.TypeFamilies → Just TypeFamilies
+  C.StandaloneDeriving → Just StandaloneDeriving
+  C.UnicodeSyntax → Just UnicodeSyntax
+  C.UnliftedFFITypes → Just UnliftedFFITypes
+  C.LiberalTypeSynonyms → Just LiberalTypeSynonyms
+  C.TypeOperators → Just TypeOperators
+  C.ParallelArrays → Just ParallelArrays
+  C.RecordWildCards → Just RecordWildCards
+  C.RecordPuns → Just RecordPuns
+  C.DisambiguateRecordFields → Just DisambiguateRecordFields
+  C.OverloadedStrings → Just OverloadedStrings
+  C.GADTs → Just GADTs
+  C.MonoPatBinds → Just MonoPatBinds
+  C.RelaxedPolyRec → Just RelaxedPolyRec
+  C.ExtendedDefaultRules → Just ExtendedDefaultRules
+  C.UnboxedTuples → Just UnboxedTuples
+  C.DeriveDataTypeable → Just DeriveDataTypeable
+  C.ConstrainedClassMethods → Just ConstrainedClassMethods
+  C.PackageImports → Just PackageImports
+  C.LambdaCase → Just LambdaCase
+  C.ImpredicativeTypes → Just ImpredicativeTypes
+  C.NewQualifiedOperators → Just NewQualifiedOperators
+  C.PostfixOperators → Just PostfixOperators
+  C.QuasiQuotes → Just QuasiQuotes
+  C.TransformListComp → Just TransformListComp
+  C.ViewPatterns → Just ViewPatterns
+  C.XmlSyntax → Just XmlSyntax
+  C.RegularPatterns → Just RegularPatterns
+  C.TupleSections → Just TupleSections
+  C.GHCForeignImportPrim → Just GHCForeignImportPrim
+  C.NPlusKPatterns → Just NPlusKPatterns
+  C.DoAndIfThenElse → Just DoAndIfThenElse
+  C.RebindableSyntax → Just RebindableSyntax
+  C.ExplicitForAll → Just ExplicitForAll
+  C.DatatypeContexts → Just DatatypeContexts
+  C.MonoLocalBinds → Just MonoLocalBinds
+  C.DeriveFunctor → Just DeriveFunctor
+  C.DeriveGeneric → Just DeriveGeneric
+  C.DeriveTraversable → Just DeriveTraversable
+  C.DeriveFoldable → Just DeriveFoldable
+  C.NondecreasingIndentation → Just NondecreasingIndentation
+  C.InterruptibleFFI → Just InterruptibleFFI
+  C.CApiFFI → Just CApiFFI
+  C.ExplicitNamespaces → Just ExplicitNamespaces
+  C.DataKinds → Just DataKinds
+  C.PolyKinds → Just PolyKinds
+  C.MultiWayIf → Just MultiWayIf
+  C.SafeImports → Just SafeImports
+  C.Safe → Just Safe
+  C.Trustworthy → Just Trustworthy
+  C.DefaultSignatures → Just DefaultSignatures
+  C.ConstraintKinds → Just ConstraintKinds
+  _ → flip trace Nothing $ printf "Unknown Extension: %s" (show e)
+
+maybeUnknown ∷ C.KnownExtension → Maybe Extension → Extension
+maybeUnknown x eM = fromMaybe (UnknownExtension(show x)) eM
+
+cvtExt ∷ C.Extension → Extension
+cvtExt (C.EnableExtension x)   = maybeUnknown x (EnableExtension  <$> cvtKExt x)
+cvtExt (C.DisableExtension x)  = maybeUnknown x (DisableExtension <$> cvtKExt x)
+cvtExt (C.UnknownExtension nm) = UnknownExtension nm
+
+extensionsHack ∷ [Extension]
+extensionsHack =
+  [ EnableExtension NPlusKPatterns
+  , EnableExtension ExplicitForAll
+  , EnableExtension FlexibleContexts
+  , EnableExtension ExplicitNamespaces
+  , EnableExtension CPP
+  , EnableExtension MagicHash
+  , EnableExtension TemplateHaskell
+  , EnableExtension MultiParamTypeClasses
+  , EnableExtension ExistentialQuantification
+  ]
+
+parseCode ∷ Pkg → FilePath → String → Maybe (Module SrcSpanInfo)
+parseCode pkg filePath source = do
+  let fileName = P.encodeString filePath
+  let mode = defaultParseMode
+        { parseFilename     = fileName
+        , fixities          = Nothing
+        , ignoreLinePragmas = False
+        , extensions        = extensionsHack
+                           ++ (cvtExt <$> pkgDefaultExtensions pkg)
+                           ++ extensions defaultParseMode
+        }
+  prToMaybe $ parseFileContentsWithMode mode source
+
 -- TODO This uses deepseq to avoid issues related to lazy IO. I feel
 --      like that's a bad idea.
-processFile ∷ FilePath → Pkg → SrcTreePath → IO String
-processFile root pkg fn = do
+processFile ∷ NFData a => FilePath → Pkg → (String → a) → SrcTreePath → IO a
+processFile root pkg transform fn = do
   let rootDir = root <> ""
   IO.withSystemTempDirectory "cpp_macros" $ \tmpDir → do
     let tmpDirFP = P.decodeString tmpDir
@@ -132,9 +269,11 @@ processFile root pkg fn = do
           CPP.boolopts = (CPP.boolopts defaults) {
             CPP.hashline = False,
             CPP.stripC89 = True,
+            CPP.warnings = True,
             CPP.literate = literateHaskellFilename(unSTP fn) }}
     noMacros ← CPP.runCpphs cppOpts pstr contents
-    noMacros `deepseq` return noMacros
+    let result = transform noMacros
+    result `deepseq` return result
 
 moduleName ∷ [SrcTreePath] → SrcTreePath → Maybe ModuleName
 moduleName srcDirs fn = listToMaybe $ moduleNames
@@ -239,23 +378,39 @@ scan root = do
     in stp $ fromMaybe dieWithError $ P.stripPrefix rootDir $ P.collapse x
 
 
-type EntireProject = Map SrcTreePath (Pkg, Map ModuleName String)
+type EntireProject a = Map SrcTreePath (Pkg, Map ModuleName a)
 
-loadPkg ∷ FilePath → SrcTreePath → IO (Pkg, Map ModuleName String)
-loadPkg root pkgFile = do
+loadPkg ∷ NFData a => FilePath → (Pkg → FilePath → String → a) → SrcTreePath → IO (Pkg, Map ModuleName a)
+loadPkg root transform pkgFile = do
   pkg ← scanPkg root pkgFile
-  sources ← mapM (processFile root pkg) (pkgModules pkg)
+  sources ← forM (pkgModules pkg) $ \fp →
+    processFile root pkg (transform pkg $ unSTP fp) fp
   return (pkg,sources)
 
 -- This loads the source code for all files into memory. It should only
 -- be used on small projects and for debugging purposes.
-loadEntireProject ∷ FilePath → IO EntireProject
-loadEntireProject root = do
+loadEntireProject ∷ NFData a ⇒ FilePath → (Pkg → FilePath → String → a) → IO (EntireProject a)
+loadEntireProject root transform = do
   pkgFiles ← S.toList <$> scan root
-  mapM (loadPkg root) $ M.fromList $ (\x→(x,x)) <$> pkgFiles
+  mapM (loadPkg root transform) $ M.fromList $ (\x→(x,x)) <$> pkgFiles
 
+parseEntireProject ∷ FilePath → IO (EntireProject(Maybe(Module SrcSpanInfo)))
+parseEntireProject root = do
+  pkgFiles ← S.toList <$> scan root
+  mapM (loadPkg root parseCode) $ M.fromList $ (\x→(x,x)) <$> pkgFiles
+
+-- This version loads the entire project into memory before counting lines.
 loc ∷ FilePath → IO Int
 loc root = do
-  proj ← loadEntireProject root
+  proj ← loadEntireProject root (\_ _ x → x)
   let allCode = L.concat $ join $ M.elems . snd <$> M.elems proj
   return $ length $ Prelude.lines $ allCode
+
+-- This version only doesn't keep source code in memory.
+lowMemLoc ∷ FilePath → IO Int
+lowMemLoc root = do
+  pkgFiles ← S.toList <$> scan root
+  fmap sum $ forM pkgFiles $ \pkgFile → do
+    pkg ← scanPkg root pkgFile
+    let modules = pkgModules pkg
+    sum <$> forM (M.elems(pkgModules pkg)) (processFile root pkg (length . Prelude.lines))

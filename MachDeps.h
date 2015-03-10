@@ -1,3 +1,5 @@
+#include "ghcautoconf.h"
+
 #ifndef MACHDEPS_H
 #define MACHDEPS_H
 #define SIZEOF_HSCHAR           SIZEOF_WORD32

@@ -30,10 +30,25 @@
 	█ First step: Always use the greatest available version.
 	█ Final version: Actually resolve dependencies.
 
+█ Known-missing header files:
+	ghcconfig.h:       unix/**
+	HsProcessConfig.h: process/**
+	HsNetworkConfig.h: network/**
+	HsIntegerGmp.h:    integer-gmp/**
+	HsBaseConfig.h:    base/**
+	EventConfig.h:     base/**/Event/**
+	rts/Signals.h:     base/**
+	ghcplatform.h:     base/System/Environment.hs
+
+█ Extensions that are complained about:
+	NPlusKPatterns
+	ExplicitForAll
+	FlexibleContexts
+	ExplicitNamespaces
+	TemplateHaskell
+	MultiParamTypeClasses
+
 █ Cleanup
-	█ Some code calls `cd`, which changes the working directory
-	  of the entire program.
-		█ Make this change local to that IO action.
 	█ Parse failuers are logged with `traceM`.
 		█ This is easy, but shouldn't be used in production.
 		█ What's the best way to handle this? WriterT over IO?
