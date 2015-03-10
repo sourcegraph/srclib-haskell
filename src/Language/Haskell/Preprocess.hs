@@ -99,8 +99,8 @@ shellLines = flip fold consFold
 literateHaskellFilename ∷ P.FilePath → Bool
 literateHaskellFilename fp = Just "lhs" ≡ P.extension fp
 
-yuck ∷ String → String
-yuck = T.pack
+hackAroundCPPHSFlaws ∷ String → String
+hackAroundCPPHSFlaws = T.pack
      ⋙ T.replace "defined(MIN_VERSION_hashable)" "1"
      ⋙ T.replace "defined(MIN_VERSION_integer_gmp)" "1"
      ⋙ T.unpack
@@ -110,18 +110,25 @@ yuck = T.pack
 processFile ∷ FilePath → Pkg → SrcTreePath → IO String
 processFile root pkg fn = do
   let rootDir = root <> ""
-  IO.withSystemTempFile "cabal_macros.h" $ \fp handle → do
-    IO.hPutStrLn handle $ pkgMacros pkg
-    IO.hPutStrLn handle ghcMacros
-    IO.hClose handle
+  IO.withSystemTempDirectory "cpp_macros" $ \tmpDir → do
+    let tmpDirFP = P.decodeString tmpDir
+        cabalMacrosFP = (tmpDirFP </> "cabal_macros.h")
+        compilerMacrosFP = (tmpDirFP </> "ghc_macros.h")
+
+    writeFile cabalMacrosFP                  $ T.pack (pkgMacros pkg)
+    writeFile compilerMacrosFP               $ T.pack compilerMacros
+    writeFile (tmpDirFP </> "MachDeps.h")    $ T.pack machDeps
+    writeFile (tmpDirFP </> "ghcautoconf.h") $ T.pack ghcAutoConf
 
     let pstr = P.encodeString (rootDir <> unSTP fn)
-    contents' ← Prelude.readFile pstr
-    let contents = yuck contents'
+    contents ← hackAroundCPPHSFlaws <$> Prelude.readFile pstr
+
+    let pkgIncludes = P.encodeString . (root </>) . unSTP <$> pkgIncludeDirs pkg
+
     let defaults = CPP.defaultCpphsOptions
         cppOpts = defaults {
-          CPP.preInclude = [fp],
-          CPP.includes = stpStr <$> pkgIncludeDirs pkg,
+          CPP.preInclude = P.encodeString <$> [compilerMacrosFP, cabalMacrosFP],
+          CPP.includes = pkgIncludes ++ [tmpDir],
           CPP.boolopts = (CPP.boolopts defaults) {
             CPP.hashline = False,
             CPP.stripC89 = True,

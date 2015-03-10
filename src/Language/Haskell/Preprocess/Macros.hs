@@ -1,6 +1,6 @@
 {-# LANGUAGE TemplateHaskell, UnicodeSyntax, QuasiQuotes #-}
 
-module Language.Haskell.Preprocess.Macros(ghcMacros) where
+module Language.Haskell.Preprocess.Macros(compilerMacros,machDeps,ghcAutoConf) where
 
 
 import Data.Monoid
@@ -9,7 +9,6 @@ import qualified Data.ByteString as BS
 import qualified Data.ByteString.Char8 as BS8
 
 import Data.String.Here
-
 
 ghcAutoConf ∷ String
 ghcAutoConf = [hereFile|ghcautoconf.h|]
@@ -27,6 +26,3 @@ compilerMacros = x++"\n" where x = [here|
 #define HAVE_POLL 1
 #define INTEGER_GMP 1
 |]
-
-ghcMacros ∷ String
-ghcMacros = compilerMacros ++ ghcAutoConf ++ machDeps
