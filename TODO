@@ -7,18 +7,6 @@
 	█ I should start doing loose TDD style testing. It makes a ton of
 	  sense with this type of program.
 
-█ Handle `MachDeps.h` and `ghcautoconf.h` better.
-	█ Right now, all the definitions from these files are included
-	  via CPP.preInclude.
-	█ Because of that, whenever a source files does #include
-	  "MachDeps.h", a warning is printed to stderr.
-	█ It would be better to handle this by generating a temporary
-	  directory with these files in it, and then adding that directory to the
-	  search path for header files.
-		█ We would first need to varify that these macros
-		  are never used without importing those headers. This is
-		  probably true, but it would cause regressions if it isn't true.
-
 █ Strictly separate depresolve from graphing.
   █ Formaize the information that I need from the depresolve phase.
 	█ Get depresolve to produce this infomrmaiton, FAST!
@@ -40,18 +28,7 @@
 	rts/Signals.h:     base/**
 	ghcplatform.h:     base/System/Environment.hs
 
-█ Extensions that are complained about:
-	NPlusKPatterns
-	ExplicitForAll
-	FlexibleContexts
-	ExplicitNamespaces
-	TemplateHaskell
-	MultiParamTypeClasses
-
 █ Cleanup
-	█ Parse failuers are logged with `traceM`.
+	█ Parse failures are logged with `traceM`.
 		█ This is easy, but shouldn't be used in production.
-		█ What's the best way to handle this? WriterT over IO?
-	█ This code currently exposes an interface based on lazy IO.
-		█ Instead, expose a set of IO actions that give the library
-		  consumer control over when things happen.
+		█ What's the best way to handle this?
