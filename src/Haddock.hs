@@ -189,13 +189,13 @@ graph info = do
   let pkgFile = T.unpack $ srclibPath $ C.cabalFile info
 
   traceM $ printf "pkgFile: %s" pkgFile
-  let (pModules,processPackage) = (undefined,undefined)
-  cleanTree ← processPackage $ STP $ Path.decodeString pkgFile
-  traceM $ printf "pkg modules: %s" $ show $ (undefined ∷ a → Int) $ M.keys $ pModules cleanTree
+  pkg ← scanPkg "." $ STP $ Path.decodeString pkgFile
+  traceM $ printf "pkg modules: %s" $ show $ M.keys $ pkgModules pkg
 
-  let modRefs ∷ [(Text,[Imp.ModuleRef])]
-      modRefs = flip map (M.toList $ pModules cleanTree) $ \(modNm,(fn,source)) →
-		(T.pack(stpStr fn), Imp.moduleRefs (stpStr fn) source)
+  modRefs ∷ [(Text,[Imp.ModuleRef])]
+    ← forM (M.toList $ pkgModules pkg) $ \(modNm,fn) → do
+        modRefs ← processFile "." pkg (Imp.moduleRefs $ stpStr fn) fn
+        return (T.pack(stpStr fn), modRefs)
 
   let packageName = C.cabalPkgName info
   traceM "mkDB"
