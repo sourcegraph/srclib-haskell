@@ -57,6 +57,8 @@ import System.Directory
 
 import Data.Traversable
 
+import qualified Control.Exception
+
 
 -- Types ---------------------------------------------------------------------
 
@@ -64,8 +66,23 @@ newtype ModuleName = MN { unModuleName ∷ Text }
   deriving (Eq,Ord,IsString,Show)
 
 -- | Path's relative to the root of the source tree.
-newtype SrcTreePath = STP { unSTP ∷ P.FilePath }
+newtype SrcTreePath = SrcTreePath { unSTP ∷ P.FilePath }
   deriving (Eq,Ord,IsString,Show,NFData)
+
+fileP ∷ P.FilePath → P.FilePath
+fileP fp = if fp≠(P.directory fp) then fp else
+            error $ printf "%s is not a path to a file." (show fp)
+
+normalizeP ∷ P.FilePath → P.FilePath
+normalizeP fp =
+  if P.relative fp then P.collapse $ "./" <> fp else
+    error $ printf "`stp` called on absolute path: %s" (show fp)
+
+stFile ∷ P.FilePath → SrcTreePath
+stFile = SrcTreePath . normalizeP . fileP
+
+stDir ∷ P.FilePath → SrcTreePath
+stDir = SrcTreePath . normalizeP . (<> "")
 
 instance NFData C.Extension
 instance NFData SrcSpanInfo
@@ -242,38 +259,45 @@ parseCode pkg filePath source = do
         }
   prToMaybe $ parseFileContentsWithMode mode source
 
+catchAny :: IO a -> (SomeException -> IO a) -> IO a
+catchAny = Control.Exception.catch
+
 -- TODO This uses deepseq to avoid issues related to lazy IO. I feel
 --      like that's a bad idea.
 processFile ∷ NFData a => FilePath → Pkg → (String → a) → SrcTreePath → IO a
 processFile root pkg transform fn = do
-  let rootDir = root <> ""
-  IO.withSystemTempDirectory "cpp_macros" $ \tmpDir → do
-    let tmpDirFP = P.decodeString tmpDir
-        cabalMacrosFP = (tmpDirFP </> "cabal_macros.h")
-        compilerMacrosFP = (tmpDirFP </> "ghc_macros.h")
+  let warn e = do
+        traceM $ printf "Ignoring exception: %s" $ show e
+        return $ transform ""
 
-    writeFile cabalMacrosFP                  $ T.pack (pkgMacros pkg)
-    writeFile compilerMacrosFP               $ T.pack compilerMacros
-    writeFile (tmpDirFP </> "MachDeps.h")    $ T.pack machDeps
-    writeFile (tmpDirFP </> "ghcautoconf.h") $ T.pack ghcAutoConf
+  flip catchAny warn $
+    IO.withSystemTempDirectory "cpp_macros" $ \tmpDir → do
+      let tmpDirFP         = P.decodeString tmpDir
+          cabalMacrosFP    = (tmpDirFP </> "cabal_macros.h")
+          compilerMacrosFP = (tmpDirFP </> "ghc_macros.h")
 
-    let pstr = P.encodeString (rootDir <> unSTP fn)
-    contents ← hackAroundCPPHSFlaws <$> Prelude.readFile pstr
+      writeFile cabalMacrosFP                  $ T.pack (pkgMacros pkg)
+      writeFile compilerMacrosFP               $ T.pack compilerMacros
+      writeFile (tmpDirFP </> "MachDeps.h")    $ T.pack machDeps
+      writeFile (tmpDirFP </> "ghcautoconf.h") $ T.pack ghcAutoConf
 
-    let pkgIncludes = P.encodeString . (root </>) . unSTP <$> pkgIncludeDirs pkg
+      let pstr = P.encodeString (P.collapse $ root <> unSTP fn)
+      contents ← hackAroundCPPHSFlaws <$> Prelude.readFile pstr
 
-    let defaults = CPP.defaultCpphsOptions
-        cppOpts = defaults {
-          CPP.preInclude = P.encodeString <$> [compilerMacrosFP, cabalMacrosFP],
-          CPP.includes = pkgIncludes ++ [tmpDir],
-          CPP.boolopts = (CPP.boolopts defaults) {
-            CPP.hashline = False,
-            CPP.stripC89 = True,
-            CPP.warnings = True,
-            CPP.literate = literateHaskellFilename(unSTP fn) }}
-    noMacros ← CPP.runCpphs cppOpts pstr contents
-    let result = transform noMacros
-    result `deepseq` return result
+      let pkgIncludes = P.encodeString . P.collapse . (root </>) . unSTP <$> pkgIncludeDirs pkg
+
+      let defaults = CPP.defaultCpphsOptions
+          cppOpts = defaults {
+            CPP.preInclude = P.encodeString <$> [compilerMacrosFP, cabalMacrosFP],
+            CPP.includes = pkgIncludes ++ [tmpDir],
+            CPP.boolopts = (CPP.boolopts defaults) {
+              CPP.hashline = False,
+              CPP.stripC89 = True,
+              CPP.warnings = True,
+              CPP.literate = literateHaskellFilename(unSTP fn) }}
+      noMacros ← CPP.runCpphs cppOpts pstr contents
+      let result = transform noMacros
+      result `deepseq` return result
 
 moduleName ∷ [SrcTreePath] → SrcTreePath → Maybe ModuleName
 moduleName srcDirs fn = listToMaybe $ moduleNames
@@ -340,42 +364,35 @@ cabalInfo root cabalFile = do
       dirStrs     = allSourceDirs desc
       incDirs     = allHeaderIncludeDirs desc
       exts        = allDefaultExtensions desc
-      toSTP d     = STP $ P.collapse $ pkgRoot </> P.decodeString(d <> "")
+      toSTP       = stDir . (pkgRoot <>) . P.decodeString
       macros      = cabalMacros gdesc
 
   let result = (toSTP <$> dirStrs, macros, toSTP <$> incDirs, exts)
   result `deepseq` return result
 
-stp ∷ FilePath → SrcTreePath
-stp f = if P.absolute f
-        then error(printf "`stp` called on absolute path: %s"(P.encodeString f))
-        else STP $ P.collapse $ "./" <> f
-
 scanPkg ∷ FilePath → SrcTreePath → IO Pkg
 scanPkg root cabalFile = do
-  let rootDir = root <> ""
-  let pkgDir = P.directory $ unSTP cabalFile
-  (srcDirs,macros,includeDirs,defaultExtensions) ← cabalInfo rootDir cabalFile
+  let pkgDir = stDir $ P.directory $ unSTP cabalFile
+  (srcDirs,macros,includeDirs,defaultExtensions) ← cabalInfo root cabalFile
 
-  hsFiles' ← shellLines (find haskellFiles $ rootDir <> pkgDir)
+  hsFiles' ← shellLines (find haskellFiles $ root <> unSTP pkgDir)
   let hsFiles = flip map hsFiles' $ \x →
         let dieWithError = error $ printf "%s is not a prefix of %s!"
-                             (P.encodeString rootDir) (P.encodeString x)
-        in stp $ fromMaybe dieWithError $ P.stripPrefix rootDir $ P.collapse x
+                             (P.encodeString root) (P.encodeString x)
+        in stFile $ fromMaybe dieWithError $ P.stripPrefix root $ P.collapse x
 
       modules = M.fromList $ catMaybes $ flip map hsFiles $ \hs →
         (,hs) <$> moduleName srcDirs hs
 
-  return $ Pkg (stp pkgDir) cabalFile modules macros includeDirs defaultExtensions
+  return $ Pkg pkgDir cabalFile modules macros includeDirs defaultExtensions
 
 scan ∷ FilePath → IO (Set SrcTreePath)
 scan root = do
-  let rootDir = root <> ""
-  packageFiles ← shellLines $ find cabalFiles rootDir
+  packageFiles ← shellLines $ find cabalFiles root
   return $ S.fromList $ flip map packageFiles $ \x →
     let dieWithError = error $ printf "%s is not a prefix of %s!"
-                         (P.encodeString rootDir) (P.encodeString x)
-    in stp $ fromMaybe dieWithError $ P.stripPrefix rootDir $ P.collapse x
+                         (P.encodeString root) (P.encodeString x)
+    in stFile $ fromMaybe dieWithError $ P.stripPrefix root $ P.collapse x
 
 
 type EntireProject a = Map SrcTreePath (Pkg, Map ModuleName a)

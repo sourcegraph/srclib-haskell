@@ -189,7 +189,7 @@ graph info = do
   let pkgFile = T.unpack $ srclibPath $ C.cabalFile info
 
   traceM $ printf "pkgFile: %s" pkgFile
-  pkg ← scanPkg "." $ STP $ Path.decodeString pkgFile
+  pkg ← scanPkg "." $ stFile $ Path.decodeString pkgFile
   traceM $ printf "pkg modules: %s" $ show $ M.keys $ pkgModules pkg
 
   modRefs ∷ [(Text,[Imp.ModuleRef])]
