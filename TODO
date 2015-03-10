@@ -6,21 +6,17 @@
 		█ Get fast test iterations set up.
 	█ I should start doing loose TDD style testing. It makes a ton of
 	  sense with this type of program.
-	█ Added a new test repo for cpp tests.
-		█ Test cases where code #include's header files that
-		  are bundled with the project.
-		█ Test that all of the compiler macros are working correctly.
-		█ Test that `MachDeps.h` and `ghcautoconf.h` can be included properly.
-		█ Test cases where mingw32 and linux are both assumed to be the host OS.
-			| #ifdef mingw32_HOST_OS
-			| # if defined(i386_HOST_ARCH)
-			| #  define WINDOWS_CCONV stdcall
-			| # elif defined(x86_64_HOST_ARCH)
-			| #  define WINDOWS_CCONV ccall
-			| # else
-			| #  error Unknown mingw32 arch
-			| # endif
-			| #endif
+█ Handle `MachDeps.h` and `ghcautoconf.h` better.
+	█ Right now, all the definitions from these files are included
+	  via CPP.preInclude.
+	█ Because of that, whenever a source files does #include
+	  "MachDeps.h", a warning is printed to stderr.
+	█ It would be better to handle this by generating a temporary
+	  directory with these files in it, and then adding that directory to the
+	  search path for header files.
+		█ We would first need to varify that these macros
+		  are never used without importing those headers. This is
+		  probably true, but it would cause regressions if it isn't true.
 
 █ Strictly separate depresolve from graphing.
   █ Formaize the information that I need from the depresolve phase.
@@ -40,11 +36,6 @@
 	█ Parse failuers are logged with `traceM`.
 		█ This is easy, but shouldn't be used in production.
 		█ What's the best way to handle this? WriterT over IO?
-	█ Stop hiding CPP warnings.
 	█ This code currently exposes an interface based on lazy IO.
 		█ Instead, expose a set of IO actions that give the library
 		  consumer control over when things happen.
-
-█ Make header files that are included with a package available to cpphs.
-	█ Get information from *.cabal about where these header files are located.
-	█ Copy these files to the temporary directory.
