@@ -10,7 +10,7 @@ module Language.Haskell.Preprocess where
 
 -- Imports -------------------------------------------------------------------
 
-import BasicPrelude hiding (empty,find)
+import BasicPrelude hiding (empty,find, Map, mapM, forM)
 import Prelude.Unicode
 import Control.Category.Unicode
 import Turtle
@@ -18,12 +18,16 @@ import qualified Prelude
 
 import qualified Filesystem.Path.CurrentOS as P
 import qualified Control.Foldl as Fold
-import qualified Data.Map as M
+import qualified Data.Map.Strict as M
+import           Data.Map.Strict (Map)
+import qualified Data.Set as S
 import qualified Data.Text as T
 import Data.Maybe
 
 import qualified Language.Preprocessor.Unlit as CPP
 import qualified Language.Preprocessor.Cpphs as CPP
+
+import qualified Data.List as L
 
 import System.Posix.Process
 import qualified System.IO.Temp as IO
@@ -41,9 +45,13 @@ import qualified Language.Haskell.Extension as C
 
 import Debug.Trace
 
+import Text.Printf
+
 import Language.Haskell.Preprocess.Macros
 
 import System.Directory
+
+import Data.Traversable
 
 
 -- Types ---------------------------------------------------------------------
@@ -53,27 +61,22 @@ newtype ModuleName = MN { unModuleName ∷ Text }
 
 -- | Path's relative to the root of the source tree.
 newtype SrcTreePath = STP { unSTP ∷ P.FilePath }
-  deriving (Eq,Ord,IsString,Show)
+  deriving (Eq,Ord,IsString,Show,NFData)
 
--- | The name and preprocessed contents of a source file.
-data Module = Module
-  { mFilename ∷ !SrcTreePath
-  , mSource ∷ String
-  }
-  deriving (Show)
+instance NFData C.Extension
 
--- | The files of a cabal package.
-data Package = Package {
-  pModules           ∷ Map ModuleName Module,
-  pInculdeDirs       ∷ [SrcTreePath],
-  pDefaultExtensions ∷ [C.Extension]
+-- TODO Write a newtype for CabalFile
+-- TODO Write a newtype for HSFile
+-- TODO Write a newtype for SrcDir
+
+data Pkg = Pkg {
+  pkgRoot              ∷ !SrcTreePath,
+  pkgCabalFile         ∷ !SrcTreePath,
+  pkgModules           ∷ !(Map ModuleName SrcTreePath),
+  pkgMacros            ∷ !String,
+  pkgIncludeDirs       ∷ ![SrcTreePath],
+  pkgDefaultExtensions ∷ ![C.Extension]
 }
-
--- C.defaultExtnsions ∷ C.BuildInfo → [C.Extension]
--- C.includeDirs ∷ C.BuildInfo → [String]
-
--- | Map from a cabal file to it's associated source files.
-type SourceTree = Map SrcTreePath Package
 
 
 -- Values --------------------------------------------------------------------
@@ -102,39 +105,29 @@ yuck = T.pack
      ⋙ T.replace "defined(MIN_VERSION_integer_gmp)" "1"
      ⋙ T.unpack
 
-processFile ∷ String → [SrcTreePath] → SrcTreePath → IO Module
-processFile macros includeDirs fn = do
+-- TODO This uses deepseq to avoid issues related to lazy IO. I feel
+--      like that's a bad idea.
+processFile ∷ FilePath → Pkg → SrcTreePath → IO String
+processFile root pkg fn = do
+  let rootDir = root <> ""
   IO.withSystemTempFile "cabal_macros.h" $ \fp handle → do
-    IO.hPutStrLn handle macros
+    IO.hPutStrLn handle $ pkgMacros pkg
     IO.hPutStrLn handle ghcMacros
     IO.hClose handle
 
-    let pstr = P.encodeString (unSTP fn)
+    let pstr = P.encodeString (rootDir <> unSTP fn)
     contents' ← Prelude.readFile pstr
     let contents = yuck contents'
     let defaults = CPP.defaultCpphsOptions
         cppOpts = defaults {
           CPP.preInclude = [fp],
-          CPP.includes = stpStr <$> includeDirs,
+          CPP.includes = stpStr <$> pkgIncludeDirs pkg,
           CPP.boolopts = (CPP.boolopts defaults) {
             CPP.hashline = False,
             CPP.stripC89 = True,
             CPP.literate = literateHaskellFilename(unSTP fn) }}
     noMacros ← CPP.runCpphs cppOpts pstr contents
-    noMacros `deepseq` return(Module fn noMacros)
-
--- TODO Why doesn't this work?
-processFileSane ∷ [(String,String)] → SrcTreePath → IO Module
-processFileSane macros fn = do
-  let pstr = P.encodeString (unSTP fn)
-  contents ← Prelude.readFile pstr
-  let defaults = CPP.defaultCpphsOptions
-  let cppOpts = defaults {
-    CPP.defines = macros ++ CPP.defines defaults,
-    CPP.boolopts = (CPP.boolopts defaults) {
-      CPP.literate = literateHaskellFilename(unSTP fn) }}
-  noMacros ← CPP.runCpphs cppOpts pstr contents
-  return $ Module fn noMacros
+    noMacros `deepseq` return noMacros
 
 moduleName ∷ [SrcTreePath] → SrcTreePath → Maybe ModuleName
 moduleName srcDirs fn = listToMaybe $ moduleNames
@@ -172,14 +165,6 @@ allDefaultExtensions desc = nub $ join $ libDirs ++ exeDirs
      libDirs = maybeToList (C.defaultExtensions . C.libBuildInfo <$> C.library desc)
      exeDirs = C.defaultExtensions . C.buildInfo <$> C.executables desc
 
-macroPlaceholder ∷ IO String
-macroPlaceholder = do
-  f ← Prelude.readFile "/home/ben/preprocess-haskell/dist/build/autogen/cabal_macros.h"
-  f `deepseq` return f
-
-  -- contents ← Prelude.readFile fn
-  -- snd <$> CPP.runCpphsReturningSymTab CPP.defaultCpphsOptions fn contents
-
 -- chooseVersion chooses the greatest version that is explicitly mentioned.
 chooseVersion ∷ C.VersionRange → C.Version
 chooseVersion = C.foldVersionRange fallback id id id max max
@@ -199,59 +184,71 @@ cabalMacros = C.generatePackageVersionMacros . pkgs
   where resolve (C.Dependency n v) = C.PackageIdentifier n $ chooseVersion v
         pkgs = fmap resolve . pkgDeps
 
-cabalInfo ∷ SrcTreePath → IO ([SrcTreePath],String,[SrcTreePath],[C.Extension])
-cabalInfo cabalFile = do
+cabalInfo ∷ FilePath → SrcTreePath → IO ([SrcTreePath],String,[SrcTreePath],[C.Extension])
+cabalInfo root cabalFile = do
   traceM $ "cabalInfo " <> stpStr cabalFile
-  gdesc ← C.readPackageDescription C.normal $ stpStr cabalFile
+  let cabalFileStr = P.encodeString $ root <> unSTP cabalFile
+  gdesc ← C.readPackageDescription C.normal cabalFileStr
   let desc        = C.flattenPackageDescription gdesc
       pkgRoot     = directory $ unSTP cabalFile
       dirStrs     = allSourceDirs desc
       incDirs     = allHeaderIncludeDirs desc
       exts        = allDefaultExtensions desc
-      toSTP d     = STP $ P.collapse $ pkgRoot </> P.decodeString(d <> "/")
+      toSTP d     = STP $ P.collapse $ pkgRoot </> P.decodeString(d <> "")
       macros      = cabalMacros gdesc
 
-  return (toSTP <$> dirStrs, macros, toSTP <$> incDirs, exts)
+  let result = (toSTP <$> dirStrs, macros, toSTP <$> incDirs, exts)
+  result `deepseq` return result
 
-processPackage ∷ SrcTreePath → IO Package
-processPackage fn = do
-  (srcDirs,macros,includeDirs,defaultExtensions) ← cabalInfo fn
-  let pkgDir = (STP . P.directory . unSTP) fn
-  hsFiles ← fmap STP <$> shellLines (find haskellFiles (unSTP pkgDir))
-  modules ← fmap (M.fromList . catMaybes) $ forM hsFiles $ \hs → do
-    case moduleName srcDirs hs of
-      Nothing → return Nothing
-      Just nm → Just . (nm,) <$> processFile macros includeDirs hs
-  return $ Package modules includeDirs defaultExtensions
+stp ∷ FilePath → SrcTreePath
+stp f = if P.absolute f
+        then error(printf "`stp` called on absolute path: %s"(P.encodeString f))
+        else STP $ P.collapse $ "./" <> f
 
-  -- pModules           ∷ Map ModuleName Module,
-  -- pInculdeDirs       ∷ [SrcTreePath],
-  -- pDefaultExtensions ∷ [C.Extension]
+scanPkg ∷ FilePath → SrcTreePath → IO Pkg
+scanPkg root cabalFile = do
+  let rootDir = root <> ""
+  let pkgDir = P.directory $ unSTP cabalFile
+  (srcDirs,macros,includeDirs,defaultExtensions) ← cabalInfo rootDir cabalFile
 
-findPackages ∷ IO [SrcTreePath]
-findPackages = fmap STP <$> shellLines (find cabalFiles ".")
+  hsFiles' ← shellLines (find haskellFiles $ rootDir <> pkgDir)
+  let hsFiles = flip map hsFiles' $ \x →
+        let dieWithError = error $ printf "%s is not a prefix of %s!"
+                             (P.encodeString rootDir) (P.encodeString x)
+        in stp $ fromMaybe dieWithError $ P.stripPrefix rootDir $ P.collapse x
+
+      modules = M.fromList $ catMaybes $ flip map hsFiles $ \hs →
+        (,hs) <$> moduleName srcDirs hs
+
+  return $ Pkg (stp pkgDir) cabalFile modules macros includeDirs defaultExtensions
+
+scan ∷ FilePath → IO (Set SrcTreePath)
+scan root = do
+  let rootDir = root <> ""
+  packageFiles ← shellLines $ find cabalFiles rootDir
+  return $ S.fromList $ flip map packageFiles $ \x →
+    let dieWithError = error $ printf "%s is not a prefix of %s!"
+                         (P.encodeString rootDir) (P.encodeString x)
+    in stp $ fromMaybe dieWithError $ P.stripPrefix rootDir $ P.collapse x
 
 
--- TODO Maybe store the root directory and use (root<>fp) instead of
---   changeing the current directory?
-processSourceTree ∷ FilePath → IO SourceTree
-processSourceTree fp = do
-  oldDir ← getCurrentDirectory
-  setCurrentDirectory $ P.encodeString fp
+type EntireProject = Map SrcTreePath (Pkg, Map ModuleName String)
 
-  packages ← findPackages
-  result ← fmap M.fromList $ forM packages $ \p → do
-    result ← processPackage p
-    return (p,result)
+loadPkg ∷ FilePath → SrcTreePath → IO (Pkg, Map ModuleName String)
+loadPkg root pkgFile = do
+  pkg ← scanPkg root pkgFile
+  sources ← mapM (processFile root pkg) (pkgModules pkg)
+  return (pkg,sources)
 
-  -- TODO This is not exception safe!
-  -- TODO Use a bracket or find a library that does this.
-  setCurrentDirectory oldDir
-
-  return result
+-- This loads the source code for all files into memory. It should only
+-- be used on small projects and for debugging purposes.
+loadEntireProject ∷ FilePath → IO EntireProject
+loadEntireProject root = do
+  pkgFiles ← S.toList <$> scan root
+  mapM (loadPkg root) $ M.fromList $ (\x→(x,x)) <$> pkgFiles
 
 loc ∷ FilePath → IO Int
-loc fp = do
-  tree ← processSourceTree fp
-  let allCode = join $ mSource <$> join(M.elems . pModules <$> M.elems tree)
+loc root = do
+  proj ← loadEntireProject root
+  let allCode = L.concat $ join $ M.elems . snd <$> M.elems proj
   return $ length $ Prelude.lines $ allCode
