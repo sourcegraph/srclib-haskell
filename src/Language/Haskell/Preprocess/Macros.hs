@@ -1,20 +1,20 @@
 {-# LANGUAGE TemplateHaskell, UnicodeSyntax, QuasiQuotes #-}
 
-module Language.Haskell.Preprocess.Macros(compilerMacros,machDeps,ghcAutoConf) where
-
+module Language.Haskell.Preprocess.Macros(compilerMacros,stdHdrs) where
 
 import Data.Monoid
 
+import Data.String.Here
+import Data.FileEmbed
+
+import qualified Data.Map as M
+import qualified Filesystem.Path as P
+import qualified Filesystem.Path.CurrentOS as P
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.Char8 as BS8
 
-import Data.String.Here
-
-ghcAutoConf ∷ String
-ghcAutoConf = [hereFile|ghcautoconf.h|]
-
-machDeps ∷ String
-machDeps = [hereFile|MachDeps.h|]
+stdHdrs ∷ M.Map P.FilePath BS.ByteString
+stdHdrs = M.fromList $ map (\(k,v)→(P.decodeString k,v)) $(embedDir "include")
 
 compilerMacros ∷ String
 compilerMacros = x++"\n" where x = [here|

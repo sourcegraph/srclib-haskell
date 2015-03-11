@@ -33,6 +33,8 @@ import qualified Language.Preprocessor.Cpphs as CPP
 
 import qualified Data.List as L
 
+import qualified Data.ByteString as BS
+
 import System.Posix.Process
 import qualified System.IO.Temp as IO
 import qualified System.IO as IO
@@ -265,7 +267,8 @@ catchAny = Control.Exception.catch
 -- TODO This uses deepseq to avoid issues related to lazy IO. I feel
 --      like that's a bad idea.
 processFile ∷ NFData a => FilePath → Pkg → (String → a) → SrcTreePath → IO a
-processFile root pkg transform fn = do
+processFile root' pkg transform fn = do
+  let root = root' <> "" -- Forces root to be a directory path.
   let warn e = do
         traceM $ printf "Ignoring exception: %s" $ show e
         return $ transform ""
@@ -278,8 +281,10 @@ processFile root pkg transform fn = do
 
       writeFile cabalMacrosFP                  $ T.pack (pkgMacros pkg)
       writeFile compilerMacrosFP               $ T.pack compilerMacros
-      writeFile (tmpDirFP </> "MachDeps.h")    $ T.pack machDeps
-      writeFile (tmpDirFP </> "ghcautoconf.h") $ T.pack ghcAutoConf
+      forM (M.toList stdHdrs) $ \(hdrFileName,hdrContents) → do
+        let absPath = (tmpDirFP <> hdrFileName)
+        mktree (P.parent absPath)
+        BS.writeFile (P.encodeString absPath) hdrContents
 
       let pstr = P.encodeString (P.collapse $ root <> unSTP fn)
       contents ← hackAroundCPPHSFlaws <$> Prelude.readFile pstr
@@ -355,7 +360,8 @@ cabalMacros = C.generatePackageVersionMacros . pkgs
         pkgs = fmap resolve . pkgDeps
 
 cabalInfo ∷ FilePath → SrcTreePath → IO ([SrcTreePath],String,[SrcTreePath],[C.Extension])
-cabalInfo root cabalFile = do
+cabalInfo root' cabalFile = do
+  let root = root' <> "" -- Forces root to be a directory path.
   traceM $ "cabalInfo " <> stpStr cabalFile
   let cabalFileStr = P.encodeString $ root <> unSTP cabalFile
   gdesc ← C.readPackageDescription C.normal cabalFileStr
@@ -371,7 +377,8 @@ cabalInfo root cabalFile = do
   result `deepseq` return result
 
 scanPkg ∷ FilePath → SrcTreePath → IO Pkg
-scanPkg root cabalFile = do
+scanPkg root' cabalFile = do
+  let root = root' <> "" -- Forces root to be a directory path.
   let pkgDir = stDir $ P.directory $ unSTP cabalFile
   (srcDirs,macros,includeDirs,defaultExtensions) ← cabalInfo root cabalFile
 
@@ -387,7 +394,8 @@ scanPkg root cabalFile = do
   return $ Pkg pkgDir cabalFile modules macros includeDirs defaultExtensions
 
 scan ∷ FilePath → IO (Set SrcTreePath)
-scan root = do
+scan root' = do
+  let root = root' <> "" -- Forces root to be a directory path.
   packageFiles ← shellLines $ find cabalFiles root
   return $ S.fromList $ flip map packageFiles $ \x →
     let dieWithError = error $ printf "%s is not a prefix of %s!"
@@ -422,6 +430,12 @@ loc root = do
   proj ← loadEntireProject root (\_ _ x → x)
   let allCode = L.concat $ join $ M.elems . snd <$> M.elems proj
   return $ length $ Prelude.lines $ allCode
+
+listFiles ∷ FilePath → IO [FilePath]
+listFiles root = do
+  pkgFiles ← S.toList <$> scan root
+  fmap (fmap unSTP . join) $ forM pkgFiles $ \pkgFile → do
+    M.elems . pkgModules <$> scanPkg root pkgFile
 
 -- This version only doesn't keep source code in memory.
 lowMemLoc ∷ FilePath → IO Int
