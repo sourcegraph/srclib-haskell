@@ -2,6 +2,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TupleSections #-}
 {-# LANGUAGE CPP #-}
 
@@ -70,6 +71,12 @@ newtype ModuleName = MN { unModuleName ∷ Text }
 -- | Path's relative to the root of the source tree.
 newtype SrcTreePath = SrcTreePath { unSTP ∷ P.FilePath }
   deriving (Eq,Ord,IsString,Show,NFData)
+
+mkAbsolute ∷ FilePath → IO FilePath
+mkAbsolute fp = if P.absolute fp
+                  then return fp
+                  else do wd ← pwd
+                          return $ P.collapse $ wd <> fp
 
 fileP ∷ P.FilePath → P.FilePath
 fileP fp = if fp≠(P.directory fp) then fp else
@@ -247,6 +254,43 @@ extensionsHack =
   , EnableExtension MultiParamTypeClasses
   , EnableExtension ExistentialQuantification
   ]
+
+-- | BE CAREFUL! This updates the filesystem at `fp` and depends on autoreconf.
+configureWithAutotools ∷ FilePath → IO ()
+configureWithAutotools fp = do
+  wd ← pwd
+  sh $ do liftIO $ cd fp
+          inshell "autoreconf" empty
+          inshell "./configure" empty
+  cd wd
+
+directoriesThatRequireAutotoolsConfiguration ∷ FilePath → IO [FilePath]
+directoriesThatRequireAutotoolsConfiguration fp =
+  map P.directory <$> shellLines (find (has "configure.ac") fp)
+
+sourceTreeDependsOnAutotools ∷ FilePath → IO Bool
+sourceTreeDependsOnAutotools fp = do
+  dirs ← directoriesThatRequireAutotoolsConfiguration fp
+  return $ 0 ≠ length dirs
+
+configureWithAutotoolsRecursive ∷ FilePath → IO ()
+configureWithAutotoolsRecursive fp = do
+  dirs ← directoriesThatRequireAutotoolsConfiguration fp
+  forM_ dirs configureWithAutotools
+
+analyseCopy ∷ FilePath → (FilePath → IO a) → IO a
+analyseCopy fp analyse =
+  IO.withSystemTempDirectory "copy_for_analysis" $ \tmpDir → do
+   fpstr ← P.encodeString <$> mkAbsolute fp
+   let cmd = printf "(cd '%s'; tar c .) | (cd '%s'; tar x)" fpstr tmpDir
+   sh $ inshell (T.pack cmd) empty
+   analyse $ P.decodeString tmpDir
+
+analyseConfiguredCopy ∷ FilePath → (FilePath → IO a) → IO a
+analyseConfiguredCopy fp analyse =
+  analyseCopy fp $ \tmpDir → do
+    configureWithAutotoolsRecursive tmpDir
+    analyse tmpDir
 
 parseCode ∷ Pkg → FilePath → String → Maybe (Module SrcSpanInfo)
 parseCode pkg filePath source = do

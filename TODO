@@ -18,15 +18,12 @@
 	█ First step: Always use the greatest available version.
 	█ Final version: Actually resolve dependencies.
 
-█ Known-missing header files:
-	ghcconfig.h:       unix/**
-	HsProcessConfig.h: process/**
-	HsNetworkConfig.h: network/**
-	HsIntegerGmp.h:    integer-gmp/**
-	HsBaseConfig.h:    base/**
-	EventConfig.h:     base/**/Event/**
-	rts/Signals.h:     base/**
-	ghcplatform.h:     base/System/Environment.hs
+█ What's the best way to deal with the autotools problem?
+	█ I can't parse code without running autotools on some projects.
+	█ This makes the process slow and error-prone.
+	█ This makes the process system-dependent. It's not a pure function any more!
+	█ This forces us to copy the source tree to avoid clobbering it.
+	█ This adds a run-time dependency on autotools.
 
 █ Cleanup
 	█ Parse failures are logged with `traceM`.
