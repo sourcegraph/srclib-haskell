@@ -263,12 +263,15 @@ extensionsHack =
   ]
 
 -- | BE CAREFUL! This updates the filesystem at `fp` and depends on autoreconf.
+-- TODO write proper code for having a temporary working directory.
 configureWithAutotools ∷ FilePath → IO ()
 configureWithAutotools fp = do
   wd ← pwd
-  sh $ do liftIO $ cd fp
-          inshell "autoreconf" empty
-          inshell "./configure" empty
+  cd fp
+  traceM "running autoreconf"
+  sh $ inshell "autoreconf" empty
+  traceM "running ./configure"
+  sh $ inshell "./configure" empty
   cd wd
 
 directoriesThatRequireAutotoolsConfiguration ∷ FilePath → IO [FilePath]
@@ -290,7 +293,9 @@ analyseCopy fp analyse =
   IO.withSystemTempDirectory "copy_for_analysis" $ \tmpDir → do
    fpstr ← P.encodeString <$> mkAbsolute fp
    let cmd = printf "(cd '%s'; tar c .) | (cd '%s'; tar x)" fpstr tmpDir
+   traceM "copying project to a temporary directory"
    sh $ inshell (T.pack cmd) empty
+   traceM "done copying"
    analyse $ P.decodeString tmpDir
 
 analyseConfiguredCopy ∷ FilePath → (FilePath → IO a) → IO a
@@ -414,7 +419,7 @@ cabalMacros = C.generatePackageVersionMacros . pkgs
 cabalInfo ∷ FilePath → SrcTreePath → IO ([SrcTreePath],String,[SrcTreePath],[C.Extension])
 cabalInfo root' cabalFile = do
   let root = root' <> "" -- Forces root to be a directory path.
-  traceM $ "cabalInfo " <> stpStr cabalFile
+  traceM $ "scanning pakage: " <> stpStr cabalFile
   let cabalFileStr = P.encodeString $ root <> unSTP cabalFile
   gdesc ← C.readPackageDescription C.normal cabalFileStr
   let desc        = C.flattenPackageDescription gdesc
