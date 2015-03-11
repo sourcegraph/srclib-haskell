@@ -72,6 +72,30 @@ newtype ModuleName = MN { unModuleName ∷ Text }
 newtype SrcTreePath = SrcTreePath { unSTP ∷ P.FilePath }
   deriving (Eq,Ord,IsString,Show,NFData)
 
+-- TODO Consider writing a newtype for CabalFile
+-- TODO Consider writing a newtype for HSFile
+-- TODO Consider writing a newtype for SrcDir
+
+data Pkg = Pkg {
+  pkgRoot              ∷ !SrcTreePath,
+  pkgCabalFile         ∷ !SrcTreePath,
+  pkgModules           ∷ !(Map ModuleName SrcTreePath),
+  pkgMacros            ∷ !String,
+  pkgIncludeDirs       ∷ ![SrcTreePath],
+  pkgDefaultExtensions ∷ ![C.Extension]
+}
+
+
+-- Typeclass Instances -------------------------------------------------------
+
+-- TODO This is highly questionable.
+instance NFData C.Extension
+instance NFData SrcSpanInfo
+instance NFData a ⇒ NFData (Module a)
+
+
+-- Utilities for Dealing with FilePath's -------------------------------------
+
 mkAbsolute ∷ FilePath → IO FilePath
 mkAbsolute fp = if P.absolute fp
                   then return fp
@@ -93,28 +117,11 @@ stFile = SrcTreePath . normalizeP . fileP
 stDir ∷ P.FilePath → SrcTreePath
 stDir = SrcTreePath . normalizeP . (<> "")
 
-instance NFData C.Extension
-instance NFData SrcSpanInfo
-instance NFData a ⇒ NFData (Module a)
-
--- TODO Write a newtype for CabalFile
--- TODO Write a newtype for HSFile
--- TODO Write a newtype for SrcDir
-
-data Pkg = Pkg {
-  pkgRoot              ∷ !SrcTreePath,
-  pkgCabalFile         ∷ !SrcTreePath,
-  pkgModules           ∷ !(Map ModuleName SrcTreePath),
-  pkgMacros            ∷ !String,
-  pkgIncludeDirs       ∷ ![SrcTreePath],
-  pkgDefaultExtensions ∷ ![C.Extension]
-}
+stpStr ∷ SrcTreePath → String
+stpStr = P.encodeString . unSTP
 
 
 -- Values --------------------------------------------------------------------
-
-stpStr ∷ SrcTreePath → String
-stpStr = P.encodeString . unSTP
 
 cabalFiles ∷ Pattern Text
 cabalFiles = suffix ".cabal"
@@ -384,7 +391,8 @@ allDefaultExtensions desc = nub $ join $ libDirs ++ exeDirs
      libDirs = maybeToList (C.defaultExtensions . C.libBuildInfo <$> C.library desc)
      exeDirs = C.defaultExtensions . C.buildInfo <$> C.executables desc
 
--- chooseVersion chooses the greatest version that is explicitly mentioned.
+-- `chooseVersion` chooses the greatest version that is explicitly
+-- mentioned, but uses 0.1.0.0 if none is mentioned.
 chooseVersion ∷ C.VersionRange → C.Version
 chooseVersion = C.foldVersionRange fallback id id id max max
   where fallback = C.Version [0,1,0,0] []
@@ -447,6 +455,8 @@ scan root' = do
     in stFile $ fromMaybe dieWithError $ P.stripPrefix root $ P.collapse x
 
 
+-- Example Uses and Tests ----------------------------------------------------
+
 type EntireProject a = Map SrcTreePath (Pkg, Map ModuleName a)
 
 loadPkg ∷ NFData a => FilePath → (Pkg → FilePath → String → a) → SrcTreePath → IO (Pkg, Map ModuleName a)
@@ -468,24 +478,19 @@ parseEntireProject root = do
   pkgFiles ← S.toList <$> scan root
   mapM (loadPkg root parseCode) $ M.fromList $ (\x→(x,x)) <$> pkgFiles
 
--- This version loads the entire project into memory before counting lines.
-loc ∷ FilePath → IO Int
-loc root = do
-  proj ← loadEntireProject root (\_ _ x → x)
-  let allCode = L.concat $ join $ M.elems . snd <$> M.elems proj
-  return $ length $ Prelude.lines $ allCode
-
 listFiles ∷ FilePath → IO [FilePath]
 listFiles root = do
   pkgFiles ← S.toList <$> scan root
   fmap (fmap unSTP . join) $ forM pkgFiles $ \pkgFile → do
     M.elems . pkgModules <$> scanPkg root pkgFile
 
--- This version only doesn't keep source code in memory.
-lowMemLoc ∷ FilePath → IO Int
-lowMemLoc root = do
+loc ∷ FilePath → IO Int
+loc root = do
   pkgFiles ← S.toList <$> scan root
   fmap sum $ forM pkgFiles $ \pkgFile → do
     pkg ← scanPkg root pkgFile
     let modules = pkgModules pkg
     sum <$> forM (M.elems(pkgModules pkg)) (processFile root pkg (length . Prelude.lines))
+
+configureAndParseEntireProject ∷ FilePath → IO (EntireProject(Maybe(Module SrcSpanInfo)))
+configureAndParseEntireProject = flip analyseConfiguredCopy parseEntireProject
