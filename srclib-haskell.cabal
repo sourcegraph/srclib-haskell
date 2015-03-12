@@ -49,3 +49,4 @@ executable srclib-haskell
                ,       turtle
                ,       unix
                ,       vector
+               ,       preprocess-haskell
