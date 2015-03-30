@@ -34,10 +34,13 @@ executable srclib-haskell
                ,       foldl
                ,       ghc
                ,       hackage-db
+               ,       haskell-names
+               ,       haskell-packages
                ,       haskell-src-exts==1.16.0.1
                ,       here
                ,       mtl
                ,       pathtype
+               ,       preprocess-haskell
                ,       process
                ,       QuickCheck
                ,       regex-tdfa
@@ -49,4 +52,3 @@ executable srclib-haskell
                ,       turtle
                ,       unix
                ,       vector
-               ,       preprocess-haskell

@@ -1,14 +1,17 @@
-{-# LANGUAGE UnicodeSyntax, NoImplicitPrelude #-}
+{-# LANGUAGE NoImplicitPrelude, UnicodeSyntax #-}
 
 module Imports(moduleRefs,ModuleRef,hello) where
 
 import ClassyPrelude
 
 import qualified Data.Text as T
+import qualified Examples  as Ex
+
 import Language.Haskell.Exts.Annotated as HSE
 import Language.Haskell.Exts.Extension as HSE
+
 import qualified Locations as Loc
-import qualified Examples as Ex
+
 
 type Span = SrcSpanInfo
 type ModuleRef = (String, (Int,Int), (Int,Int), Loc.ModulePath)

@@ -1,5 +1,20 @@
-█ Remove the code for preprocess-haskell from this source tree.
-	█ Read about the sanest way to depend against a local library.
+█ Milestones
+	█ Graph output for `warpdep` works with srcco.
+	█ Read about `haskell-names`.
+	█ Name-resolve a modules independently of it's peers.
+	█ Combine name resolution information for all modules withing
+	  a package into a single, graphable object.
+	█ Combine name resolution information for all packages
+	  into a single, graphable object.
+	█ Start graphing!
+		█ Graph all top-level bindings as defs and self-refs.
+		█ Graph explicit imports as refs.
+		█ Graph explicitly imported symbols as refs.
+		█ Graph the module-part of symbols.
+		  For example, BS should be a reference to Data.ByteString in this example:
+
+		      import Data.ByteString as BS
+		      baz = BS.foo
 
 █ Improve the test suite.
 	█ Interactive testing with srcco.
@@ -24,8 +39,3 @@
 	█ This makes the process system-dependent. It's not a pure function any more!
 	█ This forces us to copy the source tree to avoid clobbering it.
 	█ This adds a run-time dependency on autotools.
-
-█ Cleanup
-	█ Parse failures are logged with `traceM`.
-		█ This is easy, but shouldn't be used in production.
-		█ What's the best way to handle this?

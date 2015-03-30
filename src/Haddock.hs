@@ -1,44 +1,43 @@
-{-# LANGUAGE LambdaCase           #-}
-{-# LANGUAGE OverloadedStrings    #-}
-{-# LANGUAGE ScopedTypeVariables  #-}
-{-# LANGUAGE UnicodeSyntax        #-}
-{-# LANGUAGE NoImplicitPrelude    #-}
+{-# LANGUAGE LambdaCase, NoImplicitPrelude, OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables, UnicodeSyntax               #-}
 
 {-# OPTIONS_GHC -fno-warn-orphans     #-}
 {-# OPTIONS_GHC -fwarn-unused-imports #-}
 
 module Haddock where
 
-import qualified Prelude
-import           ClassyPrelude hiding ((</>), (<.>), maximumBy)
-import           Prelude.Unicode
+import ClassyPrelude hiding (maximumBy, (<.>), (</>))
+
+import Shelly hiding (FilePath, canonicalize, path, trace, (<.>), (</>))
+
 import           Control.Category.Unicode
-import qualified Imports as Imp
-import Text.Printf
+import qualified Prelude
+import           Prelude.Unicode
+import           Text.Printf
 
-import qualified Data.IntMap as IntMap
-import qualified Data.Maybe as May
-import qualified Data.Map as M
-import qualified Data.Set as Set
-import qualified Data.Text as T
-import qualified Data.List as L
-import           Data.Foldable (maximumBy)
+import           Control.DeepSeq
+import           Data.Foldable   (maximumBy)
+import qualified Data.IntMap     as IntMap
+import qualified Data.List       as L
+import qualified Data.Map        as M
+import qualified Data.Maybe      as May
+import qualified Data.Set        as Set
+import qualified Data.Text       as T
 
-import           Shelly hiding (FilePath, path, (</>), (<.>), canonicalize, trace)
-import qualified Shelly
 import qualified Filesystem.Path.CurrentOS as Path
-import           System.Posix.Process (getProcessID)
+import qualified Shelly
+import           System.Posix.Process      (getProcessID)
 import           Text.Regex.TDFA
-
-import qualified Cabal as C
-import           Locations as Loc
-import qualified Srclib as Src
 
 import Distribution.Hackage.DB (readHackage)
 
-import Control.DeepSeq
-
 import Language.Haskell.Preprocess hiding (moduleName)
+
+import qualified Cabal     as C
+import qualified Imports   as Imp
+import           Locations as Loc
+import qualified Resolve
+import qualified Srclib    as Src
 
 
 -- Types ---------------------------------------------------------------------
