@@ -41,11 +41,14 @@ executable srclib-haskell
                ,       mtl
                ,       pathtype
                ,       preprocess-haskell
+               ,       pretty-show
                ,       process
                ,       QuickCheck
                ,       regex-tdfa
                ,       shelly
                ,       split
+               ,       syb
+               ,       syb
                ,       system-filepath
                ,       temporary
                ,       text

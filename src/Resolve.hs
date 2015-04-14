@@ -2,12 +2,16 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 
 {-# LANGUAGE DeriveFoldable, DeriveFunctor, DeriveTraversable #-}
+{-# LANGUAGE StandaloneDeriving, TypeSynonymInstances #-}
+{-# LANGUAGE FlexibleInstances, TypeSynonymInstances #-}
+{-# LANGUAGE DeriveDataTypeable, RecordWildCards #-}
 
 module Resolve where
 
 import ClassyPrelude hiding (forM, forM_, mapM, mapM_, sum, foldl', toList)
 
 import qualified Prelude as P
+import Text.Show.Pretty
 
 import           Control.DeepSeq
 import           Data.Foldable
@@ -21,12 +25,26 @@ import Language.Haskell.Exts.Annotated   as HSE hiding (ModuleName)
 import Language.Haskell.Names            as HN
 
 import           Language.Haskell.Preprocess
+import           Language.Haskell.Preprocess.Internal
+
+import qualified Language.Haskell.Exts.Annotated.Syntax as HSE
+
+import qualified Data.Data as Data
+import Data.Data (Data)
+
+import Data.Generics.Schemes
+
+import qualified Language.Haskell.Exts.Syntax
+
+import qualified Srclib
 
 
 -- Data Types ------------------------------------------------------------------
 
+deriving instance Show Pkg
+
 data EntireProject a = Proj { unProj ∷ Map SrcTreePath (Pkg, Map ModuleName a) }
-  deriving (Functor,Foldable,Traversable)
+  deriving (Functor,Foldable,Traversable,Show)
 
 type MaybeModule = Maybe(Module SrcSpanInfo)
 
@@ -35,9 +53,6 @@ type Transform a = Pkg → FilePath → String → a
 
 allModules ∷ EntireProject (Module a) → [Module a]
 allModules = toList -- Proj . join . fmap M.elems . fmap snd . M.elems . unProj
-
-type NameResolvedModule = Module (Scoped SrcSpanInfo)
-type SomeModuleMonad a = ModuleT [Symbol] IO a
 
 emptyResolvedModule ∷ NameResolvedModule
 emptyResolvedModule = undefined
@@ -101,9 +116,102 @@ unMaybeProj = Proj . fromProj
   where fromProj (Proj m) = fromPackage <$> m
         fromPackage (p,ms) = (p,mapCatMaybes ms)
 
-doAllThings ∷ FilePath → IO (EntireProject NameResolvedModule)
-doAllThings fp = do
+mkStubProject ∷ FilePath → IO (EntireProject NameResolvedModule)
+mkStubProject fp = do
   projs ← unMaybeProj <$> configureAndParseEntireProject fp
-  resolved ← resolveNames projs
-  mapM_ (traceM . P.show . length . P.show) resolved
-  return resolved
+  resolveNames projs
+
+-- the type (Scoped l) contains this constructor: ValueBinder
+--   (Ident (Scoped (ValueBinder) (SrcSpanInfo
+--                                  (SrcSpan "Data/Text.hs" 319 10 319 14)
+--                                  ([])))
+--      "arrA")
+
+-- the type (Scoped l) contains this constructor: (LocalValue SrcLoc)
+--   (Ident
+--     (Scoped (LocalValue
+--              (SrcLoc "/tmp/copy_for_analysis3131/src/Main.hs" 26 7))
+--             SrcSpanInfo
+--              { srcInfoSpan =
+--                  SrcSpan "/tmp/copy_for_analysis3131/src/Main.hs" 27 28 27 32
+--              , srcInfoPoints = []
+--              })
+--     "dump")))))
+
+{-
+(Ident
+   (Scoped
+      (GlobalSymbol
+         Value
+           { symbolModule = ModuleName "Hello" , symbolName = Ident "hello" }
+         (Qual (ModuleName "Hello") (Ident "hello")))
+      SrcSpanInfo
+        { srcInfoSpan =
+            SrcSpan "/tmp/copy_for_analysis3131/src/Main.hs" 5 8 5 19
+        , srcInfoPoints = []
+        })
+   "hello"))))
+-}
+
+data Span = Span (Int,Int) (Int,Int)
+  deriving (Eq,Show)
+
+data Node = ValBind   Srclib.IdName Span
+          | TypeBind  Srclib.IdName Span
+          | GlobalRef Span          (ModuleName,Srclib.IdName,Srclib.Kind)
+          | LocalRef  Span          SrcLoc
+  deriving (Show)
+
+symbolKind ∷ Symbol → Srclib.Kind
+symbolKind sym = case sym of
+  HN.Value{..}       → Srclib.Value
+  HN.Method{..}      → Srclib.Value
+  HN.Selector{..}    → Srclib.Value
+  HN.Constructor{..} → Srclib.Value
+  HN.Type{..}        → Srclib.Type
+  HN.Data{..}        → Srclib.Type
+  HN.NewType{..}     → Srclib.Type
+  HN.TypeFam{..}     → Srclib.Type
+  HN.DataFam{..}     → Srclib.Type
+  HN.Class{..}       → Srclib.Type
+
+nameNode ∷ HSE.Name (Scoped SrcSpanInfo) → Maybe Node
+nameNode ast =
+  let span ∷ SrcSpanInfo → Span
+      span (SrcSpanInfo (SrcSpan _ l1 c1 l2 c2) _) = Span (l1,c1) (l2,c2)
+      nameStr (Language.Haskell.Exts.Syntax.Ident  s) = T.pack s
+      nameStr (Language.Haskell.Exts.Syntax.Symbol s) = T.pack s
+      cvtModuleName (Language.Haskell.Exts.Syntax.ModuleName n) = MN (T.pack n)
+      t = T.pack
+      gRef si sym = GlobalRef (span si) ( cvtModuleName (symbolModule sym)
+                                           , nameStr (symbolName sym)
+                                           , symbolKind sym
+                                           )
+  in case ast of
+    Ident (Scoped ValueBinder          si) n → Just $ ValBind (t n) (span si)
+    Symbol(Scoped ValueBinder          si) n → Just $ ValBind (t n) (span si)
+    Ident (Scoped (LocalValue loc)     si) _ → Just $ LocalRef (span si) loc
+    Symbol(Scoped (LocalValue loc)     si) _ → Just $ LocalRef (span si) loc
+    Ident (Scoped (GlobalSymbol sym _) si) _ → Just $ gRef si sym
+    Symbol(Scoped (GlobalSymbol sym _) si) _ → Just $ gRef si sym
+    _                                        → Nothing
+
+nodes ∷ NameResolvedModule → [Node]
+nodes = catMaybes . map nameNode . listify (isJust . nameNode)
+
+type NameResolvedModule = Module (Scoped SrcSpanInfo)
+type SomeModuleMonad a = ModuleT [Symbol] IO a
+
+exImports = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/case/haskell-module-import"
+exHW = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/case/haskell-hello-world"
+exSimle = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/case/haskell-simple-tests"
+warpdep = ("/home/ben/warpdeps/" </>)
+lol ex = do
+  p <- mkStubProject ex
+
+  -- mapM_ (P.putStrLn . ppShow) p
+  -- mapM_ P.print $ join $ nodes <$> toList p
+
+  P.print $ length $ join $ nodes <$> toList p
+
+  return ()
