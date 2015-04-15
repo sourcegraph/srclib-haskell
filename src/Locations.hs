@@ -56,11 +56,16 @@ import           Test.QuickCheck
 import qualified Data.Vector.Unboxed as V
 import Data.Vector.Unboxed (Vector,(!),(!?))
 
+import Text.Printf
+
 
 -- Types ---------------------------------------------------------------------
 
 data LineCol = LineCol Int Int
-  deriving (Show,Eq)
+  deriving (Eq)
+
+instance Show LineCol where
+  show (LineCol l c) = printf "%d:%d" l c
 
 instance Ord LineCol where
   compare (LineCol l c) (LineCol λ ξ) =
