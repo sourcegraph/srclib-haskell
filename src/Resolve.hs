@@ -1,8 +1,5 @@
 {-
-TODO Make defs for module headers.
-TODO Make bogus defs for each module that doesn't have a declaration.
 TODO Make bogus refs for each def.
-TODO For each module, insert a module def.
 TODO Convert from (MultiMap MName Node) -> (Set Ref, Set Def)
 -}
 
@@ -15,7 +12,7 @@ TODO Convert from (MultiMap MName Node) -> (Set Ref, Set Def)
 module Resolve where
 
 import ClassyPrelude hiding (concat, foldl', forM, forM_, mapM, mapM_, sum,
-                      toList, concatMap)
+                      toList, concatMap, span)
 
 import qualified Prelude          as P
 import           Text.Show.Pretty
@@ -105,9 +102,6 @@ instance NFData ResolvedNode
 allModules ∷ EntireProject (Module a) → [Module a]
 allModules = toList -- Proj . join . fmap M.elems . fmap snd . M.elems . unProj
 
--- emptyResolvedModule ∷ NameResolvedModule
--- emptyResolvedModule = undefined
-
 evalSomeModuleMonad ∷ SomeModuleMonad a → IO a
 evalSomeModuleMonad m = do
   evalModuleT m [] "don't use this" (\_fp → return [])
@@ -185,6 +179,10 @@ symbolKind sym = case sym of
   HN.DataFam{..}     → Srclib.Type
   HN.Class{..}       → Srclib.Type
 
+span ∷ SrcSpanInfo → (Lc,Lc)
+span (SrcSpanInfo (SrcSpan _ l1 c1 l2 c2) _) = (LineCol l1 c1,LineCol l2 c2)
+
+
 extractNode mName = f
   where
     f ValueBinder          si n = [Bind (span si) (mName,t n,Srclib.Value)]
@@ -195,9 +193,6 @@ extractNode mName = f
     f (Export syms)        si _ = (\s→GRef (span si) (symPath s)) <$> syms
     f (ImportPart syms)    si _ = (\s→GRef (span si) (symPath s)) <$> syms
     f _                    _  _ = []
-
-    span ∷ SrcSpanInfo → (Lc,Lc)
-    span (SrcSpanInfo (SrcSpan _ l1 c1 l2 c2) _) = (LineCol l1 c1,LineCol l2 c2)
 
     nameStr (Language.Haskell.Exts.Syntax.Ident  s) = T.pack s
     nameStr (Language.Haskell.Exts.Syntax.Symbol s) = T.pack s
@@ -213,8 +208,8 @@ extractNode mName = f
                    symbolKind sym)
 
 nameNode ∷ MName → HSE.Name (Scoped SrcSpanInfo) → [ScrapedNode]
-nameNode mName (Ident (Scoped info si) n) = extractNode mName info si n
-nameNode mName (Symbol(Scoped info si) n) = extractNode mName info si n
+nameNode mName (Ident (Scoped i si) n) = extractNode mName i si n
+nameNode mName (Symbol(Scoped i si) n) = extractNode mName i si n
 
 qnStr ∷ QName a → [String]
 qnStr (Qual    _ _ (Ident _ s))  = [s]
@@ -225,11 +220,28 @@ qnStr (Special _ _)              = []
 
 exportNode ∷ MName → HSE.ExportSpec (Scoped SrcSpanInfo) → [ScrapedNode]
 exportNode mName ast = case ast of
-  EVar (Scoped info si) _ qn            → concat $ extractNode mName info si <$> qnStr qn
-  EAbs (Scoped info si) qn              → concat $ extractNode mName info si <$> qnStr qn
-  EThingAll (Scoped info si) qn         → concat $ extractNode mName info si <$> qnStr qn
-  EThingWith (Scoped info si) qn _      → concat $ extractNode mName info si <$> qnStr qn
-  EModuleContents _ _                   → []
+  EVar (Scoped i s) _ qn        → concat(extractNode mName i s <$> qnStr qn)
+  EAbs (Scoped i s) qn          → concat(extractNode mName i s <$> qnStr qn)
+  EThingAll (Scoped i s) qn     → concat(extractNode mName i s <$> qnStr qn)
+  EThingWith (Scoped i s) qn _  → concat(extractNode mName i s <$> qnStr qn)
+  EModuleContents _ _           → []
+
+moduleDefNode ∷ MName → NameResolvedModule → ScrapedNode
+moduleDefNode m (Module _ head _ _ _) = Bind loc path
+  where
+    path = (m, T.pack(unModuleName m), Srclib.Module)
+    loc = case head of
+      Nothing → (LineCol 1 1, LineCol 1 1)
+      Just (ModuleHead _ (HSE.ModuleName (Scoped _ s) _) _ _) → span s
+
+moduleRefNode ∷ ImportDecl (Scoped SrcSpanInfo) → [ScrapedNode]
+moduleRefNode (ImportDecl _ nm _ _ _ _ alias _) = resultNodes
+  where extract (HSE.ModuleName (Scoped _ s) n) = (span s,n)
+        importedModulePath = snd(extract nm)
+        mkRef (loc,m) = GRef loc (MN m, T.pack m, Srclib.Module)
+        resultNodes = case (extract nm, extract <$> alias) of
+          ((span1,nm),Nothing)       → mkRef <$> [(span1,nm)]
+          ((span1,nm),Just(span2,_)) → mkRef <$> [(span1,nm),(span2,nm)]
 
 bindings ∷ (Ord p,Foldable f) => f (MName,LocalNode (Lc,Lc) x p) → (Bimap (MName,Lc) p)
 bindings = foldl' ins BM.empty
@@ -262,8 +274,15 @@ nodes1 m = concat . map (nameNode m) . listify (not . L.null . (nameNode m))
 nodes2 ∷ MName → NameResolvedModule → [ScrapedNode]
 nodes2 m = concat . map (exportNode m) . listify (not . L.null . (exportNode m))
 
+nodes3 ∷ NameResolvedModule → [ScrapedNode]
+nodes3 = concat . map moduleRefNode . listify (not . L.null . moduleRefNode)
+
 nodes ∷ MName → NameResolvedModule → [ScrapedNode]
-nodes m ast = nodes1 m ast ++ nodes2 m ast
+nodes m ast = L.concat [ nodes1 m ast
+                       , nodes2 m ast
+                       , nodes3 ast
+                       , [moduleDefNode m ast]
+                       ]
 
 projMap ∷ EntireProject a → Map MName a
 projMap = M.unions . map snd . M.elems . unProj

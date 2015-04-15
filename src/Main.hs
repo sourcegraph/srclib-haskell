@@ -37,7 +37,6 @@ import Cabal as C
 import Haddock as H
 import Srclib as Src
 import qualified Locations as Loc
-import qualified Imports
 
 import Distribution.Hackage.DB (Hackage, readHackage)
 

@@ -34,7 +34,6 @@ import Distribution.Hackage.DB (readHackage)
 import Language.Haskell.Preprocess hiding (moduleName)
 
 import qualified Cabal     as C
-import qualified Imports   as Imp
 import           Locations as Loc
 import qualified Resolve
 import qualified Srclib    as Src
@@ -117,24 +116,6 @@ repoMap info = do
   -- ds ← mapM(C.resolve hack ⋙ return) $ M.toList $ C.cabalDependencies info
   -- return $ M.fromList $ (\d → (Src.depToUnit d, Src.depToRepoCloneURL d)) <$> ds
 
-convertModuleGraph ∷ ModuleLookup → SrcLocLookup → [(Text,[Imp.ModuleRef])] → Src.Graph
-convertModuleGraph toRepoAndPkg toOffset refMap =
-  Src.Graph [] $ concat $ fmap cvt . snd <$> refMap
-    where repoFile = Repo . fromMaybe mempty . Loc.parseRelativePath . T.pack
-          cvt ∷ Imp.ModuleRef → Src.Ref
-          cvt (fn,(sl,sc),(el,ec),mp) =
-           let (repo,pkg) = toRepoAndPkg mp
-           in Src.Ref
-                { Src.refDefRepo     = repo
-                , Src.refDefUnitType = "HaskellPackage"
-                , Src.refDefUnit     = pkg
-                , Src.refDefPath     = Src.PModule pkg mp
-                , Src.refIsDef       = False
-                , Src.refFile        = repoFile fn
-                , Src.refStart       = toOffset (fn,sl,sc)
-                , Src.refEnd         = toOffset (fn,el,ec)
-                }
-
 _3_2 ∷ (a,b,c) → b
 _3_2 (_,b,_) = b
 
@@ -191,11 +172,6 @@ graph info = do
   pkg ← scanPkg "." $ stFile $ Path.decodeString pkgFile
   traceM $ printf "pkg modules: %s" $ show $ M.keys $ pkgModules pkg
 
-  modRefs ∷ [(Text,[Imp.ModuleRef])]
-    ← forM (M.toList $ pkgModules pkg) $ \(modNm,fn) → do
-        modRefs ← processFile "." pkg (Imp.moduleRefs $ stpStr fn) fn
-        return (T.pack(stpStr fn), modRefs)
-
   let packageName = C.cabalPkgName info
   traceM "mkDB"
 
@@ -222,8 +198,7 @@ graph info = do
               pkg = fromMaybe packageName $ M.lookup mp modules
 
   traceM "moduleGraph"
-  let moduleGraph = convertModuleGraph toRepoAndPkg toOffsets modRefs
-  let results = moduleGraph ++ moduleDefs repo packageName (ourModules pdb)
+  let results = moduleDefs repo packageName (ourModules pdb)
 
   traceM "almost done"
   results `deepseq` traceM "done"
