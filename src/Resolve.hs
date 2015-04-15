@@ -1,8 +1,8 @@
 {-
 TODO Convert from (MultiMap MName Node) -> (Set Ref, Set Def)
-TODO Determine the filename for each module.
 TODO Determine the package for each module.
 TODO Convert from LineCol to integer offsets.
+TODO Optimize!
 -}
 
 {-# LANGUAGE DeriveDataTypeable, DeriveFoldable, DeriveFunctor       #-}
@@ -90,13 +90,13 @@ type ResolvedNode = Node (MName,Lc,Lc)
                          (MName,IdName,Srclib.Kind,Lc)
 
 type FilenamedNode = Node (STP,MName,Lc,Lc)
-                          (MName,IdName,Srclib.Kind,Maybe Lc)
+                          (MName,IdName,Srclib.Kind,Lc)
 
 type PackagedNode = Node (Pkg,STP,MName,Lc,Lc)
-                         (MName,IdName,Srclib.Kind,Maybe Lc)
+                         (MName,IdName,Srclib.Kind,Lc)
 
 type OffsetNode = Node (Pkg,STP,MName,Int,Int)
-                       (MName,IdName,Srclib.Kind,Maybe Int)
+                       (MName,IdName,Srclib.Kind,Int)
 
 instance NFData ScrapedNode
 instance NFData ResolvedNode
@@ -165,7 +165,7 @@ unMaybeProj = Proj . fromProj
 
 mkStubProject ∷ FilePath → IO (EntireProject NameResolvedModule)
 mkStubProject fp = do
-  projs ← unMaybeProj <$> configureAndParseEntireProject fp
+  projs ← unMaybeProj <$> parseEntireProject fp
   resolveNames projs
 
 symbolKind ∷ Symbol → Srclib.Kind
@@ -294,7 +294,7 @@ explode = concatMap (\(k,vs) → [(k,v)|v←vs])
 
 -- In Sourcegraph's model, each binding is also a reference to itself.
 addDefRefs ∷ [(MName,ScrapedNode)] → [(MName,ScrapedNode)]
-addDefRefs orig = extras ++ orig
+addDefRefs orig = orig ++ extras
 
   where extras = catMaybes $ cvt <$> orig
 
@@ -312,19 +312,33 @@ exHW = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/cas
 exSimle = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/case/haskell-simple-tests"
 warpdep = ("/home/ben/warpdeps/" </>)
 
+moduleSources ∷ EntireProject a -> Map MName STP
+moduleSources = M.unions . map (pkgModules . fst) . M.elems . unProj
+
+fillFilePaths ∷ Map MName STP → ResolvedNode → FilenamedNode
+fillFilePaths tbl n =
+  let fn m = fromMaybe (error $ printf "Unknown Module %s" (show m)) $
+               M.lookup m tbl
+  in case n of Ref (m,s,e) p → Ref (fn m,m,s,e) p
+               Def (m,s,e) p → Def (fn m,m,s,e) p
+
+-- data Node loc path = Ref loc path | Def loc path
+-- type FilenamedNode = Node (STP,MName,Lc,Lc) (MName,IdName,Srclib.Kind,Maybe Lc)
+-- type ResolvedNode = Node (MName,Lc,Lc) (MName,IdName,Srclib.Kind,Lc)
+
+scrapeTest ∷ FilePath → IO ()
 scrapeTest ex = do
   p <- mkStubProject ex
 
-  mapM_ (P.putStrLn . ppShow) p
+  let force x = x `deepseq` x
+      graph = addDefRefs $ explode $ M.toList $ M.mapWithKey nodes $ projMap p
+      resolved = catMaybes $ resolve graph
+      filenamed = fillFilePaths (moduleSources p) <$> resolved
 
-  let graph = ordNub $ addDefRefs $ explode $ M.toList $ M.mapWithKey nodes $ projMap p
-
+  -- mapM_ (P.putStrLn . ppShow) p
   -- mapM_ P.print graph
   -- P.putStrLn "================================"
-
-  let force x = x `deepseq` x
-  let resolved = sort $ catMaybes $ resolve graph
-  mapM_ P.print resolved
-  P.putStrLn $ printf "\nThe graph contains %d nodes." $ length $ resolved
+  mapM_ P.print filenamed
+  P.putStrLn $ printf "\nThe graph contains %d nodes." $ length filenamed
 
   return ()
