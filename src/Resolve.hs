@@ -1,5 +1,4 @@
 {-
-TODO Make bogus refs for each def.
 TODO Convert from (MultiMap MName Node) -> (Set Ref, Set Def)
 -}
 
@@ -288,7 +287,19 @@ projMap ∷ EntireProject a → Map MName a
 projMap = M.unions . map snd . M.elems . unProj
 
 explode ∷ [(MName,[ScrapedNode])] → [(MName,ScrapedNode)]
-explode = ordNub . concatMap (\(k,vs) → [(k,v)|v←vs])
+explode = concatMap (\(k,vs) → [(k,v)|v←vs])
+
+-- In Sourcegraph's model, each binding is also a reference to itself.
+addDefRefs ∷ [(MName,ScrapedNode)] → [(MName,ScrapedNode)]
+addDefRefs orig = extras ++ orig
+
+  where extras = catMaybes $ cvt <$> orig
+
+        cvt (m,n) = (m,) <$> defRef n
+
+        defRef ∷ ScrapedNode → Maybe ScrapedNode
+        defRef (Bind loc gPath) = Just $ GRef loc gPath
+        defRef _                = Nothing
 
 
 -- Testing Code ----------------------------------------------------------------
@@ -301,9 +312,9 @@ warpdep = ("/home/ben/warpdeps/" </>)
 scrapeTest ex = do
   p <- mkStubProject ex
 
-  -- mapM_ (P.putStrLn . ppShow) p
+  mapM_ (P.putStrLn . ppShow) p
 
-  let graph = explode $ M.toList $ M.mapWithKey nodes $ projMap p
+  let graph = ordNub $ addDefRefs $ explode $ M.toList $ M.mapWithKey nodes $ projMap p
 
   -- mapM_ P.print graph
   -- P.putStrLn "================================"
