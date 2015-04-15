@@ -1,8 +1,21 @@
 {-
 TODO Convert from (MultiMap MName Node) -> (Set Ref, Set Def)
-TODO Determine the package for each module.
+       refs = [ (l,p) | Ref l p ← nodes ]
+       defs = [ (l,p) | Ref l p ← nodes ]
+
+TODO Determine the package name for each module.
+       This information is already available but we're not storing it yet.
+       Update preprocess-haskell to store the package name in the `Pkg` object.
+       Make a map from (MName → PkgName).
+       Use this pkg information to translate the paths.
+
 TODO Convert from LineCol to integer offsets.
+       Collect the shape information for all files.
+         Do this strictly to avoid opening all the files at once.
+       Use the shape information to translate the offsets.
+
 TODO Optimize!
+     Get profing setup and see where most of the slowness is coming from.
 -}
 
 {-# LANGUAGE DeriveDataTypeable, DeriveFoldable, DeriveFunctor       #-}
