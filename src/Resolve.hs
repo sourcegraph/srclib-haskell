@@ -1,53 +1,60 @@
--- TODO How can I tell if something is exported?
--- TODO How can I tell if a binding is global?
---   I can tell if a reference is to a global or local based on the
---     `(Scoped ...)` GlobalSymbol means global, TypeVar/LocalValue
---     means not global.
+{-
+TODO Make refs for each import.
+TODO Make defs for module headers.
+TODO Make bogus defs for each module that doesn't have a declaration.
+TODO Make bogus refs for each def.
+TODO For each module, insert a module def.
+TODO Convert from (MultiMap MName Node) -> (Set Ref, Set Def)
+-}
 
 {-# LANGUAGE DeriveDataTypeable, DeriveFoldable, DeriveFunctor       #-}
 {-# LANGUAGE DeriveTraversable, FlexibleInstances, LambdaCase        #-}
 {-# LANGUAGE NoImplicitPrelude, RecordWildCards, ScopedTypeVariables #-}
 {-# LANGUAGE StandaloneDeriving, TupleSections, TypeSynonymInstances #-}
-{-# LANGUAGE UnicodeSyntax                                           #-}
+{-# LANGUAGE UnicodeSyntax, DeriveGeneric                            #-}
 
 module Resolve where
 
 import ClassyPrelude hiding (concat, foldl', forM, forM_, mapM, mapM_, sum,
-                      toList)
+                      toList, concatMap)
 
 import qualified Prelude          as P
 import           Text.Show.Pretty
 
 import           Control.DeepSeq
+import qualified Data.Bimap       as BM
+import           Data.Bimap       (Bimap)
 import           Data.Foldable
+import qualified Data.List        as L
 import qualified Data.Map.Strict  as M
 import qualified Data.Set         as S
 import qualified Data.Text        as T
-import qualified Data.List        as L
 import           Data.Traversable
 
 import Distribution.HaskellSuite.Modules as HP
 import Language.Haskell.Exts.Annotated   as HSE hiding (ModuleName)
 import Language.Haskell.Names            as HN
 
-import           Language.Haskell.Preprocess
-import           Language.Haskell.Preprocess.Internal
+import Language.Haskell.Preprocess
+import Language.Haskell.Preprocess.Internal
 
 import qualified Language.Haskell.Exts.Annotated.Syntax as HSE
 
+import           Data.Data (Data)
 import qualified Data.Data as Data
-import Data.Data (Data)
 
 import Data.Generics.Schemes
 
 import qualified Language.Haskell.Exts.Syntax
 
-import qualified Srclib
-import           Srclib (IdName,Kind)
+import           Locations (LineCol (LineCol))
 import qualified Locations as Loc
-import           Locations (LineCol(LineCol))
+import           Srclib    (IdName, Kind)
+import qualified Srclib
 
 import Text.Printf
+
+import Control.DeepSeq.Generics
 
 
 -- Data Types ------------------------------------------------------------------
@@ -62,11 +69,43 @@ type MaybeModule = Maybe(Module SrcSpanInfo)
 -- | TODO This is poorly thought out.
 type Transform a = Pkg → FilePath → String → a
 
+type Lc = LineCol
+type STP = SrcTreePath
+type MName = ModuleName
+
+data Node loc path = Ref loc path | Def loc path
+  deriving (Show,Ord,Eq,Generic)
+
+data LocalNode loc lPath gPath = Bind loc gPath
+                               | GRef loc gPath
+                               | LRef loc lPath
+                               | LExport loc gPath
+  deriving (Show,Ord,Eq,Generic)
+
+type ScrapedNode = LocalNode (Lc,Lc)
+                             Lc
+                             (MName,IdName,Srclib.Kind)
+
+type ResolvedNode = Node (MName,Lc,Lc)
+                         (MName,IdName,Srclib.Kind,Lc)
+
+type FilenamedNode = Node (STP,MName,Lc,Lc)
+                              (MName,IdName,Srclib.Kind,Maybe Lc)
+
+type PackagedNode = Node (Pkg,STP,MName,Lc,Lc)
+                             (MName,IdName,Srclib.Kind,Maybe Lc)
+
+type OffsetNode = Node (Pkg,STP,MName,Int,Int)
+                       (MName,IdName,Srclib.Kind,Maybe Int)
+
+instance NFData ScrapedNode
+instance NFData ResolvedNode
+
 allModules ∷ EntireProject (Module a) → [Module a]
 allModules = toList -- Proj . join . fmap M.elems . fmap snd . M.elems . unProj
 
-emptyResolvedModule ∷ NameResolvedModule
-emptyResolvedModule = undefined
+-- emptyResolvedModule ∷ NameResolvedModule
+-- emptyResolvedModule = undefined
 
 evalSomeModuleMonad ∷ SomeModuleMonad a → IO a
 evalSomeModuleMonad m = do
@@ -164,45 +203,6 @@ mkStubProject fp = do
    "hello"))))
 -}
 
-type Lc = LineCol
-type STP = SrcTreePath
-type MName = ModuleName
-
-data Node loc path = Ref loc path | Def loc path
-  deriving (Show,Ord,Eq)
-
-data LocalNode loc lPath gPath = Bind loc gPath
-                               | GRef loc gPath
-                               | LRef loc lPath
-                               | LExport loc gPath
-  deriving (Show,Ord,Eq)
-
-type ScrapedNode = LocalNode (Lc,Lc)
-                             Lc
-                             (MName,IdName,Srclib.Kind)
-
-type ResolvedPaths = Node (MName,Lc,Lc)
-                          (MName,IdName,Srclib.Kind,Maybe Lc)
-
-type ResolvedFileNames = Node (STP,MName,Lc,Lc)
-                              (MName,IdName,Srclib.Kind,Maybe Lc)
-
-type ResolvedPackages = Node (Pkg,STP,MName,Lc,Lc)
-                             (MName,IdName,Srclib.Kind,Maybe Lc)
-
-type ResolvedOffsets = Node (Pkg,STP,MName,Int,Int)
-                            (MName,IdName,Srclib.Kind,Maybe Int)
-
-{-
-Make refs for each import.
-Make refs for each export.
-Make defs for module headers.
-Make bogus defs for each module that doesn't have a declaration.
-Make bogus refs for each def.
-For each module, insert a module def.
-Convert from (MultiMap MName Node) -> (Set Ref, Set Def)
--}
-
 symbolKind ∷ Symbol → Srclib.Kind
 symbolKind sym = case sym of
   HN.Value{..}       → Srclib.Value
@@ -266,41 +266,32 @@ exportNode mName ast = case ast of
 -- type ScrapedNode = LocalNode (Lc,Lc) Lc (MName,IdName,Srclib.Kind)
 -- type ResolvedPaths = Node (MName,Lc,Lc) (MName,IdName,Srclib.Kind,Maybe Lc)
 
-bindings ∷ Foldable f => f (LocalNode (Lc,Lc) lpath path) → Map Lc path
-bindings = foldl' ins M.empty
-  where ins m (Bind (s,_) p) = M.insert s p m
-        ins m _              = m
+bindings ∷ (Ord p,Foldable f) => f (MName,LocalNode (Lc,Lc) x p) → (Bimap (MName,Lc) p)
+bindings = foldl' ins BM.empty
+  where ins acc (modu,Bind (s,_) p) = BM.insert (modu,s) p acc
+        ins acc _                   = acc
 
-exports ∷ (Show path,Ord path,Foldable f) => f (LocalNode loc lpath path) → Set path
-exports = traceShowId . foldl' ins S.empty
-  where ins s (LExport _ p) = S.insert p s
-        ins s _             = s
+resolve ∷ Traversable t => t (MName,ScrapedNode) → t (Maybe ResolvedNode)
+resolve nodes = cvt <$> nodes
 
-resolve ∷ Traversable t => MName → t ScrapedNode → t (Maybe ResolvedPaths)
-resolve modu nodes = cvt <$> nodes
+  where tbl = bindings nodes
 
-  where lookup ∷ Lc → Maybe ((MName,IdName,Srclib.Kind),Bool)
+        isGlobal = const False
 
-        tbl = fill <$> bindings nodes
-        fill p = (p, S.member p (exports nodes))
-        lookup = flip M.lookup tbl
-        isExported = fromMaybe False . fmap snd . lookup
+        cvt (modu,Bind (s,e) (m,n,k))   = Just $ Def (modu,s,e) (m,n,k,s)
 
-        cvt (Bind (s,e) (m,n,k)) =
-          Just $ Def (modu,s,e) $ if isExported s then (m,n,k,Nothing)
-                                                  else (m,n,k,Just s)
+        cvt (modu,LExport loc path)     = cvt (modu,GRef loc path)
 
-        cvt (LExport loc path) = cvt (GRef loc path)
-        cvt (GRef (s,e) (m,n,k)) = Just $ Ref (modu,s,e) (m,n,k,Nothing)
-        cvt (LRef (s,e) defLoc) =
-          case lookup defLoc of
-            Just ((m,n,k),_) → Just $ Ref (modu,s,e) (m,n,k,Just defLoc)
-            Nothing          → trace (printf "%s not found" (show defLoc))
-                                 Nothing
+        cvt (modu,GRef (s,e) p@(m,n,k)) = case BM.lookupR p tbl of
+              Just (defModu,defLoc) → Just $ Ref (modu,s,e) (defModu,n,k,defLoc)
+              Nothing               →
+                flip trace Nothing
+                  (printf "global sym %s not found" (show p))
 
-  -- First, make a table of all resolved nodes.
-  -- Then, map over the list converting all local references to global ones.
-  -- If a reference can't be resolved, print a warning, and drop the ref.
+        cvt (modu,LRef (s,e) defLoc)    = case BM.lookup (modu,defLoc) tbl of
+              Just (m,n,k) → Just $ Ref (modu,s,e) (m,n,k,defLoc)
+              Nothing      → flip trace Nothing
+                               (printf "local sym %s not found" (show (modu,defLoc)))
 
 nodes1 ∷ MName → NameResolvedModule → [ScrapedNode]
 nodes1 m = concat . map (nameNode m) . listify (not . L.null . (nameNode m))
@@ -319,13 +310,21 @@ exHW = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/cas
 exSimle = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/case/haskell-simple-tests"
 warpdep = ("/home/ben/warpdeps/" </>)
 
+projMap ∷ EntireProject a → Map MName a
+projMap = M.unions . map snd . M.elems . unProj
+
+explode = concatMap $ \(k,vs) → [(k,v)|v←vs]
+
 scrapeTest ex = do
   p <- mkStubProject ex
 
   -- mapM_ (P.putStrLn . ppShow) p
-  let mn = MN "Hello"
-  let graph = catMaybes $ resolve mn $ sort $ ordNub $ join $ (nodes mn) <$> toList p
-  mapM_ P.print graph
-  P.putStrLn $ printf "\nThe graph contains %d nodes." $ length $ graph
+  let graph = explode $ M.toList $ M.mapWithKey nodes $ projMap p
+  -- mapM_ P.print graph
+  -- P.putStrLn "================================"
+  let force x = x `deepseq` x
+  let resolved = force $ catMaybes $ resolve graph
+  mapM_ P.print resolved
+  P.putStrLn $ printf "\nThe graph contains %d nodes." $ length $ resolved
 
   return ()

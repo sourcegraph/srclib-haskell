@@ -21,6 +21,7 @@ executable srclib-haskell
                ,       base>=4.7 && <4.8
                ,       base-unicode-symbols
                ,       basic-prelude
+               ,       bimap
                ,       bytestring
                ,       Cabal
                ,       classy-prelude
@@ -55,3 +56,5 @@ executable srclib-haskell
                ,       turtle
                ,       unix
                ,       vector
+               ,       deepseq
+               ,       deepseq-generics
