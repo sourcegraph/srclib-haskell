@@ -1,5 +1,8 @@
 {-
 TODO Convert from (MultiMap MName Node) -> (Set Ref, Set Def)
+TODO Determine the filename for each module.
+TODO Determine the package for each module.
+TODO Convert from LineCol to integer offsets.
 -}
 
 {-# LANGUAGE DeriveDataTypeable, DeriveFoldable, DeriveFunctor       #-}
@@ -87,10 +90,10 @@ type ResolvedNode = Node (MName,Lc,Lc)
                          (MName,IdName,Srclib.Kind,Lc)
 
 type FilenamedNode = Node (STP,MName,Lc,Lc)
-                              (MName,IdName,Srclib.Kind,Maybe Lc)
+                          (MName,IdName,Srclib.Kind,Maybe Lc)
 
 type PackagedNode = Node (Pkg,STP,MName,Lc,Lc)
-                             (MName,IdName,Srclib.Kind,Maybe Lc)
+                         (MName,IdName,Srclib.Kind,Maybe Lc)
 
 type OffsetNode = Node (Pkg,STP,MName,Int,Int)
                        (MName,IdName,Srclib.Kind,Maybe Int)
