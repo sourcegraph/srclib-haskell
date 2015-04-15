@@ -1,5 +1,4 @@
 {-
-TODO Make refs for each import.
 TODO Make defs for module headers.
 TODO Make bogus defs for each module that doesn't have a declaration.
 TODO Make bogus refs for each def.
@@ -11,7 +10,7 @@ TODO Convert from (MultiMap MName Node) -> (Set Ref, Set Def)
 {-# LANGUAGE DeriveTraversable, FlexibleInstances, LambdaCase        #-}
 {-# LANGUAGE NoImplicitPrelude, RecordWildCards, ScopedTypeVariables #-}
 {-# LANGUAGE StandaloneDeriving, TupleSections, TypeSynonymInstances #-}
-{-# LANGUAGE UnicodeSyntax, DeriveGeneric                            #-}
+{-# LANGUAGE UnicodeSyntax, DeriveGeneric, OverloadedStrings         #-}
 
 module Resolve where
 
@@ -66,6 +65,9 @@ data EntireProject a = Proj { unProj ∷ Map SrcTreePath (Pkg, Map ModuleName a)
 
 type MaybeModule = Maybe(Module SrcSpanInfo)
 
+type NameResolvedModule = Module (Scoped SrcSpanInfo)
+type SomeModuleMonad a = ModuleT [Symbol] IO a
+
 -- | TODO This is poorly thought out.
 type Transform a = Pkg → FilePath → String → a
 
@@ -79,7 +81,6 @@ data Node loc path = Ref loc path | Def loc path
 data LocalNode loc lPath gPath = Bind loc gPath
                                | GRef loc gPath
                                | LRef loc lPath
-                               | LExport loc gPath
   deriving (Show,Ord,Eq,Generic)
 
 type ScrapedNode = LocalNode (Lc,Lc)
@@ -171,38 +172,6 @@ mkStubProject fp = do
   projs ← unMaybeProj <$> configureAndParseEntireProject fp
   resolveNames projs
 
--- the type (Scoped l) contains this constructor: ValueBinder
---   (Ident (Scoped (ValueBinder) (SrcSpanInfo
---                                  (SrcSpan "Data/Text.hs" 319 10 319 14)
---                                  ([])))
---      "arrA")
-
--- the type (Scoped l) contains this constructor: (LocalValue SrcLoc)
---   (Ident
---     (Scoped (LocalValue
---              (SrcLoc "/tmp/copy_for_analysis3131/src/Main.hs" 26 7))
---             SrcSpanInfo
---              { srcInfoSpan =
---                  SrcSpan "/tmp/copy_for_analysis3131/src/Main.hs" 27 28 27 32
---              , srcInfoPoints = []
---              })
---     "dump")))))
-
-{-
-(Ident
-   (Scoped
-      (GlobalSymbol
-         Value
-           { symbolModule = ModuleName "Hello" , symbolName = Ident "hello" }
-         (Qual (ModuleName "Hello") (Ident "hello")))
-      SrcSpanInfo
-        { srcInfoSpan =
-            SrcSpan "/tmp/copy_for_analysis3131/src/Main.hs" 5 8 5 19
-        , srcInfoPoints = []
-        })
-   "hello"))))
--}
-
 symbolKind ∷ Symbol → Srclib.Kind
 symbolKind sym = case sym of
   HN.Value{..}       → Srclib.Value
@@ -223,7 +192,8 @@ extractNode mName = f
     f (LocalValue loc)     si _ = [LRef (span si) (locLc loc)]
     f (TypeVar loc)        si _ = [LRef (span si) (locLc loc)]
     f (GlobalSymbol sym _) si _ = [GRef (span si) (symPath sym)]
-    f (Export syms)        si _ = (\s→LExport (span si) (symPath s)) <$> syms
+    f (Export syms)        si _ = (\s→GRef (span si) (symPath s)) <$> syms
+    f (ImportPart syms)    si _ = (\s→GRef (span si) (symPath s)) <$> syms
     f _                    _  _ = []
 
     span ∷ SrcSpanInfo → (Lc,Lc)
@@ -261,11 +231,6 @@ exportNode mName ast = case ast of
   EThingWith (Scoped info si) qn _      → concat $ extractNode mName info si <$> qnStr qn
   EModuleContents _ _                   → []
 
--- data Node loc lpath path = Ref loc path | Def loc path
--- data LocalNode loc lPath gPath = Bind loc gPath | GRef loc gPath | LRef loc lPath
--- type ScrapedNode = LocalNode (Lc,Lc) Lc (MName,IdName,Srclib.Kind)
--- type ResolvedPaths = Node (MName,Lc,Lc) (MName,IdName,Srclib.Kind,Maybe Lc)
-
 bindings ∷ (Ord p,Foldable f) => f (MName,LocalNode (Lc,Lc) x p) → (Bimap (MName,Lc) p)
 bindings = foldl' ins BM.empty
   where ins acc (modu,Bind (s,_) p) = BM.insert (modu,s) p acc
@@ -279,8 +244,6 @@ resolve nodes = cvt <$> nodes
         isGlobal = const False
 
         cvt (modu,Bind (s,e) (m,n,k))   = Just $ Def (modu,s,e) (m,n,k,s)
-
-        cvt (modu,LExport loc path)     = cvt (modu,GRef loc path)
 
         cvt (modu,GRef (s,e) p@(m,n,k)) = case BM.lookupR p tbl of
               Just (defModu,defLoc) → Just $ Ref (modu,s,e) (defModu,n,k,defLoc)
@@ -302,28 +265,32 @@ nodes2 m = concat . map (exportNode m) . listify (not . L.null . (exportNode m))
 nodes ∷ MName → NameResolvedModule → [ScrapedNode]
 nodes m ast = nodes1 m ast ++ nodes2 m ast
 
-type NameResolvedModule = Module (Scoped SrcSpanInfo)
-type SomeModuleMonad a = ModuleT [Symbol] IO a
+projMap ∷ EntireProject a → Map MName a
+projMap = M.unions . map snd . M.elems . unProj
+
+explode ∷ [(MName,[ScrapedNode])] → [(MName,ScrapedNode)]
+explode = ordNub . concatMap (\(k,vs) → [(k,v)|v←vs])
+
+
+-- Testing Code ----------------------------------------------------------------
 
 exImports = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/case/haskell-module-import"
 exHW = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/case/haskell-hello-world"
 exSimle = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/case/haskell-simple-tests"
 warpdep = ("/home/ben/warpdeps/" </>)
 
-projMap ∷ EntireProject a → Map MName a
-projMap = M.unions . map snd . M.elems . unProj
-
-explode = concatMap $ \(k,vs) → [(k,v)|v←vs]
-
 scrapeTest ex = do
   p <- mkStubProject ex
 
   -- mapM_ (P.putStrLn . ppShow) p
+
   let graph = explode $ M.toList $ M.mapWithKey nodes $ projMap p
+
   -- mapM_ P.print graph
   -- P.putStrLn "================================"
+
   let force x = x `deepseq` x
-  let resolved = force $ catMaybes $ resolve graph
+  let resolved = sort $ catMaybes $ resolve graph
   mapM_ P.print resolved
   P.putStrLn $ printf "\nThe graph contains %d nodes." $ length $ resolved
 
