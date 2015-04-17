@@ -33,7 +33,6 @@ import qualified Data.Set                   as S
 import qualified Data.Text                  as T
 import           Data.Traversable
 
-
 import Distribution.HaskellSuite.Modules as HP
 import Language.Haskell.Exts.Annotated   as HSE hiding (ModuleName)
 import Language.Haskell.Names            as HN
@@ -363,7 +362,8 @@ cvtOffsets moduleSources shapes node =
       cvtPath (p,m,i,k,l)    = (p,m,i,k,cvt (modFn m) l)
       modFn m              = flip fromMaybe (M.lookup m moduleSources) $
                                error $ printf "Invalid module %s" (show m)
-      handleErrors fn l    = fromMaybe $ flip trace 1 $
+      handleErrors fn l@(LineCol line col)
+                           = fromMaybe $ flip trace (line+col) $
                                printf "Invalid offset %s:%s" (show $ unSTP fn)
                                                              (show l)
       cvt fn loc           = handleErrors fn loc $ do
@@ -392,10 +392,10 @@ toRepoPath p = Loc.Repo $ handleError $ Loc.parseRelativePath $ T.pack $ pathStr
 toModulePath ∷ MName → Loc.ModulePath
 toModulePath (MN m) = Loc.parseModulePath $ T.pack m
 
-toSrclibPath (p,m,id,Srclib.Module,loc) =
+toSrclibPath (p,m,_,Srclib.Module,_) =
   Srclib.PModule p (toModulePath m)
-toSrclibPath (p,m,id,kind,loc) =
-  Srclib.PGlobal p (toModulePath m) id kind
+toSrclibPath (p,m,id,kind,loc::Int) =
+  Srclib.PLocal p (toModulePath m) id kind (tshow loc)
 
 refs ∷ [OffsetNode] → [Srclib.Ref]
 refs = map (\case Ref l p → cvt l p False; Def l p → cvt l p True)
@@ -430,6 +430,23 @@ exHW = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/cas
 exSimle = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/case/haskell-simple-tests"
 warpdep = ("/home/ben/warpdeps/" </>)
 
+{-
+cleanDuplicates ∷ [OffsetNode] → [OffsetNode]
+cleanDuplicates = unpack . foldl' f (M.empty,M.empty)
+  where unpack (refs,defs) = M.elems defs ++ M.elems refs
+        f (refs,defs) n@(Ref l p) = (M.insert l n refs, defs           )
+        f (refs,defs) n@(Def l p) = (refs             , M.insert p n defs)
+-}
+
+deDup ∷ Ord b => (a -> b) → [a] → [a]
+deDup uniq = M.elems . M.fromList . fmap (\v→(uniq v,v))
+
+refDeDup ∷ [Srclib.Ref] → [Srclib.Ref]
+refDeDup = deDup $ \r → (Srclib.refFile r, Srclib.refStart r, Srclib.refEnd r)
+
+defDeDup ∷ [Srclib.Def] → [Srclib.Def]
+defDeDup = deDup Srclib.defPath
+
 scrapeTest ∷ FilePath → IO ()
 scrapeTest root = do
   traceM "parsing and name resolving all files."
@@ -446,7 +463,8 @@ scrapeTest root = do
       modulePkg = modulePackages p
       filenamed = fillFilePaths (moduleSource,modulePkg) <$> resolved
       offset = cvtOffsets moduleSource shapes <$> filenamed
-      sourcegraph = Srclib.Graph (defs offset) (refs offset)
+      cleaned = offset
+      sourcegraph = Srclib.Graph (defDeDup $ defs cleaned) (refDeDup $ refs cleaned)
       (Srclib.Graph sgDefs sgRefs) = sourcegraph
 
   -- mapM_ (traceM . ppShow) p

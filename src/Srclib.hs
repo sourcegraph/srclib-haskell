@@ -89,7 +89,7 @@ data Ref = Ref
   , refFile        ∷ RepoPath
   , refStart       ∷ Int
   , refEnd         ∷ Int
-  }
+  } deriving (Ord,Eq)
 
 data Def = Def
   { defPath     ∷ Path
@@ -102,7 +102,7 @@ data Def = Def
   , defExported ∷ Bool
   , defTest     ∷ Bool
   , defRepo     ∷ Text
-  }
+  } deriving (Ord,Eq)
 
 data Graph = Graph [Def] [Ref]
 
