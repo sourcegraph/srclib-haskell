@@ -1,8 +1,4 @@
 {-
-TODO Convert from [Node] -> (Set Ref, Set Def)
-       refs = [ (l,p) | Ref l p ← nodes ]
-       defs = [ (l,p) | Def l p ← nodes ]
-
 TODO Optimize!
      This code is very slow.
      Get profiling set up.
@@ -25,14 +21,18 @@ import qualified Prelude          as P
 import           Text.Show.Pretty
 
 import           Control.DeepSeq
-import qualified Data.Bimap       as BM
-import           Data.Bimap       (Bimap)
+import           Data.Aeson                 (ToJSON)
+import qualified Data.Aeson                 as JSON
+import           Data.Bimap                 (Bimap)
+import qualified Data.Bimap                 as BM
+import qualified Data.ByteString.Lazy.Char8 as BC
 import           Data.Foldable
-import qualified Data.List        as L
-import qualified Data.Map.Strict  as M
-import qualified Data.Set         as S
-import qualified Data.Text        as T
+import qualified Data.List                  as L
+import qualified Data.Map.Strict            as M
+import qualified Data.Set                   as S
+import qualified Data.Text                  as T
 import           Data.Traversable
+
 
 import Distribution.HaskellSuite.Modules as HP
 import Language.Haskell.Exts.Annotated   as HSE hiding (ModuleName)
@@ -101,10 +101,10 @@ type FilenamedNode = Node (STP,MName,Lc,Lc)
                           (MName,IdName,Srclib.Kind,Lc)
 
 type PackagedNode = Node (Text,STP,MName,Lc,Lc)
-                         (MName,IdName,Srclib.Kind,Lc)
+                         (Text,MName,IdName,Srclib.Kind,Lc)
 
 type OffsetNode = Node (Text,STP,MName,Int,Int)
-                       (MName,IdName,Srclib.Kind,Int)
+                       (Text,MName,IdName,Srclib.Kind,Int)
 
 instance NFData ScrapedNode
 instance NFData ResolvedNode
@@ -301,16 +301,16 @@ explode ∷ [(MName,[ScrapedNode])] → [(MName,ScrapedNode)]
 explode = concatMap (\(k,vs) → [(k,v)|v←vs])
 
 -- In Sourcegraph's model, each binding is also a reference to itself.
-addDefRefs ∷ [(MName,ScrapedNode)] → [(MName,ScrapedNode)]
-addDefRefs orig = orig ++ extras
+-- addDefRefs ∷ [(MName,ScrapedNode)] → [(MName,ScrapedNode)]
+-- addDefRefs orig = orig ++ extras
 
-  where extras = catMaybes $ cvt <$> orig
+  -- where extras = catMaybes $ cvt <$> orig
 
-        cvt (m,n) = (m,) <$> defRef n
+        -- cvt (m,n) = (m,) <$> defRef n
 
-        defRef ∷ ScrapedNode → Maybe ScrapedNode
-        defRef (Bind loc gPath) = Just $ GRef loc gPath
-        defRef _                = Nothing
+        -- defRef ∷ ScrapedNode → Maybe ScrapedNode
+        -- defRef (Bind loc gPath) = Just $ GRef loc gPath
+        -- defRef _                = Nothing
 
 
 -- Testing Code ----------------------------------------------------------------
@@ -335,8 +335,10 @@ fillFilePaths (moduleSource, modulePkg) n =
                M.lookup m moduleSource
       pkg m = fromMaybe (error $ printf "Unknown Module %s" (show m)) $
                M.lookup m modulePkg
-  in case n of Ref (m,s,e) p → Ref (pkg m,src m,m,s,e) p
-               Def (m,s,e) p → Def (pkg m,src m,m,s,e) p
+  in case n of Ref (m,s,e) (dm,did,dk,dl) →
+                 Ref (pkg m,src m,m,s,e) (pkg dm,dm,did,dk,dl)
+               Def (m,s,e) (_,id,k,l) →
+                 Def (pkg m,src m,m,s,e) (pkg m,m,id,k,l)
 
 strictSequenceList ∷ (NFData a,Monad m) => [m a] → m [a]
 strictSequenceList []     = return []
@@ -358,10 +360,10 @@ fileShapes root = strictSequenceMap . foldl' f M.empty
 cvtOffsets ∷ Map ModuleName STP → Map STP Loc.FileShape → PackagedNode → OffsetNode
 cvtOffsets moduleSources shapes node =
   let cvtLoc  (p,fn,m,s,e) = (p,fn,m,cvt fn s,cvt fn e)
-      cvtPath (m,i,k,l)    = (m,i,k,cvt (modFn m) l)
+      cvtPath (p,m,i,k,l)    = (p,m,i,k,cvt (modFn m) l)
       modFn m              = flip fromMaybe (M.lookup m moduleSources) $
                                error $ printf "Invalid module %s" (show m)
-      handleErrors fn l    = fromMaybe $ error $
+      handleErrors fn l    = fromMaybe $ flip trace 1 $
                                printf "Invalid offset %s:%s" (show $ unSTP fn)
                                                              (show l)
       cvt fn loc           = handleErrors fn loc $ do
@@ -371,6 +373,57 @@ cvtOffsets moduleSources shapes node =
   in case node of
        Ref l p → Ref (cvtLoc l) (cvtPath p)
        Def l p → Def (cvtLoc l) (cvtPath p)
+
+-- data Path = PModule Pkg ModulePath
+--           | PPkg Pkg
+--           | PGlobal Pkg ModulePath IdName Kind
+--           | PLocal Pkg ModulePath IdName Kind Uniq
+--   deriving (Eq,Ord)
+
+-- TODO paths also require package information too.
+
+--type OffsetNode = Node (Text,STP,MName,Int,Int) (MName,IdName,Srclib.Kind,Int)
+
+toRepoPath ∷ STP → Loc.RepoPath
+toRepoPath p = Loc.Repo $ handleError $ Loc.parseRelativePath $ T.pack $ pathStr
+  where handleError = fromMaybe $ error $ printf "invalid relative path: " pathStr
+        pathStr = Path.encodeString $ unSTP $ p
+
+toModulePath ∷ MName → Loc.ModulePath
+toModulePath (MN m) = Loc.parseModulePath $ T.pack m
+
+toSrclibPath (p,m,id,Srclib.Module,loc) =
+  Srclib.PModule p (toModulePath m)
+toSrclibPath (p,m,id,kind,loc) =
+  Srclib.PGlobal p (toModulePath m) id kind
+
+refs ∷ [OffsetNode] → [Srclib.Ref]
+refs = map (\case Ref l p → cvt l p False; Def l p → cvt l p True)
+  where cvt (_,fp,m,s,e) path@(defPkg,_,_,_,_) isDef = Srclib.Ref
+          { refDefRepo     = ""
+          , refDefUnitType = "HaskellPackage"
+          , refDefUnit     = defPkg
+          , refDefPath     = toSrclibPath path
+          , refIsDef       = isDef
+          , refFile        = toRepoPath fp
+          , refStart       = s
+          , refEnd         = e
+          }
+
+defs ∷ [OffsetNode] → [Srclib.Def]
+defs ds = [cvt l p | Def l p ← ds]
+  where cvt (pkg,fp,m,s,e) p@(_,_,id,kind,loc) = Srclib.Def
+          { defPath     = toSrclibPath p
+          , defTreePath = toSrclibPath p
+          , defName     = id
+          , defKind     = kind
+          , defFile     = toRepoPath fp
+          , defDefStart = s
+          , defDefEnd   = e
+          , defExported = True
+          , defTest     = False
+          , defRepo     = ""
+          }
 
 exImports = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/case/haskell-module-import"
 exHW = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/case/haskell-hello-world"
@@ -387,16 +440,24 @@ scrapeTest root = do
   shapes ← force <$> fileShapes root (moduleFiles p)
   traceM "done"
 
-  let graph = addDefRefs $ explode $ M.toList $ M.mapWithKey nodes $ projMap p
+  let graph = explode $ M.toList $ M.mapWithKey nodes $ projMap p
       resolved = catMaybes $ resolve graph
       moduleSource = moduleSources p
       modulePkg = modulePackages p
       filenamed = fillFilePaths (moduleSource,modulePkg) <$> resolved
       offset = cvtOffsets moduleSource shapes <$> filenamed
+      sourcegraph = Srclib.Graph (defs offset) (refs offset)
+      (Srclib.Graph sgDefs sgRefs) = sourcegraph
 
-  -- mapM_ (P.putStrLn . ppShow) p
-  -- P.putStrLn "================================"
-  -- mapM_ P.print offset
-  P.putStrLn $ printf "\nThe graph contains %d nodes." $ length offset
+  -- mapM_ (traceM . ppShow) p
+  -- traceM "================================"
+
+  -- mapM_ (traceM . P.show) offset
+  traceM $ printf "\nThe graph contains %d defs and %d refs." (length sgDefs) (length sgRefs)
+
+  let dumpJSON ∷ ToJSON a ⇒ a → IO ()
+      dumpJSON = BC.putStrLn . JSON.encode
+
+  dumpJSON sourcegraph
 
   return ()

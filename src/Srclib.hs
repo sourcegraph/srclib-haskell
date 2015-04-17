@@ -46,10 +46,10 @@ modulePath ∷ ModulePath → [Text]
 modulePath (MP mp) = reverse mp
 
 pathList ∷ Path → [Text]
-pathList (PModule p mp)       = p : modulePath mp
+pathList (PModule p mp)       = modulePath mp
 pathList (PPkg p)             = [p]
-pathList (PGlobal p mp id k)  = [p] <> modulePath mp <> [id,tshow k]
-pathList (PLocal p mp id k u) = [p] <> modulePath mp <> [id,tshow k,u]
+pathList (PGlobal p mp id k)  = modulePath mp <> [id,tshow k]
+pathList (PLocal p mp id k u) = modulePath mp <> [id,tshow k,u]
 
 instance Show Path where
   show = T.unpack . T.intercalate "/" . pathList

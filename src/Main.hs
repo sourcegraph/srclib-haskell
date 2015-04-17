@@ -33,10 +33,11 @@ import Filesystem.Path.CurrentOS as Path
 import qualified System.Environment as Sys
 import qualified System.Directory as Sys
 
-import Cabal as C
-import Haddock as H
-import Srclib as Src
+import           Cabal     as C
+import           Haddock   as H
 import qualified Locations as Loc
+import qualified Resolve
+import           Srclib    as Src
 
 import Distribution.Hackage.DB (Hackage, readHackage)
 
@@ -84,10 +85,11 @@ srclibRun _ = usage
 
 main ∷ IO ()
 main = do
-  args ← getArgs
-  dir ← Sys.getCurrentDirectory
+  Resolve.scrapeTest "/home/ben/warpdeps"
+  -- args ← getArgs
+  -- dir ← Sys.getCurrentDirectory
   -- (show ⋙ (("srclib-haskell @" ++ dir ++ " ")++) ⋙ hPutStrLn stderr) args
-  srclibRun args
+  -- srclibRun args
 
 fromRight ∷ Either Text b → b
 fromRight (Left x) = error $ T.unpack x
