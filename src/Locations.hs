@@ -77,7 +77,7 @@ type IntVec = Vector Int
 data FileShape = Shape { fsLineWidths ∷ !IntVec
                        , fsUnicodeChars ∷ !(IntMap Int)
                        }
-  deriving (Ord, Eq, Show)
+  deriving (Ord,Eq,Show)
 
 instance NFData FileShape
 

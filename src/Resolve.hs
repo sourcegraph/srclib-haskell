@@ -1,21 +1,11 @@
 {-
-TODO Convert from (MultiMap MName Node) -> (Set Ref, Set Def)
+TODO Convert from [Node] -> (Set Ref, Set Def)
        refs = [ (l,p) | Ref l p ← nodes ]
-       defs = [ (l,p) | Ref l p ← nodes ]
-
-TODO Determine the package name for each module.
-       This information is already available but we're not storing it yet.
-       Update preprocess-haskell to store the package name in the `Pkg` object.
-       Make a map from (MName → PkgName).
-       Use this pkg information to translate the paths.
-
-TODO Convert from LineCol to integer offsets.
-       Collect the shape information for all files.
-         Do this strictly to avoid opening all the files at once.
-       Use the shape information to translate the offsets.
+       defs = [ (l,p) | Def l p ← nodes ]
 
 TODO Optimize!
-     Get profing setup and see where most of the slowness is coming from.
+     This code is very slow.
+     Get profiling set up.
 -}
 
 {-# LANGUAGE DeriveDataTypeable, DeriveFoldable, DeriveFunctor       #-}
@@ -26,8 +16,10 @@ TODO Optimize!
 
 module Resolve where
 
+import System.Directory
+
 import ClassyPrelude hiding (concat, foldl', forM, forM_, mapM, mapM_, sum,
-                      toList, concatMap, span)
+                      toList, concatMap, span, sequence_)
 
 import qualified Prelude          as P
 import           Text.Show.Pretty
@@ -64,6 +56,9 @@ import           Srclib    (IdName, Kind)
 import qualified Srclib
 
 import Text.Printf
+
+import qualified Filesystem.Path           as Path
+import qualified Filesystem.Path.CurrentOS as Path
 
 import Control.DeepSeq.Generics
 
@@ -105,10 +100,10 @@ type ResolvedNode = Node (MName,Lc,Lc)
 type FilenamedNode = Node (STP,MName,Lc,Lc)
                           (MName,IdName,Srclib.Kind,Lc)
 
-type PackagedNode = Node (Pkg,STP,MName,Lc,Lc)
+type PackagedNode = Node (Text,STP,MName,Lc,Lc)
                          (MName,IdName,Srclib.Kind,Lc)
 
-type OffsetNode = Node (Pkg,STP,MName,Int,Int)
+type OffsetNode = Node (Text,STP,MName,Int,Int)
                        (MName,IdName,Srclib.Kind,Int)
 
 instance NFData ScrapedNode
@@ -320,38 +315,88 @@ addDefRefs orig = orig ++ extras
 
 -- Testing Code ----------------------------------------------------------------
 
+allPaths ∷ EntireProject a → Set STP
+allPaths x = (S.fromList . M.keys . unProj) x
+   `S.union` (S.fromList . M.elems . moduleSources) x
+
+moduleSources ∷ EntireProject a → Map MName STP
+moduleSources = M.unions . map (pkgModules . fst) . M.elems . unProj
+
+moduleFiles ∷ EntireProject a → Set STP
+moduleFiles = S.fromList . M.elems . moduleSources
+
+modulePackages ∷ EntireProject a → Map MName Text
+modulePackages = M.fromList . L.concatMap cvt . M.elems . unProj
+  where cvt = \(p,ms) → [(m,T.pack(pkgName p)) | m←M.keys ms]
+
+fillFilePaths ∷ (Map MName STP,Map MName Text) → ResolvedNode → PackagedNode
+fillFilePaths (moduleSource, modulePkg) n =
+  let src m = fromMaybe (error $ printf "Unknown Module %s" (show m)) $
+               M.lookup m moduleSource
+      pkg m = fromMaybe (error $ printf "Unknown Module %s" (show m)) $
+               M.lookup m modulePkg
+  in case n of Ref (m,s,e) p → Ref (pkg m,src m,m,s,e) p
+               Def (m,s,e) p → Def (pkg m,src m,m,s,e) p
+
+strictSequenceList ∷ (NFData a,Monad m) => [m a] → m [a]
+strictSequenceList []     = return []
+strictSequenceList (x:xs) = do
+  r ← x
+  rs ← r `deepseq` strictSequenceList xs
+  return $ r : rs
+
+strictSequenceMap ∷ (Ord k,NFData k,NFData a,Functor m,Monad m) => Map k (m a) → m (Map k a)
+strictSequenceMap = fmap M.fromList . strictSequenceList . fmap cvt . M.toList
+  where cvt ∷ (Functor f) => (c,f d) → f (c,d)
+        cvt (k,action) = (k,) <$> action
+
+fileShapes ∷ Foldable f => Path.FilePath → f STP → IO (Map STP Loc.FileShape)
+fileShapes root = strictSequenceMap . foldl' f M.empty
+  where f acc p = M.insert p (Loc.fileShape(toPath p)) acc
+        toPath = T.pack . Path.encodeString . (root </>) . unSTP
+
+cvtOffsets ∷ Map ModuleName STP → Map STP Loc.FileShape → PackagedNode → OffsetNode
+cvtOffsets moduleSources shapes node =
+  let cvtLoc  (p,fn,m,s,e) = (p,fn,m,cvt fn s,cvt fn e)
+      cvtPath (m,i,k,l)    = (m,i,k,cvt (modFn m) l)
+      modFn m              = flip fromMaybe (M.lookup m moduleSources) $
+                               error $ printf "Invalid module %s" (show m)
+      handleErrors fn l    = fromMaybe $ error $
+                               printf "Invalid offset %s:%s" (show $ unSTP fn)
+                                                             (show l)
+      cvt fn loc           = handleErrors fn loc $ do
+                               shape ← M.lookup fn shapes
+                               offset ← Loc.lineColOffset shape loc
+                               return offset
+  in case node of
+       Ref l p → Ref (cvtLoc l) (cvtPath p)
+       Def l p → Def (cvtLoc l) (cvtPath p)
+
 exImports = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/case/haskell-module-import"
 exHW = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/case/haskell-hello-world"
 exSimle = "/home/ben/go/src/sourcegraph.com/sourcegraph/srclib-haskell/testdata/case/haskell-simple-tests"
 warpdep = ("/home/ben/warpdeps/" </>)
 
-moduleSources ∷ EntireProject a -> Map MName STP
-moduleSources = M.unions . map (pkgModules . fst) . M.elems . unProj
-
-fillFilePaths ∷ Map MName STP → ResolvedNode → FilenamedNode
-fillFilePaths tbl n =
-  let fn m = fromMaybe (error $ printf "Unknown Module %s" (show m)) $
-               M.lookup m tbl
-  in case n of Ref (m,s,e) p → Ref (fn m,m,s,e) p
-               Def (m,s,e) p → Def (fn m,m,s,e) p
-
--- data Node loc path = Ref loc path | Def loc path
--- type FilenamedNode = Node (STP,MName,Lc,Lc) (MName,IdName,Srclib.Kind,Maybe Lc)
--- type ResolvedNode = Node (MName,Lc,Lc) (MName,IdName,Srclib.Kind,Lc)
-
 scrapeTest ∷ FilePath → IO ()
-scrapeTest ex = do
-  p <- mkStubProject ex
+scrapeTest root = do
+  traceM "parsing and name resolving all files."
+  p <- mkStubProject root
+  traceM "done"
 
-  let force x = x `deepseq` x
-      graph = addDefRefs $ explode $ M.toList $ M.mapWithKey nodes $ projMap p
+  traceM "collecting shape information"
+  shapes ← force <$> fileShapes root (moduleFiles p)
+  traceM "done"
+
+  let graph = addDefRefs $ explode $ M.toList $ M.mapWithKey nodes $ projMap p
       resolved = catMaybes $ resolve graph
-      filenamed = fillFilePaths (moduleSources p) <$> resolved
+      moduleSource = moduleSources p
+      modulePkg = modulePackages p
+      filenamed = fillFilePaths (moduleSource,modulePkg) <$> resolved
+      offset = cvtOffsets moduleSource shapes <$> filenamed
 
   -- mapM_ (P.putStrLn . ppShow) p
-  -- mapM_ P.print graph
   -- P.putStrLn "================================"
-  mapM_ P.print filenamed
-  P.putStrLn $ printf "\nThe graph contains %d nodes." $ length filenamed
+  -- mapM_ P.print offset
+  P.putStrLn $ printf "\nThe graph contains %d nodes." $ length offset
 
   return ()
